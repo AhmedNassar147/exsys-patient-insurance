@@ -9,6 +9,7 @@
   "sideEffects": false,
   "dependencies": {
     "@exsys-clinio/app-config-store": "1.0.0",
+    "@exsys-clinio/form-manager": "1.0.0",
     "@exsys-clinio/global-app-constants": "1.0.0",
     "@exsys-clinio/language-select-field": "1.0.0",
     "@exsys-clinio/media-queries": "1.0.0",

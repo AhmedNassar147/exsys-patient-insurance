@@ -9,6 +9,7 @@
   "sideEffects": false,
   "dependencies": {
     "@exsys-clinio/global-app-constants": "1.0.0",
+    "@exsys-clinio/helpers": "1.0.0",
     "@exsys-clinio/hooks": "1.0.0",
     "@exsys-clinio/types": "1.0.0"
   },
