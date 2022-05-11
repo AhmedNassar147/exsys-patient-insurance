@@ -1,0 +1,22 @@
+{
+  "name": "@exsys-clinio/serve-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A package to serve an app build.",
+  "author": "ahmed nassar",
+  "license": "ISC",
+  "sideEffects": false,
+  "files": [
+    "src"
+  ],
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "node ./index.js"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.1",
+    "express": "^4.17.1",
+    "cors": "^2.8.5"
+  },
+  "enableBabelTranspilation": false
+}

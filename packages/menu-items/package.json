@@ -1,0 +1,21 @@
+{
+  "name": "@exsys-clinio/menu-items",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render menu items.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/async-awaiter": "1.0.0",
+    "@exsys-clinio/helpers": "1.0.0",
+    "@exsys-clinio/menu-item": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

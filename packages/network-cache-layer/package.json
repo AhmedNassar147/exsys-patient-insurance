@@ -1,0 +1,17 @@
+{
+  "name": "@exsys-clinio/network-cache-layer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contain a `javascript` class that can cashe only successful queries.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/api-constants": "1.0.0",
+    "@exsys-clinio/helpers": "1.0.0",
+    "@exsys-clinio/refetch": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "enableBabelTranspilation": true
+}

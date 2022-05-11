@@ -1,0 +1,39 @@
+{
+"name": "@exsys-clinio/{{ name }}",
+"version": "1.0.0",
+"private": true,
+"description": "{{{ description }}}.",
+"author": "exsys",
+"license": "ISC",
+"main": "src/",
+"sideEffects": false,
+{{#if wrapWithLabelsProvider }}
+"dependencies": {
+"@exsys-clinio/labels-provider": "1.0.0"
+},
+{{/if}}
+"peerDependencies": {
+{{#if usesTs }}
+"typescript": "~4.x.x"
+{{/if}}
+{{#if (isReactPackage type) }}
+"@types/react": "^16.x.x"{{#if useStyledFile }},{{/if}}
+{{#if useStyledFile }}
+"@types/styled-components": "^5.x.x"
+{{/if}}
+{{/if}}
+},
+{{#if (isPage type)}}
+  "routeData":{
+   "path": "/{{#if pagePath}}{{{ pagePath }}}{{else}}{{{ camelCase (extractPagePath name) }}}{{/if}}"{{#if pageParams}},{{/if}}
+  {{#if pageParams}}
+  "params": [
+  {{#each (properPageParams pageParams) }}
+    {{{ this }}}
+  {{/each}}
+  ]
+  {{/if}}
+  },
+{{/if}}
+"enableBabelTranspilation": {{#if enableBabelTranspilation}}true{{else if (isReactPackage type)}}true{{else}}false{{/if}}
+}

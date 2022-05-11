@@ -1,0 +1,14 @@
+{
+  "name": "@exsys-clinio/generators",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A package to generate packages.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/workspaces-helpers": "1.0.0"
+  },
+  "enableBabelTranspilation": false
+}

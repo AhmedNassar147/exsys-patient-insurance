@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.paths.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "isolatedModules": true,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "baseUrl": "."
+  },
+  "include": ["./src", "../packages/app-header/src/AppHeader"]
+}

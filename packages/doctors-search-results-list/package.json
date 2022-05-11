@@ -1,0 +1,25 @@
+{
+  "name": "@exsys-clinio/doctors-search-results-list",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a doctor info view.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/async-awaiter": "1.0.0",
+    "@exsys-clinio/doctor-sessions-view": "1.0.0",
+    "@exsys-clinio/flex": "1.0.0",
+    "@exsys-clinio/image": "1.0.0",
+    "@exsys-clinio/media-queries": "1.0.0",
+    "@exsys-clinio/text": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

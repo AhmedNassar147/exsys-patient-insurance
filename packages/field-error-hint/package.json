@@ -1,0 +1,19 @@
+{
+  "name": "@exsys-clinio/field-error-hint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render an error field for form validation.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/text": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

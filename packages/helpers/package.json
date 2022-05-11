@@ -1,0 +1,15 @@
+{
+  "name": "@exsys-clinio/helpers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contains all app shared helpers and utils.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/global-app-constants": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "enableBabelTranspilation": true
+}

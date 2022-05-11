@@ -1,0 +1,66 @@
+{
+  "lazy": [
+    {
+      "packageName": "staff-vacations-page",
+      "routePath": "hrVacationRequest"
+    },
+    {
+      "packageName": "staff-permissions-page",
+      "routePath": "hrPermissionRequest"
+    },
+    {
+      "packageName": "customer-trial-balance-page",
+      "routePath": "customerTrialBalance"
+    },
+    {
+      "packageName": "customer-aging-analysis-page",
+      "routePath": "customerAging"
+    },
+    {
+      "packageName": "cashier-shift-report-page",
+      "routePath": "cmCashierShift"
+    }
+  ],
+  "normal": [
+    {
+      "packageName": "hr-contract-report-form",
+      "routePath": "hrContractReport"
+    },
+    {
+      "packageName": "hr-end-of-service-report-form",
+      "routePath": "hrEndOfServiceReport"
+    },
+    {
+      "packageName": "ta-fingerprint-report-form",
+      "routePath": "taFingerPrintReport"
+    },
+    {
+      "packageName": "pr-basic-salary-report-form",
+      "routePath": "prBasicSalaryReport"
+    },
+    {
+      "packageName": "pr-staff-loan-report-form",
+      "routePath": "prStaffLoanReport"
+    },
+    {
+      "packageName": "pr-payroll-or-bank-salaries-report-form",
+      "routePath": "prPayrollDetailsReport"
+    },
+    {
+      "packageName": "pr-payroll-or-bank-salaries-report-form",
+      "routePath": "prBankSalariesReport"
+    },
+    {
+      "packageName": "activity-summary-radiology-or-lab-report-form",
+      "routePath": "activitySummaryRad"
+    },
+    {
+      "packageName": "activity-summary-radiology-or-lab-report-form",
+      "routePath": "activitySummaryLab"
+    },
+    {
+      "packageName": "lab-delta-report-form",
+      "routePath": "labDeltaReport"
+    }
+  ]
+}

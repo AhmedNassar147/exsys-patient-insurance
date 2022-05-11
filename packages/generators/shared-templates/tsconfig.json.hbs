@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "rootDir": "src",
+    "declaration": true,
+    {{#if (isReactPackage type) }}
+      "jsx": "react"
+    {{/if}}
+  },
+  "include": ["./src"]
+}

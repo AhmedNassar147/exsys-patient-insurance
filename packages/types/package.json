@@ -1,0 +1,15 @@
+{
+  "name": "@exsys-clinio/types",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared types.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/api-constants": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0"
+  },
+  "enableBabelTranspilation": true
+}

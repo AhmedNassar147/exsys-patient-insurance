@@ -1,0 +1,15 @@
+{
+  "name": "@exsys-clinio/validate-yarn-workspaces-deps",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A cli to validate packages dependencies.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/workspaces-helpers": "1.0.0",
+    "@exsys-clinio/command-line-utils": "1.0.0"
+  },
+  "enableBabelTranspilation": false
+}

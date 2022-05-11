@@ -1,0 +1,18 @@
+/*
+ *
+ * validateRecordBeforeSaveOrUpdateFn
+ *
+ */
+import {
+  validateObject,
+  beautifyValidationErrorForUser
+} from "@exsys-clinio/validators";
+import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+
+const validateRecordBeforeSaveOrUpdateFn = (record: RecordTypeWithAnyValue) => {
+  const errors = validateObject([])(record);
+
+  return beautifyValidationErrorForUser(errors);
+};
+
+export default validateRecordBeforeSaveOrUpdateFn;

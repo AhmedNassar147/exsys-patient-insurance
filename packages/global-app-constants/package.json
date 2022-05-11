@@ -1,0 +1,14 @@
+{
+  "name": "@exsys-clinio/global-app-constants",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contains the global app constants.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/theme-values": "1.0.0"
+  },
+  "enableBabelTranspilation": true
+}

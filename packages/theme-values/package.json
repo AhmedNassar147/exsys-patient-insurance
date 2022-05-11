@@ -1,0 +1,8 @@
+{
+  "name": "@exsys-clinio/theme-values",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "src/",
+  "sideEffects": false,
+  "enableBabelTranspilation": true
+}

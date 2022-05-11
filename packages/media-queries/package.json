@@ -1,0 +1,17 @@
+{
+  "name": "@exsys-clinio/media-queries",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contains the Media queries functions.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

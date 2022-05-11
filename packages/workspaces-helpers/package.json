@@ -1,0 +1,11 @@
+{
+  "name": "@exsys-clinio/workspaces-helpers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Helpers for yarn workspaces.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "enableBabelTranspilation": false
+}

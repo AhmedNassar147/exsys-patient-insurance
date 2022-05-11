@@ -1,0 +1,27 @@
+/*
+ *
+ * Table Content View
+ *
+ */
+import { TableWithDefaultHeaderTools } from "@exsys-clinio/table";
+import createColumns from "../helpers/createColumns";
+import createExcelSheetData from "../helpers/createExcelSheetData";
+import ModalView from "./ModalView";
+
+const ContentView = () => {
+  const columns = React.useMemo(() => createColumns(), []);
+
+  const excelDataFn = React.useCallback(createExcelSheetData(),[]);
+
+  return (
+    <>
+      <TableWithDefaultHeaderTools
+        columns={columns}
+        excelDataFn={excelDataFn}
+      />
+      <ModalView />
+    </>
+  );
+};
+
+export default React.memo(ContentView);

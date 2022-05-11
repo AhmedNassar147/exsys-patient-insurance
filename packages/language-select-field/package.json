@@ -1,0 +1,18 @@
+{
+  "name": "@exsys-clinio/language-select-field",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the language select field.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/global-app-constants": "1.0.0",
+    "@exsys-clinio/select-field": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

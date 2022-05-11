@@ -1,0 +1,24 @@
+/*
+ *
+ * `modalsConfig`: `@exsys-clinio/home-page`.
+ *
+ */
+import createLazyComponent from '@exsys-clinio/react-lazy';
+import { KeysOfRecord } from "@exsys-clinio/types";
+
+const MODALS_CONFIG = {
+  {{#if hasNormalPackage}}
+  {{#each normalPackage}}
+  {{{ routePath }}}: createLazyComponent(() => import("@exsys-clinio/{{{ packageName }}}" /* webpackChunkName: "exsys-clinio.{{{packageName}}}" */)),
+  {{/each}}
+  {{/if}}
+  {{#if hasLazyPackage}}
+  {{#each lazyPackage}}
+  {{{ routePath }}}: createLazyComponent(() => import("@exsys-clinio/{{{ packageName }}}/src/component" /* webpackChunkName: "exsys-clinio.{{{packageName}}}" */)),
+  {{/each}}
+  {{/if}}
+};
+
+export type ModalsKeysTypes = KeysOfRecord<typeof MODALS_CONFIG>;
+
+export default MODALS_CONFIG;

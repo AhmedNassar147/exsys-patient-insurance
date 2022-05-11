@@ -1,0 +1,15 @@
+/*
+ *
+ * Package: `@exsys-clinio/{{ name }}`.
+ *
+ */
+{{#if (isPage type)}}
+import { lazy } from "react";
+
+export default lazy(() => import("./component" /* webpackChunkName: "exsys-clinio.{{ name }}" */)
+);
+ {{else}}
+import createLazyLoadedComponent from "@exsys-clinio/react-lazy";
+
+export default createLazyLoadedComponent(() => import("./component" /* webpackChunkName: "exsys-clinio.{{ name }}" */));
+{{/if}}

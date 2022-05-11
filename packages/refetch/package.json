@@ -1,0 +1,11 @@
+{
+  "name": "@exsys-clinio/refetch",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/helpers": "1.0.0"
+  },
+  "enableBabelTranspilation": true
+}

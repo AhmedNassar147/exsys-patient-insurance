@@ -1,0 +1,11 @@
+{
+  "name": "@exsys-clinio/api-constants",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contains the app api constants.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "enableBabelTranspilation": true
+}

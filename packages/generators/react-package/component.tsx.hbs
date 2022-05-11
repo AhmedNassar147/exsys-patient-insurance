@@ -1,0 +1,34 @@
+/*
+*
+* {{#if isNormal }}Package{{else}}`{{ properCase name }}`{{/if}}: `@exsys-clinio/{{ name }}`.
+*
+*/
+import { memo } from 'react';
+{{#if wrapWithLabelsProvider }}
+import LabelsProvider from "@exsys-clinio/labels-provider";
+{{/if}}
+
+// PLEASE REMOVE THIS COMMENT AFTER FINISHING WHAT YOU DO.
+// Remove `memo` if your component uses `children`.
+// @see {@link https://reactjs.org/docs/react-api.html#reactmemo}.
+const {{ properCase name }} = () => {
+return (
+  {{#if wrapWithLabelsProvider }}
+  <LabelsProvider
+    componentName="YOUR COMPONENT NAME PLEASE FOR LABELS"
+  >
+  <div>
+    {{ properCase name }}
+  </div>
+
+  </LabelsProvider>
+
+  {{else}}
+    <div>
+    {{ properCase name }}
+  </div>
+  {{/if}}
+)
+};
+
+export default memo({{ properCase name }});

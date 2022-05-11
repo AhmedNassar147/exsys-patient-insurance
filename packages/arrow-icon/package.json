@@ -1,0 +1,20 @@
+{
+  "name": "@exsys-clinio/arrow-icon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "styled component to render an arrow icon.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/app-config-store": "1.0.0",
+    "@exsys-clinio/base-styled-svg": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

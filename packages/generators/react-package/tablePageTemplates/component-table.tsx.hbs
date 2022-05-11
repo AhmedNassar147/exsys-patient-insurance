@@ -1,0 +1,42 @@
+/*
+*
+* `{{properCase name}}`: `@exsys-clinio/{{name}}`.
+*
+*/
+{{#if wrapWithLabelsProvider}}
+import LabelsProvider from "@exsys-clinio/labels-provider";
+import labelIds from "./labelIds.json";
+{{/if}}
+import { TableProvider } from "@exsys-clinio/table";
+import { rowKey, defaultNewRecord } from "./constants";
+import ContentView from "./partials";
+
+const {{ properCase name}} = () => {
+   return (
+     {{#if wrapWithLabelsProvider}}
+    <LabelsProvider initialState={labelIds}>
+      <TableProvider
+        queryId="add query_id name to api-constants package and paste here"
+        mutationsId="add post_id name to api-constants package and paste here"
+        rowKey={rowKey}
+        runQueryOnFirstRender={false} //REMOVE FALSE IF YOU WANT QUERY API TO RUN IN FIRST RENDER
+        defaultNewRecord={defaultNewRecord}
+      >
+        <ContentView />
+      </TableProvider>
+    </LabelsProvider>
+    {{else}}
+      <TableProvider
+        queryId="add query_id name to api-constants package and paste here"
+        mutationsId="add post_id name to api-constants package and paste here"
+        rowKey={rowKey}
+        runQueryOnFirstRender={false} //REMOVE FALSE IF YOU WANT QUERY API TO RUN IN FIRST RENDER
+        defaultNewRecord={defaultNewRecord}
+      >
+        <ContentView />
+      </TableProvider>
+      {{/if}}
+  );
+};
+
+export default React.memo({{ properCase name }});

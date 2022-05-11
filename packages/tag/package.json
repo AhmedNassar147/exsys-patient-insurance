@@ -1,0 +1,20 @@
+{
+  "name": "@exsys-clinio/tag",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a tag.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/close-icon": "1.0.0",
+    "@exsys-clinio/styled-helpers": "1.0.0",
+    "@exsys-clinio/text": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

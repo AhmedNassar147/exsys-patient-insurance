@@ -1,0 +1,34 @@
+/*
+ *
+ * Modal View
+ *
+ */
+import { memo } from "react";
+import { useTableContext } from "@exsys-clinio/table";
+import Modal from "@exsys-clinio/modal"
+import { Flex } from "@exsys-clinio/commons";
+
+const ModalView = () => {
+  const {
+    onInputChange,
+    selectedRowData,
+    modalRef,
+    setModalClosed,
+    onSave,
+    isAddOrUpdateLoading
+  } = useTableContext();
+
+  return (
+      <Modal
+        ref={modalRef}
+        title="dtls"
+        width="500px"
+        onOk={onSave}
+        disabled={isAddOrUpdateLoading}
+      >
+        <Flex>Modal View</Flex>
+      </Modal>
+  );
+};
+
+export default memo(ModalView);

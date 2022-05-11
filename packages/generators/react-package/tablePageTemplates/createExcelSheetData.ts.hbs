@@ -1,0 +1,21 @@
+/*
+ *
+ * createExcelSheetData
+ * EDIT THIS FILE IF TABLE HAS SELECT_LIST/RADIO/CHECKBOX
+ *
+ */
+import {
+  isArrayHasData,
+  getPageNameFromPathName
+} from "@exsys-clinio/helpers";
+import { CreateExcelFnConfigParams } from "@exsys-clinio/table";
+import { TableRecordType } from "../index.interface";
+
+const createExcelSheetData = () => <T extends TableRecordType[]>(
+  data: T
+): CreateExcelFnConfigParams => ({
+    dataSet: isArrayHasData(data) ? data : undefined,
+    sheetName: getPageNameFromPathName()
+  });
+
+export default createExcelSheetData;

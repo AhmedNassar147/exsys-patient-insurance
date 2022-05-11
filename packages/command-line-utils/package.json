@@ -1,0 +1,12 @@
+{
+  "name": "@exsys-clinio/command-line-utils",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contains code for command line..",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "peerDependencies": {},
+  "enableBabelTranspilation": false
+}

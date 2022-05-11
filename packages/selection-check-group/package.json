@@ -1,0 +1,20 @@
+{
+  "name": "@exsys-clinio/selection-check-group",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render radio or checkbox group.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/flex": "1.0.0",
+    "@exsys-clinio/labeled-input": "1.0.0",
+    "@exsys-clinio/selection-check": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

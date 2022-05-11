@@ -1,0 +1,17 @@
+{
+  "name": "@exsys-clinio/loading-icon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "styled component to render an loading like icon.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

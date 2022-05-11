@@ -1,0 +1,26 @@
+{
+  "name": "@exsys-clinio/modal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a modal.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/button": "1.0.0",
+    "@exsys-clinio/close-icon": "1.0.0",
+    "@exsys-clinio/flex": "1.0.0",
+    "@exsys-clinio/hooks": "1.0.0",
+    "@exsys-clinio/styled-helpers": "1.0.0",
+    "@exsys-clinio/text": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/react-dom": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

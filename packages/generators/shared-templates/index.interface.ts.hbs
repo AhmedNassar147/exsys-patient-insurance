@@ -1,0 +1,10 @@
+/*
+ *
+ * Types: `@exsys-clinio/{{ name }}`.
+ *
+ */
+{{#if isTablePage}}
+import { defaultNewRecord } from "./constants";
+
+export type TableRecordType = typeof defaultNewRecord;
+{{/if}}

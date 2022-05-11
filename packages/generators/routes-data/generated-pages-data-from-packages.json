@@ -1,0 +1,622 @@
+[
+  {
+    "path": "/admissionFinancialBalance",
+    "pageIndexPath": "@exsys-clinio/admission-financial-balance-page"
+  },
+  {
+    "path": "/admissionPatientInvoiceHistory",
+    "pageIndexPath": "@exsys-clinio/admission-patient-invoice-history"
+  },
+  {
+    "path": "/agreementInvoiceRefund",
+    "pageIndexPath": "@exsys-clinio/agreement-invoice-refund-page"
+  },
+  {
+    "path": "/cashServiceInvoices",
+    "pageIndexPath": "@exsys-clinio/cash-service-invoices-page"
+  },
+  {
+    "path": "/cmCashierShift",
+    "pageIndexPath": "@exsys-clinio/cashier-shift-report-page"
+  },
+  {
+    "path": "/clinicalSpeciality",
+    "pageIndexPath": "@exsys-clinio/clinical-speciality-page"
+  },
+  {
+    "path": "/clinicalTeamsQuery",
+    "pageIndexPath": "@exsys-clinio/clinical-teams-query-page"
+  },
+  {
+    "path": "/cmCloseShiftsQuery",
+    "pageIndexPath": "@exsys-clinio/cm-close-shifts-query-page"
+  },
+  {
+    "path": "/cmShiftGlInterface",
+    "pageIndexPath": "@exsys-clinio/cm-shift-gl-interface-page"
+  },
+  {
+    "path": "/createUniversalHealthInsurance",
+    "pageIndexPath": "@exsys-clinio/create-universal-health-insurance-page",
+    "params": ["claim_id?"]
+  },
+  {
+    "path": "/creditPatientInvoiceSummary",
+    "pageIndexPath": "@exsys-clinio/credit-patient-invoice-summary-page"
+  },
+  {
+    "path": "/customerAging",
+    "pageIndexPath": "@exsys-clinio/customer-aging-analysis-page"
+  },
+  {
+    "path": "/customerTrialBalance",
+    "pageIndexPath": "@exsys-clinio/customer-trial-balance-page"
+  },
+  {
+    "path": "/arCustomers",
+    "pageIndexPath": "@exsys-clinio/customers-page"
+  },
+  {
+    "path": "/dentalDesktop",
+    "pageIndexPath": "@exsys-clinio/dental-desktop-page",
+    "params": [
+      "patientfileno",
+      "episodeno",
+      "encountertype",
+      "encounterid",
+      "organization_no?",
+      "visit_id?"
+    ]
+  },
+  {
+    "path": "/doctorServiceBookingTime",
+    "pageIndexPath": "@exsys-clinio/doctor-service-booking-time-page"
+  },
+  {
+    "path": "/doctorServicesVolume",
+    "pageIndexPath": "@exsys-clinio/doctor-services-volume-page"
+  },
+  {
+    "path": "/doctorsCommission",
+    "pageIndexPath": "@exsys-clinio/doctors-commission-page"
+  },
+  {
+    "path": "/doctorsTable",
+    "pageIndexPath": "@exsys-clinio/doctors-table-page"
+  },
+  {
+    "path": "/dft",
+    "pageIndexPath": "@exsys-clinio/dynamic-form-with-table-page",
+    "params": ["configPageName"]
+  },
+  {
+    "path": "/excelImporter",
+    "pageIndexPath": "@exsys-clinio/excel-importer-page"
+  },
+  {
+    "path": "/labels",
+    "pageIndexPath": "@exsys-clinio/exsys-labels-page"
+  },
+  {
+    "path": "/generatorPage",
+    "pageIndexPath": "@exsys-clinio/generator-page"
+  },
+  {
+    "path": "/home",
+    "pageIndexPath": "@exsys-clinio/home-page"
+  },
+  {
+    "path": "/hrDepartments",
+    "pageIndexPath": "@exsys-clinio/hr-departments-page"
+  },
+  {
+    "path": "/hrStaffRequests",
+    "pageIndexPath": "@exsys-clinio/hr-staff-requests-page"
+  },
+  {
+    "path": "/hrStaffVacationQuery",
+    "pageIndexPath": "@exsys-clinio/hr-staff-vacation-query-page"
+  },
+  {
+    "path": "/hrVacationOpinion",
+    "pageIndexPath": "@exsys-clinio/hr-vacation-opinion-page"
+  },
+  {
+    "path": "/hrVacationQuery",
+    "pageIndexPath": "@exsys-clinio/hr-vacation-query-page"
+  },
+  {
+    "path": "/imBarcodePrintingQuery",
+    "pageIndexPath": "@exsys-clinio/im-barcode-printing-query-page"
+  },
+  {
+    "path": "/imNearExpiry",
+    "pageIndexPath": "@exsys-clinio/im-near-expiry-page"
+  },
+  {
+    "path": "/imProductBatchQuery",
+    "pageIndexPath": "@exsys-clinio/im-product-batch-query-page"
+  },
+  {
+    "path": "/imProductImages",
+    "pageIndexPath": "@exsys-clinio/im-product-images-page"
+  },
+  {
+    "path": "/imProductMaster",
+    "pageIndexPath": "@exsys-clinio/im-product-master-page",
+    "params": ["type"]
+  },
+  {
+    "path": "/imProductTrxQuery",
+    "pageIndexPath": "@exsys-clinio/im-product-trx-query-page",
+    "params": ["H?"]
+  },
+  {
+    "path": "/imTransactionSummary",
+    "pageIndexPath": "@exsys-clinio/im-transaction-summary-page"
+  },
+  {
+    "path": "/imUpdateSalesPrice",
+    "pageIndexPath": "@exsys-clinio/im-update-sales-price-page"
+  },
+  {
+    "path": "/adInvoiceRecalc",
+    "pageIndexPath": "@exsys-clinio/inpatient-invoice-recalculation-page"
+  },
+  {
+    "path": "/invoicesRefundQuery",
+    "pageIndexPath": "@exsys-clinio/invoices-refund-query-page"
+  },
+  {
+    "path": "/ivfSheets",
+    "pageIndexPath": "@exsys-clinio/ivf-sheets-page"
+  },
+  {
+    "path": "/hrStaff",
+    "pageIndexPath": "@exsys-clinio/job-department-staff-page",
+    "params": ["type"]
+  },
+  {
+    "path": "/labContainers",
+    "pageIndexPath": "@exsys-clinio/lab-containers-page"
+  },
+  {
+    "path": "/labDivisions",
+    "pageIndexPath": "@exsys-clinio/lab-divisions-page"
+  },
+  {
+    "path": "/labKitPage",
+    "pageIndexPath": "@exsys-clinio/lab-kit-page"
+  },
+  {
+    "path": "/labWorklist",
+    "pageIndexPath": "@exsys-clinio/lab-worklist-page"
+  },
+  {
+    "path": "/rcDownPaymentLink",
+    "pageIndexPath": "@exsys-clinio/link-down-payment-page",
+    "params": ["patientFileNo?", "patientName?"]
+  },
+  {
+    "path": ["/", "/login"],
+    "pageIndexPath": "@exsys-clinio/login-page"
+  },
+  {
+    "path": "/miBatchClaims",
+    "pageIndexPath": "@exsys-clinio/mi-batch-claims-page",
+    "params": [
+      "batch_no",
+      "batch_date",
+      "provider_name",
+      "batch_start_date",
+      "batch_end_date",
+      "status",
+      "adt_no_of_claims",
+      "opd_no_of_claims",
+      "total_claim",
+      "provider_no",
+      "request_provider_name",
+      "request_provider_no"
+    ]
+  },
+  {
+    "path": "/miBatchPrint",
+    "pageIndexPath": "@exsys-clinio/mi-batch-print-page"
+  },
+  {
+    "path": "/miBatchs",
+    "pageIndexPath": "@exsys-clinio/mi-batchs-page"
+  },
+  {
+    "path": "/miClaimDiagnosis",
+    "pageIndexPath": "@exsys-clinio/mi-claim-diagnosis-page"
+  },
+  {
+    "path": "/miClaimInvoice",
+    "pageIndexPath": "@exsys-clinio/mi-claim-invoices-page",
+    "params": [
+      "claim_id",
+      "patient_card_no",
+      "invoice_number",
+      "invoice_date",
+      "claim_type",
+      "authorization",
+      "doctor_name",
+      "invoice_dept_code",
+      "invoice_dept_name",
+      "batch_no",
+      "batch_date",
+      "provider_name",
+      "batch_start_date",
+      "batch_end_date",
+      "status",
+      "adt_no_of_claims",
+      "opd_no_of_claims",
+      "total_claim",
+      "provider_no",
+      "request_provider_name",
+      "request_provider_no",
+      "ucaf_id"
+    ]
+  },
+  {
+    "path": "/miClaimVerificatio",
+    "pageIndexPath": "@exsys-clinio/mi-claim-verification-page",
+    "params": ["type"]
+  },
+  {
+    "path": "/miClaimsEntryUsers",
+    "pageIndexPath": "@exsys-clinio/mi-claims-entry-users-page"
+  },
+  {
+    "path": "/miClaimsStatistics",
+    "pageIndexPath": "@exsys-clinio/mi-claims-statistics-page"
+  },
+  {
+    "path": "/miUtilization",
+    "pageIndexPath": "@exsys-clinio/mi-client-provider-utilization-page",
+    "params": ["type"]
+  },
+  {
+    "path": "/miCostGlInterface",
+    "pageIndexPath": "@exsys-clinio/mi-cost-gl-interface-page"
+  },
+  {
+    "path": "/miDepartment",
+    "pageIndexPath": "@exsys-clinio/mi-department-page"
+  },
+  {
+    "path": "/miExceedLimit",
+    "pageIndexPath": "@exsys-clinio/mi-exceed-limit-page"
+  },
+  {
+    "path": "/miInsurance",
+    "pageIndexPath": "@exsys-clinio/mi-insurance-company-page"
+  },
+  {
+    "path": "/miInvoiceVerification",
+    "pageIndexPath": "@exsys-clinio/mi-invoice-verification-page",
+    "params": ["type?"]
+  },
+  {
+    "path": "/miMedicalReview",
+    "pageIndexPath": "@exsys-clinio/mi-medical-review-page"
+  },
+  {
+    "path": "/miNetwork",
+    "pageIndexPath": "@exsys-clinio/mi-network-page"
+  },
+  {
+    "path": "/miPatientIssue",
+    "pageIndexPath": "@exsys-clinio/mi-patient-issue-page"
+  },
+  {
+    "path": "/miPatientUtilization",
+    "pageIndexPath": "@exsys-clinio/mi-patient-utilization-page"
+  },
+  {
+    "path": "/miPolicies",
+    "pageIndexPath": "@exsys-clinio/mi-policies-page"
+  },
+  {
+    "path": "/miPolicyClasses",
+    "pageIndexPath": "@exsys-clinio/mi-policy-classes-page"
+  },
+  {
+    "path": "/miProviders",
+    "pageIndexPath": "@exsys-clinio/mi-providers-page"
+  },
+  {
+    "path": "/miRiders",
+    "pageIndexPath": "@exsys-clinio/mi-riders-page"
+  },
+  {
+    "path": "/miServiceGroup",
+    "pageIndexPath": "@exsys-clinio/mi-service-group-page"
+  },
+  {
+    "path": "/miServices",
+    "pageIndexPath": "@exsys-clinio/mi-services-page",
+    "params": ["type"]
+  },
+  {
+    "path": "/miTariffs",
+    "pageIndexPath": "@exsys-clinio/mi-tariffs-page"
+  },
+  {
+    "path": "/miTopVisits",
+    "pageIndexPath": "@exsys-clinio/mi-top-visits-page"
+  },
+  {
+    "path": "/miUcafBooks",
+    "pageIndexPath": "@exsys-clinio/mi-ucaf-books-page"
+  },
+  {
+    "path": "/opticsClientsOrdersQuery",
+    "pageIndexPath": "@exsys-clinio/optics-clients-orders-query-page"
+  },
+  {
+    "path": "/opticsInvGroupComm",
+    "pageIndexPath": "@exsys-clinio/optics-inv-group-page"
+  },
+  {
+    "path": "/opticsSalesCommissions",
+    "pageIndexPath": "@exsys-clinio/optics-sales-commissions-page"
+  },
+  {
+    "path": "/opticsWorkshops",
+    "pageIndexPath": "@exsys-clinio/optics-workshops-page"
+  },
+  {
+    "path": "/outpatientInvoice",
+    "pageIndexPath": "@exsys-clinio/outpatient-invoice-page",
+    "params": [
+      "patientFileNo?",
+      "specialtyNo?",
+      "doctorId?",
+      "clinicalEntityNo?",
+      "contractNo?"
+    ]
+  },
+  {
+    "path": "/opInvoiceRecalc",
+    "pageIndexPath": "@exsys-clinio/outpatient-invoice-recalculation-page"
+  },
+  {
+    "path": "/opdReceiptCancel",
+    "pageIndexPath": "@exsys-clinio/outpatient-receipt-cancel-page"
+  },
+  {
+    "path": "/outpatientInvoicesRefund",
+    "pageIndexPath": "@exsys-clinio/outpatient-service-invoices-refund-page"
+  },
+  {
+    "path": "/outstandingPharmacyOrder",
+    "pageIndexPath": "@exsys-clinio/outstanding-pharmacy-order-page"
+  },
+  {
+    "path": "/pageAttributes",
+    "pageIndexPath": "@exsys-clinio/page-attributes-page"
+  },
+  {
+    "path": "/patientAgreementLink",
+    "pageIndexPath": "@exsys-clinio/patient-agreement-link-page"
+  },
+  {
+    "path": "/patientAgreementProcess",
+    "pageIndexPath": "@exsys-clinio/patient-agreement-process-page",
+    "params": ["patientFileNo?"]
+  },
+  {
+    "path": "/patientAgreementSetup",
+    "pageIndexPath": "@exsys-clinio/patient-agreement-setup-page"
+  },
+  {
+    "path": "/patientBillingInvoiceQuery",
+    "pageIndexPath": "@exsys-clinio/patient-billing-invoice-query-page"
+  },
+  {
+    "path": "/patientOpticsVisits",
+    "pageIndexPath": "@exsys-clinio/patient-optics-visits-page"
+  },
+  {
+    "path": "/pcContractSearch",
+    "pageIndexPath": "@exsys-clinio/pc-contract-search-page"
+  },
+  {
+    "path": "/pmScanImages",
+    "pageIndexPath": "@exsys-clinio/pm-scan-images-page"
+  },
+  {
+    "path": "/pmiQuickRegistration",
+    "pageIndexPath": "@exsys-clinio/pmi-quick-registration-modal-page"
+  },
+  {
+    "path": "/pmiRegistration",
+    "pageIndexPath": "@exsys-clinio/pmi-registration-page",
+    "params": ["patientFileNo?", "patientName?", "patientPhone?"]
+  },
+  {
+    "path": "/posCashierQuery",
+    "pageIndexPath": "@exsys-clinio/pos-cashier-query-page"
+  },
+  {
+    "path": "/posInvoiceQuery",
+    "pageIndexPath": "@exsys-clinio/pos-invoice-query-page"
+  },
+  {
+    "path": "/posItemsTrxQuery",
+    "pageIndexPath": "@exsys-clinio/pos-items-trx-query-page"
+  },
+  {
+    "path": "/posRequestApproval",
+    "pageIndexPath": "@exsys-clinio/pos-request-approval-page",
+    "params": ["organizationNo?", "patientFileNo?", "episodeNo?"]
+  },
+  {
+    "path": "/staffMaxDiscount",
+    "pageIndexPath": "@exsys-clinio/pos-staff-max-discount-page"
+  },
+  {
+    "path": "/prCalcSalaries",
+    "pageIndexPath": "@exsys-clinio/pr-calc-salaries-page"
+  },
+  {
+    "path": "/prStaffSalaryQuery",
+    "pageIndexPath": "@exsys-clinio/pr-staff-salary-query-page"
+  },
+  {
+    "path": "/imStoreProductQuantity",
+    "pageIndexPath": "@exsys-clinio/product-quantity-store"
+  },
+  {
+    "path": "/purchaseInvoice",
+    "pageIndexPath": "@exsys-clinio/purchase-invoice-page"
+  },
+  {
+    "path": "/purchaseReturn",
+    "pageIndexPath": "@exsys-clinio/purchase-return-page"
+  },
+  {
+    "path": "/rcCashContract",
+    "pageIndexPath": "@exsys-clinio/rc-cash-contract"
+  },
+  {
+    "path": "/rcChangePayments",
+    "pageIndexPath": "@exsys-clinio/rc-change-payments-page"
+  },
+  {
+    "path": "/rcDownPayment",
+    "pageIndexPath": "@exsys-clinio/rc-down-payment-page",
+    "params": ["downPaymentType", "patientFileNo?", "patientName?"]
+  },
+  {
+    "path": "/rcPatientBalance",
+    "pageIndexPath": "@exsys-clinio/rc-patient-balance-page"
+  },
+  {
+    "path": "/rcmBatchUpload",
+    "pageIndexPath": "@exsys-clinio/rcm-batch-upload-page"
+  },
+  {
+    "path": "/rcmBillingItems",
+    "pageIndexPath": "@exsys-clinio/rcm-billing-items-page"
+  },
+  {
+    "path": "/rcmClaimsDashbord",
+    "pageIndexPath": "@exsys-clinio/rcm-claim-dashboard-page"
+  },
+  {
+    "path": "/rcmClaimUpload",
+    "pageIndexPath": "@exsys-clinio/rcm-claim-upload"
+  },
+  {
+    "path": "/rcmClaimError",
+    "pageIndexPath": "@exsys-clinio/rcm-claims-error-page",
+    "params": ["excel_id", "excel_file_name", "trx_date"]
+  },
+  {
+    "path": "/clientAgreements",
+    "pageIndexPath": "@exsys-clinio/rcm-client-agreements-page"
+  },
+  {
+    "path": "/rcmPolicies",
+    "pageIndexPath": "@exsys-clinio/rcm-client-policies-page"
+  },
+  {
+    "path": "/rcmClients",
+    "pageIndexPath": "@exsys-clinio/rcm-clients-page"
+  },
+  {
+    "path": "/rcmDepartments",
+    "pageIndexPath": "@exsys-clinio/rcm-departments-page"
+  },
+  {
+    "path": "/rcmErrCodes",
+    "pageIndexPath": "@exsys-clinio/rcm-error-codes-page"
+  },
+  {
+    "path": "/rcmInsuranceComp",
+    "pageIndexPath": "@exsys-clinio/rcm-insurance-companies-page"
+  },
+  {
+    "path": "/rcmPolicyDetails",
+    "pageIndexPath": "@exsys-clinio/rcm-policy-details-page",
+    "params": [
+      "policy_pk",
+      "policy_no",
+      "client_name",
+      "insurance",
+      "from",
+      "to",
+      "class"
+    ]
+  },
+  {
+    "path": "/rcmPriceLists",
+    "pageIndexPath": "@exsys-clinio/rcm-price-lists-page"
+  },
+  {
+    "path": "/rcmRejReasons",
+    "pageIndexPath": "@exsys-clinio/rcm-rejection-reasons-page"
+  },
+  {
+    "path": "/rcmDhs",
+    "pageIndexPath": "@exsys-clinio/rcm-validate-dhs-page"
+  },
+  {
+    "path": "/receptionInvoiceQuery",
+    "pageIndexPath": "@exsys-clinio/reception-invoice-query-page"
+  },
+  {
+    "path": "/imMonthlySales",
+    "pageIndexPath": "@exsys-clinio/sales-statics"
+  },
+  {
+    "path": "/setupScreenLabels",
+    "pageIndexPath": "@exsys-clinio/setup-screen-labels-page",
+    "params": ["pageId"]
+  },
+  {
+    "path": "/hrPermissionRequest",
+    "pageIndexPath": "@exsys-clinio/staff-permissions-page"
+  },
+  {
+    "path": "/hrVacationRequest",
+    "pageIndexPath": "@exsys-clinio/staff-vacations-page"
+  },
+  {
+    "path": "/stockRecieveTransfer",
+    "pageIndexPath": "@exsys-clinio/stock-receive-transfer-page"
+  },
+  {
+    "path": "/stockRequestTransfer",
+    "pageIndexPath": "@exsys-clinio/stock-request-transfer-page"
+  },
+  {
+    "path": "/stockSendTransfer",
+    "pageIndexPath": "@exsys-clinio/stock-send-transfer-page"
+  },
+  {
+    "path": "/storeWorkshopOrders",
+    "pageIndexPath": "@exsys-clinio/store-workshop-orders-page",
+    "params": ["opth_shop_store_id"]
+  },
+  {
+    "path": "/apSuppliers",
+    "pageIndexPath": "@exsys-clinio/suppliers-page"
+  },
+  {
+    "path": "/taOfficialHolidays",
+    "pageIndexPath": "@exsys-clinio/ta-official-holidays-page"
+  },
+  {
+    "path": "/uhirClaimsQuery",
+    "pageIndexPath": "@exsys-clinio/uhir-claims-query-page"
+  },
+  {
+    "path": "/unlinkDownPayment",
+    "pageIndexPath": "@exsys-clinio/unlink-down-payment-page",
+    "params": ["patientFileNo"]
+  }
+]

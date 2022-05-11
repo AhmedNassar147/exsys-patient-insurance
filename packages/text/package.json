@@ -1,0 +1,19 @@
+{
+  "name": "@exsys-clinio/text",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a text..",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/labels-provider": "1.0.0",
+    "@exsys-clinio/styled-helpers": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

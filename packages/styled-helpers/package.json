@@ -1,0 +1,18 @@
+{
+  "name": "@exsys-clinio/styled-helpers",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contains helpers for styles.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-clinio/theme-values": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}
