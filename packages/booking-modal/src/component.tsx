@@ -15,6 +15,7 @@ import { useBasicMutation } from "@exsys-clinio/network-hooks";
 import { FORM_INITIAL_VALUES, FormInitialValuesType } from "./constants";
 import { StyledDateInput } from "./styled";
 import validateFormFields from "./helpers/validateFormFields";
+import convertInputDateToNormalFormat from "./helpers/convertInputDateToNormalFormat";
 
 interface BookingModalProps {
   visible: boolean;
@@ -35,10 +36,11 @@ const BookingModal = ({
   });
 
   const handleSaveBooking = useCallback(
-    (values: FormInitialValuesType) => {
+    ({ date_of_birth, ...values }: FormInitialValuesType) => {
       mutate({
         body: {
           ...values,
+          date_of_birth: convertInputDateToNormalFormat(date_of_birth),
           session_length: 0,
           booking_type: "N",
           appointment_id: appointmentId,
