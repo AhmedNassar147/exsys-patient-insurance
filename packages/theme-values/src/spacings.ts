@@ -14,7 +14,7 @@ export const spacings = {
   sp5: "1.6rem",
   sp6: "2rem",
   sp7: "2.4rem",
-  // sp8: "3.2rem",
+  sp8: "3.2rem",
   sp9: "4rem",
   sp10: "4.8rem",
   sp11: "5.2rem",

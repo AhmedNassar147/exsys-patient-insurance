@@ -25,10 +25,6 @@ interface DoctorInfoViewProps {
   doctorInfo: DoctorInfoType;
 }
 
-// for save =>
-// remove "appointment_type": "N",
-// remove "session_length": 0
-
 const DoctorInfoView = ({
   periodType,
   doctorInfo: {

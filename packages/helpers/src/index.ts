@@ -16,4 +16,6 @@ export { default as removeTranslateLabelFromValue } from "./removeTranslateLabel
 export { default as createRegexpFromValueString } from "./createRegexpFromValueString";
 export { default as sortObjectByKeysAndStringify } from "./sortObjectByKeysAndStringify";
 export { default as setIn } from "./setIn";
+export { default as isObjectHasKey } from "./isObjectHasKey";
+export { default as validateFields } from "./validateFields";
 export * from "./localStorage";

@@ -74,6 +74,7 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
     required,
     name,
     upperCaseFirstCharacter,
+    forceFloatingLabel,
     ...inputProps
   } = { ...INPUT_FIELD_DEFAULT_PROPS, ...props };
 
@@ -186,6 +187,7 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
           type={labelType}
           hidden={hidden}
           useErrorHint={useErrorHint}
+          forceFloatingLabel={forceFloatingLabel}
         >
           {inputNode}
         </LabeledInput>

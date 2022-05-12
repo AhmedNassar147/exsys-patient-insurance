@@ -31,4 +31,5 @@ export interface LabeledInputProps
       value?: StringNumber;
       label: string;
       useErrorHint?: boolean;
+      forceFloatingLabel?: boolean;
     }> {}

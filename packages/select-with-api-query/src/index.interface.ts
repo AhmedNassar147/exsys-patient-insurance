@@ -10,6 +10,7 @@ import type {
   SelectListProps,
   ValuesOfRecordAsOptions,
   ApiIdsTypes,
+  CodeIdsTypes,
   BaseQueryConfigProps,
   UseBasicRunQueryFnType,
   QueryParamsType,
@@ -29,7 +30,7 @@ export type SelectWithApiQueryProps<T extends QueryType> = Omit<
   "apiId" | "params"
 > & {
   queryType: QueryType;
-  apiOrCodeId: T extends "query" ? ApiIdsTypes : ApiIdsTypes;
+  apiOrCodeId: T extends "query" ? ApiIdsTypes : CodeIdsTypes;
   apiParams?: QueryParamsType;
   preselectWhenOptionsReceived?: boolean;
   preselectFirstKey?: boolean;

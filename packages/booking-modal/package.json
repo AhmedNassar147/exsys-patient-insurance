@@ -1,24 +1,23 @@
 {
-  "name": "@exsys-clinio/doctor-sessions-view",
+  "name": "@exsys-clinio/booking-modal",
   "version": "1.0.0",
   "private": true,
-  "description": "React component to render the doctor sessions view.",
+  "description": "React component to render a booking modal.",
   "author": "exsys",
   "license": "ISC",
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/arrow-icon": "1.0.0",
-    "@exsys-clinio/booking-modal": "1.0.0",
-    "@exsys-clinio/button": "1.0.0",
     "@exsys-clinio/flex": "1.0.0",
+    "@exsys-clinio/form-manager": "1.0.0",
     "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/media-queries": "1.0.0",
+    "@exsys-clinio/input-field": "1.0.0",
+    "@exsys-clinio/modal": "1.0.0",
     "@exsys-clinio/network-hooks": "1.0.0",
-    "@exsys-clinio/styled-helpers": "1.0.0",
+    "@exsys-clinio/react-lazy": "1.0.0",
+    "@exsys-clinio/select-with-api-query": "1.0.0",
     "@exsys-clinio/text": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-clinio/theme-values": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

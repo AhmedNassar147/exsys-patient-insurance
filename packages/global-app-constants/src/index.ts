@@ -23,4 +23,6 @@ export const LANGUAGE_DIRS = Object.freeze({
 
 export const QUERY_TYPES = Object.freeze({
   QUERY: "query",
+  U_CODES: "u_code",
+  CODES: "code",
 } as const);

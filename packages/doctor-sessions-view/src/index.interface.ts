@@ -5,7 +5,7 @@
  */
 import { CapitalBooleanStringType } from "@exsys-clinio/types";
 
-interface AppointmentShapeType {
+export interface AppointmentShapeType {
   appointmentId: number;
   bookingTime: string;
 }

@@ -18,6 +18,7 @@ export const INPUT_FIELD_TYPES = Object.freeze({
   text: "text",
   search: "search",
   password: "password",
+  date: "date",
 } as const);
 
 export const INPUT_FIELD_DEFAULT_PROPS = Object.freeze({

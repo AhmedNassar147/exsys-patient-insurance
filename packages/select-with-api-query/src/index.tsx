@@ -13,7 +13,7 @@ import {
   useImperativeHandle,
 } from "react";
 import { usePrevious } from "@exsys-clinio/hooks";
-import { useBasicQuery } from "@exsys-clinio/network-hooks";
+import { useBasicQuery, useCodeQuery } from "@exsys-clinio/network-hooks";
 import SelectField from "@exsys-clinio/select-field";
 import { QueryResponseValuesType } from "@exsys-clinio/types";
 import {
@@ -97,10 +97,8 @@ const SelectWithApiQuery = <T extends QueryType>(
     [value, previousOptions, options]
   );
 
-  const useQueryHook = useBasicQuery;
-
-  // const useQueryHook =
-  //   (queryType as QueryType) === "query" ? useBasicQuery : useCodeQuery;
+  const useQueryHook =
+    (queryType as QueryType) === "query" ? useBasicQuery : useCodeQuery;
 
   const handleOnResponse = useCallback(
     ({ apiValues, error }: QueryResponseValuesType<IResultType>) => {

@@ -4,45 +4,66 @@
  *
  */
 
-import { memo } from "react";
+import { memo, useState, useCallback } from "react";
 import Text from "@exsys-clinio/text";
 import { colors } from "@exsys-clinio/theme-values";
+import LazyLoadedBookingModal from "@exsys-clinio/booking-modal";
 import {
   SessionViewWrapper,
   AppointmentsWrapper,
   BookingTimeItem,
 } from "../styled";
-import { SessionViewProps } from "../index.interface";
+import { SessionViewProps, AppointmentShapeType } from "../index.interface";
 
-const SessionView = ({ date, freeSlot }: SessionViewProps) => (
-  <SessionViewWrapper>
-    <Text
-      children={date}
-      width="95%"
-      ellipsis="true"
-      disableTranslation
-      align="center"
-      color={colors.appPrimary}
-      fontSize="ff7"
-      title={date}
-    />
+const SessionView = ({ date, freeSlot }: SessionViewProps) => {
+  const [currentAppointment, setAppointment] = useState<
+    AppointmentShapeType | undefined
+  >();
 
-    <AppointmentsWrapper>
-      {freeSlot?.map((item) => {
-        const { appointmentId, bookingTime } = item;
+  const setAppointmentData = useCallback(
+    (appointmentData?: AppointmentShapeType) => () =>
+      setAppointment(() => appointmentData),
+    []
+  );
 
-        return (
-          <BookingTimeItem
-            key={appointmentId}
-            title={bookingTime}
-            fontSize="ff8"
-          >
-            {bookingTime}
-          </BookingTimeItem>
-        );
-      })}
-    </AppointmentsWrapper>
-  </SessionViewWrapper>
-);
+  return (
+    <SessionViewWrapper>
+      <Text
+        children={date}
+        width="95%"
+        ellipsis="true"
+        disableTranslation
+        align="center"
+        color={colors.appPrimary}
+        fontSize="ff7"
+        title={date}
+      />
+
+      <AppointmentsWrapper>
+        {freeSlot?.map((item) => {
+          const { appointmentId, bookingTime } = item;
+
+          return (
+            <BookingTimeItem
+              key={appointmentId}
+              title={bookingTime}
+              fontSize="ff8"
+              onClick={setAppointmentData(item)}
+            >
+              {bookingTime}
+            </BookingTimeItem>
+          );
+        })}
+      </AppointmentsWrapper>
+
+      <LazyLoadedBookingModal
+        shouldMountChunk={!!currentAppointment}
+        visible={!!currentAppointment}
+        onClose={setAppointmentData()}
+        appointmentId={currentAppointment?.appointmentId}
+      />
+    </SessionViewWrapper>
+  );
+};
 
 export default memo(SessionView);

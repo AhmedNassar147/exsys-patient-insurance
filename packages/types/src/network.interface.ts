@@ -3,10 +3,12 @@
  * Types: `network`.
  *
  */
-import { API_IDS } from "@exsys-clinio/api-constants";
+import { API_IDS, CODES_IDS } from "@exsys-clinio/api-constants";
+import { SelectListProps } from "./form-field.interface";
 import { KeysOfRecord, RecordTypeWithAnyValue } from "./base.interface";
 
 export type ApiIdsTypes = KeysOfRecord<typeof API_IDS>;
+export type CodeIdsTypes = KeysOfRecord<typeof CODES_IDS>;
 
 export type QueryParamsType = RecordTypeWithAnyValue;
 
@@ -56,3 +58,11 @@ export type RunQueryFnType<T = any> = (
   nextParams?: QueryParamsType,
   cb?: OnResponseActionType<T>
 ) => Promise<void>;
+
+export type UseCodeQueryOptions = {
+  type: "code" | "u_code";
+  codeId: CodeIdsTypes;
+} & Omit<
+  BasicQueryConfigProps<SelectListProps[]>,
+  "apiId" | "transformApiDataFn"
+>;

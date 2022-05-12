@@ -3,7 +3,7 @@
  * Package: `@exsys-clinio/labeled-input`.
  *
  */
-import { useState, useCallback } from "react";
+import { useState, useCallback, useLayoutEffect } from "react";
 import FieldErrorHint from "@exsys-clinio/field-error-hint";
 import { useMakeSelectIsRTLLayout } from "@exsys-clinio/app-config-store";
 import { LabelContainer, StyledLabel, LabelWrapperContainer } from "./styled";
@@ -22,9 +22,16 @@ const LabeledInput = ({
   labelmarginstart,
   useErrorHint,
   error,
+  forceFloatingLabel,
 }: LabeledInputProps) => {
   const [focus, setFocus] = useState(false);
   const isRightToLeft = useMakeSelectIsRTLLayout();
+
+  useLayoutEffect(() => {
+    if (forceFloatingLabel) {
+      setFocus(() => true);
+    }
+  }, []);
 
   const onBlur = useCallback(() => setFocus(false), []);
   const onFocus = useCallback(() => setFocus(true), []);

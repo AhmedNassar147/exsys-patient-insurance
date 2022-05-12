@@ -54,6 +54,8 @@ const AppGlobalStyles = createGlobalStyle`
     margin-bottom: 0;
   }
 
+
+
   svg {
     overflow: hidden;
   }
