@@ -4,6 +4,8 @@
  *
  */
 const API_IDS = {
+  // http://207.180.237.36:9090/ords/exsysexsysdba/EX_SECURITY/Ex_page_lable?pPageId=clinicalDoctorsSearch&planguageid=1&authorization=1634454
+  QUERY_EXSYS_PAGE_LABELS: "EX_SECURITY/Ex_page_lable",
   // http://207.180.237.36:9090/ords/exsys_api/ex_web_patient_booking/web_clinical_specialities?authorization=2878756&planguageid=1
   QUERY_CLINICAL_SPECIALITIES_LIST:
     "ex_web_patient_booking/web_clinical_specialities",

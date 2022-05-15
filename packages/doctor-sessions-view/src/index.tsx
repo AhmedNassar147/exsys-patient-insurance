@@ -25,7 +25,7 @@ import {
   SessionsWrapper,
   SessionsPaginationWrapper,
 } from "./styled";
-import { SessionViewProps } from "./index.interface";
+import { SessionViewProps, BaseSessionViewProps } from "./index.interface";
 
 const SessionView = lazy(
   () =>
@@ -34,7 +34,7 @@ const SessionView = lazy(
     )
 );
 
-interface DoctorSessionsViewProps {
+interface DoctorSessionsViewProps extends BaseSessionViewProps {
   periodType: string;
   clinicalEntityNo: number;
   sessionCode?: number;
@@ -49,6 +49,8 @@ const DoctorSessionsView = ({
   periodType,
   clinicalEntityNo,
   sessionCode,
+  doctorImageUrl,
+  clinicalName,
 }: DoctorSessionsViewProps) => {
   const [{ pageNumber, sessions }, setSessionsData] = useState({
     pageNumber: 0,
@@ -77,7 +79,7 @@ const DoctorSessionsView = ({
       }));
     }, []);
 
-  const { loading } = useBasicQuery({
+  const { loading, runQuery } = useBasicQuery({
     apiId: "QUERY_SESSIONS_BY_CLINICAL_ENTITY_NO",
     skipQuery,
     onResponse: handleResponse,
@@ -111,13 +113,25 @@ const DoctorSessionsView = ({
 
   const hasSessions = !!sessions?.length;
 
+  const onBookingDoneSuccessfully = useCallback(() => {
+    runQuery();
+  }, [runQuery]);
+
   return (
     <Suspense fallback={null}>
       <MainSessionsWrapper>
         <SessionsWrapper>
           {!loading &&
             hasSessions &&
-            sessions?.map((item) => <SessionView key={item.date} {...item} />)}
+            sessions?.map((item) => (
+              <SessionView
+                key={item.date}
+                {...item}
+                doctorImageUrl={doctorImageUrl}
+                clinicalName={clinicalName}
+                onBookingDoneSuccessfully={onBookingDoneSuccessfully}
+              />
+            ))}
         </SessionsWrapper>
         {hasSessions && (
           <SessionsPaginationWrapper>

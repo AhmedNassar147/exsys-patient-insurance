@@ -11,6 +11,7 @@
     "@exsys-clinio/flex": "1.0.0",
     "@exsys-clinio/form-manager": "1.0.0",
     "@exsys-clinio/helpers": "1.0.0",
+    "@exsys-clinio/image": "1.0.0",
     "@exsys-clinio/input-field": "1.0.0",
     "@exsys-clinio/modal": "1.0.0",
     "@exsys-clinio/network-hooks": "1.0.0",

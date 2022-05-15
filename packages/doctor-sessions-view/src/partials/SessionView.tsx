@@ -15,7 +15,15 @@ import {
 } from "../styled";
 import { SessionViewProps, AppointmentShapeType } from "../index.interface";
 
-const SessionView = ({ date, freeSlot }: SessionViewProps) => {
+const { appPrimary } = colors;
+
+const SessionView = ({
+  date,
+  freeSlot,
+  doctorImageUrl,
+  clinicalName,
+  onBookingDoneSuccessfully,
+}: SessionViewProps) => {
   const [currentAppointment, setAppointment] = useState<
     AppointmentShapeType | undefined
   >();
@@ -34,7 +42,7 @@ const SessionView = ({ date, freeSlot }: SessionViewProps) => {
         ellipsis="true"
         disableTranslation
         align="center"
-        color={colors.appPrimary}
+        color={appPrimary}
         fontSize="ff7"
         title={date}
       />
@@ -48,6 +56,7 @@ const SessionView = ({ date, freeSlot }: SessionViewProps) => {
               key={appointmentId}
               title={bookingTime}
               fontSize="ff8"
+              disableTranslation
               onClick={setAppointmentData(item)}
             >
               {bookingTime}
@@ -61,6 +70,11 @@ const SessionView = ({ date, freeSlot }: SessionViewProps) => {
         visible={!!currentAppointment}
         onClose={setAppointmentData()}
         appointmentId={currentAppointment?.appointmentId}
+        bookingTime={currentAppointment?.bookingTime}
+        doctorImageUrl={doctorImageUrl}
+        bookingDate={date}
+        clinicalName={clinicalName}
+        onBookingDoneSuccessfully={onBookingDoneSuccessfully}
       />
     </SessionViewWrapper>
   );

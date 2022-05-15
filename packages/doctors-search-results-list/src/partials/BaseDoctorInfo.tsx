@@ -103,6 +103,8 @@ const DoctorInfoView = ({
       periodType={periodType}
       clinicalEntityNo={clinical_entity_no}
       sessionCode={session_code}
+      doctorImageUrl={image_id}
+      clinicalName={clinical_name}
     />
   </DoctorInfoContianerWrapper>
 );

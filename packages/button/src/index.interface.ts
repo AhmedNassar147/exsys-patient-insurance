@@ -4,7 +4,6 @@
  *
  */
 import { ValuesOfRecordAsOptions } from "@exsys-clinio/types";
-import React from "react";
 import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_SHAPES } from "./constants";
 
 export type ButtonTypes = ValuesOfRecordAsOptions<typeof BUTTON_TYPES>;

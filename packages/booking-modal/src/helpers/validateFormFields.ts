@@ -5,9 +5,8 @@
  */
 import { validateFields } from "@exsys-clinio/helpers";
 import convertInputDateToNormalFormat from "./convertInputDateToNormalFormat";
+import { minimumBirthDate } from "../constants";
 import type { FormInitialValuesType } from "../constants";
-
-const minimumBirthDate = "1900-01-01";
 
 const checkIfThisDateBeforeThanOther = (date1: Date, date2: Date) =>
   date1 < date2;

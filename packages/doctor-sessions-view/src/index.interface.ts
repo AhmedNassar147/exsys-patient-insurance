@@ -10,7 +10,12 @@ export interface AppointmentShapeType {
   bookingTime: string;
 }
 
-export interface SessionViewProps {
+export interface BaseSessionViewProps {
+  doctorImageUrl: string;
+  clinicalName: string;
+}
+
+export interface SessionViewProps extends BaseSessionViewProps {
   date: string;
   session_code: number;
   maxWalking: number;
@@ -18,4 +23,5 @@ export interface SessionViewProps {
   session_length: number;
   appointment_type: CapitalBooleanStringType;
   freeSlot: AppointmentShapeType[];
+  onBookingDoneSuccessfully: () => void;
 }

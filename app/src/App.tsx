@@ -10,7 +10,7 @@ import DoctorsSearchPage from "@exsys-clinio/doctors-search-page";
 
 const App = () => (
   <AppConfigProvider>
-    <LabelsProvider>
+    <LabelsProvider componentName="clinicalDoctorsSearch">
       <AppHeader />
       <main>
         <DoctorsSearchPage />
