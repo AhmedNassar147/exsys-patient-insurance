@@ -23,7 +23,6 @@ const baseAppKeyName = "@exsys-clinio";
 const localStorageKeys = {
   patientData: `${baseAppKeyName}_patientData`,
   mainStore: `${baseAppKeyName}_mainStore`,
-  lastSessionsPaginationData: `${baseAppKeyName}_lastSessionsPaginationData`,
 } as const;
 
 type LocalStorageKeysType = KeysOfRecord<typeof localStorageKeys>;

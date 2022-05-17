@@ -4,6 +4,7 @@
  *
  */
 import styled from "styled-components";
+import { spacings } from "@exsys-clinio/theme-values";
 import mediaQueries from "@exsys-clinio/media-queries";
 
 export const DoctorsFormWrapper = styled.div`
@@ -17,7 +18,8 @@ export const DoctorsFormWrapper = styled.div`
     grid-column: span 4 / auto;
   }
 
-  > .period-and-button {
+  > .period-input,
+  .search-button {
     grid-column: span 2 / auto;
   }
 
@@ -25,7 +27,12 @@ export const DoctorsFormWrapper = styled.div`
   > .specialty-input {
       grid-column: span 2 / auto;
     };
-    > .period-and-button {
+    > .period-input {
+      grid-column: unset;
+      width: ${spacings.sp29};
+    }
+
+    > .search-button {
       grid-column: unset;
     }
   `};

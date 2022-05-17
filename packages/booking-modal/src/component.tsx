@@ -319,7 +319,7 @@ const BookingModal = ({
           />
           <SelectWithApiQuery
             label="whrfindus"
-            width={spacing27}
+            width={`calc(${spacing27} * 1.6)`}
             apiOrCodeId="WHERE_TO_FIND_TYPES"
             queryType="u_code"
             name="where_find"

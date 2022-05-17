@@ -46,16 +46,16 @@ const DoctorsSearchForm = ({
         mode="radio"
         width="auto"
         onChange={handleChange}
-        className="period-and-button"
+        className="period-input"
       />
 
       <Button
-        label="serch"
+        label="srch"
         type="primary"
         onClick={onSearch}
         loading={loading}
         disabled={loading}
-        className="period-and-button"
+        className="search-button"
       />
     </DoctorsFormWrapper>
   );

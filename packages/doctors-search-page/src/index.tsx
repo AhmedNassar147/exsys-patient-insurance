@@ -33,7 +33,6 @@ const DoctorsSearchPage = () => {
     callOnFirstRender: true,
     onResponse: handleDoctorsResponse,
     params: searchFormValues,
-    enableNetworkCache: true,
   });
 
   const onClickSearch = useCallback(() => runQuery(), [runQuery]);

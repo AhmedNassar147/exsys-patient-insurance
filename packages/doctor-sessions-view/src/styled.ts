@@ -76,6 +76,6 @@ export const SessionsWrapper = styled.div`
   justify-content: center;
   width: 100%;
   ${mediaQueries.lg`
-    justify-content: flex-end;
+    justify-content: flex-start;
   `};
 `;

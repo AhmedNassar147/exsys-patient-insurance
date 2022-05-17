@@ -87,15 +87,10 @@ const DoctorInfoView = ({
         )}
 
         <Text
-          children={`__t__senioritylvl : ${seniority_level}`}
+          children={`${seniority_level || ""} - ${specialty_name || ""}`}
           fontSize="ff9"
           weight="400"
-        />
-
-        <Text
-          children={`__t__spec : ${specialty_name}`}
-          fontSize="ff9"
-          weight="400"
+          disableTranslation
         />
       </DoctorInfoWrapper>
     </AllDoctorInfoWrapper>

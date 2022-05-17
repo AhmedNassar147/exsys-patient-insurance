@@ -3,16 +3,8 @@
  * Package: `@exsys-clinio/doctor-sessions-view`.
  *
  */
-import {
-  memo,
-  useState,
-  useCallback,
-  Suspense,
-  lazy,
-  useLayoutEffect,
-} from "react";
+import { memo, useState, useCallback, Suspense, lazy } from "react";
 import { useBasicQuery } from "@exsys-clinio/network-hooks";
-import { getItemFromStorage, setItemToStorage } from "@exsys-clinio/helpers";
 import Button from "@exsys-clinio/button";
 import ArrowIcon from "@exsys-clinio/arrow-icon";
 import type {
@@ -57,19 +49,6 @@ const DoctorSessionsView = ({
     sessions: [] as SessionViewProps[],
   });
 
-  useLayoutEffect(() => {
-    const lastSessionsPaginationData = getItemFromStorage<{
-      pageNumber: number;
-    }>("lastSessionsPaginationData");
-
-    if (lastSessionsPaginationData) {
-      setSessionsData((previous) => ({
-        ...previous,
-        ...lastSessionsPaginationData,
-      }));
-    }
-  }, []);
-
   const handleResponse: OnResponseActionType<RecordType<SessionViewProps[]>> =
     useCallback(({ apiValues, error }) => {
       const { data } = apiValues || {};
@@ -94,24 +73,18 @@ const DoctorSessionsView = ({
 
   const handleArrowAction = useCallback(
     (type: "previous" | "next") => () => {
-      setSessionsData(({ pageNumber, ...previous }) => {
-        const nextPageNumber =
-          type === "next" ? pageNumber + 1 : pageNumber - 1;
-
-        setItemToStorage("lastSessionsPaginationData", {
-          pageNumber: nextPageNumber,
-        });
-
-        return {
-          ...previous,
-          pageNumber: nextPageNumber,
-        };
-      });
+      setSessionsData(({ pageNumber, ...previous }) => ({
+        ...previous,
+        pageNumber: type === "next" ? pageNumber + 1 : pageNumber - 1,
+      }));
     },
     []
   );
 
-  const hasSessions = !!sessions?.length;
+  const sessionsLength = sessions?.length ?? 0;
+  const hasSessions = !!sessionsLength;
+
+  const nextButtonDisabled = sessionsLength < 4;
 
   const onBookingDoneSuccessfully = useCallback(() => {
     runQuery();
@@ -121,8 +94,7 @@ const DoctorSessionsView = ({
     <Suspense fallback={null}>
       <MainSessionsWrapper>
         <SessionsWrapper>
-          {!loading &&
-            hasSessions &&
+          {hasSessions &&
             sessions?.map((item) => (
               <SessionView
                 key={item.date}
@@ -133,26 +105,24 @@ const DoctorSessionsView = ({
               />
             ))}
         </SessionsWrapper>
-        {hasSessions && (
-          <SessionsPaginationWrapper>
-            <Button
-              icon={<ArrowIcon direction="left" color="currentcolor" />}
-              shape="circle"
-              type="primary"
-              disabled={!pageNumber || loading}
-              onClick={handleArrowAction("previous")}
-              loading={loading}
-            />
-            <Button
-              icon={<ArrowIcon direction="right" color="currentcolor" />}
-              shape="circle"
-              type="primary"
-              loading={loading}
-              disabled={!hasSessions || loading}
-              onClick={handleArrowAction("next")}
-            />
-          </SessionsPaginationWrapper>
-        )}
+        <SessionsPaginationWrapper>
+          <Button
+            icon={<ArrowIcon direction="left" color="currentcolor" />}
+            shape="circle"
+            type="primary"
+            disabled={!pageNumber || loading}
+            onClick={handleArrowAction("previous")}
+            loading={loading}
+          />
+          <Button
+            icon={<ArrowIcon direction="right" color="currentcolor" />}
+            shape="circle"
+            type="primary"
+            loading={loading}
+            disabled={nextButtonDisabled || loading}
+            onClick={handleArrowAction("next")}
+          />
+        </SessionsPaginationWrapper>
       </MainSessionsWrapper>
     </Suspense>
   );
