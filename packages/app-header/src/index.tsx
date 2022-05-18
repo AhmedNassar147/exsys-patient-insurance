@@ -12,7 +12,7 @@ import {
   useMakeSelectCurrentLanguageId,
 } from "@exsys-clinio/app-config-store";
 import useFormManager from "@exsys-clinio/form-manager";
-import { spacings } from "@exsys-clinio/theme-values";
+import { spacings, colors } from "@exsys-clinio/theme-values";
 import { onChangeEvent } from "@exsys-clinio/types";
 import { StyledHeader, StyledAppLogo } from "./styled";
 
@@ -69,6 +69,8 @@ const AppHeader = () => {
         onChange={onChange}
         value={values[LANGUAGE_SELECT_FIELD_NAME]}
         allowClear={false}
+        backgroundColor={colors.appPrimary}
+        color={colors.white}
       />
     </StyledHeader>
   );

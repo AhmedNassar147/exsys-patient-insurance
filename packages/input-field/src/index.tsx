@@ -56,6 +56,7 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
     useShadow,
     autoCapitalize,
     color,
+    backgroundColor,
     error,
     borderColor,
     useRedBorderWhenError,
@@ -143,6 +144,7 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
       height={height}
       inputWrapperWrapContent={inputWrapperWrapContent}
       required={isFieldRequired}
+      backgroundColor={backgroundColor}
       useRedBorderWhenError={
         (!!error || forceRedBorderToWrapInput) && useRedBorderWhenError
       }

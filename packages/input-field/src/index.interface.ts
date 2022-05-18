@@ -49,6 +49,7 @@ export interface BaseInputFieldProps
   height?: string;
   inputWrapperWrapContent?: boolean;
   required?: boolean;
+  backgroundColor?: string;
 }
 
 export interface AddonAfterWrapperProps {

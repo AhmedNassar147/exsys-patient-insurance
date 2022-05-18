@@ -12,15 +12,8 @@ import {
 import { INPUT_FIELD_SIZES } from "./constants";
 import { BaseInputFieldProps, AddonAfterWrapperProps } from "./index.interface";
 
-const {
-  appPrimary,
-  black2,
-  inputBorderColor,
-  gray1,
-  white,
-  red,
-  lightPink,
-} = colors;
+const { appPrimary, black2, inputBorderColor, gray1, white, red, lightPink } =
+  colors;
 const { ff8: medium, ff7: large } = fontSizes;
 
 const redBorderCssHelper = css<BaseInputFieldProps>`
@@ -72,7 +65,8 @@ export const InputFieldWrapper = styled.div<BaseInputFieldProps>`
   `};
   border-radius: 3px;
   cursor: pointer;
-  background-color: ${({ required }) => (required ? lightPink : white)};
+  background-color: ${({ required, backgroundColor }) =>
+    required ? lightPink : backgroundColor || white};
   color: ${({ color }) => color || black2};
   ${({ size, height: _height }) => {
     const height = _height || INPUT_FIELD_SIZES[size || "default"];
