@@ -105,24 +105,26 @@ const DoctorSessionsView = ({
               />
             ))}
         </SessionsWrapper>
-        <SessionsPaginationWrapper>
-          <Button
-            icon={<ArrowIcon direction="left" color="currentcolor" />}
-            shape="circle"
-            type="primary"
-            disabled={!pageNumber || loading}
-            onClick={handleArrowAction("previous")}
-            loading={loading}
-          />
-          <Button
-            icon={<ArrowIcon direction="right" color="currentcolor" />}
-            shape="circle"
-            type="primary"
-            loading={loading}
-            disabled={nextButtonDisabled || loading}
-            onClick={handleArrowAction("next")}
-          />
-        </SessionsPaginationWrapper>
+        {periodType === "N" && (
+          <SessionsPaginationWrapper>
+            <Button
+              icon={<ArrowIcon direction="left" color="currentcolor" />}
+              shape="circle"
+              type="primary"
+              disabled={!pageNumber || loading}
+              onClick={handleArrowAction("previous")}
+              loading={loading}
+            />
+            <Button
+              icon={<ArrowIcon direction="right" color="currentcolor" />}
+              shape="circle"
+              type="primary"
+              loading={loading}
+              disabled={nextButtonDisabled || loading}
+              onClick={handleArrowAction("next")}
+            />
+          </SessionsPaginationWrapper>
+        )}
       </MainSessionsWrapper>
     </Suspense>
   );
