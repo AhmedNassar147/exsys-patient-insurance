@@ -21,6 +21,9 @@ export const SessionViewWrapper = styled.div`
   ${mediaQueries.sm`
     width: ${spacings.sp16};
   `};
+  ${mediaQueries.md`
+    width: calc(${spacings.sp16} + ${spacings.sp2});
+  `};
   &:not(:last-child) {
     margin-inline-end: ${spacings.sp4};
   }

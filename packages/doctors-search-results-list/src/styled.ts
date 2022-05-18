@@ -27,9 +27,9 @@ export const DoctorInfoContianerWrapper = styled.div`
 export const DoctorInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${spacings.sp2};
+  gap: ${spacings.sp3};
   margin-inline-start: ${spacings.sp5};
-  width: ${spacings.sp30};
+  width: ${spacings.sp29};
 `;
 
 export const AllDoctorInfoWrapper = styled.div`

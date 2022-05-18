@@ -12,6 +12,7 @@
     "@exsys-clinio/media-queries": "1.0.0",
     "@exsys-clinio/select-with-api-query": "1.0.0",
     "@exsys-clinio/selection-check-group": "1.0.0",
+    "@exsys-clinio/theme-values": "1.0.0",
     "@exsys-clinio/types": "1.0.0"
   },
   "peerDependencies": {

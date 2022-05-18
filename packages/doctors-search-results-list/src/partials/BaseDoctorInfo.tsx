@@ -72,7 +72,7 @@ const DoctorInfoView = ({
           disableTranslation
           textValue={about_doctor}
           color={colors.black2}
-          lines={4}
+          lines={6}
         />
 
         {clinic_time && (
@@ -83,6 +83,7 @@ const DoctorInfoView = ({
             color={colors.lightGreen}
             fontSize="ff9"
             weight="400"
+            lines={2}
           />
         )}
 

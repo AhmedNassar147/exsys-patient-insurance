@@ -13,7 +13,9 @@ const App = () => (
     <LabelsProvider componentName="webDoctorBooking">
       <AppHeader />
       <main>
-        <DoctorsSearchPage />
+        <div className="main-clinio-app-wrapper">
+          <DoctorsSearchPage />
+        </div>
       </main>
     </LabelsProvider>
   </AppConfigProvider>

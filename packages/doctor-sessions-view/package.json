@@ -12,7 +12,6 @@
     "@exsys-clinio/booking-modal": "1.0.0",
     "@exsys-clinio/button": "1.0.0",
     "@exsys-clinio/flex": "1.0.0",
-    "@exsys-clinio/helpers": "1.0.0",
     "@exsys-clinio/media-queries": "1.0.0",
     "@exsys-clinio/network-hooks": "1.0.0",
     "@exsys-clinio/styled-helpers": "1.0.0",

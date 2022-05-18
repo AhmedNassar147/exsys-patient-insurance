@@ -9,6 +9,7 @@
   "sideEffects": false,
   "dependencies": {
     "@exsys-clinio/async-awaiter": "1.0.0",
+    "@exsys-clinio/base-styled-svg": "1.0.0",
     "@exsys-clinio/doctor-sessions-view": "1.0.0",
     "@exsys-clinio/flex": "1.0.0",
     "@exsys-clinio/image": "1.0.0",

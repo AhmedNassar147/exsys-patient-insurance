@@ -14,7 +14,11 @@ export const APP_HEADER_HORIZONTAL_PADDING = spacings.sp6;
 export const LANGUAGE_IDS = Object.freeze({
   PRIMARY: 1,
   SECONDARY: 2,
-});
+} as const);
+
+export const LANGUAGE_IDS_VALUES = Object.values(LANGUAGE_IDS);
+
+export type LanguageValuesType = 1 | 2;
 
 export const LANGUAGE_DIRS = Object.freeze({
   [LANGUAGE_IDS.PRIMARY]: "ltr",

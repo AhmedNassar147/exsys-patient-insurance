@@ -51,7 +51,7 @@ const StyledSvg = styled.svg<BaseStyledSvgProps>`
     cursor: pointer;
     width: ${width};
     height: ${height};
-    fill: ${color};
+    ${color && `fill: ${color}`};
     ${
       stroke || strokeInColor ? `stroke: ${strokeInColor ? color : stroke}` : ""
     };

@@ -19,6 +19,8 @@ const fromXlMainCss = css`
   margin: 0 auto;
 `;
 
+const mainHeight = `calc(100vh - ${APP_HEADER_HEIGHT} - ${APP_HEADER_MARGIN})`;
+
 const AppGlobalStyles = createGlobalStyle`
   html {
     box-sizing: border-box;
@@ -54,15 +56,19 @@ const AppGlobalStyles = createGlobalStyle`
     margin-bottom: 0;
   }
 
-
-
   svg {
     overflow: hidden;
   }
 
   main {
-    min-height: calc(100vh - ${APP_HEADER_HEIGHT} - ${APP_HEADER_MARGIN});
-    max-height: calc(100vh - ${APP_HEADER_HEIGHT} - ${APP_HEADER_MARGIN});
+    min-height: ${mainHeight};
+    max-height: ${mainHeight};
+    width: 100%;
+    overflow: auto;
+  };
+  .main-clinio-app-wrapper{
+    min-height: inherit;
+    max-height: inherit;
     width: 100%;
     padding: 0 ${spacings.sp4};
     margin: unset;

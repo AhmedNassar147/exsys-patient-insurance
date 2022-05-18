@@ -4,8 +4,11 @@
  *
  */
 import { useState, useLayoutEffect } from "react";
-import { LANGUAGE_DIRS } from "@exsys-clinio/global-app-constants";
-import { getItemFromStorage, setItemToStorage } from "@exsys-clinio/helpers";
+import {
+  LANGUAGE_DIRS,
+  LanguageValuesType,
+} from "@exsys-clinio/global-app-constants";
+import { getItemFromStorage } from "@exsys-clinio/helpers";
 import { AppConfigStateType } from "@exsys-clinio/types";
 import Store, { initialState } from "../context";
 
@@ -20,11 +23,12 @@ const AppConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
 
       const { languageId } = mainStoreData;
 
-      document.body.setAttribute("dir", LANGUAGE_DIRS[languageId]);
+      document.body.setAttribute(
+        "dir",
+        LANGUAGE_DIRS[languageId as LanguageValuesType]
+      );
       return;
     }
-
-    setItemToStorage("mainStore", initialState);
   }, []);
 
   return (
