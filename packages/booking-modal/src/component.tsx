@@ -44,6 +44,8 @@ const {
   sp2: spacing2,
 } = spacings;
 
+const valueMatchPattern = "/[a-zA-Z|ء-ي]+/gi";
+
 const serverTextMargin = `0 0 ${spacing2}`;
 const bookingInfoTextMargin = `${spacing2} 0 0`;
 const bookingInfoCardMargin = `0 0 0 ${spacing3}`;
@@ -214,7 +216,7 @@ const BookingModal = ({
               value={patient_name_p}
               onChange={handleChange}
               error={errors?.patient_name_p}
-              valueMatchPattern="/[a-zA-Z]+/gi"
+              valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
             />
             <InputField
@@ -224,7 +226,7 @@ const BookingModal = ({
               value={patient_name_2_p}
               onChange={handleChange}
               error={errors?.patient_name_2_p}
-              valueMatchPattern="/[a-zA-Z]+/gi"
+              valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
             />
             <InputField
@@ -234,7 +236,7 @@ const BookingModal = ({
               value={patient_name_3_p}
               onChange={handleChange}
               error={errors?.patient_name_3_p}
-              valueMatchPattern="/[a-zA-Z]+/gi"
+              valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
             />
             <InputField
@@ -244,7 +246,7 @@ const BookingModal = ({
               value={patient_name_f_p}
               onChange={handleChange}
               error={errors?.patient_name_f_p}
-              valueMatchPattern="/[a-zA-Z]+/gi"
+              valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
             />
           </Flex>

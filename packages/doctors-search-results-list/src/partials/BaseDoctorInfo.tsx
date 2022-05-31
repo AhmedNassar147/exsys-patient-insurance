@@ -7,8 +7,7 @@
 import { memo } from "react";
 import Image from "@exsys-clinio/image";
 import Text from "@exsys-clinio/text";
-import Flex from "@exsys-clinio/flex";
-import { colors, spacings } from "@exsys-clinio/theme-values";
+import { colors } from "@exsys-clinio/theme-values";
 import DoctorSessionsView from "@exsys-clinio/doctor-sessions-view";
 import TimeIcon from "./TimeIcon";
 import EarplugIcon from "./EarplugIcon";
@@ -36,7 +35,6 @@ const DoctorInfoView = ({
     session_code,
     seniority_level,
     specialty_name,
-    nationality_flag,
   },
 }: DoctorInfoViewProps) => (
   <DoctorInfoContianerWrapper>
@@ -49,23 +47,13 @@ const DoctorInfoView = ({
         borderRadius="4px"
       />
       <DoctorInfoWrapper>
-        <Flex align="center" gap={spacings.sp2}>
-          <Image
-            src={nationality_flag}
-            alt="nationality"
-            height="sp7"
-            width="sp9"
-            borderRadius="4px"
-          />
-
-          <Text
-            disableTranslation
-            children={clinical_name}
-            fontSize="ff8"
-            weight="700"
-            lines={3}
-          />
-        </Flex>
+        <Text
+          disableTranslation
+          children={clinical_name}
+          fontSize="ff8"
+          weight="700"
+          lines={3}
+        />
 
         <TextWithIcon
           icon={EarplugIcon}
@@ -89,7 +77,7 @@ const DoctorInfoView = ({
 
         <Text
           children={`${seniority_level || ""} - ${specialty_name || ""}`}
-          fontSize="ff9"
+          fontSize="ff8"
           weight="400"
           disableTranslation
         />

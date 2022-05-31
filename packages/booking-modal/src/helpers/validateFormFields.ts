@@ -17,6 +17,7 @@ const validateFormFields = (formValues: FormInitialValuesType) => {
   const {
     patient_name_p,
     patient_name_f_p,
+    patient_name_3_p,
     phone_m,
     date_of_birth,
     gender,
@@ -27,19 +28,16 @@ const validateFormFields = (formValues: FormInitialValuesType) => {
 
   let formErrors = {} as ResultType;
 
-  const idFields = {
-    id_type,
-    id_no,
-  };
-
   let valuesToValidate = {
     patient_name_p,
     patient_name_f_p,
+    patient_name_3_p,
     phone_m,
     date_of_birth,
     gender,
     nationality,
-    ...idFields,
+    id_type,
+    id_no,
   };
 
   formErrors = (validateFields(valuesToValidate) || {}) as ResultType;
