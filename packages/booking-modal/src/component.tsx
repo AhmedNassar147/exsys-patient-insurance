@@ -7,20 +7,21 @@ import { memo, useCallback, useState, useMemo } from "react";
 import Modal from "@exsys-clinio/modal";
 import Flex from "@exsys-clinio/flex";
 import { spacings, colors } from "@exsys-clinio/theme-values";
-import Text from "@exsys-clinio/text";
+import Text, { BaseText } from "@exsys-clinio/text";
 import { setItemToStorage, getItemFromStorage } from "@exsys-clinio/helpers";
 import InputField from "@exsys-clinio/input-field";
 import SelectWithApiQuery from "@exsys-clinio/select-with-api-query";
 import useFromManager from "@exsys-clinio/form-manager";
 import { useBasicMutation } from "@exsys-clinio/network-hooks";
 import Image from "@exsys-clinio/image";
+import Button from "@exsys-clinio/button";
 import {
   FORM_INITIAL_VALUES,
   minimumBirthDate,
   maximumBirthDate,
   FormInitialValuesType,
 } from "./constants";
-import { StyledDateInput } from "./styled";
+import { StyledDateInput, StyledTable } from "./styled";
 import validateFormFields from "./helpers/validateFormFields";
 import convertInputDateToNormalFormat from "./helpers/convertInputDateToNormalFormat";
 
@@ -42,6 +43,9 @@ const {
   sp27: spacing27,
   sp3: spacing3,
   sp2: spacing2,
+  sp19: spacing19,
+  sp16: spacing10,
+  sp32: spacing32,
 } = spacings;
 
 const valueMatchPattern = "/[a-zA-Z|ء-ي]+/gi";
@@ -56,6 +60,14 @@ const initialBookingApiDoneResults = {
   message: "",
   type: "",
 };
+
+const oldReservationData = Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).map(
+  (_, index) => ({
+    rowKey: index + 1,
+    date: `${index + 1}-06-2022`,
+    doctorName: index % 2 === 0 ? "Nagy Abdulkhaleq" : "Kamel",
+  })
+);
 
 const BookingModal = ({
   visible,
@@ -209,6 +221,41 @@ const BookingModal = ({
           </Flex>
 
           <Flex width="100%" gap={spacing4} align="center" wrap="true">
+            <Flex width="100%" gap={spacing4} align="center" wrap="true">
+              <InputField
+                label="idnum"
+                error={errors?.id_no}
+                name="id_no"
+                value={id_no}
+                width={spacing22}
+                onChange={handleChange}
+                valueMatchPattern="/\d/g"
+              />
+
+              <SelectWithApiQuery
+                label="idtyp"
+                width={spacing22}
+                error={errors?.id_type}
+                apiOrCodeId="ID_TYPES"
+                queryType="u_code"
+                name="id_type"
+                value={id_type}
+                onChange={handleChange}
+                enableNetworkCache
+              />
+
+              <InputField
+                name="phone_m"
+                label="mbln"
+                value={phone_m}
+                width={spacing22}
+                onChange={handleChange}
+                error={errors?.phone_m}
+                valueMatchPattern="/\d/g"
+              />
+
+              <Button type="primary" label="srch" />
+            </Flex>
             <InputField
               name="patient_name_p"
               label="frstnme"
@@ -264,19 +311,10 @@ const BookingModal = ({
             min={minimumBirthDate}
             max={maximumBirthDate}
           />
-          <InputField
-            name="phone_m"
-            label="mbln"
-            value={phone_m}
-            width={spacing22}
-            onChange={handleChange}
-            error={errors?.phone_m}
-            valueMatchPattern="/\d/g"
-          />
 
           <SelectWithApiQuery
             label="ntionlty"
-            width={spacing22}
+            width={spacing19}
             apiOrCodeId="NATIONALITY_TYPES"
             queryType="u_code"
             error={errors?.nationality}
@@ -286,31 +324,9 @@ const BookingModal = ({
             enableNetworkCache
           />
 
-          <InputField
-            label="idnum"
-            error={errors?.id_no}
-            name="id_no"
-            value={id_no}
-            width={spacing22}
-            onChange={handleChange}
-            valueMatchPattern="/\d/g"
-          />
-
-          <SelectWithApiQuery
-            label="idtyp"
-            width={spacing22}
-            error={errors?.id_type}
-            apiOrCodeId="ID_TYPES"
-            queryType="u_code"
-            name="id_type"
-            value={id_type}
-            onChange={handleChange}
-            enableNetworkCache
-          />
-
           <SelectWithApiQuery
             label="gndr"
-            width={spacing22}
+            width={spacing10}
             error={errors?.gender}
             apiOrCodeId="GENDER_TYPES"
             queryType="u_code"
@@ -321,7 +337,7 @@ const BookingModal = ({
           />
           <SelectWithApiQuery
             label="whrfindus"
-            width={`calc(${spacing27} * 1.6)`}
+            width={spacing32}
             apiOrCodeId="WHERE_TO_FIND_TYPES"
             queryType="u_code"
             name="where_find"
@@ -330,6 +346,42 @@ const BookingModal = ({
             enableNetworkCache
           />
         </Flex>
+
+        <Text
+          fontSize="ff7"
+          color={colors.appPrimary}
+          margin={`${spacings.sp4} 0`}
+        >
+          bokngs
+        </Text>
+        <StyledTable>
+          <thead>
+            <tr>
+              <BaseText tag="th">date</BaseText>
+              <BaseText tag="th">docnam</BaseText>
+              <BaseText tag="th">action</BaseText>
+            </tr>
+          </thead>
+
+          <tbody>
+            {oldReservationData.map(({ date, doctorName, rowKey }) => (
+              <tr key={rowKey}>
+                <td>{date}</td>
+                <td>{doctorName}</td>
+                <td>
+                  <Flex width="100%" align="center" justify="center">
+                    <Button
+                      height="18px"
+                      size="small"
+                      type="danger"
+                      label="-"
+                    />
+                  </Flex>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </StyledTable>
       </Modal>
       {!!bookingApiMessage && (
         <Modal
