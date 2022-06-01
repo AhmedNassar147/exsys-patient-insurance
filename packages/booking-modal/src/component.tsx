@@ -12,9 +12,13 @@ import { setItemToStorage, getItemFromStorage } from "@exsys-clinio/helpers";
 import InputField from "@exsys-clinio/input-field";
 import SelectWithApiQuery from "@exsys-clinio/select-with-api-query";
 import useFromManager from "@exsys-clinio/form-manager";
-import { useBasicMutation } from "@exsys-clinio/network-hooks";
+import { useBasicMutation, useBasicQuery } from "@exsys-clinio/network-hooks";
 import Image from "@exsys-clinio/image";
 import Button from "@exsys-clinio/button";
+import {
+  OnResponseActionType,
+  RecordTypeWithAnyValue,
+} from "@exsys-clinio/types";
 import {
   FORM_INITIAL_VALUES,
   minimumBirthDate,
@@ -24,6 +28,7 @@ import {
 import { StyledDateInput, StyledTable } from "./styled";
 import validateFormFields from "./helpers/validateFormFields";
 import convertInputDateToNormalFormat from "./helpers/convertInputDateToNormalFormat";
+import convertNormalFormattedDateToInputDate from "./helpers/convertNormalFormattedDateToInputDate";
 
 interface BookingModalProps {
   visible: boolean;
@@ -43,8 +48,6 @@ const {
   sp27: spacing27,
   sp3: spacing3,
   sp2: spacing2,
-  sp19: spacing19,
-  sp16: spacing10,
   sp32: spacing32,
 } = spacings;
 
@@ -59,15 +62,8 @@ const { red, lightGreen, appPrimary } = colors;
 const initialBookingApiDoneResults = {
   message: "",
   type: "",
+  shouldCloseMainModalIfApplicable: false,
 };
-
-const oldReservationData = Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).map(
-  (_, index) => ({
-    rowKey: index + 1,
-    date: `${index + 1}-06-2022`,
-    doctorName: index % 2 === 0 ? "Nagy Abdulkhaleq" : "Kamel",
-  })
-);
 
 const BookingModal = ({
   visible,
@@ -90,9 +86,12 @@ const BookingModal = ({
 
   const handleSaveBooking = useCallback(
     (fromValues: FormInitialValuesType) => {
-      setItemToStorage("patientData", fromValues);
+      const { date_of_birth, previousReservations, ...values } = fromValues;
 
-      const { date_of_birth, ...values } = fromValues;
+      setItemToStorage("patientData", {
+        ...values,
+        date_of_birth,
+      });
 
       mutate({
         body: {
@@ -111,6 +110,7 @@ const BookingModal = ({
           setBookingResultModalState({
             type: status,
             message: isError ? error || "flssve" : "donsucesfly",
+            shouldCloseMainModalIfApplicable: true,
           });
         },
       });
@@ -122,7 +122,10 @@ const BookingModal = ({
     const cashedPatientData =
       getItemFromStorage<FormInitialValuesType>("patientData");
 
-    return cashedPatientData || FORM_INITIAL_VALUES;
+    return {
+      ...FORM_INITIAL_VALUES,
+      ...cashedPatientData,
+    };
   }, []);
 
   const {
@@ -133,33 +136,146 @@ const BookingModal = ({
       patient_name_3_p,
       patient_name_f_p,
       phone_m,
+      id_no,
       where_find,
       id_type,
-      id_no,
       date_of_birth,
-      nationality,
+      previousReservations,
     },
     handleChange,
     errors,
     handleSubmit,
+    handleChangeMultipleInputs,
   } = useFromManager({
     initialValues: formInitialValues,
     validate: validateFormFields,
     onSubmit: handleSaveBooking,
   });
 
-  const { type: bookingApiStatus, message: bookingApiMessage } =
-    bookingResultModalState;
+  const handlePatientDataResponse: OnResponseActionType<RecordTypeWithAnyValue> =
+    useCallback(({ apiValues }) => {
+      const { previousReservations, patientData } = apiValues || {};
+
+      const { patientName, date_of_birth, ...otherPatientData } =
+        patientData || {};
+
+      const [
+        patient_name_p,
+        patient_name_2_p,
+        patient_name_3_p,
+        patient_name_f_p,
+      ] = (patientName || "   ")?.split?.(" ");
+
+      handleChangeMultipleInputs({
+        previousReservations: previousReservations || [],
+        patient_name_p,
+        patient_name_2_p,
+        patient_name_3_p,
+        patient_name_f_p,
+        date_of_birth: convertNormalFormattedDateToInputDate(date_of_birth),
+        ...otherPatientData,
+      });
+    }, []);
+
+  const {
+    id_no: initialIdNo,
+    id_type: initialIdType,
+    phone_m: initialIdPhone,
+  } = formInitialValues;
+
+  const skipPatientDataQuery = useCallback(
+    ({ id_no, phone_m, id_type }: RecordTypeWithAnyValue) =>
+      !phone_m || !id_type || !id_no,
+    []
+  );
+
+  const { runQuery: fetchOldPatientData, loading: patientDataLoading } =
+    useBasicQuery({
+      apiId: "QUERY_PATIENT_OLD_DATA",
+      callOnFirstRender: false,
+      onResponse: handlePatientDataResponse,
+      skipQuery: skipPatientDataQuery,
+      params: {
+        id_no: initialIdNo,
+        id_type: initialIdType,
+        phone_m: initialIdPhone,
+      },
+    });
+
+  const { loading: isStillCancelingAppointment, mutate: cancelAppointment } =
+    useBasicMutation({
+      apiId: "PUT_CANCEL_PATIENT_BOOKING",
+      method: "put",
+    });
+
+  const {
+    type: bookingApiStatus,
+    message: bookingApiMessage,
+    shouldCloseMainModalIfApplicable,
+  } = bookingResultModalState;
 
   const handleCloseBookingApiModal = useCallback(() => {
-    if (bookingApiStatus === "success") {
-      onClose();
-      onBookingDoneSuccessfully();
-      return;
-    }
-
     setBookingResultModalState(initialBookingApiDoneResults);
-  }, [onBookingDoneSuccessfully, onClose, bookingApiStatus]);
+
+    if (bookingApiStatus === "success") {
+      if (shouldCloseMainModalIfApplicable) {
+        onClose();
+      }
+      onBookingDoneSuccessfully();
+    }
+  }, [
+    onBookingDoneSuccessfully,
+    onClose,
+    bookingApiStatus,
+    shouldCloseMainModalIfApplicable,
+  ]);
+
+  const handleCancelBooking = useCallback(
+    (appointmentId: number) => () => {
+      const body = {
+        appointment_id: appointmentId,
+        newFollowup: "N",
+        cancel_reason: "589",
+      };
+
+      cancelAppointment({
+        body,
+        cb: ({ apiValues: { status }, error }) => {
+          const isSuccess = status === "success";
+          if (isSuccess) {
+            handleChange({
+              name: "previousReservations",
+              value: previousReservations.filter(
+                ({ appointment_id }) => appointmentId !== appointment_id
+              ),
+            });
+          }
+
+          setBookingResultModalState({
+            type: status,
+            message: isSuccess ? "donsucesfly" : error || "flssve",
+            shouldCloseMainModalIfApplicable: false,
+          });
+        },
+      });
+    },
+    [
+      cancelAppointment,
+      setBookingResultModalState,
+      handleChange,
+      previousReservations,
+    ]
+  );
+
+  const handleSearchPatientData = useCallback(
+    () =>
+      fetchOldPatientData({
+        id_no,
+        id_type,
+        phone_m,
+      }),
+    [fetchOldPatientData, id_type, id_no, phone_m]
+  );
 
   return (
     <>
@@ -230,6 +346,7 @@ const BookingModal = ({
                 width={spacing22}
                 onChange={handleChange}
                 valueMatchPattern="/\d/g"
+                disabled={patientDataLoading}
               />
 
               <SelectWithApiQuery
@@ -242,6 +359,7 @@ const BookingModal = ({
                 value={id_type}
                 onChange={handleChange}
                 enableNetworkCache
+                disabled={patientDataLoading}
               />
 
               <InputField
@@ -252,9 +370,16 @@ const BookingModal = ({
                 onChange={handleChange}
                 error={errors?.phone_m}
                 valueMatchPattern="/\d/g"
+                disabled={patientDataLoading}
               />
 
-              <Button type="primary" label="srch" />
+              <Button
+                type="primary"
+                label="srch"
+                disabled={patientDataLoading}
+                loading={patientDataLoading}
+                onClick={handleSearchPatientData}
+              />
             </Flex>
             <InputField
               name="patient_name_p"
@@ -265,6 +390,7 @@ const BookingModal = ({
               error={errors?.patient_name_p}
               valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
+              disabled={patientDataLoading}
             />
             <InputField
               name="patient_name_2_p"
@@ -275,6 +401,7 @@ const BookingModal = ({
               error={errors?.patient_name_2_p}
               valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
+              disabled={patientDataLoading}
             />
             <InputField
               name="patient_name_3_p"
@@ -285,6 +412,7 @@ const BookingModal = ({
               error={errors?.patient_name_3_p}
               valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
+              disabled={patientDataLoading}
             />
             <InputField
               name="patient_name_f_p"
@@ -295,6 +423,7 @@ const BookingModal = ({
               error={errors?.patient_name_f_p}
               valueMatchPattern={valueMatchPattern}
               upperCaseFirstCharacter
+              disabled={patientDataLoading}
             />
           </Flex>
 
@@ -310,23 +439,12 @@ const BookingModal = ({
             forceFloatingLabel
             min={minimumBirthDate}
             max={maximumBirthDate}
-          />
-
-          <SelectWithApiQuery
-            label="ntionlty"
-            width={spacing19}
-            apiOrCodeId="NATIONALITY_TYPES"
-            queryType="u_code"
-            error={errors?.nationality}
-            name="nationality"
-            value={nationality}
-            onChange={handleChange}
-            enableNetworkCache
+            disabled={patientDataLoading}
           />
 
           <SelectWithApiQuery
             label="gndr"
-            width={spacing10}
+            width={spacing22}
             error={errors?.gender}
             apiOrCodeId="GENDER_TYPES"
             queryType="u_code"
@@ -334,54 +452,73 @@ const BookingModal = ({
             value={gender}
             onChange={handleChange}
             enableNetworkCache
+            disabled={patientDataLoading}
           />
           <SelectWithApiQuery
             label="whrfindus"
-            width={spacing32}
+            width={`calc(${spacing32} * 1.3)`}
             apiOrCodeId="WHERE_TO_FIND_TYPES"
             queryType="u_code"
             name="where_find"
             value={where_find}
             onChange={handleChange}
             enableNetworkCache
+            disabled={patientDataLoading}
           />
         </Flex>
 
-        <Text
-          fontSize="ff7"
-          color={colors.appPrimary}
-          margin={`${spacings.sp4} 0`}
-        >
-          bokngs
-        </Text>
-        <StyledTable>
-          <thead>
-            <tr>
-              <BaseText tag="th">date</BaseText>
-              <BaseText tag="th">docnam</BaseText>
-              <BaseText tag="th">action</BaseText>
-            </tr>
-          </thead>
+        {!!previousReservations?.length && (
+          <>
+            <Text
+              fontSize="ff7"
+              color={colors.appPrimary}
+              margin={`${spacings.sp4} 0`}
+            >
+              bokngs
+            </Text>
+            <StyledTable>
+              <thead>
+                <tr>
+                  <BaseText tag="th">date</BaseText>
+                  <BaseText tag="th">clincal</BaseText>
+                  <BaseText tag="th">docnam</BaseText>
+                  <BaseText tag="th">action</BaseText>
+                </tr>
+              </thead>
 
-          <tbody>
-            {oldReservationData.map(({ date, doctorName, rowKey }) => (
-              <tr key={rowKey}>
-                <td>{date}</td>
-                <td>{doctorName}</td>
-                <td>
-                  <Flex width="100%" align="center" justify="center">
-                    <Button
-                      height="18px"
-                      size="small"
-                      type="danger"
-                      label="-"
-                    />
-                  </Flex>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </StyledTable>
+              <tbody>
+                {previousReservations.map(
+                  ({
+                    appointment_id,
+                    bookingDate,
+                    bookingNo,
+                    clinical,
+                    doctor_name,
+                  }) => (
+                    <tr key={appointment_id}>
+                      <td>{`${bookingDate} ${bookingNo || ""}`}</td>
+                      <td>{clinical}</td>
+                      <td>{doctor_name}</td>
+                      <td>
+                        <Flex width="100%" align="center" justify="center">
+                          <Button
+                            height="18px"
+                            size="small"
+                            type="danger"
+                            label="-"
+                            onClick={handleCancelBooking(appointment_id)}
+                            loading={isStillCancelingAppointment}
+                            disabled={isStillCancelingAppointment}
+                          />
+                        </Flex>
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </StyledTable>
+          </>
+        )}
       </Modal>
       {!!bookingApiMessage && (
         <Modal

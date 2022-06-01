@@ -23,7 +23,6 @@ const validateFormFields = (formValues: FormInitialValuesType) => {
     gender,
     id_type,
     id_no,
-    nationality,
   } = formValues;
 
   let formErrors = {} as ResultType;
@@ -35,7 +34,6 @@ const validateFormFields = (formValues: FormInitialValuesType) => {
     phone_m,
     date_of_birth,
     gender,
-    nationality,
     id_type,
     id_no,
   };

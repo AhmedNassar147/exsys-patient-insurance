@@ -8,6 +8,7 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
+    "@exsys-clinio/button": "1.0.0",
     "@exsys-clinio/flex": "1.0.0",
     "@exsys-clinio/form-manager": "1.0.0",
     "@exsys-clinio/helpers": "1.0.0",
@@ -18,7 +19,8 @@
     "@exsys-clinio/react-lazy": "1.0.0",
     "@exsys-clinio/select-with-api-query": "1.0.0",
     "@exsys-clinio/text": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0"
+    "@exsys-clinio/theme-values": "1.0.0",
+    "@exsys-clinio/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",
