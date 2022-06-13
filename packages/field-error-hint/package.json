@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/field-error-hint",
+  "name": "@exsys-patient-insurance/field-error-hint",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render an error field for form validation.",
@@ -8,8 +8,8 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/text": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0"
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

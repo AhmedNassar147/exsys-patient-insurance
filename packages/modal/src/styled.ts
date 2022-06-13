@@ -1,13 +1,13 @@
 /*
  *
- * Styled: `@exsys-clinio/modal`.
+ * Styled: `@exsys-patient-insurance/modal`.
  *
  */
 import styled, { css, keyframes } from "styled-components";
-import { colors } from "@exsys-clinio/theme-values";
-import { BaseText } from "@exsys-clinio/text";
-import Flex from "@exsys-clinio/flex";
-import { flexCenteredRowCss } from "@exsys-clinio/styled-helpers";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { BaseText } from "@exsys-patient-insurance/text";
+import Flex from "@exsys-patient-insurance/flex";
+import { flexCenteredRowCss } from "@exsys-patient-insurance/styled-helpers";
 import { ModalMaskProps, ModalBodyProps } from "./index.interface";
 
 export const visiblityKeyFrame = keyframes`

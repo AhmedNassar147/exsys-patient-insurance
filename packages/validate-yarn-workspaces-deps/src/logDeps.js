@@ -1,9 +1,11 @@
 /*
  *
- * logDeps: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * logDeps: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
-const { consoleColors } = require("@exsys-clinio/command-line-utils");
+const {
+  consoleColors,
+} = require("@exsys-patient-insurance/command-line-utils");
 
 const logDeps = (condition, name, values) => {
   if (condition) {

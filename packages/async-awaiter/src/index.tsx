@@ -1,11 +1,11 @@
 /*
  *
- * Package: `@exsys-clinio/async-awaiter`.
+ * Package: `@exsys-patient-insurance/async-awaiter`.
  *
  */
 import { useMemo } from "react";
-import LoadingIcon from "@exsys-clinio/loading-icon";
-import Flex from "@exsys-clinio/flex";
+import LoadingIcon from "@exsys-patient-insurance/loading-icon";
+import Flex from "@exsys-patient-insurance/flex";
 import { Text } from "./styled";
 import IProps from "./index.interface";
 

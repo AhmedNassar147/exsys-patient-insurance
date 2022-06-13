@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/menu-items",
+  "name": "@exsys-patient-insurance/menu-items",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render menu items.",
@@ -8,10 +8,10 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/async-awaiter": "1.0.0",
-    "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/menu-item": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/async-awaiter": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/menu-item": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

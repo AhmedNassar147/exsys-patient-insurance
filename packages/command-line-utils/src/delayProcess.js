@@ -1,6 +1,6 @@
 /*
  *
- * `delayProcess`: `@exsys-clinio/command-line-utils`.
+ * `delayProcess`: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const delayProcess = (fn, options, ms) =>

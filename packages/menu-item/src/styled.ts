@@ -1,16 +1,16 @@
 /*
  *
- * Styled: `@exsys-clinio/menu-item`.
+ * Styled: `@exsys-patient-insurance/menu-item`.
  *
  */
 import styled from "styled-components";
-import { colors } from "@exsys-clinio/theme-values";
-import { BaseText } from "@exsys-clinio/text";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { BaseText } from "@exsys-patient-insurance/text";
 import {
   ellipsisCss,
   disabledCssHelper,
   flexCenteredRowCss,
-} from "@exsys-clinio/styled-helpers";
+} from "@exsys-patient-insurance/styled-helpers";
 import { MenuItemProps } from "./index.interface";
 
 const { lightGrey, inputLabelColor, white2, grey4 } = colors;

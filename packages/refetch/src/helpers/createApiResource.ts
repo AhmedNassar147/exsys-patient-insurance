@@ -1,9 +1,9 @@
 /*
  *
- * `createApiResource` : `@exsys-clinio/refetch`.
+ * `createApiResource` : `@exsys-patient-insurance/refetch`.
  *
  */
-import { isObjHasData } from "@exsys-clinio/helpers";
+import { isObjHasData } from "@exsys-patient-insurance/helpers";
 
 const CHARACTERS_BACKEND_CAN_NOT_DECODE = ["+", "%"];
 

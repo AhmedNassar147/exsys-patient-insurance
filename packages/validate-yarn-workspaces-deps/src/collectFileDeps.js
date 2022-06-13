@@ -1,9 +1,11 @@
 /*
  *
- * `collectFileDeps`: `@exsys-clinio/validate-yarn-workspaces-deps`
+ * `collectFileDeps`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`
  *
  */
-const { consoleColors } = require("@exsys-clinio/command-line-utils");
+const {
+  consoleColors,
+} = require("@exsys-patient-insurance/command-line-utils");
 const { readFile } = require("fs/promises");
 const cleanImportsDepsArray = require("./cleanImportsDepsArray");
 const {

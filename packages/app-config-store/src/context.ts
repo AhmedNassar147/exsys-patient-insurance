@@ -1,6 +1,6 @@
 /*
  *
- * Context: `@exsys-clinio/app-config-store`.
+ * Context: `@exsys-patient-insurance/app-config-store`.
  *
  */
 import { createContext } from "react";
@@ -9,9 +9,12 @@ import {
   LANGUAGE_IDS,
   LANGUAGE_IDS_VALUES,
   LanguageValuesType,
-} from "@exsys-clinio/global-app-constants";
-import { setItemToStorage, getItemFromStorage } from "@exsys-clinio/helpers";
-import { AppConfigStateType } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/global-app-constants";
+import {
+  setItemToStorage,
+  getItemFromStorage,
+} from "@exsys-patient-insurance/helpers";
+import { AppConfigStateType } from "@exsys-patient-insurance/types";
 import { AppConfigStoreApi } from "./index.interface";
 
 const NOT_FOUND_LANG_CODE = 999999999;

@@ -1,19 +1,19 @@
 /*
  *
- * `useBasicQuery`: `@exsys-clinio/network-hooks`.
+ * `useBasicQuery`: `@exsys-patient-insurance/network-hooks`.
  *
  */
 import { useCallback, useEffect, useState, useRef, useMemo } from "react";
-import { usePrevious } from "@exsys-clinio/hooks";
+import { usePrevious } from "@exsys-patient-insurance/hooks";
 import {
   useHasLanguageChanged,
   useMakeSelectCurrentLanguageId,
   useMakeSelectAuthorization,
-} from "@exsys-clinio/app-config-store";
-import networkCacheLayer from "@exsys-clinio/network-cache-layer";
-import { API_IDS } from "@exsys-clinio/api-constants";
-import { debounce, objectIs } from "@exsys-clinio/helpers";
-import { getRequest, RequestResponse } from "@exsys-clinio/refetch";
+} from "@exsys-patient-insurance/app-config-store";
+import networkCacheLayer from "@exsys-patient-insurance/network-cache-layer";
+import { API_IDS } from "@exsys-patient-insurance/api-constants";
+import { debounce, objectIs } from "@exsys-patient-insurance/helpers";
+import { getRequest, RequestResponse } from "@exsys-patient-insurance/refetch";
 import {
   RecordTypeWithAnyValue,
   BasicQueryConfigProps,
@@ -22,7 +22,7 @@ import {
   QueryResponseValuesType,
   OnResponseActionType,
   QueryParamsType,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 
 type ResultType<T> = {
   loading: boolean;

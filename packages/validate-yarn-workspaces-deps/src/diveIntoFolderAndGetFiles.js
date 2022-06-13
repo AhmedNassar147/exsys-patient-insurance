@@ -1,6 +1,6 @@
 /*
  *
- * `diveIntoFolderAndGetFiles`: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * `diveIntoFolderAndGetFiles`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
 const fs = require("fs").promises;

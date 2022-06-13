@@ -5,7 +5,7 @@
  */
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import AppGlobalStyles from "@exsys-clinio/app-global-styles";
+import AppGlobalStyles from "@exsys-patient-insurance/app-global-styles";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 

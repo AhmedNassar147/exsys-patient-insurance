@@ -1,6 +1,6 @@
 /*
  *
- * react package: `@exsys-clinio/generators`.
+ * react package: `@exsys-patient-insurance/generators`.
  *
  */
 const { REACT_PACKAGE_TYPES, REACT_PAGE_TYPES } = require("../constants");

@@ -1,11 +1,11 @@
 /*
- * Package: `@exsys-clinio/form-manager`.
+ * Package: `@exsys-patient-insurance/form-manager`.
  *
  */
 import { useCallback, useState, useEffect, useRef } from "react";
-import { setIn } from "@exsys-clinio/helpers";
-import { ChangeEventParams } from "@exsys-clinio/types";
-import { usePrevious } from "@exsys-clinio/hooks";
+import { setIn } from "@exsys-patient-insurance/helpers";
+import { ChangeEventParams } from "@exsys-patient-insurance/types";
+import { usePrevious } from "@exsys-patient-insurance/hooks";
 import { runValidators, checkCanSubmit } from "./helpers";
 import {
   FormStateProps,

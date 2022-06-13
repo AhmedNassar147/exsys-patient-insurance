@@ -1,11 +1,11 @@
 /*
  *
- * Package: `@exsys-clinio/labeled-input`.
+ * Package: `@exsys-patient-insurance/labeled-input`.
  *
  */
 import { useState, useCallback, useLayoutEffect } from "react";
-import FieldErrorHint from "@exsys-clinio/field-error-hint";
-import { useMakeSelectIsRTLLayout } from "@exsys-clinio/app-config-store";
+import FieldErrorHint from "@exsys-patient-insurance/field-error-hint";
+import { useMakeSelectIsRTLLayout } from "@exsys-patient-insurance/app-config-store";
 import { LabelContainer, StyledLabel, LabelWrapperContainer } from "./styled";
 import { LabeledInputProps, LabeledInputPropType } from "./index.interface";
 

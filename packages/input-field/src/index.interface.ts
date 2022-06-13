@@ -1,13 +1,17 @@
 /*
  *
- * Types: `@exsys-clinio/input-field`.
+ * Types: `@exsys-patient-insurance/input-field`.
  *
  */
-import { KeysOfRecord, onChangeEvent, StringNumber } from "@exsys-clinio/types";
+import {
+  KeysOfRecord,
+  onChangeEvent,
+  StringNumber,
+} from "@exsys-patient-insurance/types";
 import {
   LabeledInputPropType,
   LabeledInputProps,
-} from "@exsys-clinio/labeled-input";
+} from "@exsys-patient-insurance/labeled-input";
 import {
   INPUT_FIELD_SIZES,
   INPUT_FIELD_TYPES,

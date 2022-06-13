@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/app-config-store",
+  "name": "@exsys-patient-insurance/app-config-store",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render the app auth store.",
@@ -8,10 +8,10 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/global-app-constants": "1.0.0",
-    "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/hooks": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/global-app-constants": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

@@ -4,7 +4,7 @@
  *
  */
 const path = require("path");
-const { CONSTANTS } = require("@exsys-clinio/workspaces-helpers");
+const { CONSTANTS } = require("@exsys-patient-insurance/workspaces-helpers");
 const definePlopActionAndExecuteScript = require("./definePlopActionAndExecuteScript");
 const shouldRunScriptsAfterPackageCreation = require("./shouldRunScriptsAfterPackageCreation");
 const { getTypeOfComponentPackage } = require("./reactComponentUtils");

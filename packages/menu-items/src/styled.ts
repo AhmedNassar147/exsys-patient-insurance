@@ -1,6 +1,6 @@
 /*
  *
- * Styled: `@exsys-clinio/menu-items`.
+ * Styled: `@exsys-patient-insurance/menu-items`.
  *
  */
 import styled from "styled-components";

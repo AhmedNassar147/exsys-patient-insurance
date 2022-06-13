@@ -1,15 +1,15 @@
 /*
  *
- * Package: `@exsys-clinio/{{ name }}`.
+ * Package: `@exsys-patient-insurance/{{ name }}`.
  *
  */
 {{#if (isPage type)}}
 import { lazy } from "react";
 
-export default lazy(() => import("./component" /* webpackChunkName: "exsys-clinio.{{ name }}" */)
+export default lazy(() => import("./component" /* webpackChunkName: "exsys-patient-insurance.{{ name }}" */)
 );
  {{else}}
-import createLazyLoadedComponent from "@exsys-clinio/react-lazy";
+import createLazyLoadedComponent from "@exsys-patient-insurance/react-lazy";
 
-export default createLazyLoadedComponent(() => import("./component" /* webpackChunkName: "exsys-clinio.{{ name }}" */));
+export default createLazyLoadedComponent(() => import("./component" /* webpackChunkName: "exsys-patient-insurance.{{ name }}" */));
 {{/if}}

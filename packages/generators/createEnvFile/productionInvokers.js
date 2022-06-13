@@ -1,6 +1,6 @@
 /*
  *
- * productionInvokers: `@exsys-clinio/generators`.
+ * productionInvokers: `@exsys-patient-insurance/generators`.
  *
  */
 // const {

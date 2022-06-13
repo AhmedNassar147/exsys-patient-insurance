@@ -1,14 +1,14 @@
 /*
  *
- * Package: `@exsys-clinio/input-field`.
+ * Package: `@exsys-patient-insurance/input-field`.
  *
  */
 import { memo, forwardRef, useMemo } from "react";
-import { useTranslateIdFactory } from "@exsys-clinio/labels-provider";
-import LabeledInput from "@exsys-clinio/labeled-input";
-import FieldErrorHint from "@exsys-clinio/field-error-hint";
-import { useMakeSelectIsRTLLayout } from "@exsys-clinio/app-config-store";
-import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+import { useTranslateIdFactory } from "@exsys-patient-insurance/labels-provider";
+import LabeledInput from "@exsys-patient-insurance/labeled-input";
+import FieldErrorHint from "@exsys-patient-insurance/field-error-hint";
+import { useMakeSelectIsRTLLayout } from "@exsys-patient-insurance/app-config-store";
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 import useCreateChangeEventFromDomInput from "./hooks/useCreateChangeEventFromDomInput";
 import {
   inputCssHelper,

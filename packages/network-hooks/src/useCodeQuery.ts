@@ -1,11 +1,14 @@
 /*
  *
- * `useCodeQuery`: `@exsys-clinio/network-hooks`.
+ * `useCodeQuery`: `@exsys-patient-insurance/network-hooks`.
  *
  */
-import { CODES_IDS } from "@exsys-clinio/api-constants";
-import { isObjectHasKey } from "@exsys-clinio/helpers";
-import { SelectListProps, UseCodeQueryOptions } from "@exsys-clinio/types";
+import { CODES_IDS } from "@exsys-patient-insurance/api-constants";
+import { isObjectHasKey } from "@exsys-patient-insurance/helpers";
+import {
+  SelectListProps,
+  UseCodeQueryOptions,
+} from "@exsys-patient-insurance/types";
 import useBasicQuery from "./useBasicQuery";
 
 type IResultType = SelectListProps[];

@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/app-config-store`.
+ * Package: `@exsys-patient-insurance/app-config-store`.
  *
  */
 export { default as AppConfigProvider } from "./partials";

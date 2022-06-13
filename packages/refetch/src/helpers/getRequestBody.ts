@@ -1,6 +1,6 @@
 /*
  *
- * `getRequestBody`: `@exsys-clinio/refetch`.
+ * `getRequestBody`: `@exsys-patient-insurance/refetch`.
  *
  */
 import appendFiles from "./appendFiles";

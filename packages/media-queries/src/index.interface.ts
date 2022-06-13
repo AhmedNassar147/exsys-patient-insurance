@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/media-queries`.
+ * Types: `@exsys-patient-insurance/media-queries`.
  *
  */
 export {};

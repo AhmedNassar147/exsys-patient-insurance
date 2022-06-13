@@ -1,6 +1,6 @@
 /*
  *
- * normal package: `@exsys-clinio/generators`.
+ * normal package: `@exsys-patient-insurance/generators`.
  *
  */
 const defaultPrompts = require("../shared-prompts/defaultPrompts");

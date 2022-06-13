@@ -1,16 +1,16 @@
 /*
  *
- * Package: `@exsys-clinio/selection-check`.
+ * Package: `@exsys-patient-insurance/selection-check`.
  *
  */
 import { memo, useCallback, useMemo } from "react";
-import Text from "@exsys-clinio/text";
+import Text from "@exsys-patient-insurance/text";
 import {
   getBooleanValueFromMaybeNonOne,
   getCheckInputNextCheckValue,
-} from "@exsys-clinio/helpers";
-import { colors } from "@exsys-clinio/theme-values";
-import { SelectionCheckProps } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/helpers";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { SelectionCheckProps } from "@exsys-patient-insurance/types";
 import { SelectedContainer, CheckWrapper, CheckMark } from "./styled";
 
 const SelectionCheck = ({
@@ -30,11 +30,10 @@ const SelectionCheck = ({
   overflow,
   readonly,
 }: SelectionCheckProps) => {
-  const [
-    { actualValue: checkedValue, isStringValue: isCheckBooleanString },
-  ] = useMemo(() => {
-    return [getBooleanValueFromMaybeNonOne(checked)];
-  }, [checked]);
+  const [{ actualValue: checkedValue, isStringValue: isCheckBooleanString }] =
+    useMemo(() => {
+      return [getBooleanValueFromMaybeNonOne(checked)];
+    }, [checked]);
 
   const handleClick = useCallback(() => {
     const nextChecked = getCheckInputNextCheckValue(

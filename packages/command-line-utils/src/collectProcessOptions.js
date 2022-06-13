@@ -1,6 +1,6 @@
 /*
  *
- * `collectProcessOptions`: `@exsys-clinio/command-line-utils`.
+ * `collectProcessOptions`: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const collectProcessOptionsSync = require("./collectProcessOptionsSync");

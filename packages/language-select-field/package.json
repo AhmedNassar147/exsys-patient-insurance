@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/language-select-field",
+  "name": "@exsys-patient-insurance/language-select-field",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render the language select field.",
@@ -8,8 +8,8 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/global-app-constants": "1.0.0",
-    "@exsys-clinio/select-field": "1.0.0"
+    "@exsys-patient-insurance/global-app-constants": "1.0.0",
+    "@exsys-patient-insurance/select-field": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

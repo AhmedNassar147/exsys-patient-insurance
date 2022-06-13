@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/theme-values",
+  "name": "@exsys-patient-insurance/theme-values",
   "version": "1.0.0",
   "license": "MIT",
   "main": "src/",

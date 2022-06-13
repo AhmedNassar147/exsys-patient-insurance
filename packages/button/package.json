@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/button",
+  "name": "@exsys-patient-insurance/button",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render `antd` button or custom one.",
@@ -8,11 +8,11 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/loading-icon": "1.0.0",
-    "@exsys-clinio/styled-helpers": "1.0.0",
-    "@exsys-clinio/text": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/loading-icon": "1.0.0",
+    "@exsys-patient-insurance/styled-helpers": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

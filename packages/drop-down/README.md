@@ -9,7 +9,7 @@
 # 🔨 Usage Examples
 
 ```typescript
-import DropDown from "@exsys-clinio/drop-down";
+import DropDown from "@exsys-patient-insurance/drop-down";
 
 const MyComponent = () => {
   return (

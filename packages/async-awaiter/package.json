@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/async-awaiter",
+  "name": "@exsys-patient-insurance/async-awaiter",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render a wrapper around conditionally component to render.",
@@ -8,10 +8,10 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/flex": "1.0.0",
-    "@exsys-clinio/loading-icon": "1.0.0",
-    "@exsys-clinio/text": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0"
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/loading-icon": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

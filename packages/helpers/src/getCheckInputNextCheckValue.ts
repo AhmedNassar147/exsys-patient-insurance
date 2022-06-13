@@ -3,7 +3,7 @@
  * Helper: `getCheckInputNextCheckValue`.
  *
  */
-import { BooleanStringType } from "@exsys-clinio/types";
+import { BooleanStringType } from "@exsys-patient-insurance/types";
 
 const getCheckInputNextCheckValue = (
   checkedState: boolean,
@@ -14,9 +14,9 @@ const getCheckInputNextCheckValue = (
 
   if (usingBooleanString) {
     value = checkedState ? "y" : "n";
-    return (capitalizeBooleanString
-      ? value.toUpperCase()
-      : value) as BooleanStringType;
+    return (
+      capitalizeBooleanString ? value.toUpperCase() : value
+    ) as BooleanStringType;
   }
 
   return value;

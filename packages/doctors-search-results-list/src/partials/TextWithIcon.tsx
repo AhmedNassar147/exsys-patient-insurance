@@ -4,10 +4,10 @@
  *
  */
 import { memo } from "react";
-import Text from "@exsys-clinio/text";
-import Flex from "@exsys-clinio/flex";
-import { spacings } from "@exsys-clinio/theme-values";
-import { FontSizeType } from "@exsys-clinio/types";
+import Text from "@exsys-patient-insurance/text";
+import Flex from "@exsys-patient-insurance/flex";
+import { spacings } from "@exsys-patient-insurance/theme-values";
+import { FontSizeType } from "@exsys-patient-insurance/types";
 
 interface TextWithIconProps {
   disableTranslation?: boolean;

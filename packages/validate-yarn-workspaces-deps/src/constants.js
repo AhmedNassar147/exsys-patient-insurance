@@ -1,13 +1,15 @@
 /*
  *
- * Constants: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * Constants: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
-const { sharedHelperKey } = require("@exsys-clinio/command-line-utils");
+const {
+  sharedHelperKey,
+} = require("@exsys-patient-insurance/command-line-utils");
 
-const exsysPackagesPathRegex = /@exsys-clinio[a-z|/|-]*/gm;
+const exsysPackagesPathRegex = /@exsys-patient-insurance[a-z|/|-]*/gm;
 const deepExsysPackagesPathRegex =
-  /@exsys-clinio[a-z|/|-]*\/src[/|a-z|A-Z|-]*/gm;
+  /@exsys-patient-insurance[a-z|/|-]*\/src[/|a-z|A-Z|-]*/gm;
 const deepAntdLibsPathRegex = /antd[a-z|A-Z|/|-]*/gm;
 const removeSrcAndStringAfterRegex = /\/src[/|a-z|A-Z|-|\s]*/gm;
 

@@ -1,5 +1,5 @@
 /*
- * Package : `@exsys-clinio/generators`.
+ * Package : `@exsys-patient-insurance/generators`.
  * Exports the generators so that `plop` knows them.
  */
 const reactPackageGenerator = require("./react-package");

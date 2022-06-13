@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/image`
+ * Package: `@exsys-patient-insurance/image`
  *
  */
 import { useState, useCallback, useRef, useEffect, memo } from "react";

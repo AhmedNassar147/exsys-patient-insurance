@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/close-icon",
+  "name": "@exsys-patient-insurance/close-icon",
   "version": "1.0.0",
   "private": true,
   "description": "A styled component to render a close icon.",

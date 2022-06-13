@@ -1,9 +1,9 @@
 /*
  *
- * Constants: `@exsys-clinio/language-select-field`.
+ * Constants: `@exsys-patient-insurance/language-select-field`.
  *
  */
-import { LANGUAGE_IDS } from "@exsys-clinio/global-app-constants";
+import { LANGUAGE_IDS } from "@exsys-patient-insurance/global-app-constants";
 
 export const LANGUAGE_SELECT_FIELD_NAME = "languageId";
 

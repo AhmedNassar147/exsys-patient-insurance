@@ -1,10 +1,13 @@
 /*
  *
- * Types: `@exsys-clinio/select-with-api-query`.
+ * Types: `@exsys-patient-insurance/select-with-api-query`.
  *
  */
-import { QUERY_TYPES } from "@exsys-clinio/global-app-constants";
-import { SelectFieldProps, SelectModeType } from "@exsys-clinio/select-field";
+import { QUERY_TYPES } from "@exsys-patient-insurance/global-app-constants";
+import {
+  SelectFieldProps,
+  SelectModeType,
+} from "@exsys-patient-insurance/select-field";
 import type {
   RecordType,
   SelectListProps,
@@ -14,7 +17,7 @@ import type {
   BaseQueryConfigProps,
   UseBasicRunQueryFnType,
   QueryParamsType,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 
 export type IResultType = SelectListProps[];
 

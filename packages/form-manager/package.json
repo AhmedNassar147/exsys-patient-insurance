@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/form-manager",
+  "name": "@exsys-patient-insurance/form-manager",
   "version": "1.0.0",
   "license": "MIT",
   "description": "a minimal way to handle react forms",
@@ -7,9 +7,9 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/hooks": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

@@ -4,8 +4,8 @@
  *
  */
 import { memo } from "react";
-import { colors } from "@exsys-clinio/theme-values";
-import BaseStyledSvg from "@exsys-clinio/base-styled-svg";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import BaseStyledSvg from "@exsys-patient-insurance/base-styled-svg";
 
 const TimeIcon = memo(() => (
   <BaseStyledSvg

@@ -3,7 +3,7 @@
  * Types: `network`.
  *
  */
-import { API_IDS, CODES_IDS } from "@exsys-clinio/api-constants";
+import { API_IDS, CODES_IDS } from "@exsys-patient-insurance/api-constants";
 import { SelectListProps } from "./form-field.interface";
 import { KeysOfRecord, RecordTypeWithAnyValue } from "./base.interface";
 

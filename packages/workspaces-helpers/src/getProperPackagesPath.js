@@ -1,6 +1,6 @@
 /*
  *
- * getProperPackagesPath: `@exsys-clinio/workspaces-helpers`.
+ * getProperPackagesPath: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const path = require("path");

@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/react-lazy`.
+ * Package: `@exsys-patient-insurance/react-lazy`.
  *
  */
 import {

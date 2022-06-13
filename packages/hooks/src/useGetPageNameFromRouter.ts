@@ -5,7 +5,7 @@
  */
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { getPageNameFromPathName } from "@exsys-clinio/helpers";
+import { getPageNameFromPathName } from "@exsys-patient-insurance/helpers";
 
 const useGetPageNameFromRouter = (useActualPageName?: boolean) => {
   const { pathname } = useLocation();

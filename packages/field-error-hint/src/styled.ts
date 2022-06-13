@@ -1,11 +1,11 @@
 /*
  *
- * Styled: `@exsys-clinio/field-error-hint`.
+ * Styled: `@exsys-patient-insurance/field-error-hint`.
  *
  */
 import styled from "styled-components";
-import Text from "@exsys-clinio/text";
-import { colors, fontSizes } from "@exsys-clinio/theme-values";
+import Text from "@exsys-patient-insurance/text";
+import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
 import { StyledTextProps } from "./index.interface";
 
 export const StyledText = styled(Text)<StyledTextProps>`

@@ -1,9 +1,9 @@
 /*
  *
- * Constants: `@exsys-clinio/button`.
+ * Constants: `@exsys-patient-insurance/button`.
  *
  */
-import { fontSizes, colors } from "@exsys-clinio/theme-values";
+import { fontSizes, colors } from "@exsys-patient-insurance/theme-values";
 
 export const DEFAULT_PROPS = Object.freeze({
   htmlType: "button",

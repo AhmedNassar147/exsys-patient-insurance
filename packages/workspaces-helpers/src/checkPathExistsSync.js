@@ -1,6 +1,6 @@
 /*
  *
- * `checkPathExistsSync`: `@exsys-clinio/workspaces-helpers`.
+ * `checkPathExistsSync`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const { existsSync } = require("fs");

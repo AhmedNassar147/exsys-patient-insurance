@@ -1,10 +1,12 @@
 /*
  *
- * Package: `@exsys-clinio/language-select-field`.
+ * Package: `@exsys-patient-insurance/language-select-field`.
  *
  */
 import { memo } from "react";
-import SelectField, { SelectFieldProps } from "@exsys-clinio/select-field";
+import SelectField, {
+  SelectFieldProps,
+} from "@exsys-patient-insurance/select-field";
 import {
   LANGUAGE_SELECT_FIELD_DEFAULT_PROPS,
   LANGUAGE_LIST_OPTIONS,

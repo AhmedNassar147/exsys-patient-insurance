@@ -1,6 +1,6 @@
 /*
  *
- * `consoleColors`: `@exsys-clinio/command-line-utils`.
+ * `consoleColors`: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const consoleColors = {

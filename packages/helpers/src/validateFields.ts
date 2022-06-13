@@ -1,9 +1,9 @@
 /*
  *
- * `validateFields`: : `@exsys-clinio/helpers`.
+ * `validateFields`: : `@exsys-patient-insurance/helpers`.
  *
  */
-import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 
 const DEFAULT_OPTIONS = Object.freeze({
   excludedFields: [],

@@ -1,6 +1,6 @@
 /*
  *
- * Constants: `@exsys-clinio/refetch`.
+ * Constants: `@exsys-patient-insurance/refetch`.
  *
  */
 export const BASE_HEADERS = {

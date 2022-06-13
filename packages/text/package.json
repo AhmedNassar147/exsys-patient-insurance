@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/text",
+  "name": "@exsys-patient-insurance/text",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render a text..",
@@ -8,9 +8,9 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/labels-provider": "1.0.0",
-    "@exsys-clinio/styled-helpers": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/labels-provider": "1.0.0",
+    "@exsys-patient-insurance/styled-helpers": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/styled-components": "^5.x.x"

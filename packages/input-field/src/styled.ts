@@ -1,14 +1,14 @@
 /*
  *
- * Styled: `@exsys-clinio/input-field`.
+ * Styled: `@exsys-patient-insurance/input-field`.
  *
  */
 import styled, { css } from "styled-components";
-import { colors, fontSizes } from "@exsys-clinio/theme-values";
+import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
 import {
   flexCenteredRowCss,
   disabledBackgroundCss,
-} from "@exsys-clinio/styled-helpers";
+} from "@exsys-patient-insurance/styled-helpers";
 import { INPUT_FIELD_SIZES } from "./constants";
 import { BaseInputFieldProps, AddonAfterWrapperProps } from "./index.interface";
 

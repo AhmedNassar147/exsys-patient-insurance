@@ -1,16 +1,16 @@
 /*
  *
- * Package: `@exsys-clinio/network-cache-layer`.
+ * Package: `@exsys-patient-insurance/network-cache-layer`.
  *
  */
 import {
   isObjHasData,
   sortObjectByKeysAndStringify,
   getPageNameFromPathName,
-} from "@exsys-clinio/helpers";
-// import { API_IDS } from "@exsys-clinio/api-constants";
-import { RequestResponse } from "@exsys-clinio/refetch";
-import { RecordType, RecordTypeWithAnyValue } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/helpers";
+// import { API_IDS } from "@exsys-patient-insurance/api-constants";
+import { RequestResponse } from "@exsys-patient-insurance/refetch";
+import { RecordType, RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 
 // const { LABELS } = API_IDS;
 

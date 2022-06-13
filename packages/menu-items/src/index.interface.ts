@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/menu-items`.
+ * Types: `@exsys-patient-insurance/menu-items`.
  *
  */
-import { SelectListProps, StringNumber } from "@exsys-clinio/types";
+import { SelectListProps, StringNumber } from "@exsys-patient-insurance/types";
 
 export type MenuItemsRefType =
   | React.MutableRefObject<HTMLUListElement | undefined>

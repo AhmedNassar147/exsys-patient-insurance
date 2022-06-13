@@ -1,6 +1,6 @@
 /*
  *
- * `getStatusError`: `@exsys-clinio/refetch`.
+ * `getStatusError`: `@exsys-patient-insurance/refetch`.
  *
  */
 const getStatusError = (status: number): string => {

@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/hooks`.
+ * Package: `@exsys-patient-insurance/hooks`.
  *
  */
 export { default as useCollectPageParams } from "./useCollectPageParams";

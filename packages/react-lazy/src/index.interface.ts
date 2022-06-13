@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/react-lazy`.
+ * Types: `@exsys-patient-insurance/react-lazy`.
  *
  */
 export default interface IProps {

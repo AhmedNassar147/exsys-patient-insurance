@@ -3,7 +3,7 @@
  * helpers: `localStorage`.
  *
  */
-import { KeysOfRecord } from "@exsys-clinio/types";
+import { KeysOfRecord } from "@exsys-patient-insurance/types";
 
 const isTypeOfObject = (value: any) => !!value && typeof value === "object";
 
@@ -18,7 +18,7 @@ const isJsonType = (value: any) => {
   return typeof value === "object" && value !== null;
 };
 
-const baseAppKeyName = "@exsys-clinio";
+const baseAppKeyName = "@exsys-patient-insurance";
 
 const localStorageKeys = {
   patientData: `${baseAppKeyName}_patientData`,

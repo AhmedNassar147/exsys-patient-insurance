@@ -1,12 +1,12 @@
 /*
  *
- * `collectPagesFromPackages`: `@exsys-clinio/generators`.
+ * `collectPagesFromPackages`: `@exsys-patient-insurance/generators`.
  *
  */
 const {
   getWorkSpacesPackageJson,
   updateJsonFile,
-} = require("@exsys-clinio/workspaces-helpers");
+} = require("@exsys-patient-insurance/workspaces-helpers");
 const getPathOfGeneratedRoutesFile = require("./getPathOfGeneratedRoutesFile");
 
 function collectPagesFromPackages() {

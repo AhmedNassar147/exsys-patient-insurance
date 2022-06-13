@@ -1,6 +1,6 @@
 /*
  *
- * `cleanImportsDepsArray`: `@exsys-clinio/validate-yarn-workspaces-deps`
+ * `cleanImportsDepsArray`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`
  *
  */
 const cleanImportsDepsArray = (matchedImportsArray, cleanUpRegex) => {

@@ -6,8 +6,8 @@
 import {
   validateObject,
   beautifyValidationErrorForUser
-} from "@exsys-clinio/validators";
-import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/validators";
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 
 const validateRecordBeforeSaveOrUpdateFn = (record: RecordTypeWithAnyValue) => {
   const errors = validateObject([])(record);

@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/image`
+ * Types: `@exsys-patient-insurance/image`
  *
  */
-import { SpacingsType } from "@exsys-clinio/types";
+import { SpacingsType } from "@exsys-patient-insurance/types";
 
 export interface WrapperProps {
   width?: SpacingsType;

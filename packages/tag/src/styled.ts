@@ -1,11 +1,14 @@
 /*
  *
- * Styled: `@exsys-clinio/tag`.
+ * Styled: `@exsys-patient-insurance/tag`.
  *
  */
 import styled from "styled-components";
-import { flexCenteredRowCss, ellipsisCss } from "@exsys-clinio/styled-helpers";
-import { colors, fontSizes } from "@exsys-clinio/theme-values";
+import {
+  flexCenteredRowCss,
+  ellipsisCss,
+} from "@exsys-patient-insurance/styled-helpers";
+import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
 import TagProps from "./index.interface";
 
 const { inputBorderColor, white2 } = colors;

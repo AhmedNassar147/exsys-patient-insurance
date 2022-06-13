@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/async-awaiter`.
+ * Types: `@exsys-patient-insurance/async-awaiter`.
  *
  */
-import { FlexProps } from "@exsys-clinio/flex";
+import { FlexProps } from "@exsys-patient-insurance/flex";
 
 export default interface Props {
   height?: string;

@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/network-hooks",
+  "name": "@exsys-patient-insurance/network-hooks",
   "version": "1.0.0",
   "private": true,
   "description": "Contains shared network hooks, and initialized fetch.",
@@ -8,13 +8,13 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/api-constants": "1.0.0",
-    "@exsys-clinio/app-config-store": "1.0.0",
-    "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/hooks": "1.0.0",
-    "@exsys-clinio/network-cache-layer": "1.0.0",
-    "@exsys-clinio/refetch": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/api-constants": "1.0.0",
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/network-cache-layer": "1.0.0",
+    "@exsys-patient-insurance/refetch": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

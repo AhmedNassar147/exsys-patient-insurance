@@ -1,6 +1,6 @@
 /*
  *
- * `getActualPathOrParam`: `@exsys-clinio/generators`.
+ * `getActualPathOrParam`: `@exsys-patient-insurance/generators`.
  *
  */
 function getActualPathOrParam(pathOrParam, separator) {

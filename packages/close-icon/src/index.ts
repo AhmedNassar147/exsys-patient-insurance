@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/close-icon`.
+ * Package: `@exsys-patient-insurance/close-icon`.
  *
  */
 import styled from "styled-components";

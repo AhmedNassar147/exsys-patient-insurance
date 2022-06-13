@@ -1,9 +1,9 @@
 /*
  *
- * `setIn`: `@exsys-clinio/helpers`.
+ * `setIn`: `@exsys-patient-insurance/helpers`.
  *
  */
-import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 import castToPath, { Path_Type } from "./castToPath";
 
 type Source_Type = RecordTypeWithAnyValue | (string | number)[];

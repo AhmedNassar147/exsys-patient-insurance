@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/command-line-utils`.
+ * Package: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const consoleColors = require("./consoleColors");

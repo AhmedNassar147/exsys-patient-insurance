@@ -1,6 +1,6 @@
 /*
  *
- * Constant: `@exsys-clinio/input-field`.
+ * Constant: `@exsys-patient-insurance/input-field`.
  *
  */
 export const INTERNAL_INPUT_FIELD_SIZES = Object.freeze({

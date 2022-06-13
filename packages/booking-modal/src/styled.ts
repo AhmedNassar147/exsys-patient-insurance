@@ -1,10 +1,14 @@
 /*
  *
- * Types: `@exsys-clinio/booking-modal`.
+ * Types: `@exsys-patient-insurance/booking-modal`.
  *
  */
 import styled from "styled-components";
-import { spacings, colors, fontSizes } from "@exsys-clinio/theme-values";
+import {
+  spacings,
+  colors,
+  fontSizes,
+} from "@exsys-patient-insurance/theme-values";
 
 export const StyledDateInput = styled.input`
   position: absolute;

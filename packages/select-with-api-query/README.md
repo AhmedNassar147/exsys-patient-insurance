@@ -11,8 +11,8 @@
 ## `Single and multiple modes`
 
 ```typescript
-import SelectWithApiQuery from "@exsys-clinio/select-with-api-query";
-import useFormManager from "@exsys-clinio/form-manager";
+import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import useFormManager from "@exsys-patient-insurance/form-manager";
 
 const MyComponent = () => {
   const {

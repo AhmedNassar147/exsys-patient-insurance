@@ -1,6 +1,6 @@
 /*
  *
- * `processPath`: `@exsys-clinio/generators`.
+ * `processPath`: `@exsys-patient-insurance/generators`.
  *
  */
 const getActualPathOrParam = require("./getActualPathOrParam");

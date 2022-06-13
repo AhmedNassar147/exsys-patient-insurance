@@ -1,11 +1,11 @@
 /*
  *
- * Styled: `@exsys-clinio/async-awaiter`.
+ * Styled: `@exsys-patient-insurance/async-awaiter`.
  *
  */
 import styled from "styled-components";
-import { colors, fontSizes } from "@exsys-clinio/theme-values";
-import TranslateText from "@exsys-clinio/text";
+import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
+import TranslateText from "@exsys-patient-insurance/text";
 
 export const Text = styled(TranslateText)`
   text-align: center;

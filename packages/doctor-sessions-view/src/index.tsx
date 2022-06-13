@@ -1,17 +1,17 @@
 /*
  *
- * Package: `@exsys-clinio/doctor-sessions-view`.
+ * Package: `@exsys-patient-insurance/doctor-sessions-view`.
  *
  */
 import { memo, useState, useCallback, Suspense, lazy } from "react";
-import { useBasicQuery } from "@exsys-clinio/network-hooks";
-import Button from "@exsys-clinio/button";
-import ArrowIcon from "@exsys-clinio/arrow-icon";
+import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
+import Button from "@exsys-patient-insurance/button";
+import ArrowIcon from "@exsys-patient-insurance/arrow-icon";
 import type {
   OnResponseActionType,
   RecordType,
   RecordTypeWithAnyValue,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 import {
   MainSessionsWrapper,
   SessionsWrapper,
@@ -22,7 +22,7 @@ import { SessionViewProps, BaseSessionViewProps } from "./index.interface";
 const SessionView = lazy(
   () =>
     import(
-      "./partials/SessionView" /* webpackChunkName: "exsys-clinio.doctor-sessions-view.SessionView" */
+      "./partials/SessionView" /* webpackChunkName: "exsys-patient-insurance.doctor-sessions-view.SessionView" */
     )
 );
 

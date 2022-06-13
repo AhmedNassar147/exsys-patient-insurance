@@ -1,17 +1,17 @@
 /*
  *
- * Types: `@exsys-clinio/select-field`.
+ * Types: `@exsys-patient-insurance/select-field`.
  *
  */
 import {
   InputFieldProps,
   InputFieldSizesWithoutAuto,
-} from "@exsys-clinio/input-field";
+} from "@exsys-patient-insurance/input-field";
 import {
   MenuItemsDataSourceItemType,
   MenuItemsModeType,
-} from "@exsys-clinio/menu-items";
-import { StringNumber, SelectChangeHandlerType } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/menu-items";
+import { StringNumber, SelectChangeHandlerType } from "@exsys-patient-insurance/types";
 
 export type SelectModeType = MenuItemsModeType;
 

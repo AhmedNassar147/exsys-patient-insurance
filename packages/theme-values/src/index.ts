@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/colors`.
+ * Package: `@exsys-patient-insurance/colors`.
  *
  */
 export * from "./colors";

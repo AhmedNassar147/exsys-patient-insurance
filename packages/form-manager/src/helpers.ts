@@ -1,9 +1,9 @@
 /*
  *
- * Helpers: `@exsys-clinio/form-manager`.
+ * Helpers: `@exsys-patient-insurance/form-manager`.
  *
  */
-import { isObjHasData } from "@exsys-clinio/helpers";
+import { isObjHasData } from "@exsys-patient-insurance/helpers";
 import { Validate, ErrorType } from "./index.interface";
 
 type ValidationOptions<T> = {

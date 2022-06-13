@@ -1,13 +1,13 @@
 /*
  *
- * Styled: `@exsys-clinio/text`.
+ * Styled: `@exsys-patient-insurance/text`.
  *
  */
 import { css } from "styled-components";
 import {
   ellipsisCssHelper,
   fontSizeCssHelper,
-} from "@exsys-clinio/styled-helpers";
+} from "@exsys-patient-insurance/styled-helpers";
 import { TextPropsStyleSheet } from "./index.interface";
 
 const colonCss = css`

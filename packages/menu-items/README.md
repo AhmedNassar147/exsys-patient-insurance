@@ -12,7 +12,7 @@
 import { useCallback } from "react";
 import MenuItems, {
   MenuItemsChangeEvent,
-} from "@exsys-clinio/menu-items";
+} from "@exsys-patient-insurance/menu-items";
 
 const options = [
   {

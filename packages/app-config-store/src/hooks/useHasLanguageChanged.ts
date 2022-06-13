@@ -3,7 +3,7 @@
  * Hook: `useHasLanguageChanged`.
  *
  */
-import { usePrevious } from "@exsys-clinio/hooks";
+import { usePrevious } from "@exsys-patient-insurance/hooks";
 import useMakeSelectCurrentLanguageId from "./useMakeSelectCurrentLanguageId";
 
 const useHasLanguageChanged = () => {

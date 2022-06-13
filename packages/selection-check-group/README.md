@@ -12,8 +12,8 @@
 
 ```typescript
 import { useState } from "react";
-import SelectionCheckGroup from "@exsys-clinio/selection-check-group";
-import useFormManager from "@exsys-clinio/form-manager";
+import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
+import useFormManager from "@exsys-patient-insurance/form-manager";
 
 const MyComponent = () => {
   const {
@@ -46,8 +46,8 @@ const MyComponent = () => {
 
 ```typescript
 import { useState } from "react";
-import SelectionCheckGroup from "@exsys-clinio/selection-check-group";
-import useFormManager from "@exsys-clinio/form-manager";
+import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
+import useFormManager from "@exsys-patient-insurance/form-manager";
 
 const MyComponent = () => {
   const {

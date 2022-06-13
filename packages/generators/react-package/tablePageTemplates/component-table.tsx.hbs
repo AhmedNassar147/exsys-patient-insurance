@@ -1,13 +1,13 @@
 /*
 *
-* `{{properCase name}}`: `@exsys-clinio/{{name}}`.
+* `{{properCase name}}`: `@exsys-patient-insurance/{{name}}`.
 *
 */
 {{#if wrapWithLabelsProvider}}
-import LabelsProvider from "@exsys-clinio/labels-provider";
+import LabelsProvider from "@exsys-patient-insurance/labels-provider";
 import labelIds from "./labelIds.json";
 {{/if}}
-import { TableProvider } from "@exsys-clinio/table";
+import { TableProvider } from "@exsys-patient-insurance/table";
 import { rowKey, defaultNewRecord } from "./constants";
 import ContentView from "./partials";
 

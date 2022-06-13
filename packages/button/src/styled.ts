@@ -1,15 +1,15 @@
 /*
  *
- * Styled: `@exsys-clinio/button`.
+ * Styled: `@exsys-patient-insurance/button`.
  *
  */
 import styled, { css, keyframes } from "styled-components";
-import { colors } from "@exsys-clinio/theme-values";
+import { colors } from "@exsys-patient-insurance/theme-values";
 import {
   flexCenteredRowCss,
   ellipsisCss,
   disabledBackgroundCss,
-} from "@exsys-clinio/styled-helpers";
+} from "@exsys-patient-insurance/styled-helpers";
 import {
   BUTTON_TYPE_STYLES,
   BUTTON_SIZE_STYLES,

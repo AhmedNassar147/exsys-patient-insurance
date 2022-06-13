@@ -1,17 +1,17 @@
 /*
  *
- * Styled: `@exsys-clinio/doctor-sessions-view`.
+ * Styled: `@exsys-patient-insurance/doctor-sessions-view`.
  *
  */
 import styled from "styled-components";
-import { colors, spacings } from "@exsys-clinio/theme-values";
-import Flex from "@exsys-clinio/flex";
-import Text from "@exsys-clinio/text";
-import mediaQueries from "@exsys-clinio/media-queries";
+import { colors, spacings } from "@exsys-patient-insurance/theme-values";
+import Flex from "@exsys-patient-insurance/flex";
+import Text from "@exsys-patient-insurance/text";
+import mediaQueries from "@exsys-patient-insurance/media-queries";
 import {
   customScrollbar,
   flexCenteredRowCss,
-} from "@exsys-clinio/styled-helpers";
+} from "@exsys-patient-insurance/styled-helpers";
 
 export const SessionViewWrapper = styled.div`
   border: 1px solid ${colors.inputBorderColor};

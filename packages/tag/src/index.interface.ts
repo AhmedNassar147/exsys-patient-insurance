@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/tag`.
+ * Types: `@exsys-patient-insurance/tag`.
  *
  */
 

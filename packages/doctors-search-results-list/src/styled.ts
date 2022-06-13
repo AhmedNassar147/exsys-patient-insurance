@@ -1,11 +1,11 @@
 /*
  *
- * Styled: `@exsys-clinio/doctors-search-results-list`.
+ * Styled: `@exsys-patient-insurance/doctors-search-results-list`.
  *
  */
 import styled from "styled-components";
-import { spacings, colors } from "@exsys-clinio/theme-values";
-import mediaQueries from "@exsys-clinio/media-queries";
+import { spacings, colors } from "@exsys-patient-insurance/theme-values";
+import mediaQueries from "@exsys-patient-insurance/media-queries";
 
 export const DoctorInfoContianerWrapper = styled.div`
   display: flex;

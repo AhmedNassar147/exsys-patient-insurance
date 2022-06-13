@@ -1,15 +1,15 @@
 /*
  *
- * Package: `@exsys-clinio/drop-down`.
+ * Package: `@exsys-patient-insurance/drop-down`.
  *
  */
 import { useCallback, useMemo, forwardRef, useImperativeHandle } from "react";
-import { zIndices } from "@exsys-clinio/theme-values";
-import { useMakeSelectIsRTLLayout } from "@exsys-clinio/app-config-store";
+import { zIndices } from "@exsys-patient-insurance/theme-values";
+import { useMakeSelectIsRTLLayout } from "@exsys-patient-insurance/app-config-store";
 import {
   useOpenCloseActionsWithState,
   useBoundingClientRect,
-} from "@exsys-clinio/hooks";
+} from "@exsys-patient-insurance/hooks";
 import { InternalTrigger, StyledModal } from "./styled";
 import {
   DropDownProps,

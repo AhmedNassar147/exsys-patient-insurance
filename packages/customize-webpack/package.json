@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/customize-webpack",
+  "name": "@exsys-patient-insurance/customize-webpack",
   "version": "1.0.0",
   "private": true,
   "description": "Contains code to override `cra` internal webpack config.",
@@ -8,7 +8,7 @@
   "main": "src/",
   "sideEffects": false,
   "peerDependencies": {
-    "@exsys-clinio/workspaces-helpers": "1.0.0",
+    "@exsys-patient-insurance/workspaces-helpers": "1.0.0",
     "customize-cra": "1.x.x",
     "react-app-rewired": "2.x.x"
   },

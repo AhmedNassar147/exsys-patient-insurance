@@ -1,11 +1,11 @@
 /*
  *
- * Styled: `@exsys-clinio/doctors-search-form`.
+ * Styled: `@exsys-patient-insurance/doctors-search-form`.
  *
  */
 import styled from "styled-components";
-import { spacings } from "@exsys-clinio/theme-values";
-import mediaQueries from "@exsys-clinio/media-queries";
+import { spacings } from "@exsys-patient-insurance/theme-values";
+import mediaQueries from "@exsys-patient-insurance/media-queries";
 
 export const DoctorsFormWrapper = styled.div`
   display: grid;

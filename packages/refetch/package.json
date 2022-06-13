@@ -1,11 +1,11 @@
 {
-  "name": "@exsys-clinio/refetch",
+  "name": "@exsys-patient-insurance/refetch",
   "version": "1.0.0",
   "license": "MIT",
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/helpers": "1.0.0"
+    "@exsys-patient-insurance/helpers": "1.0.0"
   },
   "enableBabelTranspilation": true
 }

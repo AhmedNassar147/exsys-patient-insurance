@@ -9,7 +9,7 @@
 # 🔨 Usage Examples
 
 ```typescript
-import CloseIcon from "@exsys-clinio/close-icon";
+import CloseIcon from "@exsys-patient-insurance/close-icon";
 
 const MyComponent = () => (
   <>

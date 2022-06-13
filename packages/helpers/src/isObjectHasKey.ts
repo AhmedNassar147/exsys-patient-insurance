@@ -1,10 +1,10 @@
 /*
  *
- * `isObjectHasKey`: `@exsys-clinio/helpers`.
+ * `isObjectHasKey`: `@exsys-patient-insurance/helpers`.
  *
  */
 import { isObjHasData } from "./isThereData";
-import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 
 const isObjectHasKey = (
   source: RecordTypeWithAnyValue,

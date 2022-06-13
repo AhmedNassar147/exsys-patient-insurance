@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/doctors-search-page",
+  "name": "@exsys-patient-insurance/doctors-search-page",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render the doctors search page.",
@@ -8,11 +8,11 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/doctors-search-form": "1.0.0",
-    "@exsys-clinio/doctors-search-results-list": "1.0.0",
-    "@exsys-clinio/form-manager": "1.0.0",
-    "@exsys-clinio/network-hooks": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/doctors-search-form": "1.0.0",
+    "@exsys-patient-insurance/doctors-search-results-list": "1.0.0",
+    "@exsys-patient-insurance/form-manager": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

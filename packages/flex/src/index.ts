@@ -1,12 +1,15 @@
 /*
  *
- * Packages: `@exsys-clinio/flex`.
+ * Packages: `@exsys-patient-insurance/flex`.
  *
  */
 import styled from "styled-components";
-import { colors } from "@exsys-clinio/theme-values";
-import { ellipsisCssHelper } from "@exsys-clinio/styled-helpers";
-import type { EllipsisCssHelperProps, ColorsType } from "@exsys-clinio/types";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { ellipsisCssHelper } from "@exsys-patient-insurance/styled-helpers";
+import type {
+  EllipsisCssHelperProps,
+  ColorsType,
+} from "@exsys-patient-insurance/types";
 
 type StringBool = "true" | "";
 

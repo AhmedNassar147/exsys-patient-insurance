@@ -1,18 +1,21 @@
 /*
  *
- * Package: `@exsys-clinio/doctors-search-page`.
+ * Package: `@exsys-patient-insurance/doctors-search-page`.
  *
  */
 import { memo, useCallback, useState } from "react";
 import DoctorsSearchForm, {
   INITIAL_FORM_STATE as initialSearchParams,
-} from "@exsys-clinio/doctors-search-form";
-import { useBasicQuery } from "@exsys-clinio/network-hooks";
-import useFromManager from "@exsys-clinio/form-manager";
+} from "@exsys-patient-insurance/doctors-search-form";
+import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
+import useFromManager from "@exsys-patient-insurance/form-manager";
 import DoctorsResultList, {
   DoctorInfoType,
-} from "@exsys-clinio/doctors-search-results-list";
-import type { OnResponseActionType, RecordType } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/doctors-search-results-list";
+import type {
+  OnResponseActionType,
+  RecordType,
+} from "@exsys-patient-insurance/types";
 
 const DoctorsSearchPage = () => {
   const [doctorsData, setDoctorsData] = useState<DoctorInfoType[]>([]);

@@ -1,14 +1,14 @@
 /*
  *
  *
- * Package: `@exsys-clinio/doctors-search-results-list`.
+ * Package: `@exsys-patient-insurance/doctors-search-results-list`.
  *
  */
 import { memo } from "react";
-import Image from "@exsys-clinio/image";
-import Text from "@exsys-clinio/text";
-import { colors } from "@exsys-clinio/theme-values";
-import DoctorSessionsView from "@exsys-clinio/doctor-sessions-view";
+import Image from "@exsys-patient-insurance/image";
+import Text from "@exsys-patient-insurance/text";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import DoctorSessionsView from "@exsys-patient-insurance/doctor-sessions-view";
 import TimeIcon from "./TimeIcon";
 import EarplugIcon from "./EarplugIcon";
 import TextWithIcon from "./TextWithIcon";

@@ -4,8 +4,8 @@
  *
  */
 import { useCallback } from "react";
-import { setItemToStorage } from "@exsys-clinio/helpers";
-import { AppConfigStateType } from "@exsys-clinio/types";
+import { setItemToStorage } from "@exsys-patient-insurance/helpers";
+import { AppConfigStateType } from "@exsys-patient-insurance/types";
 import useAppConfigStore from "./useAppConfigStore";
 
 const useSetAuthConfigData = () => {

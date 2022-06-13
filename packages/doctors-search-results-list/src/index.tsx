@@ -1,12 +1,12 @@
 /*
  *
  *
- * Package: `@exsys-clinio/doctors-search-results-list`.
+ * Package: `@exsys-patient-insurance/doctors-search-results-list`.
  *
  */
 import { memo } from "react";
-import AsyncAwaiter from "@exsys-clinio/async-awaiter";
-import { spacings } from "@exsys-clinio/theme-values";
+import AsyncAwaiter from "@exsys-patient-insurance/async-awaiter";
+import { spacings } from "@exsys-patient-insurance/theme-values";
 import BaseDoctorInfo from "./partials/BaseDoctorInfo";
 import { DoctorInfoType } from "./index.interface";
 

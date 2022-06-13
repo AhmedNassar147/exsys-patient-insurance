@@ -3,7 +3,11 @@
  * Types: `styled-helpers`.
  *
  */
-import { fontSizes, spacings, colors } from "@exsys-clinio/theme-values";
+import {
+  fontSizes,
+  spacings,
+  colors,
+} from "@exsys-patient-insurance/theme-values";
 
 export interface EllipsisCssHelperProps {
   ellipsis?: "true";

@@ -1,9 +1,9 @@
 /*
  *
- * Package: `@exsys-clinio/text`.
+ * Package: `@exsys-patient-insurance/text`.
  *
  */
-import { useTranslateIdFactory } from "@exsys-clinio/labels-provider";
+import { useTranslateIdFactory } from "@exsys-patient-insurance/labels-provider";
 import styled from "styled-components";
 import styleSheet from "./styled";
 import { BaseTextProps, TextProps } from "./index.interface";

@@ -1,26 +1,26 @@
 /*
  *
- * `useBasicMutation`: `@exsys-clinio/network-hooks`.
+ * `useBasicMutation`: `@exsys-patient-insurance/network-hooks`.
  *
  */
 import { useCallback, useState } from "react";
 import {
   useMakeSelectAuthorization,
   useMakeSelectCurrentLanguageId,
-} from "@exsys-clinio/app-config-store";
+} from "@exsys-patient-insurance/app-config-store";
 import {
   BodyShape,
   postRequest,
   deleteRequest,
   putRequest,
-} from "@exsys-clinio/refetch";
-import { API_IDS } from "@exsys-clinio/api-constants";
+} from "@exsys-patient-insurance/refetch";
+import { API_IDS } from "@exsys-patient-insurance/api-constants";
 import {
   RecordTypeWithAnyValue,
   ApiIdsTypes,
   OnResponseActionType,
   QueryResponseValuesType,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 
 type MutationMethodType = "post" | "put" | "delete";
 

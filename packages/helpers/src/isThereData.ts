@@ -1,6 +1,6 @@
 /*
  *
- * `isThereData`: `@exsys-clinio/helpers`.
+ * `isThereData`: `@exsys-patient-insurance/helpers`.
  *
  */
 export const isArrayHasData = <T = Array<any>>(arr: T) =>

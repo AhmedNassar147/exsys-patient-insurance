@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/doctors-search-results-list`.
+ * Types: `@exsys-patient-insurance/doctors-search-results-list`.
  *
  */
-import { CapitalBooleanStringType } from "@exsys-clinio/types";
+import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
 
 export interface DoctorInfoType {
   clinical_entity_no: number;

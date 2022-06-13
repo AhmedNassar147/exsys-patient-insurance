@@ -1,6 +1,6 @@
 /*
  *
- * home-page-modals: `@exsys-clinio/generators`.
+ * home-page-modals: `@exsys-patient-insurance/generators`.
  *
  */
 const { existsSync } = require("fs");

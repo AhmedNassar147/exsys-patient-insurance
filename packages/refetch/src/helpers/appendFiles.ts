@@ -1,6 +1,6 @@
 /*
  *
- * `appendFiles`: `@exsys-clinio/refetch`.
+ * `appendFiles`: `@exsys-patient-insurance/refetch`.
  *
  */
 const appendFiles = (files: File[], fileName: string = "image") => {

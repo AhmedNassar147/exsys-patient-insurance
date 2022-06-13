@@ -9,7 +9,7 @@
 # 🔨 Usage Examples
 
 ```typescript
-import LanguageSelectField { LANGUAGE_SELECT_FIELD_NAME } from '@exsys-clinio/language-select-field';
+import LanguageSelectField { LANGUAGE_SELECT_FIELD_NAME } from '@exsys-patient-insurance/language-select-field';
 
 const INITIAL_FORM_VALUES = {
   [LANGUAGE_SELECT_FIELD_NAME]: 1

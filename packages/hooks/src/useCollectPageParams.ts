@@ -4,7 +4,7 @@
  *
  */
 import { useMemo } from "react";
-import { RecordType } from "@exsys-clinio/types";
+import { RecordType } from "@exsys-patient-insurance/types";
 import useCollectPageParamsLazily from "./useCollectPageParamsLazily";
 
 const useCollectPageParams = <R = RecordType<string>>(): R => {

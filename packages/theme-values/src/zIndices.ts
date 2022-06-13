@@ -1,6 +1,6 @@
 /*
  *
- * zIndices: `@exsys-clinio/theme-values`.
+ * zIndices: `@exsys-patient-insurance/theme-values`.
  *
  */
 export const zIndices = Object.freeze({

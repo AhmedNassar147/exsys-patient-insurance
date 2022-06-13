@@ -1,6 +1,6 @@
 /*
  *
- * `findRootYarnWorkSpaces`: `@exsys-clinio/workspaces-helpers`.
+ * `findRootYarnWorkSpaces`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const { normalize, join } = require("path");

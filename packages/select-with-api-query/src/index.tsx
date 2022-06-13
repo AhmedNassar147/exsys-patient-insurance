@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/select-with-api-query`.
+ * Package: `@exsys-patient-insurance/select-with-api-query`.
  *
  */
 import {
@@ -12,10 +12,13 @@ import {
   useCallback,
   useImperativeHandle,
 } from "react";
-import { usePrevious } from "@exsys-clinio/hooks";
-import { useBasicQuery, useCodeQuery } from "@exsys-clinio/network-hooks";
-import SelectField from "@exsys-clinio/select-field";
-import { QueryResponseValuesType } from "@exsys-clinio/types";
+import { usePrevious } from "@exsys-patient-insurance/hooks";
+import {
+  useBasicQuery,
+  useCodeQuery,
+} from "@exsys-patient-insurance/network-hooks";
+import SelectField from "@exsys-patient-insurance/select-field";
+import { QueryResponseValuesType } from "@exsys-patient-insurance/types";
 import {
   QueryType,
   SelectWithApiQueryProps,

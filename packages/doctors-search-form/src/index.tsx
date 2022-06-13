@@ -1,13 +1,13 @@
 /*
  *
- * Package: `@exsys-clinio/doctors-search-form`.
+ * Package: `@exsys-patient-insurance/doctors-search-form`.
  *
  */
 import { memo } from "react";
-import SelectWithApiQuery from "@exsys-clinio/select-with-api-query";
-import SelectionCheckGroup from "@exsys-clinio/selection-check-group";
-import Button from "@exsys-clinio/button";
-import { onChangeEvent } from "@exsys-clinio/types";
+import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
+import Button from "@exsys-patient-insurance/button";
+import { onChangeEvent } from "@exsys-patient-insurance/types";
 import { DoctorsFormWrapper } from "./styled";
 import { PERIOD_OPTIONS, INITIAL_FORM_STATE } from "./constants";
 

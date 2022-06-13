@@ -1,11 +1,11 @@
 /*
  *
- * Styled : `@exsys-clinio/image`
+ * Styled : `@exsys-patient-insurance/image`
  *
  */
 import styled, { css, keyframes } from "styled-components";
-import { colors, spacings } from "@exsys-clinio/theme-values";
-import { flexCenteredRowCss } from "@exsys-clinio/styled-helpers";
+import { colors, spacings } from "@exsys-patient-insurance/theme-values";
+import { flexCenteredRowCss } from "@exsys-patient-insurance/styled-helpers";
 import { WrapperProps, VisibilityProps } from "./index.interface";
 
 const defaultSize = "sp9";

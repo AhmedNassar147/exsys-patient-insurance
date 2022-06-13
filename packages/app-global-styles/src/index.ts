@@ -1,18 +1,17 @@
 /*
  *
- * Package: `@exsys-clinio/app-global-styles`.
+ * Package: `@exsys-patient-insurance/app-global-styles`.
  *
  */
 import { createGlobalStyle, css } from "styled-components";
-import { colors, spacings } from "@exsys-clinio/theme-values";
-import { customScrollbar } from "@exsys-clinio/styled-helpers";
-import mediaQueries from "@exsys-clinio/media-queries";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { customScrollbar } from "@exsys-patient-insurance/styled-helpers";
 
 import {
   APP_HEADER_HEIGHT,
   APP_HEADER_MARGIN,
   APP_HEADER_HORIZONTAL_PADDING,
-} from "@exsys-clinio/global-app-constants";
+} from "@exsys-patient-insurance/global-app-constants";
 
 const fromXlMainCss = css`
   padding: 0 ${APP_HEADER_HORIZONTAL_PADDING};
@@ -65,30 +64,8 @@ const AppGlobalStyles = createGlobalStyle`
     max-height: ${mainHeight};
     width: 100%;
     overflow: auto;
-  };
-  .main-clinio-app-wrapper{
-    min-height: inherit;
-    max-height: inherit;
-    width: 100%;
-    padding: 0 ${spacings.sp4};
-    margin: unset;
-    ${mediaQueries.md`
-      padding: 0 ${APP_HEADER_HORIZONTAL_PADDING};
-    `};
-    ${mediaQueries.xl`
     ${fromXlMainCss};
-      width: 77%;
-    `}
-
-    ${mediaQueries.xxl`
-      width: 65%;
-      ${fromXlMainCss};
-    `}
-    ${mediaQueries.xxxl`
-      width: 50%;
-      ${fromXlMainCss};
-    `}
-  }
+  };
 `;
 
 export default AppGlobalStyles;

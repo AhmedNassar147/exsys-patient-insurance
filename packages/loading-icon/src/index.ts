@@ -1,6 +1,6 @@
 /*
  *
- * package: `@exsys-clinio/loading-icon`.
+ * package: `@exsys-patient-insurance/loading-icon`.
  *
  */
 import styled, { keyframes } from "styled-components";

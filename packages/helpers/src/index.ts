@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/helpers`.
+ * Package: `@exsys-patient-insurance/helpers`.
  *
  */
 export * from "./isThereData";

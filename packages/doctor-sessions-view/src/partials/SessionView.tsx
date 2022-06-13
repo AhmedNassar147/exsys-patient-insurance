@@ -5,9 +5,9 @@
  */
 
 import { memo, useState, useCallback } from "react";
-import Text from "@exsys-clinio/text";
-import { colors } from "@exsys-clinio/theme-values";
-import LazyLoadedBookingModal from "@exsys-clinio/booking-modal";
+import Text from "@exsys-patient-insurance/text";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import LazyLoadedBookingModal from "@exsys-patient-insurance/booking-modal";
 import {
   SessionViewWrapper,
   AppointmentsWrapper,

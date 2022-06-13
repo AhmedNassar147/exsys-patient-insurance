@@ -9,8 +9,8 @@
 # 🔨 Usage Examples
 
 ```typescript
-import MenuItem from "@exsys-clinio/menu-item";
-import { colors } from "@exsys-clinio/theme-values";
+import MenuItem from "@exsys-patient-insurance/menu-item";
+import { colors } from "@exsys-patient-insurance/theme-values";
 
 const { someColor } = colors;
 

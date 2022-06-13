@@ -1,11 +1,13 @@
 /*
  *
- * Package: `@exsys-clinio/booking-modal`.
+ * Package: `@exsys-patient-insurance/booking-modal`.
  *
  */
-import createLazyLoadedComponent from "@exsys-clinio/react-lazy";
+import createLazyLoadedComponent from "@exsys-patient-insurance/react-lazy";
 
 export default createLazyLoadedComponent(
   () =>
-    import("./component" /* webpackChunkName: "exsys-clinio.booking-modal" */)
+    import(
+      "./component" /* webpackChunkName: "exsys-patient-insurance.booking-modal" */
+    )
 );

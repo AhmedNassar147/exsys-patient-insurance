@@ -1,6 +1,6 @@
 /*
  *
- * Constants: `@exsys-clinio/booking-modal`.
+ * Constants: `@exsys-patient-insurance/booking-modal`.
  *
  */
 interface PreviousReservationsItemType {

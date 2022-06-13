@@ -1,10 +1,10 @@
 /*
  *
- * Styled: `@exsys-clinio/drop-down`.
+ * Styled: `@exsys-patient-insurance/drop-down`.
  *
  */
 import styled from "styled-components";
-import Modal, { ModalProps } from "@exsys-clinio/modal";
+import Modal, { ModalProps } from "@exsys-patient-insurance/modal";
 import { InternalTriggerProps } from "./index.interface";
 
 interface ModalWrapperProps extends ModalProps {

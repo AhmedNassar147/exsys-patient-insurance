@@ -1,13 +1,13 @@
 /*
  *
- * `getAllTranspiledPackagesDataPromises`: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * `getAllTranspiledPackagesDataPromises`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
 const path = require("path");
 const {
   selectTranspiledWorkSpaces,
   CONSTANTS,
-} = require("@exsys-clinio/workspaces-helpers");
+} = require("@exsys-patient-insurance/workspaces-helpers");
 const diveIntoFolderAndGetFiles = require("./diveIntoFolderAndGetFiles");
 const { scriptName } = require("./constants");
 

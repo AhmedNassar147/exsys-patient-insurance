@@ -1,6 +1,6 @@
 /*
  *
- * `getWorkSpacesPackageJson`: `@exsys-clinio/workspaces-helpers`.
+ * `getWorkSpacesPackageJson`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const fs = require("fs");

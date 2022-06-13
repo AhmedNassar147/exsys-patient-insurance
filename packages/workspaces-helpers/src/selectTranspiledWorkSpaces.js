@@ -1,6 +1,6 @@
 /*
  *
- * `selectTranspiledWorkSpaces`: `@exsys-clinio/workspaces-helpers`.
+ * `selectTranspiledWorkSpaces`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const getWorkSpacesPackageJson = require("./getWorkSpacesPackageJson");

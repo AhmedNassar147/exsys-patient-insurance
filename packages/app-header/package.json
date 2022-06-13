@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/app-header",
+  "name": "@exsys-patient-insurance/app-header",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render the app header.",
@@ -8,13 +8,13 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/app-config-store": "1.0.0",
-    "@exsys-clinio/form-manager": "1.0.0",
-    "@exsys-clinio/global-app-constants": "1.0.0",
-    "@exsys-clinio/language-select-field": "1.0.0",
-    "@exsys-clinio/media-queries": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
+    "@exsys-patient-insurance/form-manager": "1.0.0",
+    "@exsys-patient-insurance/global-app-constants": "1.0.0",
+    "@exsys-patient-insurance/language-select-field": "1.0.0",
+    "@exsys-patient-insurance/media-queries": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

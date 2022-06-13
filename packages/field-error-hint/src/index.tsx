@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/field-error-hint`.
+ * Package: `@exsys-patient-insurance/field-error-hint`.
  *
  */
 import { memo } from "react";

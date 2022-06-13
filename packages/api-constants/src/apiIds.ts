@@ -1,6 +1,6 @@
 /*
  *
- * apiIds: `@exsys-clinio/api-constants`.
+ * apiIds: `@exsys-patient-insurance/api-constants`.
  *
  */
 const API_IDS = {

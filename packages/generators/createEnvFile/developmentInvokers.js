@@ -1,6 +1,6 @@
 /*
  *
- * developmentInvokers: `@exsys-clinio/generators`.
+ * developmentInvokers: `@exsys-patient-insurance/generators`.
  *
  */
 const { DEFAULT_VARS_WITH_VALUES } = require("../../environment/src/index.js");

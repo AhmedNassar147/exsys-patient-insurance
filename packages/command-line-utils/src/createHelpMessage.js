@@ -1,6 +1,6 @@
 /*
  *
- * `createHelpMessage`: `@exsys-clinio/command-line-utils`.
+ * `createHelpMessage`: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const consoleColors = require("./consoleColors");

@@ -1,12 +1,12 @@
 /*
  *
- * Package: `@exsys-clinio/check-icon`.
+ * Package: `@exsys-patient-insurance/check-icon`.
  *
  */
 import { memo } from "react";
 import BaseStyledSvg, {
   BaseStyledSvgProps,
-} from "@exsys-clinio/base-styled-svg";
+} from "@exsys-patient-insurance/base-styled-svg";
 
 const CheckIcon = (props: BaseStyledSvgProps) => (
   <BaseStyledSvg {...props}>

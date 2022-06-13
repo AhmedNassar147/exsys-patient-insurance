@@ -1,10 +1,10 @@
 /*
  *
- * `useTranslateIdFactory`: `@exsys-clinio/labels-provider`.
+ * `useTranslateIdFactory`: `@exsys-patient-insurance/labels-provider`.
  *
  */
 import { useCallback } from "react";
-import { translateLabelId } from "@exsys-clinio/helpers";
+import { translateLabelId } from "@exsys-patient-insurance/helpers";
 import usePageLabelsContext from "./usePageLabelsContext";
 
 /**

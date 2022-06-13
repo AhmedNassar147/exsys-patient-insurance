@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/drop-down`.
+ * Types: `@exsys-patient-insurance/drop-down`.
  *
  */
 export interface InternalTriggerProps {

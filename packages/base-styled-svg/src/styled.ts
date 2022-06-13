@@ -1,10 +1,10 @@
 /*
  *
- * Styled: `@exsys-clinio/base-styled-svg`.
+ * Styled: `@exsys-patient-insurance/base-styled-svg`.
  *
  */
 import styled from "styled-components";
-import { colors } from "@exsys-clinio/theme-values";
+import { colors } from "@exsys-patient-insurance/theme-values";
 import { BaseStyledSvgProps } from "./index.interface";
 
 export const Circle = styled.section<BaseStyledSvgProps>`

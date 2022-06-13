@@ -8,7 +8,7 @@ import {
   LANGUAGE_DIRS,
   LANGUAGE_IDS,
   LanguageValuesType,
-} from "@exsys-clinio/global-app-constants";
+} from "@exsys-patient-insurance/global-app-constants";
 import useAppConfigStore from "./useAppConfigStore";
 import useSetAuthConfigData from "./useSetAuthConfigData";
 

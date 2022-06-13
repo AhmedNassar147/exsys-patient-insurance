@@ -1,14 +1,18 @@
 /*
  *
- * Package: `@exsys-clinio/styled-helpers`.
+ * Package: `@exsys-patient-insurance/styled-helpers`.
  *
  */
 import { css } from "styled-components";
-import { fontSizes, colors, spacings } from "@exsys-clinio/theme-values";
+import {
+  fontSizes,
+  colors,
+  spacings,
+} from "@exsys-patient-insurance/theme-values";
 import type {
   TextFontSizeProps,
   EllipsisCssHelperProps,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 
 interface DisabledCssHelperProps {
   disabled?: boolean;

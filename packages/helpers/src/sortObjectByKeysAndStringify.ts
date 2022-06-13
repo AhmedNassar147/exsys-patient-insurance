@@ -1,9 +1,9 @@
 /*
  *
- * `sortObjectByKeysAndStringify`: `@exsys-clinio/helpers`.
+ * `sortObjectByKeysAndStringify`: `@exsys-patient-insurance/helpers`.
  *
  */
-import { RecordTypeWithAnyValue } from "@exsys-clinio/types";
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 
 const sortObjectByKeysAndStringify = (params?: RecordTypeWithAnyValue) => {
   let result = {};

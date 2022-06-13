@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/field-error-hint`.
+ * Types: `@exsys-patient-insurance/field-error-hint`.
  *
  */
 export interface StyledTextProps {

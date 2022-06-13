@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/button`.
+ * Types: `@exsys-patient-insurance/button`.
  *
  */
-import { ValuesOfRecordAsOptions } from "@exsys-clinio/types";
+import { ValuesOfRecordAsOptions } from "@exsys-patient-insurance/types";
 import { BUTTON_TYPES, BUTTON_SIZES, BUTTON_SHAPES } from "./constants";
 
 export type ButtonTypes = ValuesOfRecordAsOptions<typeof BUTTON_TYPES>;

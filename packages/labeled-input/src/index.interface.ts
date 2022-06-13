@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/labeled-input`.
+ * Types: `@exsys-patient-insurance/labeled-input`.
  *
  */
-import { StringNumber } from "@exsys-clinio/types";
+import { StringNumber } from "@exsys-patient-insurance/types";
 
 export type LabeledInputPropType = "inlined" | undefined;
 

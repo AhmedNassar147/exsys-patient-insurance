@@ -1,11 +1,11 @@
 /*
  *
- * Styled: `@exsys-clinio/labeled-input`.
+ * Styled: `@exsys-patient-insurance/labeled-input`.
  *
  */
 import styled from "styled-components";
-import Text from "@exsys-clinio/text";
-import { colors } from "@exsys-clinio/theme-values";
+import Text from "@exsys-patient-insurance/text";
+import { colors } from "@exsys-patient-insurance/theme-values";
 import { BaseLabeledInputProps, LabelProps } from "./index.interface";
 
 const { inputLabelColor, gray1, white, appPrimary } = colors;

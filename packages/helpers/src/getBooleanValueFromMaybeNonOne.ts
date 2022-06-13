@@ -4,7 +4,7 @@
  *
  */
 import isTruthyBooleanString from "./isTruthyBooleanString";
-import { BooleanStringType } from "@exsys-clinio/types";
+import { BooleanStringType } from "@exsys-patient-insurance/types";
 
 //  backend can't send `true` | `false` booleans.
 // so we parse them.

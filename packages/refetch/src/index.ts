@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/refetch`.
+ * Package: `@exsys-patient-insurance/refetch`.
  *
  */
 import createApiResource from "./helpers/createApiResource";

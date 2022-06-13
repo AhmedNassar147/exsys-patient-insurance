@@ -14,10 +14,10 @@ import { createPortal } from "react-dom";
 import {
   useOpenCloseActionsWithState,
   useStopPropagation,
-} from "@exsys-clinio/hooks";
-import CloseIcon from "@exsys-clinio/close-icon";
-import { colors } from "@exsys-clinio/theme-values";
-import { ModalTogglerRef } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/hooks";
+import CloseIcon from "@exsys-patient-insurance/close-icon";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { ModalTogglerRef } from "@exsys-patient-insurance/types";
 import ModalFooter from "./ModalFooter";
 import { DEFAULT_MODAL_PROPS } from "../constants";
 import {

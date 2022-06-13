@@ -1,6 +1,6 @@
 /*
  *
- * `getPathOfGeneratedRoutesFile`: `@exsys-clinio/generators`.
+ * `getPathOfGeneratedRoutesFile`: `@exsys-patient-insurance/generators`.
  *
  */
 

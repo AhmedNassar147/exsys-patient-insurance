@@ -1,6 +1,6 @@
 /*
  *
- * `breakpoints`: `@exsys-clinio/media-queries`.
+ * `breakpoints`: `@exsys-patient-insurance/media-queries`.
  *
  */
 // 'xs' is from 0 to 'sm', we don't use a media query to target it: 'mobile-first'.

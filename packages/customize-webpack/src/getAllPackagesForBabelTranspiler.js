@@ -1,13 +1,13 @@
 /*
  *
- * `getAllPackagesForBabelTranspiler`: `@exsys-clinio/customize-webpack`.
+ * `getAllPackagesForBabelTranspiler`: `@exsys-patient-insurance/customize-webpack`.
  *
  */
 const fs = require("fs");
 const {
   CONSTANTS,
   selectTranspiledWorkSpaces,
-} = require("@exsys-clinio/workspaces-helpers");
+} = require("@exsys-patient-insurance/workspaces-helpers");
 
 const { PROJECT_NAME_SPACE } = CONSTANTS;
 

@@ -3,7 +3,7 @@
  * Helper: `validateFormFields`.
  *
  */
-import { validateFields } from "@exsys-clinio/helpers";
+import { validateFields } from "@exsys-patient-insurance/helpers";
 import convertInputDateToNormalFormat from "./convertInputDateToNormalFormat";
 import { minimumBirthDate } from "../constants";
 import type { FormInitialValuesType } from "../constants";

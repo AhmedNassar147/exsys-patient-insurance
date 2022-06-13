@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/workspaces-helpers",
+  "name": "@exsys-patient-insurance/workspaces-helpers",
   "version": "1.0.0",
   "private": true,
   "description": "Helpers for yarn workspaces.",

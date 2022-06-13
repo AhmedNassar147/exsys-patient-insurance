@@ -1,6 +1,6 @@
 /*
  *
- * Styled: `@exsys-clinio/app-header`.
+ * Styled: `@exsys-patient-insurance/app-header`.
  *
  */
 import styled from "styled-components";
@@ -8,10 +8,14 @@ import {
   APP_HEADER_HEIGHT,
   APP_HEADER_MARGIN,
   APP_HEADER_HORIZONTAL_PADDING,
-} from "@exsys-clinio/global-app-constants";
-import { colors, spacings, zIndices } from "@exsys-clinio/theme-values";
+} from "@exsys-patient-insurance/global-app-constants";
+import {
+  colors,
+  spacings,
+  zIndices,
+} from "@exsys-patient-insurance/theme-values";
 
-import mediaQueries from "@exsys-clinio/media-queries";
+import mediaQueries from "@exsys-patient-insurance/media-queries";
 
 export const StyledHeader = styled.header`
   height: ${APP_HEADER_HEIGHT};

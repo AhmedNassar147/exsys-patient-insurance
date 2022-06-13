@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/loading-icon",
+  "name": "@exsys-patient-insurance/loading-icon",
   "version": "1.0.0",
   "private": true,
   "description": "styled component to render an loading like icon.",
@@ -8,7 +8,7 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/styled-components": "^5.x.x"

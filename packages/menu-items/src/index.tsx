@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/menu-items`.
+ * Package: `@exsys-patient-insurance/menu-items`.
  *
  */
 import {
@@ -11,10 +11,12 @@ import {
   useImperativeHandle,
   forwardRef,
 } from "react";
-import { removeTranslateLabelFromValue } from "@exsys-clinio/helpers";
-import MenuItem, { MENU_ITEM_DEFAULT_PROPS } from "@exsys-clinio/menu-item";
-import AsyncAwaiter from "@exsys-clinio/async-awaiter";
-import { StringNumber } from "@exsys-clinio/types";
+import { removeTranslateLabelFromValue } from "@exsys-patient-insurance/helpers";
+import MenuItem, {
+  MENU_ITEM_DEFAULT_PROPS,
+} from "@exsys-patient-insurance/menu-item";
+import AsyncAwaiter from "@exsys-patient-insurance/async-awaiter";
+import { StringNumber } from "@exsys-patient-insurance/types";
 import { MenuItemsList } from "./styled";
 import {
   MenuItemsDataSourceItemType,

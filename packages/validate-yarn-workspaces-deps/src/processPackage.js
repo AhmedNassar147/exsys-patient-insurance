@@ -1,10 +1,14 @@
 /*
  *
- * `processPackage`: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * `processPackage`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
-const { consoleColors } = require("@exsys-clinio/command-line-utils");
-const { readRootPackageJson } = require("@exsys-clinio/workspaces-helpers");
+const {
+  consoleColors,
+} = require("@exsys-patient-insurance/command-line-utils");
+const {
+  readRootPackageJson,
+} = require("@exsys-patient-insurance/workspaces-helpers");
 const collectFileDeps = require("./collectFileDeps");
 const areDepsNotEqual = require("./areDepsNotEqual");
 const sortDeps = require("./sortDeps");

@@ -4,8 +4,8 @@
  *
  */
 import { useCallback, ChangeEvent, KeyboardEvent } from "react";
-import { createRegexpFromValueString } from "@exsys-clinio/helpers";
-import { onChangeEvent, StringNumber } from "@exsys-clinio/types";
+import { createRegexpFromValueString } from "@exsys-patient-insurance/helpers";
+import { onChangeEvent, StringNumber } from "@exsys-patient-insurance/types";
 
 type BaseOptions = {
   autoCapitalize?: boolean;

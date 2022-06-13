@@ -1,24 +1,30 @@
 /*
  *
- * `BookingModal`: `@exsys-clinio/booking-modal`.
+ * `BookingModal`: `@exsys-patient-insurance/booking-modal`.
  *
  */
 import { memo, useCallback, useState, useMemo } from "react";
-import Modal from "@exsys-clinio/modal";
-import Flex from "@exsys-clinio/flex";
-import { spacings, colors } from "@exsys-clinio/theme-values";
-import Text, { BaseText } from "@exsys-clinio/text";
-import { setItemToStorage, getItemFromStorage } from "@exsys-clinio/helpers";
-import InputField from "@exsys-clinio/input-field";
-import SelectWithApiQuery from "@exsys-clinio/select-with-api-query";
-import useFromManager from "@exsys-clinio/form-manager";
-import { useBasicMutation, useBasicQuery } from "@exsys-clinio/network-hooks";
-import Image from "@exsys-clinio/image";
-import Button from "@exsys-clinio/button";
+import Modal from "@exsys-patient-insurance/modal";
+import Flex from "@exsys-patient-insurance/flex";
+import { spacings, colors } from "@exsys-patient-insurance/theme-values";
+import Text, { BaseText } from "@exsys-patient-insurance/text";
+import {
+  setItemToStorage,
+  getItemFromStorage,
+} from "@exsys-patient-insurance/helpers";
+import InputField from "@exsys-patient-insurance/input-field";
+import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import useFromManager from "@exsys-patient-insurance/form-manager";
+import {
+  useBasicMutation,
+  useBasicQuery,
+} from "@exsys-patient-insurance/network-hooks";
+import Image from "@exsys-patient-insurance/image";
+import Button from "@exsys-patient-insurance/button";
 import {
   OnResponseActionType,
   RecordTypeWithAnyValue,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 import {
   FORM_INITIAL_VALUES,
   minimumBirthDate,

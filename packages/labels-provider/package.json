@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/labels-provider",
+  "name": "@exsys-patient-insurance/labels-provider",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render the `LabelsProvider`.",
@@ -8,9 +8,9 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/network-hooks": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

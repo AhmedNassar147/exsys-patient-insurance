@@ -1,6 +1,6 @@
 /*
  *
- * `readRootPackageJson`: `@exsys-clinio/workspaces-helpers`.
+ * `readRootPackageJson`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const path = require("path");

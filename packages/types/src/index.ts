@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/types`.
+ * Package: `@exsys-patient-insurance/types`.
  *
  */
 

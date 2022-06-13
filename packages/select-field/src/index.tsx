@@ -1,31 +1,31 @@
 /*
  *
- * Package: `@exsys-clinio/select-field`.
+ * Package: `@exsys-patient-insurance/select-field`.
  *
  */
 import { memo, useCallback, useRef, useState, useMemo } from "react";
 import InputField, {
   INPUT_FIELD_DEFAULT_PROPS,
-} from "@exsys-clinio/input-field";
-import { useStopPropagation } from "@exsys-clinio/hooks";
-import { removeTranslateLabelFromValue } from "@exsys-clinio/helpers";
-import DropDown, { useDropdownRef } from "@exsys-clinio/drop-down";
-import ArrowIcon from "@exsys-clinio/arrow-icon";
-import LoadingIcon from "@exsys-clinio/loading-icon";
-import CloseIcon from "@exsys-clinio/close-icon";
-import { colors, zIndices } from "@exsys-clinio/theme-values";
-import Tag from "@exsys-clinio/tag";
+} from "@exsys-patient-insurance/input-field";
+import { useStopPropagation } from "@exsys-patient-insurance/hooks";
+import { removeTranslateLabelFromValue } from "@exsys-patient-insurance/helpers";
+import DropDown, { useDropdownRef } from "@exsys-patient-insurance/drop-down";
+import ArrowIcon from "@exsys-patient-insurance/arrow-icon";
+import LoadingIcon from "@exsys-patient-insurance/loading-icon";
+import CloseIcon from "@exsys-patient-insurance/close-icon";
+import { colors, zIndices } from "@exsys-patient-insurance/theme-values";
+import Tag from "@exsys-patient-insurance/tag";
 import MenuItems, {
   MenuItemsChangeEvent,
   useMenuItemsScrollControllers,
   GetSelectedKeysProp,
   MenuItemsDataSourceItemType,
-} from "@exsys-clinio/menu-items";
+} from "@exsys-patient-insurance/menu-items";
 import {
   StringNumber,
   onChangeEvent,
   RecordTypeWithAnyValue,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 import { SelectFieldProps, SelectModeType } from "./index.interface";
 
 const { inputBorderColor, lighterBlack } = colors;

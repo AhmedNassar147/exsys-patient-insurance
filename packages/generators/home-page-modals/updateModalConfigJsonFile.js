@@ -4,8 +4,8 @@
  *
  */
 const { generatedModalConfigJsonPath } = require("./constants");
-const readJsonFile = require("@exsys-clinio/workspaces-helpers/src/readJsonFile");
-const updateJsonFile = require("@exsys-clinio/workspaces-helpers/src/updateJsonFile");
+const readJsonFile = require("@exsys-patient-insurance/workspaces-helpers/src/readJsonFile");
+const updateJsonFile = require("@exsys-patient-insurance/workspaces-helpers/src/updateJsonFile");
 
 const readGeneratedModalConfig = () => {
   const config = readJsonFile(generatedModalConfigJsonPath, true);

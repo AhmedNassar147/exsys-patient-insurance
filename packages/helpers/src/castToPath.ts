@@ -1,6 +1,6 @@
 /*
  *
- * `castToPath`: `@exsys-clinio/helpers`.
+ * `castToPath`: `@exsys-patient-insurance/helpers`.
  *
  */
 export type Path_Array_Type = (number | string)[];

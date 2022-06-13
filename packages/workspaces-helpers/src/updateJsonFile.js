@@ -1,6 +1,6 @@
 /*
  *
- * `updateJsonFile`: `@exsys-clinio/workspaces-helpers`.
+ * `updateJsonFile`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const fs = require("fs");

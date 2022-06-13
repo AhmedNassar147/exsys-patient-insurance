@@ -4,10 +4,10 @@
  *
  */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppConfigProvider } from "@exsys-clinio/app-config-store";
-import LabelsProvider from "@exsys-clinio/labels-provider";
-import AppHeader from "@exsys-clinio/app-header";
-import DoctorsSearchPage from "@exsys-clinio/doctors-search-page";
+import { AppConfigProvider } from "@exsys-patient-insurance/app-config-store";
+import LabelsProvider from "@exsys-patient-insurance/labels-provider";
+import AppHeader from "@exsys-patient-insurance/app-header";
+import DoctorsSearchPage from "@exsys-patient-insurance/doctors-search-page";
 
 const App = () => (
   <BrowserRouter basename="/">
@@ -15,11 +15,9 @@ const App = () => (
       <LabelsProvider componentName="webDoctorBooking">
         <AppHeader />
         <main>
-          <div className="main-clinio-app-wrapper">
-            <Routes>
-              <Route path="*" element={<DoctorsSearchPage />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="*" element={<DoctorsSearchPage />} />
+          </Routes>
         </main>
       </LabelsProvider>
     </AppConfigProvider>

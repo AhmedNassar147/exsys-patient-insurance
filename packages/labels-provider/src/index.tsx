@@ -1,11 +1,14 @@
 /*
  *
- * Package: `@exsys-clinio/labels-provider`.
+ * Package: `@exsys-patient-insurance/labels-provider`.
  *
  */
 import { useState, useCallback } from "react";
-import { useBasicQuery } from "@exsys-clinio/network-hooks";
-import { RecordType, QueryResponseValuesType } from "@exsys-clinio/types";
+import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
+import {
+  RecordType,
+  QueryResponseValuesType,
+} from "@exsys-patient-insurance/types";
 import Store from "./context";
 
 interface IProps

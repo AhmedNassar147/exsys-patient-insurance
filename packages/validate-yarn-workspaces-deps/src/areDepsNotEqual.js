@@ -1,6 +1,6 @@
 /*
  *
- * `areDepsNotEqual`: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * `areDepsNotEqual`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
 const toProperJson = (depsObj) => JSON.stringify(depsObj || {});

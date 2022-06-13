@@ -1,10 +1,10 @@
 /*
  *
- * Package: `@exsys-clinio/menu-item`.
+ * Package: `@exsys-patient-insurance/menu-item`.
  *
  */
-import CheckIcon from "@exsys-clinio/check-icon";
-import { colors } from "@exsys-clinio/theme-values";
+import CheckIcon from "@exsys-patient-insurance/check-icon";
+import { colors } from "@exsys-patient-insurance/theme-values";
 import { BaseMenuItem, ChildrenContainer } from "./styled";
 import { MenuItemProps } from "./index.interface";
 

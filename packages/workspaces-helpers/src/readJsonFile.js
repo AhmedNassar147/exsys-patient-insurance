@@ -1,6 +1,6 @@
 /*
  *
- * `readJsonFile`: `@exsys-clinio/workspaces-helpers`.
+ * `readJsonFile`: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const fs = require("fs");

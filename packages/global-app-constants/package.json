@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/global-app-constants",
+  "name": "@exsys-patient-insurance/global-app-constants",
   "version": "1.0.0",
   "private": true,
   "description": "Contains the global app constants.",
@@ -8,7 +8,7 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/theme-values": "1.0.0"
+    "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "enableBabelTranspilation": true
 }

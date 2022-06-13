@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/doctors-search-form",
+  "name": "@exsys-patient-insurance/doctors-search-form",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render the doctors search form.",
@@ -8,12 +8,12 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/button": "1.0.0",
-    "@exsys-clinio/media-queries": "1.0.0",
-    "@exsys-clinio/select-with-api-query": "1.0.0",
-    "@exsys-clinio/selection-check-group": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/button": "1.0.0",
+    "@exsys-patient-insurance/media-queries": "1.0.0",
+    "@exsys-patient-insurance/select-with-api-query": "1.0.0",
+    "@exsys-patient-insurance/selection-check-group": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

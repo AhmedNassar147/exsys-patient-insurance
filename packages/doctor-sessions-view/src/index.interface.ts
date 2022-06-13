@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/doctor-sessions-view`.
+ * Types: `@exsys-patient-insurance/doctor-sessions-view`.
  *
  */
-import { CapitalBooleanStringType } from "@exsys-clinio/types";
+import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
 
 export interface AppointmentShapeType {
   appointmentId: number;

@@ -1,6 +1,6 @@
 /*
  *
- * `getPageNameFromPathName`: `@exsys-clinio/helpers`.
+ * `getPageNameFromPathName`: `@exsys-patient-insurance/helpers`.
  *
  */
 const getPageNameFromPathName = (pathname?: string): string => {

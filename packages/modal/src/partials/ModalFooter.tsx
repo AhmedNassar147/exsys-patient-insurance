@@ -4,15 +4,13 @@
  *
  */
 import { memo, useCallback } from "react";
-import Button from "@exsys-clinio/button";
+import Button from "@exsys-patient-insurance/button";
 import { ModalFooterWrapper } from "../styled";
 import { DEFAULT_MODAL_FOOTER_PROPS } from "../constants";
 import { FooterProps } from "../index.interface";
 
-const {
-  okText: defaultOkText,
-  cancelText: defaultCancelText,
-} = DEFAULT_MODAL_FOOTER_PROPS;
+const { okText: defaultOkText, cancelText: defaultCancelText } =
+  DEFAULT_MODAL_FOOTER_PROPS;
 
 const ModalFooter = ({
   onOk,

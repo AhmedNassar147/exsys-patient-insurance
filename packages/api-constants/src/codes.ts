@@ -1,6 +1,6 @@
 /*
  *
- * Codes: `@exsys-clinio/api-constants`.
+ * Codes: `@exsys-patient-insurance/api-constants`.
  *
  */
 const CODES_IDS = {

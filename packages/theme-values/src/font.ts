@@ -1,6 +1,6 @@
 /*
  *
- * fontSizes: `@exsys-clinio/theme-values`.
+ * fontSizes: `@exsys-patient-insurance/theme-values`.
  *
  */
 export const fontSizes = {

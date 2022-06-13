@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/base-styled-svg`.
+ * Package: `@exsys-patient-insurance/base-styled-svg`.
  *
  */
 import { Fragment } from "react";

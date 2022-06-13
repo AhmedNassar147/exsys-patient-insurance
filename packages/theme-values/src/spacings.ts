@@ -1,6 +1,6 @@
 /*
  *
- * spacings: `@exsys-clinio/theme-values`.
+ * spacings: `@exsys-patient-insurance/theme-values`.
  *
  */
 export const spacings = {

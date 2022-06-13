@@ -1,13 +1,13 @@
 /*
  *
- * Types: `@exsys-clinio/form-manager`.
+ * Types: `@exsys-patient-insurance/form-manager`.
  *
  */
 import {
   onChangeEvent,
   RecordType,
   RecordTypeWithAnyValue,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 
 export type FormValuesLikeType = RecordTypeWithAnyValue;
 

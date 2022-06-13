@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/media-queries`.
+ * Package: `@exsys-patient-insurance/media-queries`.
  *
  */
 import {
@@ -9,7 +9,7 @@ import {
   CSSObject,
   SimpleInterpolation,
 } from "styled-components";
-import { KeysOfRecord } from "@exsys-clinio/types";
+import { KeysOfRecord } from "@exsys-patient-insurance/types";
 import { breakpoints } from "./breakpoints";
 
 type BreakPointsKeysType = KeysOfRecord<typeof breakpoints>;

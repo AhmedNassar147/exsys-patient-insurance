@@ -1,17 +1,17 @@
 /*
  *
- * Styled: `@exsys-clinio/selection-check`.
+ * Styled: `@exsys-patient-insurance/selection-check`.
  *
  */
 import styled, { css } from "styled-components";
-import { colors, fontSizes } from "@exsys-clinio/theme-values";
+import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
 import {
   flexCenteredRowCss,
   disabledBackgroundCss,
   disabledCssHelper,
   ellipsisCss,
-} from "@exsys-clinio/styled-helpers";
-import { BaseSelectionCheckProps } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/styled-helpers";
+import { BaseSelectionCheckProps } from "@exsys-patient-insurance/types";
 
 const { inputLabelColor, white, inputBorderColor, appPrimary } = colors;
 const { ff8: mediumFont } = fontSizes;

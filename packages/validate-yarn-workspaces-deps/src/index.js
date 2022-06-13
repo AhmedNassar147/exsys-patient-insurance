@@ -1,13 +1,13 @@
 /*
  *
- * Package: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * Package: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
 const {
   createCliController,
   consoleColors,
   delayProcess,
-} = require("@exsys-clinio/command-line-utils");
+} = require("@exsys-patient-insurance/command-line-utils");
 const processPackage = require("./processPackage");
 const getAllTranspiledPackagesDataPromises = require("./getAllTranspiledPackagesDataPromises");
 const { cliOptions } = require("./constants");

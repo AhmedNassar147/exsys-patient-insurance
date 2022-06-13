@@ -1,6 +1,6 @@
 /*
  *
- * Constants: `@exsys-clinio/doctors-search-form`.
+ * Constants: `@exsys-patient-insurance/doctors-search-form`.
  *
  */
 export const PERIOD_OPTIONS = [

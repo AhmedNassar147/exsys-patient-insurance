@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/generators",
+  "name": "@exsys-patient-insurance/generators",
   "private": true,
   "version": "1.0.0",
   "description": "A package to generate packages.",
@@ -8,7 +8,7 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/workspaces-helpers": "1.0.0"
+    "@exsys-patient-insurance/workspaces-helpers": "1.0.0"
   },
   "enableBabelTranspilation": false
 }

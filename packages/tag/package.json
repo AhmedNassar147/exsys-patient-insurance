@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/tag",
+  "name": "@exsys-patient-insurance/tag",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render a tag.",
@@ -8,10 +8,10 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/close-icon": "1.0.0",
-    "@exsys-clinio/styled-helpers": "1.0.0",
-    "@exsys-clinio/text": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0"
+    "@exsys-patient-insurance/close-icon": "1.0.0",
+    "@exsys-patient-insurance/styled-helpers": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "peerDependencies": {
     "@types/styled-components": "^5.x.x"

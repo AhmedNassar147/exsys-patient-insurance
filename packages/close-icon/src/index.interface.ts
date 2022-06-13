@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/close-icon`.
+ * Types: `@exsys-patient-insurance/close-icon`.
  *
  */
 export default interface CloseIconProps {

@@ -1,6 +1,6 @@
 /*
  *
- * `debounce`: `@exsys-clinio/helpers`.
+ * `debounce`: `@exsys-patient-insurance/helpers`.
  *
  */
 const debounce = (fn: Function, timeout = 250) => {

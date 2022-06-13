@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/react-lazy",
+  "name": "@exsys-patient-insurance/react-lazy",
   "version": "1.0.0",
   "private": true,
   "description": "A wrapper around `React.lazy` to create lazy loaded components.",

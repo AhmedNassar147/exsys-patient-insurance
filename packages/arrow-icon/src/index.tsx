@@ -1,15 +1,15 @@
 /*
  *
- * Package: `@exsys-clinio/arrow-icon`.
+ * Package: `@exsys-patient-insurance/arrow-icon`.
  *
  */
 import { memo, useMemo } from "react";
 import BaseStyledSvg, {
   BaseStyledSvgProps,
-} from "@exsys-clinio/base-styled-svg";
-import { useMakeSelectIsRTLLayout } from "@exsys-clinio/app-config-store";
-import { colors } from "@exsys-clinio/theme-values";
-import { ArrowDirectionType } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/base-styled-svg";
+import { useMakeSelectIsRTLLayout } from "@exsys-patient-insurance/app-config-store";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { ArrowDirectionType } from "@exsys-patient-insurance/types";
 
 const { inputLabelColor } = colors;
 

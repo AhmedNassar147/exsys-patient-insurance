@@ -1,9 +1,12 @@
 /*
  *
- * Types: `@exsys-clinio/text`.
+ * Types: `@exsys-patient-insurance/text`.
  *
  */
-import { TextFontSizeProps, EllipsisCssHelperProps } from "@exsys-clinio/types";
+import {
+  TextFontSizeProps,
+  EllipsisCssHelperProps,
+} from "@exsys-patient-insurance/types";
 
 export interface TextPropsStyleSheet
   extends TextFontSizeProps,

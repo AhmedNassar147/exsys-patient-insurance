@@ -1,6 +1,6 @@
 /*
  *
- * routes data generator: `@exsys-clinio/generators`.
+ * routes data generator: `@exsys-patient-insurance/generators`.
  *
  */
 

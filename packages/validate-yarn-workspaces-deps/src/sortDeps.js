@@ -1,6 +1,6 @@
 /*
  *
- * `sortDeps`: `@exsys-clinio/validate-yarn-workspaces-deps`.
+ * `sortDeps`: `@exsys-patient-insurance/validate-yarn-workspaces-deps`.
  *
  */
 const sortDeps = (depsObject) => {

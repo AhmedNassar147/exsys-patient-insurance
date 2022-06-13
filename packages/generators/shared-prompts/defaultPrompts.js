@@ -4,7 +4,7 @@
  *
  */
 const packageExists = require("../utils/packageExists");
-const { CONSTANTS } = require("@exsys-clinio/workspaces-helpers");
+const { CONSTANTS } = require("@exsys-patient-insurance/workspaces-helpers");
 
 const defaultPrompts = [
   {
@@ -18,7 +18,7 @@ const defaultPrompts = [
           return "A package with this name already exists.";
         }
 
-        if (/^@exsys-clinio\/?.+/.test(value)) {
+        if (/^@exsys-patient-insurance\/?.+/.test(value)) {
           return `The package name should not start with \`${CONSTANTS.PROJECT_NAME_SPACE}\`, it is pre-filled.`;
         }
 

@@ -1,19 +1,19 @@
 /*
  *
- * Package: `@exsys-clinio/app-header`.
+ * Package: `@exsys-patient-insurance/app-header`.
  *
  */
 import { memo, useCallback } from "react";
 import LanguageSelectField, {
   LANGUAGE_SELECT_FIELD_NAME,
-} from "@exsys-clinio/language-select-field";
+} from "@exsys-patient-insurance/language-select-field";
 import {
   useLanguageSwitcher,
   useMakeSelectCurrentLanguageId,
-} from "@exsys-clinio/app-config-store";
-import useFormManager from "@exsys-clinio/form-manager";
-import { spacings, colors } from "@exsys-clinio/theme-values";
-import { onChangeEvent } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/app-config-store";
+import useFormManager from "@exsys-patient-insurance/form-manager";
+import { spacings, colors } from "@exsys-patient-insurance/theme-values";
+import { onChangeEvent } from "@exsys-patient-insurance/types";
 import { StyledHeader, StyledAppLogo } from "./styled";
 
 const Logo = memo(() => (

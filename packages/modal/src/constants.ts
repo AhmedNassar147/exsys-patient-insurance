@@ -1,9 +1,9 @@
 /*
  *
- * Constants: `@exsys-clinio/modal`.
+ * Constants: `@exsys-patient-insurance/modal`.
  *
  */
-import { zIndices } from "@exsys-clinio/theme-values";
+import { zIndices } from "@exsys-patient-insurance/theme-values";
 
 export const DEFAULT_MODAL_FOOTER_PROPS = Object.freeze({
   withOkButton: true,

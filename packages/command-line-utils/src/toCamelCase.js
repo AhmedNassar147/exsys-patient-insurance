@@ -1,6 +1,6 @@
 /*
  *
- * toCamelCase: `@exsys-clinio/command-line-utils`.
+ * toCamelCase: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 

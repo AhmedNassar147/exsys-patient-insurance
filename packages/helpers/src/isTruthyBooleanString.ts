@@ -1,6 +1,6 @@
 /*
  *
- * `isTruthyBooleanString`: `@exsys-clinio/helpers`.
+ * `isTruthyBooleanString`: `@exsys-patient-insurance/helpers`.
  *
  */
 const isTruthyBooleanString = (booleanStringValue: string) => {

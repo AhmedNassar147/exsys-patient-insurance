@@ -4,6 +4,6 @@
  *
  */
 import { createContext } from "react";
-import { RecordType } from "@exsys-clinio/types";
+import { RecordType } from "@exsys-patient-insurance/types";
 
 export default createContext<RecordType>({});

@@ -1,11 +1,11 @@
 /*
  *
- * Package: `@exsys-clinio/button`.
+ * Package: `@exsys-patient-insurance/button`.
  *
  */
 import { memo, useMemo, forwardRef } from "react";
-import LoadingIcon from "@exsys-clinio/loading-icon";
-import { BaseText } from "@exsys-clinio/text";
+import LoadingIcon from "@exsys-patient-insurance/loading-icon";
+import { BaseText } from "@exsys-patient-insurance/text";
 import { StyledButton, StyledLink } from "./styled";
 import { DEFAULT_PROPS, BUTTON_TYPES, BUTTON_SIZES } from "./constants";
 import ButtonProps from "./index.interface";

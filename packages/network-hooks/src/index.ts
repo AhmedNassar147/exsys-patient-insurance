@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/network-hooks`.
+ * Package: `@exsys-patient-insurance/network-hooks`.
  *
  */
 export { default as useBasicMutation } from "./useBasicMutation";

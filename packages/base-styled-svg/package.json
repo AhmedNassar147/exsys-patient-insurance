@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/base-styled-svg",
+  "name": "@exsys-patient-insurance/base-styled-svg",
   "version": "1.0.0",
   "private": true,
   "description": "Renders a styled `svg` component.",
@@ -8,8 +8,8 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/theme-values": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

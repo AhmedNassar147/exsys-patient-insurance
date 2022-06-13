@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/input-field",
+  "name": "@exsys-patient-insurance/input-field",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render an input.",
@@ -8,14 +8,14 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/app-config-store": "1.0.0",
-    "@exsys-clinio/field-error-hint": "1.0.0",
-    "@exsys-clinio/helpers": "1.0.0",
-    "@exsys-clinio/labeled-input": "1.0.0",
-    "@exsys-clinio/labels-provider": "1.0.0",
-    "@exsys-clinio/styled-helpers": "1.0.0",
-    "@exsys-clinio/theme-values": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
+    "@exsys-patient-insurance/field-error-hint": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/labeled-input": "1.0.0",
+    "@exsys-patient-insurance/labels-provider": "1.0.0",
+    "@exsys-patient-insurance/styled-helpers": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

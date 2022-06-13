@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-clinio/select-with-api-query",
+  "name": "@exsys-patient-insurance/select-with-api-query",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render a select field and calls the given `apiId` then sets the values to the select options.",
@@ -8,11 +8,11 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-clinio/global-app-constants": "1.0.0",
-    "@exsys-clinio/hooks": "1.0.0",
-    "@exsys-clinio/network-hooks": "1.0.0",
-    "@exsys-clinio/select-field": "1.0.0",
-    "@exsys-clinio/types": "1.0.0"
+    "@exsys-patient-insurance/global-app-constants": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
+    "@exsys-patient-insurance/select-field": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"

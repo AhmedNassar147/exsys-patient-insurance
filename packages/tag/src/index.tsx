@@ -1,11 +1,11 @@
 /*
  *
- * Package: `@exsys-clinio/tag`.
+ * Package: `@exsys-patient-insurance/tag`.
  *
  */
-import { BaseText } from "@exsys-clinio/text";
-import { colors } from "@exsys-clinio/theme-values";
-import CloseIcon from "@exsys-clinio/close-icon";
+import { BaseText } from "@exsys-patient-insurance/text";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import CloseIcon from "@exsys-patient-insurance/close-icon";
 import { TagWrapper } from "./styled";
 import TagProps from "./index.interface";
 

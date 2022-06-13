@@ -7,9 +7,9 @@ import { useState, useLayoutEffect } from "react";
 import {
   LANGUAGE_DIRS,
   LanguageValuesType,
-} from "@exsys-clinio/global-app-constants";
-import { getItemFromStorage } from "@exsys-clinio/helpers";
-import { AppConfigStateType } from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/global-app-constants";
+import { getItemFromStorage } from "@exsys-patient-insurance/helpers";
+import { AppConfigStateType } from "@exsys-patient-insurance/types";
 import Store, { initialState } from "../context";
 
 const AppConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {

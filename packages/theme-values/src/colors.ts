@@ -1,6 +1,6 @@
 /*
  *
- * colors: `@exsys-clinio/theme-values`.
+ * colors: `@exsys-patient-insurance/theme-values`.
  *
  */
 export const colors = {

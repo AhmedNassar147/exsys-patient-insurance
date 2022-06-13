@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/workspaces-helpers`.
+ * Package: `@exsys-patient-insurance/workspaces-helpers`.
  *
  */
 const getWorkSpacesPackageJson = require("./getWorkSpacesPackageJson");

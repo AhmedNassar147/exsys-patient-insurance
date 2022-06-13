@@ -1,9 +1,9 @@
 /*
  *
- * Package: `@exsys-clinio/global-app-constants`.
+ * Package: `@exsys-patient-insurance/global-app-constants`.
  *
  */
-import { spacings } from "@exsys-clinio/theme-values";
+import { spacings } from "@exsys-patient-insurance/theme-values";
 
 export const T_TRANSLATE_REGEXP = /__t__\w+/gim;
 

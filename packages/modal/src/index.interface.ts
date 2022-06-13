@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/modal`.
+ * Types: `@exsys-patient-insurance/modal`.
  *
  */
 export interface ModalMaskProps {

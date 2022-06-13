@@ -1,6 +1,6 @@
 /*
  *
- * `useOpenCloseActionsWithState`: `@exsys-clinio/hooks`.
+ * `useOpenCloseActionsWithState`: `@exsys-patient-insurance/hooks`.
  *
  */
 import { useState, useCallback } from "react";
@@ -12,14 +12,13 @@ export type UseOpenCloseActionsWithStateResultsType = {
   handleClose: () => void;
 };
 
-export const DEFAULT_OPEN_CLOSE_PROVIDER_STATE_OPTIONS: UseOpenCloseActionsWithStateResultsType = Object.freeze(
-  {
+export const DEFAULT_OPEN_CLOSE_PROVIDER_STATE_OPTIONS: UseOpenCloseActionsWithStateResultsType =
+  Object.freeze({
     visible: false,
     setVisibility: () => null,
     handleOpen: () => null,
     handleClose: () => null,
-  }
-);
+  });
 
 export const useOpenCloseActionsWithState = (
   defaultOpen?: (() => boolean) | boolean

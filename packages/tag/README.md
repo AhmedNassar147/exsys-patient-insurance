@@ -10,7 +10,7 @@
 
 ```typescript
 import { useState } from "react";
-import Tag from "@exsys-clinio/tag";
+import Tag from "@exsys-patient-insurance/tag";
 
 const MyComponent = () => (
   <div>

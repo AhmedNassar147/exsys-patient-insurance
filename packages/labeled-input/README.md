@@ -14,7 +14,7 @@
 ```
 
 ```typescript
-import labeledInput from "@exsys-clinio/labeled-input";
+import labeledInput from "@exsys-patient-insurance/labeled-input";
 
 const MyComponent = () => (
   <>

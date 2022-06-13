@@ -9,7 +9,7 @@
 # 🔨 Usage Examples
 
 ```typescript
-import BaseStyledSvg from "@exsys-clinio/base-styled-svg";
+import BaseStyledSvg from "@exsys-patient-insurance/base-styled-svg";
 
 const MyIcon = (props: BaseStyledSvgProps) => (
   <BaseStyledSvg {...props}>

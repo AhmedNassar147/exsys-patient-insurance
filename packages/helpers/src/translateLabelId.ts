@@ -1,11 +1,11 @@
 /*
  *
- * `translateLabelId`: `@exsys-clinio/helpers`.
+ * `translateLabelId`: `@exsys-patient-insurance/helpers`.
  *
  */
-import { T_TRANSLATE_REGEXP } from "@exsys-clinio/global-app-constants";
+import { T_TRANSLATE_REGEXP } from "@exsys-patient-insurance/global-app-constants";
 import isObjectHasKey from "./isObjectHasKey";
-import { RecordType } from "@exsys-clinio/types";
+import { RecordType } from "@exsys-patient-insurance/types";
 
 type LabelIdType = string | React.ReactNode;
 

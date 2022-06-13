@@ -1,12 +1,12 @@
 /*
  *
- * Package: `@exsys-clinio/selection-check-group`.
+ * Package: `@exsys-patient-insurance/selection-check-group`.
  *
  */
 import { useCallback, memo } from "react";
-import Flex from "@exsys-clinio/flex";
-import SelectionCheck from "@exsys-clinio/selection-check";
-import FloatLabel from "@exsys-clinio/labeled-input";
+import Flex from "@exsys-patient-insurance/flex";
+import SelectionCheck from "@exsys-patient-insurance/selection-check";
+import FloatLabel from "@exsys-patient-insurance/labeled-input";
 import {
   ChangeEventParams,
   StringNumber,
@@ -15,7 +15,7 @@ import {
   SelectionCheckGroupProps,
   MultipleSelectedValuesPropType,
   GetSelectionCheckGroupValueType,
-} from "@exsys-clinio/types";
+} from "@exsys-patient-insurance/types";
 
 const SelectionCheckGroup = <T extends SelectionCheckModes>({
   onChange,

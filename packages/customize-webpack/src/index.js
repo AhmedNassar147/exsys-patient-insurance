@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/customize-webpack`.
+ * Package: `@exsys-patient-insurance/customize-webpack`.
  *
  */
 const path = require("path");

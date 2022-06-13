@@ -1,9 +1,9 @@
 /*
  *
- * Types: `@exsys-clinio/base-styled-svg`.
+ * Types: `@exsys-patient-insurance/base-styled-svg`.
  *
  */
-import { BaseSvgProps } from "@exsys-clinio/types";
+import { BaseSvgProps } from "@exsys-patient-insurance/types";
 
 export interface BaseStyledSvgProps extends Omit<BaseSvgProps, "style"> {
   disabled?: boolean;

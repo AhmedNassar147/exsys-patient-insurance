@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-clinio/modal`.
+ * Package: `@exsys-patient-insurance/modal`.
  *
  */
 import Modal from "./partials/Modal";

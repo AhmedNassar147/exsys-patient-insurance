@@ -1,12 +1,12 @@
 /*
  *
- * Package: `@exsys-clinio/clear-icon`.
+ * Package: `@exsys-patient-insurance/clear-icon`.
  *
  */
 import { memo } from "react";
 import BaseStyledSvg, {
   BaseStyledSvgProps,
-} from "@exsys-clinio/base-styled-svg";
+} from "@exsys-patient-insurance/base-styled-svg";
 
 const ClearIcon = (props: BaseStyledSvgProps) => (
   <BaseStyledSvg {...props}>

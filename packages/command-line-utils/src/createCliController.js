@@ -1,6 +1,6 @@
 /*
  *
- * `createCliController`: `@exsys-clinio/command-line-utils`.
+ * `createCliController`: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const createHelpMessage = require("./createHelpMessage");
@@ -13,11 +13,8 @@ const createCliController = async ({
   throwIfNoOptionSet,
   runCliFn,
 }) => {
-  const {
-    hasOptions,
-    shouldDisplayHelpMessage,
-    ...cliOptions
-  } = await collectProcessOptions();
+  const { hasOptions, shouldDisplayHelpMessage, ...cliOptions } =
+    await collectProcessOptions();
 
   if (throwIfNoOptionSet && !hasOptions) {
     throw new Error(`

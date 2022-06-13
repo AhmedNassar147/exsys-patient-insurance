@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-clinio/menu-item`.
+ * Types: `@exsys-patient-insurance/menu-item`.
  *
  */
 export interface MenuItemProps

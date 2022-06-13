@@ -1,6 +1,6 @@
 /*
  *
- * `collectProcessOptionsSync`: `@exsys-clinio/command-line-utils`.
+ * `collectProcessOptionsSync`: `@exsys-patient-insurance/command-line-utils`.
  *
  */
 const toCamelCase = require("./toCamelCase");

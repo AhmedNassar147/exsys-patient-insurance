@@ -1,5 +1,5 @@
 /*
- * development env file generator : `@exsys-clinio/generators`.
+ * development env file generator : `@exsys-patient-insurance/generators`.
  * Exports the generators so that `plop` knows them.
  */
 const developmentInvokers = require("./developmentInvokers");

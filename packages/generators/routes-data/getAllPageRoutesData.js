@@ -1,9 +1,9 @@
 /*
  *
- * `getAllPageRoutesData`: `@exsys-clinio/generators`.
+ * `getAllPageRoutesData`: `@exsys-patient-insurance/generators`.
  *
  */
-const { readJsonFile } = require("@exsys-clinio/workspaces-helpers");
+const { readJsonFile } = require("@exsys-patient-insurance/workspaces-helpers");
 const getPathOfGeneratedRoutesFile = require("./getPathOfGeneratedRoutesFile");
 const APP_PAGES_DATA = require("./old-app-data");
 const processPath = require("./processPath");

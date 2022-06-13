@@ -11,8 +11,8 @@
 ## `Single and multiple modes`
 
 ```typescript
-import SelectField from "@exsys-clinio/select-field";
-import useFormManager from "@exsys-clinio/form-manager";
+import SelectField from "@exsys-patient-insurance/select-field";
+import useFormManager from "@exsys-patient-insurance/form-manager";
 
 const options = [
   {
