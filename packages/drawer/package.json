@@ -1,0 +1,20 @@
+{
+  "name": "@exsys-patient-insurance/drawer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a drawer.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
+    "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/styled-helpers": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

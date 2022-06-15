@@ -26,17 +26,17 @@ export const StyledHeader = styled.header<{ isLoginPage?: boolean }>`
   align-items: center;
   justify-content: space-between;
   padding: 0 ${APP_HEADER_HORIZONTAL_PADDING};
-  margin-bottom: ${APP_HEADER_MARGIN};
   background-color: ${colors.white};
   z-index: ${zIndices.appHeader};
   ${({ isLoginPage }) =>
     isLoginPage
-      ? ""
+      ? `
+      margin-bottom: ${APP_HEADER_MARGIN};
+      `
       : `
     text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
     -webkit-box-shadow: 0px 2px 0 rgb(0 0 0 / 3%);
     box-shadow: 0px 2px 0 rgb(0 0 0 / 3%);
-    border-bottom: 1px solid ${colors.inputBorderColor};
   `};
 `;
 

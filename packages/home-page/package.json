@@ -1,0 +1,21 @@
+{
+  "name": "@exsys-patient-insurance/home-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the home page.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "routeData": {
+    "path": "/home",
+    "params": [
+      "contentRouteName"
+    ]
+  },
+  "enableBabelTranspilation": true
+}
