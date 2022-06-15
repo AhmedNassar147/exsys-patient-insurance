@@ -10,7 +10,7 @@ import LabelsProvider from "@exsys-patient-insurance/labels-provider";
 import AppHeader from "@exsys-patient-insurance/app-header";
 import AppFooter from "@exsys-patient-insurance/app-footer";
 import LoginPage from "@exsys-patient-insurance/login-page";
-// import HomePage from "@exsys-patient-insurance/home-page";
+import HomePage from "@exsys-patient-insurance/home-page";
 
 const App = () => (
   <>
@@ -22,9 +22,9 @@ const App = () => (
             <Suspense fallback={null}>
               <Routes>
                 <Route path="/" element={<LoginPage />} />
-                {/* <Route path="/home" element={<HomePage />}>
+                <Route path="/home" element={<HomePage />}>
                   <Route path=":contentRouteName" />
-                </Route> */}
+                </Route>
               </Routes>
             </Suspense>
           </main>

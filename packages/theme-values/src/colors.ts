@@ -33,6 +33,7 @@ export const colors = {
   // pink: "#ED4D7E",
   lightPink: "#fff0f0",
   inputLabelColor: "rgba(0, 0, 0, 0.65)",
+  closeBlack: "rgba(0, 0, 0, 0.85)",
   inputBorderColor: "#d9d9d9",
   disabledBg: "rgba(0, 0, 0, 0.25)",
   disabledTextColor: "rgba(0, 0, 0, 0.2)",

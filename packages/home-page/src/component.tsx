@@ -4,21 +4,13 @@
  *
  */
 import { memo } from "react";
-import AppSidebar from "@exsys-patient-insurance/app-sidebar";
+import SideBarWithItem from "./partials/SideBarWithItem";
 import { HomePageWrapper, HomePageContent } from "./styled";
 
 const HomePage = () => {
   return (
     <HomePageWrapper>
-      <AppSidebar minWidth="80px" maxWidth="200px">
-        <p>ahmed</p>
-        <p>ahmed</p>
-        <p>ahmed</p>
-        <p>ahmed</p>
-        <p>ahmed</p>
-        <p>ahmed</p>
-      </AppSidebar>
-
+      <SideBarWithItem />
       <HomePageContent>
         <p>ahmed</p>
       </HomePageContent>
