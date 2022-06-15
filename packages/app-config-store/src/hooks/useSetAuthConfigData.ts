@@ -19,7 +19,7 @@ const useSetAuthConfigData = () => {
           ...values,
         };
 
-        setItemToStorage("mainStore", nextMainStoreData);
+        setItemToStorage("userData", nextMainStoreData);
 
         return nextMainStoreData;
       }),

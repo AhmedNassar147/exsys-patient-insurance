@@ -7,11 +7,6 @@
  * SO MAKE SURE YOUR WRITE PATH AND `PARAMS(if any)` PROPERLY.
  */
 
-const DEVELOPMENT_ONLY_PAGES = [
-  {
-    path: "/exsysApis",
-    pageIndexPath: "../Pages/ExsysApis"
-  }
-];
+const DEVELOPMENT_ONLY_PAGES = [];
 
 module.exports = DEVELOPMENT_ONLY_PAGES;

@@ -24,9 +24,14 @@ export type ModalTogglerRef = React.MutableRefObject<
 >;
 
 export interface AppConfigStateType {
-  languageId: number;
-  authorization: number;
+  language_id: number;
+  authorization: string;
   isRightToLeft: boolean;
+  user_full_name: string;
+  login_staff_id: string;
+  user_type: string;
+  job_id: number;
+  provider_category: string;
 }
 
 export * from "./base.interface";

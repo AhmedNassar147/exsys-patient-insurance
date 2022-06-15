@@ -120,6 +120,7 @@ const useFormManager = <T = FormValuesLikeType>(
       await onSubmit(allStateValues, {
         resetForm,
         setInitialFormValues: setValues,
+        setErrors,
       });
     }
   }, [allStateValues, validate, onSubmit, resetForm]);
@@ -139,4 +140,4 @@ const useFormManager = <T = FormValuesLikeType>(
 };
 
 export default useFormManager;
-export type { SubmitOptionsType, SubmitHandlerType } from "./index.interface";
+export type { SubmitHandlerType } from "./index.interface";

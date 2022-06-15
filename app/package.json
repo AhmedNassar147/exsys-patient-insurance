@@ -5,6 +5,7 @@
   "peerDependencies": {
     "@exsys-patient-insurance/api-constants": "1.0.0",
     "@exsys-patient-insurance/app-header": "1.0.0",
+    "@exsys-patient-insurance/app-image-logo": "1.0.0",
     "@exsys-patient-insurance/arrow-icon": "1.0.0",
     "@exsys-patient-insurance/base-styled-svg": "1.0.0",
     "@exsys-patient-insurance/button": "1.0.0",
@@ -12,10 +13,6 @@
     "@exsys-patient-insurance/clear-icon": "1.0.0",
     "@exsys-patient-insurance/close-icon": "1.0.0",
     "@exsys-patient-insurance/customize-webpack": "1.0.0",
-    "@exsys-patient-insurance/doctor-sessions-view": "1.0.0",
-    "@exsys-patient-insurance/doctors-search-form": "1.0.0",
-    "@exsys-patient-insurance/doctors-search-page": "1.0.0",
-    "@exsys-patient-insurance/doctors-search-results-list": "1.0.0",
     "@exsys-patient-insurance/drop-down": "1.0.0",
     "@exsys-patient-insurance/field-error-hint": "1.0.0",
     "@exsys-patient-insurance/form-manager": "1.0.0",

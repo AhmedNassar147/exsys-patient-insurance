@@ -6,11 +6,11 @@
 import { createGlobalStyle, css } from "styled-components";
 import { colors } from "@exsys-patient-insurance/theme-values";
 import { customScrollbar } from "@exsys-patient-insurance/styled-helpers";
-
 import {
   APP_HEADER_HEIGHT,
   APP_HEADER_MARGIN,
   APP_HEADER_HORIZONTAL_PADDING,
+  APP_FOOTER_HEIGHT,
 } from "@exsys-patient-insurance/global-app-constants";
 
 const fromXlMainCss = css`
@@ -18,7 +18,7 @@ const fromXlMainCss = css`
   margin: 0 auto;
 `;
 
-const mainHeight = `calc(100vh - ${APP_HEADER_HEIGHT} - ${APP_HEADER_MARGIN})`;
+const mainHeight = `calc(100vh - ${APP_HEADER_HEIGHT} - ${APP_HEADER_MARGIN} - ${APP_FOOTER_HEIGHT})`;
 
 const AppGlobalStyles = createGlobalStyle`
   html {

@@ -7,10 +7,10 @@ import useAppConfigStore from "./useAppConfigStore";
 
 const useMakeSelectCurrentLanguageId = () => {
   const {
-    state: { languageId },
+    state: { language_id },
   } = useAppConfigStore();
 
-  return languageId;
+  return language_id;
 };
 
 export default useMakeSelectCurrentLanguageId;

@@ -8,16 +8,11 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-patient-insurance/app-config-store": "1.0.0",
-    "@exsys-patient-insurance/form-manager": "1.0.0",
-    "@exsys-patient-insurance/global-app-constants": "1.0.0",
-    "@exsys-patient-insurance/language-select-field": "1.0.0",
-    "@exsys-patient-insurance/media-queries": "1.0.0",
-    "@exsys-patient-insurance/theme-values": "1.0.0",
-    "@exsys-patient-insurance/types": "1.0.0"
+    "@exsys-patient-insurance/app-config-store": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",
+    "@types/react-router-dom": "^5.x.x",
     "@types/styled-components": "^5.x.x"
   },
   "enableBabelTranspilation": true

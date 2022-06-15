@@ -1,0 +1,22 @@
+{
+  "name": "@exsys-patient-insurance/login-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the login page.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/app-config-store": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/react-router-dom": "^5.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "routeData": {
+    "path": "/"
+  },
+  "enableBabelTranspilation": true
+}

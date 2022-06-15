@@ -7,16 +7,15 @@ import { spacings } from "@exsys-patient-insurance/theme-values";
 
 export const T_TRANSLATE_REGEXP = /__t__\w+/gim;
 
-export const APP_HEADER_HEIGHT = `calc(${spacings.sp6} + ${spacings.sp9})`;
+export const APP_HEADER_HEIGHT = `calc(${spacings.sp6} + ${spacings.sp8})`;
 export const APP_HEADER_MARGIN = spacings.sp4;
 export const APP_HEADER_HORIZONTAL_PADDING = spacings.sp6;
+export const APP_FOOTER_HEIGHT = `calc(${spacings.sp9} - ${spacings.sp1})`;
 
 export const LANGUAGE_IDS = Object.freeze({
   PRIMARY: 1,
   SECONDARY: 2,
 } as const);
-
-export const LANGUAGE_IDS_VALUES = Object.values(LANGUAGE_IDS);
 
 export type LanguageValuesType = 1 | 2;
 

@@ -7,7 +7,7 @@ export const colors = {
   appPrimary: "#006fbb",
   // extraPrimary: "#1316be",
   // blue: "#3333ff",
-  // blue2: "#48B2F6",
+  blue2: "#48B2F6",
   red: "#cf4048",
   // green: "#5cb172",
   // lightBlue: "#a2b5db",

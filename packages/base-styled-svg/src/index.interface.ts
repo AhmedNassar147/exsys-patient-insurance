@@ -27,4 +27,5 @@ export interface BaseStyledSvgPropsChildren
       enableBackground?: string;
       x?: string;
       y?: string;
+      xmlSpace?: string;
     }> {}

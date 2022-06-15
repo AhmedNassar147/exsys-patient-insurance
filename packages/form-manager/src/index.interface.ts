@@ -19,14 +19,15 @@ export type Validate<T extends FormValuesLikeType> = (
   formValues: T
 ) => ErrorType<T>;
 
-export type SubmitOptionsType = {
+export type SubmitOptionsType<T> = {
   resetForm: () => void;
   setInitialFormValues: React.Dispatch<React.SetStateAction<any>>;
+  setErrors: React.Dispatch<React.SetStateAction<Record<keyof T, string>>>;
 };
 
 export type SubmitHandlerType<T> = (
   formValues: T,
-  options: SubmitOptionsType
+  options: SubmitOptionsType<T>
 ) => Promise<void> | void;
 
 export interface FormStateProps<T> {

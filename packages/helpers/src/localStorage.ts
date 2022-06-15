@@ -21,9 +21,10 @@ const isJsonType = (value: any) => {
 const baseAppKeyName = "@exsys-patient-insurance";
 
 const localStorageKeys = {
-  patientData: `${baseAppKeyName}_patientData`,
-  mainStore: `${baseAppKeyName}_mainStore`,
+  userData: `${baseAppKeyName}_userData`,
 } as const;
+
+const KEYS_VALUES_IN_LOCAL_STORAGE = Object.values(localStorageKeys);
 
 type LocalStorageKeysType = KeysOfRecord<typeof localStorageKeys>;
 
@@ -50,6 +51,16 @@ export const getItemFromStorage = <T = any>(
       ? JSON.parse(valueFromStorage as unknown as string)
       : valueFromStorage
   ) as T;
+};
+
+export const clearAllExsysStaffInStorage = (cb?: () => void) => {
+  KEYS_VALUES_IN_LOCAL_STORAGE.forEach((keyValue, index) => {
+    window.localStorage.removeItem(keyValue);
+
+    if (KEYS_VALUES_IN_LOCAL_STORAGE.length - 1 === index && cb) {
+      cb();
+    }
+  });
 };
 
 export type { LocalStorageKeysType };

@@ -1,0 +1,15 @@
+{
+  "name": "@exsys-patient-insurance/app-image-logo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the app logo image.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}
