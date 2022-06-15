@@ -54,7 +54,6 @@
     "@exsys-patient-insurance/text": "1.0.0",
     "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0",
-    "@exsys-patient-insurance/drawer": "1.0.0",
     "@exsys-patient-insurance/app-sidebar": "1.0.0",
     "@exsys-patient-insurance/home-page": "1.0.0",
     "@testing-library/jest-dom": "^5.14.1",

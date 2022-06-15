@@ -8,7 +8,24 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-patient-insurance/app-config-store": "1.0.0"
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
+    "@exsys-patient-insurance/app-image-logo": "1.0.0",
+    "@exsys-patient-insurance/calender-icon": "1.0.0",
+    "@exsys-patient-insurance/clock-icon": "1.0.0",
+    "@exsys-patient-insurance/drop-down": "1.0.0",
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/global-app-constants": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/logout-icon": "1.0.0",
+    "@exsys-patient-insurance/media-queries": "1.0.0",
+    "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
+    "@exsys-patient-insurance/password-field": "1.0.0",
+    "@exsys-patient-insurance/password-icon": "1.0.0",
+    "@exsys-patient-insurance/setting-icon": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x",

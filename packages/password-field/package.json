@@ -8,10 +8,10 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/eye-icon": "1.0.0",
     "@exsys-patient-insurance/input-field": "1.0.0",
-    "@exsys-patient-insurance/password-icon": "1.0.0"
+    "@exsys-patient-insurance/password-icon": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "peerDependencies": {
     "@types/react": "^18.x.x"
