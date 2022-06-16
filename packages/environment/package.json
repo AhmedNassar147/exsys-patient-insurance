@@ -1,0 +1,11 @@
+{
+  "name": "@exsys-patient-insurance/environment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "environment helpers.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/index.js",
+  "sideEffects": false,
+  "enableBabelTranspilation": false
+}
