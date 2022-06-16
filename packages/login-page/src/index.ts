@@ -6,7 +6,8 @@
 import { lazy } from "react";
 
 export default lazy(
-  () => import("./component" /* webpackChunkName: "app-structure.login-page" */)
+  () =>
+    import(
+      "./component" /* webpackChunkName: "exsys-patient-insurance.login-page" */
+    )
 );
-
-// export { default as useCreateUserAuthKey } from "./hooks/useCreateUserAuthKey";
