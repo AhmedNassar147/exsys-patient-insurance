@@ -5,7 +5,6 @@
  */
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { LANGUAGE_IDS } from "@exsys-patient-insurance/global-app-constants";
 import { useSetAuthConfigData } from "@exsys-patient-insurance/app-config-store";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
 import { SubmitHandlerType } from "@exsys-patient-insurance/form-manager";
@@ -53,9 +52,8 @@ const useLoginRequest = () => {
         }
 
         const { language_id } = otherLoginValues;
-        const nextLanguageId = language_id || LANGUAGE_IDS.PRIMARY;
         const { normalizedData, nextDir } =
-          normalizeAppStoreLanguageAndDir(nextLanguageId);
+          normalizeAppStoreLanguageAndDir(language_id);
 
         const newUserData = {
           ...otherLoginValues,

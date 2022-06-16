@@ -12,7 +12,6 @@
     "@exsys-patient-insurance/app-image-logo": "1.0.0",
     "@exsys-patient-insurance/button": "1.0.0",
     "@exsys-patient-insurance/form-manager": "1.0.0",
-    "@exsys-patient-insurance/global-app-constants": "1.0.0",
     "@exsys-patient-insurance/helpers": "1.0.0",
     "@exsys-patient-insurance/input-field": "1.0.0",
     "@exsys-patient-insurance/network-hooks": "1.0.0",

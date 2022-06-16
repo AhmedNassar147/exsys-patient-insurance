@@ -20,11 +20,11 @@ export const SideBar = styled.aside<{ width: string }>`
   min-height: ${height};
   max-height: ${height};
   overflow: auto;
-  box-shadow: 2px 10px 7px rgb(0 0 0 / 8%);
+  box-shadow: 0 0 6px rgb(0 0 0 / 8%);
   z-index: ${zIndices.drawer};
   background-color: ${colors.white};
   width: ${({ width }) => width};
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   position: relative;
   padding: ${spacings.sp3} ${spacings.sp3} 0;
 `;

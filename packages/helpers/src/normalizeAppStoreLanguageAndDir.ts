@@ -9,13 +9,17 @@ import {
   LanguageValuesType,
 } from "@exsys-patient-insurance/global-app-constants";
 
-const normalizeAppStoreLanguageAndDir = (nextLanguageId: number) => {
+const primaryLanguageId = LANGUAGE_IDS.PRIMARY;
+
+const normalizeAppStoreLanguageAndDir = (languageId?: number) => {
+  const nextLanguageId = languageId || primaryLanguageId;
+
   const nextDir = LANGUAGE_DIRS[nextLanguageId as LanguageValuesType];
   const normalizedData = {
     language_id: nextLanguageId,
     isRightToLeft:
       LANGUAGE_DIRS[nextLanguageId as LanguageValuesType] !==
-      LANGUAGE_DIRS[LANGUAGE_IDS.PRIMARY],
+      LANGUAGE_DIRS[primaryLanguageId],
   };
 
   return {

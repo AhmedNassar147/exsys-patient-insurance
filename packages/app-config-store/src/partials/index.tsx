@@ -4,7 +4,6 @@
  *
  */
 import { useState, useLayoutEffect } from "react";
-import { LANGUAGE_IDS } from "@exsys-patient-insurance/global-app-constants";
 import {
   getItemFromStorage,
   normalizeAppStoreLanguageAndDir,
@@ -19,10 +18,8 @@ const AppConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
     let mainStoreData = getItemFromStorage<AppConfigStateType>("userData");
     const { language_id } = mainStoreData || {};
 
-    const curredLanguageId = language_id || LANGUAGE_IDS.PRIMARY;
-
     const { normalizedData, nextDir } =
-      normalizeAppStoreLanguageAndDir(curredLanguageId);
+      normalizeAppStoreLanguageAndDir(language_id);
 
     if (mainStoreData) {
       mainStoreData = language_id

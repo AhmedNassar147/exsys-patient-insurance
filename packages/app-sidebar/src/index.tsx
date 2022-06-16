@@ -8,13 +8,21 @@ import { colors } from "@exsys-patient-insurance/theme-values";
 import ArrowIcon from "@exsys-patient-insurance/arrow-icon";
 import { SideBarFooter, SideBar } from "./styled";
 
+export type SizeType = "small" | "large";
+
 interface AppSidebarProps {
   children: React.ReactNode;
   minWidth: string;
   maxWidth: string;
+  onChange: (size: SizeType) => void;
 }
 
-const AppSidebar = ({ children, minWidth, maxWidth }: AppSidebarProps) => {
+const AppSidebar = ({
+  children,
+  minWidth,
+  maxWidth,
+  onChange,
+}: AppSidebarProps) => {
   const [width, setWidth] = useState("");
 
   useLayoutEffect(() => {
@@ -23,13 +31,12 @@ const AppSidebar = ({ children, minWidth, maxWidth }: AppSidebarProps) => {
     }
   }, []);
 
-  const switchSideBarWidth = useCallback(
-    () =>
-      setWidth((previousWidth) =>
-        previousWidth === minWidth ? maxWidth : minWidth
-      ),
-    [minWidth, maxWidth]
-  );
+  const switchSideBarWidth = useCallback(() => {
+    onChange(width === minWidth ? "large" : "small");
+    setWidth((previousWidth) =>
+      previousWidth === minWidth ? maxWidth : minWidth
+    );
+  }, [minWidth, maxWidth, width]);
 
   const arrowDirection = width === maxWidth ? "left" : "right";
 
