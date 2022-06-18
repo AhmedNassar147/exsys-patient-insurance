@@ -38,3 +38,5 @@ export * from "./base.interface";
 export * from "./form-field.interface";
 export * from "./network.interface";
 export * from "./styledHelpers.interface";
+export * from "./table.interface";
+export * from "./downloadExcel.interface";

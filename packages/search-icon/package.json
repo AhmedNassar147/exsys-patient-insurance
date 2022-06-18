@@ -1,0 +1,17 @@
+{
+  "name": "@exsys-patient-insurance/search-icon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A styled component to render a search icon.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/base-styled-svg": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

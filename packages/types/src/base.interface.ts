@@ -3,6 +3,8 @@
  * Types: `base`.
  *
  */
+import { colors } from "@exsys-patient-insurance/theme-values";
+
 export type CapitalBooleanStringType = "Y" | "N";
 export type SmallBooleanStringType = "y" | "n";
 export type StringNumber = string | number;
@@ -18,3 +20,5 @@ export type BooleanStringType =
   | CapitalBooleanStringType;
 
 export type ValuesOfRecordAsOptions<T> = T[KeysOfRecord<T>];
+
+export type ColorNamesType = KeysOfRecord<typeof colors>;

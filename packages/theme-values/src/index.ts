@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-patient-insurance/colors`.
+ * Package: `@exsys-patient-insurance/theme-values`.
  *
  */
 export * from "./colors";

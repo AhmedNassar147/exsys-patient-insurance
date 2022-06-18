@@ -19,4 +19,5 @@ export { default as setIn } from "./setIn";
 export { default as isObjectHasKey } from "./isObjectHasKey";
 export { default as validateFields } from "./validateFields";
 export { default as normalizeAppStoreLanguageAndDir } from "./normalizeAppStoreLanguageAndDir";
+export { default as calculateTotalValueFromArrayObjectProp } from "./calculateTotalValueFromArrayObjectProp";
 export * from "./localStorage";

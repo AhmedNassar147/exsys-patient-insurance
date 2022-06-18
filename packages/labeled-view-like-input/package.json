@@ -1,0 +1,18 @@
+{
+  "name": "@exsys-patient-insurance/labeled-view-like-input",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the labeled input with a flex like input.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/labeled-input": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

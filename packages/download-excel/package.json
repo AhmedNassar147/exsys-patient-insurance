@@ -1,0 +1,20 @@
+{
+  "name": "@exsys-patient-insurance/download-excel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component for `excel` file download.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/file-excel-icon": "1.0.0",
+    "@exsys-patient-insurance/react-lazy": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "react-export-excel": "^0.x.x"
+  },
+  "enableBabelTranspilation": true
+}

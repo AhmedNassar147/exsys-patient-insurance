@@ -1,0 +1,26 @@
+{
+  "name": "@exsys-patient-insurance/table-default-header-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the table default header tools.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/delete-icon": "1.0.0",
+    "@exsys-patient-insurance/download-excel": "1.0.0",
+    "@exsys-patient-insurance/edit-icon": "1.0.0",
+    "@exsys-patient-insurance/file-pdf-icon": "1.0.0",
+    "@exsys-patient-insurance/info-icon": "1.0.0",
+    "@exsys-patient-insurance/plus-icon": "1.0.0",
+    "@exsys-patient-insurance/save-icon": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

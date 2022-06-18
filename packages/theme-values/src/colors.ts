@@ -5,12 +5,13 @@
  */
 export const colors = {
   appPrimary: "#006fbb",
-  // extraPrimary: "#1316be",
-  // blue: "#3333ff",
+  extraPrimary: "#1316be",
+  blue: "#3333ff",
   blue2: "#48B2F6",
   red: "#cf4048",
   // green: "#5cb172",
   // lightBlue: "#a2b5db",
+  orange: "#ebb74e",
   lightSky: "#edeef9",
   red23: "#f44336",
   gray0: "rgba(0, 0, 0, 0.08)",
