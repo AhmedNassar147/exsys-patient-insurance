@@ -4,6 +4,7 @@
  *
  */
 import { memo } from "react";
+import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import SideBarWithItem from "./partials/SideBarWithItem";
 import { HomePageWrapper, HomePageContent } from "./styled";
 
@@ -12,7 +13,7 @@ const HomePage = () => {
     <HomePageWrapper>
       <SideBarWithItem />
       <HomePageContent>
-        <p>ahmed</p>
+        <FindPatientForm />
       </HomePageContent>
     </HomePageWrapper>
   );

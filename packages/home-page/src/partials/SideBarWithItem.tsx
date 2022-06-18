@@ -7,6 +7,9 @@ import { memo, useCallback, useState } from "react";
 import AppSidebar, { SizeType } from "@exsys-patient-insurance/app-sidebar";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
 import { useCurrentJobId } from "@exsys-patient-insurance/app-config-store";
+import Modal from "@exsys-patient-insurance/modal";
+import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
+import Flex from "@exsys-patient-insurance/flex";
 import {
   OnResponseActionType,
   CapitalBooleanStringType,
@@ -108,14 +111,53 @@ const ICONS_PROPS = {
   },
 };
 
+const initialState = {
+  reports: [] as JobScreenItemType[],
+  screens: [] as JobScreenItemType[],
+};
+
+const initialReduceValues = {
+  reports: [] as string[],
+  screens: [] as string[],
+};
+
 const SideBarWithItem = () => {
   const jobId = useCurrentJobId();
-  const [screens, setScreens] = useState<JobScreenItemType[]>([]);
+  const [{ screens, reports }, setScreens] = useState(initialState);
   const [sideBarSize, setSideBarSize] = useState<SizeType>("small");
+  const { visible, handleOpen, handleClose } = useOpenCloseActionsWithState();
 
   const handleResponse: OnResponseActionType<JobsResponseType> = useCallback(
     ({ apiValues }) => {
-      setScreens(() => apiValues?.data || []);
+      const apiData = apiValues?.data;
+
+      if (!apiData || !apiData.length) {
+        setScreens(() => initialState);
+        return;
+      }
+
+      const values = apiData.reduce((acc, screenValues) => {
+        const { screen_type } = screenValues;
+        if (screen_type === "R") {
+          acc.reports.push(JSON.stringify(screenValues));
+          return acc;
+        }
+
+        acc.screens.push(JSON.stringify(screenValues));
+        return acc;
+      }, initialReduceValues);
+
+      const { screens, reports } = values;
+
+      setScreens(
+        () =>
+          ({
+            screens: [...new Set(screens)].map((item) => JSON.parse(item)),
+            reports: reports?.length
+              ? [...new Set(reports)].map((item) => JSON.parse(item))
+              : [],
+          } as typeof initialState)
+      );
     },
     []
   );
@@ -131,6 +173,7 @@ const SideBarWithItem = () => {
 
   const shouldRenderScreens = !loading || !screens?.length;
   const isLargeSideBarSize = sideBarSize === "large";
+  const hasReports = !loading && !!reports?.length;
 
   return (
     <AppSidebar minWidth="65px" maxWidth="200px" onChange={setSideBarSize}>
@@ -151,11 +194,58 @@ const SideBarWithItem = () => {
                   {...ICONS_PROPS[icon_name as keyof typeof ICONS_PROPS]}
                 />
 
-                {isLargeSideBarSize ? <StyledText>{value}</StyledText> : null}
+                {isLargeSideBarSize ? (
+                  <StyledText disableTranslation>{value}</StyledText>
+                ) : null}
               </ScreenItemContainer>
             </StyledLink>
           ))
         : null}
+
+      {hasReports && (
+        <ScreenItemContainer
+          height="33px"
+          width="100%"
+          align="center"
+          gap="5px"
+          justify={!isLargeSideBarSize ? "center" : undefined}
+          title="rprts"
+          onClick={handleOpen}
+        >
+          <svg
+            width="1.5em"
+            height="1.56em"
+            fill="currentColor"
+            {...ICONS_PROPS["Ucaf.svg"]}
+          />
+
+          {isLargeSideBarSize ? <StyledText>rprts</StyledText> : null}
+        </ScreenItemContainer>
+      )}
+
+      <Modal
+        onClose={handleClose}
+        title="rprts"
+        width="400px"
+        noCancelButton
+        visible={visible}
+      >
+        <Flex width="100%" gap="12px" wrap="true">
+          {reports.map(({ key, value }) => (
+            <ScreenItemContainer
+              height="33px"
+              width="calc(100% / 2 - 6px)"
+              align="center"
+              justify="center"
+              gap="5px"
+              bordered
+              key={key}
+            >
+              <StyledText>{value}</StyledText>
+            </ScreenItemContainer>
+          ))}
+        </Flex>
+      </Modal>
     </AppSidebar>
   );
 };

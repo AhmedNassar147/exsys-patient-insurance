@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Flex from "@exsys-patient-insurance/flex";
 import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
 import { ellipsisCss } from "@exsys-patient-insurance/styled-helpers";
+import { BaseText } from "@exsys-patient-insurance/text";
 import {
   APP_HEADER_HEIGHT,
   APP_FOOTER_HEIGHT,
@@ -37,23 +38,23 @@ export const HomePageContent = styled.div`
 export const ScreenItemContainer = styled(Flex)`
   transition: all 0.3s ease;
   padding-inline-start: 4px;
+  font-size: ${fontSizes.ff8};
+  text-decoration: none;
+  color: ${colors.closeBlack};
+  cursor: pointer;
   &:hover {
     background-color: ${colors.lightGrey};
+    color: ${colors.appPrimary};
   }
 `;
 
 export const StyledLink = styled(Link)`
-  font-size: ${fontSizes.ff8};
   text-decoration: none;
-  color: ${colors.closeBlack};
-  &:hover {
-    color: ${colors.appPrimary};
-  }
   &:not(:last-child) {
     margin-bottom: 10px;
   }
 `;
 
-export const StyledText = styled.p`
+export const StyledText = styled(BaseText)`
   ${ellipsisCss};
 `;

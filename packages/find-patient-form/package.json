@@ -1,0 +1,15 @@
+{
+  "name": "@exsys-patient-insurance/find-patient-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a form that helps finding patient.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}
