@@ -10,4 +10,5 @@ export { default as usePrevious } from "./usePrevious";
 export { default as useStopPropagation } from "./useStopPropagation";
 export { default as useBoundingClientRect } from "./useBoundingClientRect";
 export { default as useModalRef } from "./useModalRef";
+export { default as useEffectWithTimeout } from "./useEffectWithTimeout";
 export * from "./useOpenCloseActionsWithState";
