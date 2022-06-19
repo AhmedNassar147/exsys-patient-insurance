@@ -30,10 +30,14 @@ import {
   SEARCH_RADIO_OPTIONS,
   TABLE_COLUMNS,
   REQUESTS_TABLE_COLUMNS,
+  ATTENDANCE_LIST_PARAMS,
 } from "./constants";
 import { PatientItemRecordType, RequestsDataType } from "./index.interface";
 
 const initialPatientData = initialValues.currentPatientData;
+
+// open and not (approved - rejected - delivered) can delete + can edit
+// can deliver if  approved  (above table)
 
 const FindPatientForm = () => {
   const { values, handleChange, handleChangeMultipleInputs } = useFormManager({
@@ -143,11 +147,19 @@ const FindPatientForm = () => {
     root_organization_no,
   } = currentPatientData;
 
-  const handleRequestsResponse: OnResponseActionType<RequestsDataType[]> =
+  const handleRequestsResponse: OnResponseActionType<RequestsDataType> =
     useCallback(
       ({ apiValues, error }) => {
         const data =
-          error || !apiValues ? initialValues.requestsData : apiValues;
+          error || !apiValues
+            ? initialValues.requestsData
+            : {
+                ...apiValues,
+                details: {
+                  ...apiValues.details,
+                  attendance_type: "O",
+                },
+              };
 
         handleChange({
           name: "requestsData",
@@ -158,7 +170,7 @@ const FindPatientForm = () => {
     );
 
   const { runQuery: fetchUcafRequests, loading: requestsLoading } =
-    useBasicQuery<RequestsDataType[]>({
+    useBasicQuery<RequestsDataType>({
       apiId: "QUERY_UCAF_REQUESTS_DATA",
       disableParamsChangeCheck: true,
       onResponse: handleRequestsResponse,
@@ -207,7 +219,7 @@ const FindPatientForm = () => {
 
   const {
     details: {
-      doctor_provider_no,
+      doctor_department_name,
       doctor_provider_name,
       complain,
       signs,
@@ -269,8 +281,8 @@ const FindPatientForm = () => {
         />
 
         <LabeledViewLikeInput
-          label="docprvdrno"
-          value={doctor_provider_no}
+          label="spec"
+          value={doctor_department_name}
           width="120px"
         />
         <LabeledViewLikeInput
@@ -310,7 +322,7 @@ const FindPatientForm = () => {
             disabled={!!requestDataLength}
             onChange={handleChange}
             label="dignos"
-            width="49%"
+            width="100%"
           />
           <SelectWithApiQuery
             queryType="u_code"
@@ -318,8 +330,9 @@ const FindPatientForm = () => {
             value={attendance_type}
             name="requestsData.details.attendance_type"
             onChange={handleChange}
-            width="49%"
+            width="40%"
             label="atndc"
+            apiParams={ATTENDANCE_LIST_PARAMS}
           />
           <InputField
             name="requestsData.details.ucafe_type"
@@ -405,17 +418,15 @@ const FindPatientForm = () => {
         <Image src={patientImgUrl} alt="patient" width="sp15" height="sp17" />
       </Flex>
 
-      {!!requestDataLength && (
-        <Table
-          dataSource={requestTableDataSource}
-          rowKey="ucaf_dtl_pk"
-          totalRecordsInDataBase={requestDataLength}
-          noPagination
-          hideTableHeaderTools
-          columns={REQUESTS_TABLE_COLUMNS}
-          height="400px"
-        />
-      )}
+      <Table
+        dataSource={requestTableDataSource}
+        rowKey="ucaf_dtl_pk"
+        totalRecordsInDataBase={requestDataLength}
+        noPagination
+        hideTableHeaderTools
+        columns={REQUESTS_TABLE_COLUMNS}
+        height="400px"
+      />
 
       <Modal
         title="slctpat"

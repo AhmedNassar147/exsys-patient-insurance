@@ -33,7 +33,9 @@ export const initialValues = {
   paper_serial: "",
   isCurrentPatientActive: false,
   requestsData: {
-    details: {},
+    details: {
+      attendance_type: "O",
+    },
     data: [] as RequestTableRecordType[],
   } as RequestsDataType,
 };
@@ -128,3 +130,7 @@ export const TABLE_COLUMNS = [
     width: "10%",
   },
 ];
+
+export const ATTENDANCE_LIST_PARAMS = Object.freeze({
+  pwhere: "('I','O','E')",
+});

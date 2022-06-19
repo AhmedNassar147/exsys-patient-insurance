@@ -36,6 +36,7 @@ export interface RequestDetailsType {
   doctor_provider_no: number;
   doctor_provider_name: string;
   doctor_department_id: number;
+  doctor_department_name: number;
   ucaf_id?: number;
   ucafe_date?: string;
   complain?: string;
