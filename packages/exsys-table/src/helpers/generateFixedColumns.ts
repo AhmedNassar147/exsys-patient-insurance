@@ -59,7 +59,8 @@ const generateFixedColumns = <T extends TableRowRecordType>({
         : isCheckBox
         ? getCheckableInputRenderedValue
         : isSelectField
-        ? getSelectRenderedValue(selectOptions)
+        ? // @ts-ignore ignore this for now
+          getSelectRenderedValue(selectOptions)
         : undefined;
 
       let fixedWidth = calculateCellStringWidthToPixelNumber(

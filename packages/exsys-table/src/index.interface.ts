@@ -3,7 +3,6 @@
  * Types: `@exsys-patient-insurance/exsys-table`.
  *
  */
-import { EllipsisCssHelperProps } from "@exsys-patient-insurance/styled-helpers";
 import {
   onChangeEvent,
   TableRowRecordType,
@@ -11,6 +10,7 @@ import {
   TableCellAlignment,
   TableCellInputFunctionsType,
   ColorNamesType,
+  EllipsisCssHelperProps,
 } from "@exsys-patient-insurance/types";
 
 type TableHeadSearchDropDownActionType = "search" | "reset" | "sort";

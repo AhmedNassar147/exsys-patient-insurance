@@ -15,6 +15,10 @@ const API_IDS = {
   U_CODE_LIST: "EX_CODES/pop_codes_with_u_code",
   // http://207.180.237.36:9090/ords/exsys_api/mi_web_user/pop_user_job_screen?authorization=3784948&planguageid=1&job_id=1&
   QUERY_JOB_SCREENS_LIST: "mi_web_user/pop_user_job_screen",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_patient_card_data?authorization=3574833&planguageid=1&search_type=C&search_value=CSA-0334-00-06-0978
+  QUERY_PATIENT_DATA: "mi_ucaf_request/pop_patient_card_data",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/get_ucaf_serial_request?authorization=3798723&root_organization_no=001&patient_card_no=CSA-0334-00-01-0055&planguageid=1&paper_serial=124&provider_no=4
+  QUERY_UCAF_REQUESTS_DATA: "mi_ucaf_request/get_ucaf_serial_request",
 };
 
 export default API_IDS;

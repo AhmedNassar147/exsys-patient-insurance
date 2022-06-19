@@ -9,6 +9,7 @@ const {
   babelInclude,
   addWebpackAlias,
   removeModuleScopePlugin,
+  addWebpackResolve,
 } = require("customize-cra");
 const getAllPackagesForBabelTranspiler = require("./getAllPackagesForBabelTranspiler");
 
@@ -28,6 +29,12 @@ module.exports = (appBaseDirName) => (config, env) => {
         pages: path.resolve(appBaseDirName, "src/Pages"),
         infrastructure: path.resolve(appBaseDirName, "src/infrastructure"),
         hocs: path.resolve(appBaseDirName, "src/Hocs"),
+      }),
+      addWebpackResolve({
+        fallback: {
+          fs: false,
+          crypto: false,
+        },
       })
     )(config, env)
   );

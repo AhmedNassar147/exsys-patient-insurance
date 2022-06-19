@@ -9,10 +9,10 @@
   "sideEffects": false,
   "dependencies": {
     "@exsys-patient-insurance/arrow-icon": "1.0.0",
-    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/flex": "1.0.0",
     "@exsys-patient-insurance/input-field": "1.0.0",
     "@exsys-patient-insurance/styled-helpers": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {

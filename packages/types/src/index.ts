@@ -3,7 +3,6 @@
  * Package: `@exsys-patient-insurance/types`.
  *
  */
-
 export interface BaseSvgProps {
   width?: string;
   height?: string;
@@ -27,11 +26,15 @@ export interface AppConfigStateType {
   language_id: number;
   authorization: string;
   isRightToLeft: boolean;
-  user_full_name: string;
+  user_full_name: string[];
   login_staff_id: string;
   user_type: string;
   job_id: number;
   provider_category: string;
+  provider_no?: number;
+  provider_name?: string;
+  invoice_dept_code?: number;
+  dashboard?: string;
 }
 
 export * from "./base.interface";

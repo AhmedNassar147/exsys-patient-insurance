@@ -19,7 +19,7 @@ export const initialState: AppConfigStateType = {
   language_id: activeLanguage,
   isRightToLeft:
     LANGUAGE_DIRS[activeLanguage] !== LANGUAGE_DIRS[LANGUAGE_IDS.PRIMARY],
-  user_full_name: "",
+  user_full_name: [] as string[],
   login_staff_id: "",
   user_type: "",
   job_id: 0,

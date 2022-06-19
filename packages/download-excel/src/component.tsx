@@ -4,6 +4,7 @@
  *
  */
 import { memo, useMemo } from "react";
+// @ts-ignore ignore for now.
 import { modules } from "react-export-excel";
 import FileExcelIcon from "@exsys-patient-insurance/file-excel-icon";
 import { DownloadExcelProps } from "@exsys-patient-insurance/types";

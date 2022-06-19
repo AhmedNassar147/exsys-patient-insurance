@@ -16,3 +16,4 @@ export { default as useCurrentStaffId } from "./hooks/useCurrentStaffId";
 export { default as useCurrentUserFullName } from "./hooks/useCurrentUserFullName";
 export { default as useCurrentUserType } from "./hooks/useCurrentUserType";
 export { default as useClearAppConfigState } from "./hooks/useClearAppConfigState";
+export { default as useGlobalProviderNo } from "./hooks/useGlobalProviderNo";

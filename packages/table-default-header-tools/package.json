@@ -8,7 +8,6 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/delete-icon": "1.0.0",
     "@exsys-patient-insurance/download-excel": "1.0.0",
     "@exsys-patient-insurance/edit-icon": "1.0.0",
@@ -16,6 +15,7 @@
     "@exsys-patient-insurance/info-icon": "1.0.0",
     "@exsys-patient-insurance/plus-icon": "1.0.0",
     "@exsys-patient-insurance/save-icon": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {

@@ -13,7 +13,6 @@ import Flex from "@exsys-patient-insurance/flex";
 import {
   OnResponseActionType,
   CapitalBooleanStringType,
-  RecordType,
 } from "@exsys-patient-insurance/types";
 import { StyledLink, StyledText, ScreenItemContainer } from "../styled";
 
@@ -26,8 +25,6 @@ type JobScreenItemType = {
   f_delete?: CapitalBooleanStringType;
   screen_type: string;
 };
-
-type JobsResponseType = RecordType<JobScreenItemType[]>;
 
 const ICONS_PROPS = {
   "Ucaf.svg": {
@@ -116,10 +113,7 @@ const initialState = {
   screens: [] as JobScreenItemType[],
 };
 
-const initialReduceValues = {
-  reports: [] as string[],
-  screens: [] as string[],
-};
+type JobsResponseType = typeof initialState;
 
 const SideBarWithItem = () => {
   const jobId = useCurrentJobId();
@@ -129,35 +123,7 @@ const SideBarWithItem = () => {
 
   const handleResponse: OnResponseActionType<JobsResponseType> = useCallback(
     ({ apiValues }) => {
-      const apiData = apiValues?.data;
-
-      if (!apiData || !apiData.length) {
-        setScreens(() => initialState);
-        return;
-      }
-
-      const values = apiData.reduce((acc, screenValues) => {
-        const { screen_type } = screenValues;
-        if (screen_type === "R") {
-          acc.reports.push(JSON.stringify(screenValues));
-          return acc;
-        }
-
-        acc.screens.push(JSON.stringify(screenValues));
-        return acc;
-      }, initialReduceValues);
-
-      const { screens, reports } = values;
-
-      setScreens(
-        () =>
-          ({
-            screens: [...new Set(screens)].map((item) => JSON.parse(item)),
-            reports: reports?.length
-              ? [...new Set(reports)].map((item) => JSON.parse(item))
-              : [],
-          } as typeof initialState)
-      );
+      setScreens(() => apiValues);
     },
     []
   );

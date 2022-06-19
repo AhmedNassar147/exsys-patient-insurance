@@ -86,7 +86,8 @@
     "styled-components": "^5.3.5",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
-    "react-export-excel": "^0.x.x"
+    "react-export-excel": "^0.x.x",
+    "xlsx": "^0.16.9"
   },
   "devDependencies": {
     "@exsys-patient-insurance/command-line-utils": "1.0.0",

@@ -11,8 +11,5 @@
     "@exsys-patient-insurance/flex": "1.0.0",
     "@exsys-patient-insurance/labeled-input": "1.0.0"
   },
-  "peerDependencies": {
-    "@types/react": "^18.x.x"
-  },
   "enableBabelTranspilation": true
 }
