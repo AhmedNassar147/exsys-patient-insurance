@@ -3,6 +3,7 @@
  * Constants: `@exsys-patient-insurance/find-patient-form`.
  *
  */
+import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
 import {
   PatientItemRecordType,
   RequestsDataType,
@@ -32,9 +33,14 @@ export const initialValues = {
   selectionModalOpened: false,
   paper_serial: "",
   isCurrentPatientActive: false,
+  editionModalType: "",
+  selectedTableRecord: {} as RequestTableRecordType,
   requestsData: {
     details: {
       attendance_type: "O",
+      ucafe_type: "N",
+      claim_flag: "A",
+      ucafe_date: getCurrentDateString(),
     },
     data: [] as RequestTableRecordType[],
   } as RequestsDataType,
@@ -44,12 +50,12 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prdctcde",
     dataIndex: "service_code",
-    width: "10%",
+    width: "8%",
   },
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "14%",
+    width: "16%",
   },
   {
     title: "qty",

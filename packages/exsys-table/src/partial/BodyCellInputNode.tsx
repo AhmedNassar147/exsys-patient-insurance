@@ -4,11 +4,10 @@
  *
  */
 import { memo, useMemo, useCallback } from "react";
-// import DatePicker from "@exsys-patient-insurance/date-picker-field";
 import Checkbox from "@exsys-patient-insurance/selection-check";
 import SelectField from "@exsys-patient-insurance/select-field";
 import InputField from "@exsys-patient-insurance/input-field";
-// import InputNumber from "@exsys-patient-insurance/input-number";
+import InputNumber from "@exsys-patient-insurance/input-number";
 import {
   onChangeEvent,
   TableRowRecordType,
@@ -135,8 +134,7 @@ const BodyCellInputNode = <T extends TableRowRecordType>({
       );
 
     default:
-      const Component = InputField;
-      // const Component = isNumberInput ? InputNumber : InputField;
+      const Component = isNumberInput ? InputNumber : InputField;
       const defaultInputProps = {
         ...baseProps,
         width: "95%",

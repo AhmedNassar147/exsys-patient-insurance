@@ -1,17 +1,16 @@
 {
-  "name": "@exsys-patient-insurance/app-config-store",
+  "name": "@exsys-patient-insurance/exsys-table-with-api-query",
   "version": "1.0.0",
   "private": true,
-  "description": "React component to render the app auth store.",
+  "description": "React component to render a table with api query.",
   "author": "exsys",
   "license": "ISC",
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
-    "@exsys-patient-insurance/global-app-constants": "1.0.0",
-    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/exsys-table": "1.0.0",
     "@exsys-patient-insurance/hooks": "1.0.0",
-    "@exsys-patient-insurance/notification": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {

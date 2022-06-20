@@ -11,6 +11,7 @@ import {
 import { SelectListProps } from "./form-field.interface";
 import { DownloadExcelProps } from "./downloadExcel.interface";
 import { ButtonTypes, ButtonSizeType } from "@exsys-patient-insurance/button";
+import { ApiIdsTypes, BaseQueryConfigProps } from "./network.interface";
 
 export type TableSelectionType = "radio" | undefined;
 
@@ -275,4 +276,10 @@ export interface TableProps<T = TableRowRecordType>
   actionColumnWidth?: number;
   rowClassName?: TableRowClassNameType<T>;
   columnsTotals?: TableColumnsTotalsType;
+}
+
+export interface TableQueryConfigProps
+  extends Omit<BaseQueryConfigProps, "apiId"> {
+  transformQueryApiData?: (data: any) => any;
+  apiId: ApiIdsTypes;
 }

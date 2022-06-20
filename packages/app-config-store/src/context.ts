@@ -30,4 +30,5 @@ export default createContext<AppConfigStoreApi>({
   state: initialState,
   // @ts-ignore
   setAuthValues: (state: AppConfigStateType) => state,
+  addNotification: () => null,
 });

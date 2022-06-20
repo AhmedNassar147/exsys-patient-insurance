@@ -4,6 +4,7 @@
  *
  */
 import { AppConfigStateType } from "@exsys-patient-insurance/types";
+import { AddNotificationType } from "@exsys-patient-insurance/notification";
 
 export type SetAppConfigValues = React.Dispatch<
   React.SetStateAction<AppConfigStateType>
@@ -12,4 +13,5 @@ export type SetAppConfigValues = React.Dispatch<
 export type AppConfigStoreApi = {
   state: AppConfigStateType;
   setAuthValues: SetAppConfigValues;
+  addNotification: AddNotificationType;
 };

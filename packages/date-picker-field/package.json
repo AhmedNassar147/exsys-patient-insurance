@@ -1,0 +1,20 @@
+{
+  "name": "@exsys-patient-insurance/date-picker-field",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a date picker field.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/input-field": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

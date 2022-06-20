@@ -5,7 +5,10 @@
  */
 import styled from "styled-components";
 import { colors } from "@exsys-patient-insurance/theme-values";
-import { ellipsisCssHelper } from "@exsys-patient-insurance/styled-helpers";
+import {
+  ellipsisCssHelper,
+  fontSizeCssHelper,
+} from "@exsys-patient-insurance/styled-helpers";
 import type {
   EllipsisCssHelperProps,
   ColorsType,
@@ -41,6 +44,7 @@ export interface FlexProps extends EllipsisCssHelperProps {
   borderColor?: ColorsType;
   order?: number;
   maxHeight?: string;
+  cursor?: string;
 }
 
 const { grey4 } = colors;
@@ -92,5 +96,11 @@ export default styled.div<FlexProps>`
     `
     border-color: ${colors[borderColor]};
   `};
+  ${({ cursor }) =>
+    cursor &&
+    `
+    cursor: ${cursor};
+  `};
   ${ellipsisCssHelper};
+  ${fontSizeCssHelper};
 `;

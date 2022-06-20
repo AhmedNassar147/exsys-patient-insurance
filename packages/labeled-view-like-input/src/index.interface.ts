@@ -13,4 +13,5 @@ export interface LabeledViewLikeInputProps extends LabeledInputProps {
   ellipsis?: "true";
   lineheight?: string;
   justify?: string;
+  onClick?: () => void;
 }

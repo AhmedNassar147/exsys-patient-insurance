@@ -9,10 +9,14 @@ import {
   normalizeAppStoreLanguageAndDir,
 } from "@exsys-patient-insurance/helpers";
 import { AppConfigStateType } from "@exsys-patient-insurance/types";
+import Notification, {
+  useNotification,
+} from "@exsys-patient-insurance/notification";
 import Store, { initialState } from "../context";
 
 const AppConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [state, setContext] = useState<AppConfigStateType>(initialState);
+  const [notificationRef, addNotification] = useNotification();
 
   useLayoutEffect(() => {
     let mainStoreData = getItemFromStorage<AppConfigStateType>("userData");
@@ -36,14 +40,19 @@ const AppConfigProvider = ({ children }: React.PropsWithChildren<{}>) => {
   }, []);
 
   return (
-    <Store.Provider
-      value={{
-        state,
-        setAuthValues: setContext,
-      }}
-    >
-      {children}
-    </Store.Provider>
+    <>
+      <Store.Provider
+        value={{
+          state,
+          setAuthValues: setContext,
+          addNotification,
+        }}
+      >
+        {children}
+      </Store.Provider>
+
+      <Notification ref={notificationRef} />
+    </>
   );
 };
 

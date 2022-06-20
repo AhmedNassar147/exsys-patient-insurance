@@ -12,19 +12,26 @@ import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
-import { useModalRef } from "@exsys-patient-insurance/hooks";
-import { useGlobalProviderNo } from "@exsys-patient-insurance/app-config-store";
+import { checkIfThisDateGreaterThanOther } from "@exsys-patient-insurance/helpers";
+import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
+import {
+  useGlobalProviderNo,
+  useAppConfigStore,
+} from "@exsys-patient-insurance/app-config-store";
 import Button from "@exsys-patient-insurance/button";
 import Modal from "@exsys-patient-insurance/modal";
 import Table from "@exsys-patient-insurance/exsys-table";
 import Image from "@exsys-patient-insurance/image";
 import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import DiagnosisModal, {
+  OnSelectDiagnosisType,
+} from "@exsys-patient-insurance/diagnosis-modal";
 import {
   RecordType,
   OnResponseActionType,
   TableBodyRowClickEvent,
 } from "@exsys-patient-insurance/types";
-import checkIfThisDateGreaterThanOther from "./helpers/checkIfThisDateGreaterThanOther";
+import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import {
   initialValues,
   SEARCH_RADIO_OPTIONS,
@@ -32,9 +39,23 @@ import {
   REQUESTS_TABLE_COLUMNS,
   ATTENDANCE_LIST_PARAMS,
 } from "./constants";
-import { PatientItemRecordType, RequestsDataType } from "./index.interface";
+import {
+  PatientItemRecordType,
+  RequestsDataType,
+  RequestTableRecordType,
+} from "./index.interface";
 
-const initialPatientData = initialValues.currentPatientData;
+const { currentPatientData: initialPatientData } = initialValues;
+const {
+  requestsData: {
+    details: {
+      attendance_type: defaultAttendence,
+      ucafe_type: defaultUcafType,
+      claim_flag: defaultClaimType,
+      ucafe_date: defaultUcafDate,
+    },
+  },
+} = initialValues;
 
 // open and not (approved - rejected - delivered) can delete + can edit
 // can deliver if  approved  (above table)
@@ -45,7 +66,9 @@ const FindPatientForm = () => {
   });
 
   const globalProviderNo = useGlobalProviderNo();
-  const { modalRef, toggle } = useModalRef();
+  const { addNotification } = useAppConfigStore();
+
+  const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
   const skipQuery = useCallback(
     ({ search_value }: RecordType<string>) => (search_value?.length || 0) < 4,
@@ -61,6 +84,8 @@ const FindPatientForm = () => {
     paper_serial,
     isCurrentPatientActive,
     requestsData,
+    editionModalType,
+    selectedTableRecord,
   } = values;
 
   const setPatientStatus = useCallback(
@@ -79,10 +104,13 @@ const FindPatientForm = () => {
       });
 
       if (!isActive) {
-        toggle();
+        addNotification({
+          type: "warning",
+          message: "patnotactve",
+        });
       }
     },
-    [toggle, handleChange]
+    [handleChange, addNotification]
   );
 
   const handlePatientsResponse: OnResponseActionType<
@@ -137,7 +165,6 @@ const FindPatientForm = () => {
     start_date,
     end_date,
     relationship,
-    status,
     subsidiary,
     age,
     organizationUrl,
@@ -150,14 +177,19 @@ const FindPatientForm = () => {
   const handleRequestsResponse: OnResponseActionType<RequestsDataType> =
     useCallback(
       ({ apiValues, error }) => {
+        const { details } = apiValues || {};
+
         const data =
           error || !apiValues
             ? initialValues.requestsData
             : {
                 ...apiValues,
                 details: {
-                  ...apiValues.details,
-                  attendance_type: "O",
+                  ...details,
+                  attendance_type: details.attendance_type || defaultAttendence,
+                  ucafe_type: details.ucafe_type || defaultUcafType,
+                  claim_flag: details.claim_flag || defaultClaimType,
+                  ucafe_date: details.ucafe_date || defaultUcafDate,
                 },
               };
 
@@ -210,6 +242,35 @@ const FindPatientForm = () => {
       [setPatientStatus, handleChangeMultipleInputs]
     );
 
+  const onSelectDiagnosis: OnSelectDiagnosisType = useCallback(
+    ({ diag_code, diage_name }) =>
+      handleChangeMultipleInputs({
+        "requestsData.details.primary_diag_code": diag_code,
+        "requestsData.details.primary_diagnosis": diage_name,
+      }),
+    [handleChangeMultipleInputs]
+  );
+
+  const setEditionModalState = useCallback(
+    (value?: string) => () => {
+      handleChange({
+        name: "editionModalType",
+        value,
+      });
+    },
+    [handleChange]
+  );
+
+  const onSelectTableRow: TableBodyRowClickEvent<RequestTableRecordType> =
+    useCallback(
+      (selectedTableRecord) =>
+        handleChange({
+          name: "selectedTableRecord",
+          value: selectedTableRecord,
+        }),
+      [handleChange]
+    );
+
   const searchDisabled = (search_value?.length || 0) < 4;
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
@@ -221,18 +282,32 @@ const FindPatientForm = () => {
     details: {
       doctor_department_name,
       doctor_provider_name,
+      doctor_department_id,
       complain,
       signs,
       is_chronic,
       primary_diagnosis,
-      ucafe_type,
+      // ucafe_type,
       claim_flag,
+      ucafe_date,
       attendance_type,
+      ucaf_id,
     },
     data: requestTableDataSource,
   } = requestsData;
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
+
+  const isEditableFieldsDisabled =
+    !foundPatientCardNo || !paper_serial || !!ucaf_id;
+  const canRenderDiagnosisModal =
+    !!foundPatientCardNo && !!doctor_department_id && !ucaf_id;
+
+  const tableActionsAllowed = !!(
+    foundPatientCardNo &&
+    doctor_department_id &&
+    paper_serial
+  );
 
   return (
     <>
@@ -251,6 +326,7 @@ const FindPatientForm = () => {
           value={search_value}
           name="search_value"
           onChange={handleChange}
+          onPressEnter={onSearchPatients}
         />
 
         <Button
@@ -268,6 +344,7 @@ const FindPatientForm = () => {
           label="serial"
           onChange={handleChange}
           disabled={searchRequestsDisabled}
+          onPressEnter={onSearchRequests}
         />
 
         <Button
@@ -281,14 +358,16 @@ const FindPatientForm = () => {
         />
 
         <LabeledViewLikeInput
-          label="spec"
-          value={doctor_department_name}
-          width="120px"
-        />
-        <LabeledViewLikeInput
           label="docprvdrnam"
           value={doctor_provider_name}
-          width="260px"
+          minWidth="200px"
+          width="auto"
+        />
+        <LabeledViewLikeInput
+          label="spec"
+          value={doctor_department_name}
+          minWidth="120px"
+          width="auto"
         />
       </Flex>
 
@@ -299,30 +378,32 @@ const FindPatientForm = () => {
         padding="10px 12px"
         margin="12px 0"
       >
-        <Flex wrap="true" width="32%" gap="10px">
+        <Flex wrap="true" width="30%" gap="10px">
           <InputField
-            width="49%"
+            width="48.5%"
             name="requestsData.details.complain"
             value={complain}
-            disabled={!!requestDataLength}
+            disabled={isEditableFieldsDisabled}
             onChange={handleChange}
             label="cmplns"
           />
           <InputField
             name="requestsData.details.signs"
             value={signs}
-            disabled={!!requestDataLength}
+            disabled={isEditableFieldsDisabled}
             onChange={handleChange}
             label="signs"
-            width="49%"
+            width="48.5%"
           />
-          <InputField
-            name="requestsData.details.primary_diagnosis"
-            value={primary_diagnosis}
-            disabled={!!requestDataLength}
-            onChange={handleChange}
+          <LabeledViewLikeInput
             label="dignos"
             width="100%"
+            value={primary_diagnosis}
+            onClick={
+              !canRenderDiagnosisModal || isEditableFieldsDisabled
+                ? undefined
+                : handleOpen
+            }
           />
           <SelectWithApiQuery
             queryType="u_code"
@@ -330,14 +411,16 @@ const FindPatientForm = () => {
             value={attendance_type}
             name="requestsData.details.attendance_type"
             onChange={handleChange}
-            width="40%"
+            width="38%"
             label="atndc"
+            disabled={isEditableFieldsDisabled}
             apiParams={ATTENDANCE_LIST_PARAMS}
+            allowClear={false}
           />
-          <InputField
+          {/* <InputField
             name="requestsData.details.ucafe_type"
             value={ucafe_type}
-            disabled={!!requestDataLength}
+            disabled={isEditableFieldsDisabled}
             onChange={handleChange}
             label="ucaftyp"
             width="20%"
@@ -345,15 +428,15 @@ const FindPatientForm = () => {
           <InputField
             name="requestsData.details.claim_flag"
             value={claim_flag}
-            disabled={!!requestDataLength}
+            disabled={isEditableFieldsDisabled}
             onChange={handleChange}
             label="clmflg"
             width="20%"
-          />
+          /> */}
           <SelectionCheck
             name="requestsData.details.is_chronic"
             checked={is_chronic || "N"}
-            disabled={!!requestDataLength}
+            disabled={isEditableFieldsDisabled}
             onChange={handleChange}
             label="chrnc"
           />
@@ -366,53 +449,63 @@ const FindPatientForm = () => {
           height="sp17"
         />
 
-        <Flex wrap="true" width="52%" gap="10px" height="90px">
+        <Flex wrap="true" width="54%" gap="10px" height="90px">
+          <LabeledViewLikeInput
+            label="cardno"
+            value={foundPatientCardNo}
+            width="140px"
+            ellipsis="true"
+          />
+          <LabeledViewLikeInput
+            label="class"
+            value={patientClass}
+            width="80px"
+            ellipsis="true"
+          />
           <LabeledViewLikeInput
             label="bnfcryid"
             value={national_id}
+            minWidth="100px"
             width="120px"
+            ellipsis="true"
           />
           <LabeledViewLikeInput
             label="bnfcry"
             value={`${patient_name || ""} (${age || ""})`}
             width="270px"
+            ellipsis="true"
           />
           <LabeledViewLikeInput
-            label="cardno"
-            value={foundPatientCardNo}
-            width="140px"
+            label="phn"
+            value={phone_no}
+            minWidth="90px"
+            width="auto"
           />
           <LabeledViewLikeInput label="pln" value={plan} width="220px" />
-          <LabeledViewLikeInput label="phn" value={phone_no} width="90px" />
           <LabeledViewLikeInput
             label="strtend"
             value={`${start_date || ""} ~ ${end_date || ""}`}
-            width="135px"
+            width="160px"
+            ellipsis="true"
             justify="center"
           />
           <LabeledViewLikeInput
             label="rltnship"
             value={relationship}
             width="90px"
+            ellipsis="true"
           />
           <LabeledViewLikeInput
             label="subsdry"
             value={subsidiary}
             width="110px"
-          />
-          <LabeledViewLikeInput
-            label="class"
-            value={patientClass}
-            width="80px"
+            ellipsis="true"
           />
           <LabeledViewLikeInput
             label="membrof"
             value={member_of}
-            width="100px"
+            width="220px"
           />
-          <LabeledViewLikeInput label="" width="auto" bordered={false}>
-            <SelectionCheck label="stts" checked={status === "A"} />
-          </LabeledViewLikeInput>
         </Flex>
 
         <Image src={patientImgUrl} alt="patient" width="sp15" height="sp17" />
@@ -423,9 +516,17 @@ const FindPatientForm = () => {
         rowKey="ucaf_dtl_pk"
         totalRecordsInDataBase={requestDataLength}
         noPagination
-        hideTableHeaderTools
+        canInsert={tableActionsAllowed}
+        canDelete={tableActionsAllowed}
+        canEdit={tableActionsAllowed}
+        withPdf={false}
+        withExcel={false}
+        withInfo={false}
         columns={REQUESTS_TABLE_COLUMNS}
         height="400px"
+        onPressAdd={setEditionModalState("n")}
+        onPressSaveOrEdit={setEditionModalState("u")}
+        onSelectRow={onSelectTableRow}
       />
 
       <Modal
@@ -447,9 +548,27 @@ const FindPatientForm = () => {
         />
       </Modal>
 
-      <Modal title="wrning" width="200px" noFooter ref={modalRef}>
-        <Text>patnotactve</Text>
-      </Modal>
+      {canRenderDiagnosisModal && (
+        <DiagnosisModal
+          visible={visible}
+          onClose={handleClose}
+          departmentId={doctor_department_id}
+          onSelectDiagnosis={onSelectDiagnosis}
+        />
+      )}
+
+      {!!editionModalType && (
+        <EditOrCreateRequest
+          rootOrganizationNo={root_organization_no}
+          patientCardNo={foundPatientCardNo}
+          ucafDate={ucafe_date}
+          claimFlag={claim_flag}
+          attendanceType={attendance_type}
+          recordStatus={editionModalType}
+          closeEditionModal={setEditionModalState("")}
+          selectedRecord={selectedTableRecord}
+        />
+      )}
     </>
   );
 };
