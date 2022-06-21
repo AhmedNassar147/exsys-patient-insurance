@@ -12,7 +12,10 @@ import { useGlobalProviderNo } from "@exsys-patient-insurance/app-config-store";
 import TableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
 } from "@exsys-patient-insurance/exsys-table-with-api-query";
-import { RecordType } from "@exsys-patient-insurance/types";
+import {
+  RecordType,
+  TableBodyRowClickEvent,
+} from "@exsys-patient-insurance/types";
 import { ServicesModalProps, ServiceRequestItemType } from "./index.interface";
 import { initialState, TABLE_COLUMNS } from "./constants";
 
@@ -20,6 +23,7 @@ const ServicesModal = ({
   onClose,
   visible,
   searchParams,
+  onSelectService,
 }: ServicesModalProps) => {
   const { values, handleChange } = useFormManager({
     initialValues: initialState,
@@ -43,6 +47,15 @@ const ServicesModal = ({
     ({ search_word }: RecordType) => (search_word || "")?.length < 3,
     []
   );
+
+  const onDoubleClickRecord: TableBodyRowClickEvent<ServiceRequestItemType> =
+    useCallback(
+      (record) => {
+        onSelectService(record);
+        onClose();
+      },
+      [onSelectService, onClose]
+    );
 
   const baseSearchParams = {
     ...searchParams,
@@ -78,6 +91,7 @@ const ServicesModal = ({
         baseQueryAPiParams={baseSearchParams}
         margin="0"
         skipQuery={skipQuery}
+        onDoubleClick={onDoubleClickRecord}
       />
     </Modal>
   );

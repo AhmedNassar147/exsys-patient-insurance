@@ -32,6 +32,7 @@ import {
   TableBodyRowClickEvent,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
+import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
 import {
   initialValues,
   SEARCH_RADIO_OPTIONS,
@@ -87,6 +88,138 @@ const FindPatientForm = () => {
     editionModalType,
     selectedTableRecord,
   } = values;
+
+  const {
+    national_id,
+    patient_name,
+    phone_no,
+    plan,
+    patient_card_no: foundPatientCardNo,
+    start_date,
+    end_date,
+    relationship,
+    subsidiary,
+    age,
+    organizationUrl,
+    patientImgUrl,
+    class: patientClass,
+    member_of,
+    root_organization_no,
+    insurance_company_no,
+  } = currentPatientData;
+
+  const {
+    details: {
+      doctor_department_name,
+      doctor_provider_name,
+      doctor_department_id,
+      complain,
+      signs,
+      is_chronic,
+      primary_diagnosis,
+      primary_diag_code,
+      ucafe_type,
+      claim_flag,
+      ucafe_date,
+      attendance_type,
+      ucaf_id,
+      doctor_provider_no,
+      provider_notes,
+    },
+    data: requestTableDataSource,
+  } = requestsData;
+
+  const setEditionModalState = useCallback(
+    (value?: string) => () =>
+      handleChange({
+        name: "editionModalType",
+        value,
+      }),
+    [handleChange]
+  );
+
+  const handleRequestsResponse: OnResponseActionType<RequestsDataType> =
+    useCallback(
+      ({ apiValues, error }) => {
+        const { details } = apiValues || {};
+
+        const data =
+          error || !apiValues
+            ? initialValues.requestsData
+            : {
+                ...apiValues,
+                details: {
+                  ...details,
+                  attendance_type: details.attendance_type || defaultAttendence,
+                  ucafe_type: details.ucafe_type || defaultUcafType,
+                  claim_flag: details.claim_flag || defaultClaimType,
+                  ucafe_date: details.ucafe_date || defaultUcafDate,
+                },
+              };
+
+        handleChange({
+          name: "requestsData",
+          value: data,
+        });
+      },
+      [handleChange]
+    );
+
+  const { runQuery: fetchUcafRequests, loading: requestsLoading } =
+    useBasicQuery<RequestsDataType>({
+      apiId: "QUERY_UCAF_REQUESTS_DATA",
+      disableParamsChangeCheck: true,
+      onResponse: handleRequestsResponse,
+      checkAllParamsValuesToQuery: true,
+      params: {
+        root_organization_no,
+        patient_card_no: foundPatientCardNo,
+        paper_serial,
+        provider_no: globalProviderNo,
+      },
+    });
+
+  const closeSelectionModal = useCallback(
+    () =>
+      handleChange({
+        name: "selectionModalOpened",
+        value: false,
+      }),
+    []
+  );
+
+  const onSearchRequests = useCallback(() => fetchUcafRequests(), []);
+
+  const onAfterSaveRequest = useCallback(() => {
+    if (editionModalType) {
+      setEditionModalState("")();
+    }
+    onSearchRequests();
+  }, [onSearchRequests, setEditionModalState]);
+
+  const { loading: isSavingRequest, handleSaveServiceRequest } =
+    useSaveServiceRequest(
+      {
+        root_organization_no,
+        doctor_provider_no,
+        doctor_provider_name,
+        attendance_type,
+        ucafe_date,
+        claim_flag,
+        ucaf_id,
+        doctor_department_id,
+        complain,
+        signs,
+        primary_diag_code,
+        primary_diagnosis,
+        ucafe_type,
+        is_chronic,
+        patient_card_no: foundPatientCardNo,
+        insurance_company_no,
+        provider_notes,
+      },
+      onAfterSaveRequest
+    );
 
   const setPatientStatus = useCallback(
     (endDate: string, status: string) => {
@@ -156,78 +289,6 @@ const FindPatientForm = () => {
     runQuery();
   }, []);
 
-  const {
-    national_id,
-    patient_name,
-    phone_no,
-    plan,
-    patient_card_no: foundPatientCardNo,
-    start_date,
-    end_date,
-    relationship,
-    subsidiary,
-    age,
-    organizationUrl,
-    patientImgUrl,
-    class: patientClass,
-    member_of,
-    root_organization_no,
-  } = currentPatientData;
-
-  const handleRequestsResponse: OnResponseActionType<RequestsDataType> =
-    useCallback(
-      ({ apiValues, error }) => {
-        const { details } = apiValues || {};
-
-        const data =
-          error || !apiValues
-            ? initialValues.requestsData
-            : {
-                ...apiValues,
-                details: {
-                  ...details,
-                  attendance_type: details.attendance_type || defaultAttendence,
-                  ucafe_type: details.ucafe_type || defaultUcafType,
-                  claim_flag: details.claim_flag || defaultClaimType,
-                  ucafe_date: details.ucafe_date || defaultUcafDate,
-                },
-              };
-
-        handleChange({
-          name: "requestsData",
-          value: data,
-        });
-      },
-      [handleChange]
-    );
-
-  const { runQuery: fetchUcafRequests, loading: requestsLoading } =
-    useBasicQuery<RequestsDataType>({
-      apiId: "QUERY_UCAF_REQUESTS_DATA",
-      disableParamsChangeCheck: true,
-      onResponse: handleRequestsResponse,
-      checkAllParamsValuesToQuery: true,
-      params: {
-        root_organization_no,
-        patient_card_no: foundPatientCardNo,
-        paper_serial,
-        provider_no: globalProviderNo,
-      },
-    });
-
-  const closeSelectionModal = useCallback(
-    () =>
-      handleChange({
-        name: "selectionModalOpened",
-        value: false,
-      }),
-    []
-  );
-
-  const onSearchRequests = useCallback(() => {
-    fetchUcafRequests();
-  }, []);
-
   const onDoubleClickPatientRecord: TableBodyRowClickEvent<PatientItemRecordType> =
     useCallback(
       (currentRecord) => {
@@ -251,16 +312,6 @@ const FindPatientForm = () => {
     [handleChangeMultipleInputs]
   );
 
-  const setEditionModalState = useCallback(
-    (value?: string) => () => {
-      handleChange({
-        name: "editionModalType",
-        value,
-      });
-    },
-    [handleChange]
-  );
-
   const onSelectTableRow: TableBodyRowClickEvent<RequestTableRecordType> =
     useCallback(
       (selectedTableRecord) =>
@@ -271,30 +322,29 @@ const FindPatientForm = () => {
       [handleChange]
     );
 
+  const onDeleteTableRecord = useCallback(() => {
+    const { ucaf_dtl_pk } = selectedTableRecord;
+
+    if (!ucaf_dtl_pk) {
+      addNotification({
+        type: "warning",
+        message: "norecordslcted",
+      });
+      return;
+    }
+
+    handleSaveServiceRequest({
+      record_status: "d",
+      ...selectedTableRecord,
+    });
+  }, [handleSaveServiceRequest, addNotification]);
+
   const searchDisabled = (search_value?.length || 0) < 4;
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
     !foundPatientCardNo ||
     !globalProviderNo;
-
-  const {
-    details: {
-      doctor_department_name,
-      doctor_provider_name,
-      doctor_department_id,
-      complain,
-      signs,
-      is_chronic,
-      primary_diagnosis,
-      // ucafe_type,
-      claim_flag,
-      ucafe_date,
-      attendance_type,
-      ucaf_id,
-    },
-    data: requestTableDataSource,
-  } = requestsData;
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
@@ -440,6 +490,15 @@ const FindPatientForm = () => {
             onChange={handleChange}
             label="chrnc"
           />
+
+          <InputField
+            name="requestsData.details.provider_notes"
+            value={provider_notes}
+            disabled={isEditableFieldsDisabled}
+            onChange={handleChange}
+            label="nots"
+            width="100%"
+          />
         </Flex>
 
         <Image
@@ -527,6 +586,8 @@ const FindPatientForm = () => {
         onPressAdd={setEditionModalState("n")}
         onPressSaveOrEdit={setEditionModalState("u")}
         onSelectRow={onSelectTableRow}
+        onPressDelete={onDeleteTableRecord}
+        loading={requestsLoading || isSavingRequest}
       />
 
       <Modal
@@ -567,6 +628,8 @@ const FindPatientForm = () => {
           recordStatus={editionModalType}
           closeEditionModal={setEditionModalState("")}
           selectedRecord={selectedTableRecord}
+          handleSaveServiceRequest={handleSaveServiceRequest}
+          isSavingCurrentRequest={isSavingRequest}
         />
       )}
     </>

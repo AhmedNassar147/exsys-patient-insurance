@@ -47,6 +47,7 @@ export interface RequestDetailsType {
   ucafe_type?: CapitalBooleanStringType;
   claim_flag?: string;
   attendance_type?: string;
+  provider_notes?: string;
 }
 
 export interface RequestTableRecordType {
@@ -65,9 +66,14 @@ export interface RequestTableRecordType {
   delivery_doc_no: string;
   status: string;
   status_name: string;
+  provider_notes?: string;
 }
 
 export interface RequestsDataType {
   details: RequestDetailsType;
   data: RequestTableRecordType[];
 }
+
+export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
+  record_status: string;
+};

@@ -15,7 +15,10 @@ import ServicesModal, {
 import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
 import Flex from "@exsys-patient-insurance/flex";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
-import { RequestTableRecordType } from "../index.interface";
+import {
+  RequestTableRecordType,
+  ServiceItemValuesForPostApiType,
+} from "../index.interface";
 
 interface EditOrCreateRequestProps {
   rootOrganizationNo: string;
@@ -26,18 +29,20 @@ interface EditOrCreateRequestProps {
   closeEditionModal: () => void;
   recordStatus: string;
   selectedRecord: RequestTableRecordType;
+  handleSaveServiceRequest: (values: ServiceItemValuesForPostApiType) => void;
+  isSavingCurrentRequest?: boolean;
 }
 
 const initialState = {
   ucaf_dtl_pk: "",
   service_code: "",
-  service_name: "",
-  price: 0,
-  qty: 0,
   delivery_qty: 0,
-  status: "O",
+  qty: 0,
+  price: 0,
   delivery_date: "",
   delivery_doc_no: undefined,
+  status: "O",
+  service_name: "",
 };
 
 const EditOrCreateRequest = ({
@@ -49,15 +54,20 @@ const EditOrCreateRequest = ({
   recordStatus,
   closeEditionModal,
   selectedRecord,
+  handleSaveServiceRequest,
+  isSavingCurrentRequest,
 }: EditOrCreateRequestProps) => {
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
-  const { values, handleChange, handleChangeMultipleInputs } = useFormManager({
-    initialValues: {
-      ...initialState,
-      ...selectedRecord,
-    },
-  });
+  const { values, handleChange, handleChangeMultipleInputs, handleSubmit } =
+    useFormManager({
+      initialValues: {
+        ...initialState,
+        ...selectedRecord,
+        record_status: recordStatus,
+      },
+      onSubmit: handleSaveServiceRequest,
+    });
 
   const servicesRequestParams = {
     root_organization_no: rootOrganizationNo,
@@ -103,6 +113,10 @@ const EditOrCreateRequest = ({
       destroyOnClose
       visible={!!recordStatus}
       onClose={closeEditionModal}
+      onOk={handleSubmit}
+      disabled={isSavingCurrentRequest}
+      loading={isSavingCurrentRequest}
+      okText="save"
     >
       <Flex width="100%" wrap="true" gap="10px">
         <LabeledViewLikeInput
@@ -169,40 +183,3 @@ const EditOrCreateRequest = ({
 };
 
 export default memo(EditOrCreateRequest);
-
-// USE POST http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/mi_provider_ucaf_dml
-// FROM json_table(p_body FORMAT JSON, '$'
-//            COLUMNS (
-//               authorization                 Number    PATH    '$.authorization',
-//               root_organization_no          VARCHAR2  PATH    '$.root_organization_no',
-//               insurance_company_no          Number    PATH    '$.insurance_company_no',
-//               patient_card_no               VARCHAR2  PATH    '$.patient_card_no',
-//               paper_serial                  VARCHAR2  PATH    '$.paper_serial',
-//               ucaf_id                       Number    PATH    '$.ucaf_id',
-//               ucafe_date                    VARCHAR2  PATH    '$.ucafe_date',
-//               claim_flag                    VARCHAR2  PATH    '$.claim_flag',
-//               attendance_type               VARCHAR2  PATH    '$.attendance_type',
-//               provider_no                   VARCHAR2  PATH    '$.provider_no',
-//               provider_notes                VARCHAR2  PATH    '$.provider_notes',
-//               doctor_provider_no            VARCHAR2  PATH    '$.doctor_provider_no',
-//               doctor_provider_name          VARCHAR2  PATH    '$.doctor_provider_name',
-//               doctor_department_id          VARCHAR2  PATH    '$.doctor_department_id',
-//               complain                      VARCHAR2  PATH    '$.complain',
-//               signs                         VARCHAR2  PATH    '$.signs',
-//                primary_diag_code            VARCHAR2  PATH    '$.primary_diag_code',
-//                primary_diagnosis            VARCHAR2  PATH    '$.primary_diagnosis',
-//                ucafe_type                   VARCHAR2  PATH    '$.ucafe_type',
-//                is_chronic                   VARCHAR2  PATH    '$.is_chronic',
-//                NESTED             PATH '$.data[*]'
-//              COLUMNS (
-//               ucaf_dtl_pk                   NUMBER  PATH    '$.ucaf_dtl_pk',
-//               service_code                  VARCHAR2  PATH    '$.service_code',
-//               qty                           NUMBER  PATH    '$.qty',
-//               price                         NUMBER  PATH    '$.price',
-//               total                         NUMBER  PATH    '$.total',
-//               delivery_qty                  NUMBER  PATH    '$.delivery_qty',
-//               delivery_date                 VARCHAR2  PATH    '$.delivery_date',
-//               delivery_doc_no               VARCHAR2  PATH    '$.delivery_doc_no',
-//               status                        VARCHAR2  PATH    '$.status',
-//               record_status                 VARCHAR2  PATH    '$.record_status'
-//            ))) ;
