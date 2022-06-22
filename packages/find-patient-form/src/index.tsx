@@ -30,15 +30,19 @@ import {
   RecordType,
   OnResponseActionType,
   TableBodyRowClickEvent,
+  TableActionElementType,
+  OnPressTableRowActionType,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
+import useDeliverRequest from "./hooks/useDeliverRequest";
 import {
   initialValues,
   SEARCH_RADIO_OPTIONS,
   TABLE_COLUMNS,
   REQUESTS_TABLE_COLUMNS,
   ATTENDANCE_LIST_PARAMS,
+  TABLE_ACTION_ICON,
 } from "./constants";
 import {
   PatientItemRecordType,
@@ -57,9 +61,6 @@ const {
     },
   },
 } = initialValues;
-
-// open and not (approved - rejected - delivered) can delete + can edit
-// can deliver if  approved  (above table)
 
 const FindPatientForm = () => {
   const { values, handleChange, handleChangeMultipleInputs } = useFormManager({
@@ -188,7 +189,10 @@ const FindPatientForm = () => {
     []
   );
 
-  const onSearchRequests = useCallback(() => fetchUcafRequests(), []);
+  const onSearchRequests = useCallback(
+    () => fetchUcafRequests(),
+    [fetchUcafRequests]
+  );
 
   const onAfterSaveRequest = useCallback(() => {
     if (editionModalType) {
@@ -217,9 +221,26 @@ const FindPatientForm = () => {
         patient_card_no: foundPatientCardNo,
         insurance_company_no,
         provider_notes,
+        paper_serial,
       },
       onAfterSaveRequest
     );
+
+  const { handleDeliverItem, loading: isDeliveringItem } = useDeliverRequest(
+    {
+      root_organization_no,
+      doctor_provider_no,
+      ucafe_date,
+      claim_flag,
+      ucaf_id,
+      doctor_department_id,
+      ucafe_type,
+      patient_card_no: foundPatientCardNo,
+      insurance_company_no,
+      paper_serial,
+    },
+    onSearchRequests
+  );
 
   const setPatientStatus = useCallback(
     (endDate: string, status: string) => {
@@ -285,9 +306,7 @@ const FindPatientForm = () => {
     },
   });
 
-  const onSearchPatients = useCallback(() => {
-    runQuery();
-  }, []);
+  const onSearchPatients = useCallback(() => runQuery(), [runQuery]);
 
   const onDoubleClickPatientRecord: TableBodyRowClickEvent<PatientItemRecordType> =
     useCallback(
@@ -322,8 +341,37 @@ const FindPatientForm = () => {
       [handleChange]
     );
 
+  const canDeleteOrEdit = useCallback(
+    (status: string, approvalReplay: string) =>
+      status === "O" && !["R", "A"].includes(approvalReplay),
+    []
+  );
+
+  const handleUpdateRecord = useCallback(() => {
+    const { status, approval_reply } = selectedTableRecord;
+
+    if (!canDeleteOrEdit(status, approval_reply)) {
+      addNotification({
+        type: "error",
+        message: "cantupdateslctedrecord",
+      });
+      return;
+    }
+
+    setEditionModalState("u")();
+  }, [canDeleteOrEdit, setEditionModalState]);
+
   const onDeleteTableRecord = useCallback(() => {
-    const { ucaf_dtl_pk } = selectedTableRecord;
+    const { ucaf_dtl_pk, status, approval_reply } = selectedTableRecord;
+
+    if (!canDeleteOrEdit(status, approval_reply)) {
+      addNotification({
+        type: "error",
+        message: "cantdeletslctedrecord",
+      });
+
+      return;
+    }
 
     if (!ucaf_dtl_pk) {
       addNotification({
@@ -337,7 +385,28 @@ const FindPatientForm = () => {
       record_status: "d",
       ...selectedTableRecord,
     });
-  }, [handleSaveServiceRequest, addNotification]);
+  }, [handleSaveServiceRequest, addNotification, canDeleteOrEdit]);
+
+  const onPressActionIcon: OnPressTableRowActionType<RequestTableRecordType> =
+    useCallback(
+      ({ approval_reply, qty, ucaf_dtl_pk, service_code }) => {
+        if (approval_reply != "A") {
+          addNotification({
+            type: "error",
+            message: "cantdlvrrequest",
+            description: "thisreqnotaprovdyet",
+          });
+          return;
+        }
+
+        handleDeliverItem({
+          qty,
+          ucaf_dtl_pk,
+          service_code,
+        });
+      },
+      [addNotification, handleDeliverItem]
+    );
 
   const searchDisabled = (search_value?.length || 0) < 4;
   const searchRequestsDisabled =
@@ -449,6 +518,7 @@ const FindPatientForm = () => {
             label="dignos"
             width="100%"
             value={primary_diagnosis}
+            ellipsis="true"
             onClick={
               !canRenderDiagnosisModal || isEditableFieldsDisabled
                 ? undefined
@@ -584,10 +654,12 @@ const FindPatientForm = () => {
         columns={REQUESTS_TABLE_COLUMNS}
         height="400px"
         onPressAdd={setEditionModalState("n")}
-        onPressSaveOrEdit={setEditionModalState("u")}
+        onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}
         onPressDelete={onDeleteTableRecord}
-        loading={requestsLoading || isSavingRequest}
+        loading={requestsLoading || isSavingRequest || isDeliveringItem}
+        onPressActionIcon={onPressActionIcon}
+        actionIcon={TABLE_ACTION_ICON as TableActionElementType[]}
       />
 
       <Modal

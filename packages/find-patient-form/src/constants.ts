@@ -140,3 +140,12 @@ export const TABLE_COLUMNS = [
 export const ATTENDANCE_LIST_PARAMS = Object.freeze({
   pwhere: "('I','O','E')",
 });
+
+export const TABLE_ACTION_ICON = [
+  {
+    type: "button",
+    label: "dlvr",
+    buttonSize: "small",
+    buttonType: "primary",
+  },
+];

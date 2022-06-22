@@ -1,6 +1,6 @@
 /*
  *
- * Hook: `useSaveServiceRequest`.
+ * Hook: `useDeliverRequest`.
  *
  */
 import { useCallback } from "react";
@@ -14,16 +14,23 @@ import {
   ServiceItemValuesForPostApiType,
 } from "../index.interface";
 
-type BaseRequestValuesType = Omit<
+type BaseRequestValuesType = Pick<
   RequestDetailsType,
-  "doctor_department_name"
+  | "root_organization_no"
+  | "doctor_provider_no"
+  | "ucafe_date"
+  | "claim_flag"
+  | "claim_flag"
+  | "ucaf_id"
+  | "doctor_department_id"
+  | "ucafe_type"
 > & {
   patient_card_no?: string;
   insurance_company_no?: number;
   paper_serial: string;
 };
 
-const useSaveServiceRequest = (
+const useDeliverRequest = (
   baseDetailsValues: BaseRequestValuesType,
   onSuccess: () => void
 ) => {
@@ -31,81 +38,48 @@ const useSaveServiceRequest = (
   const { addNotification } = useAppConfigStore();
 
   const { loading, mutate } = useBasicMutation({
-    apiId: "POST_SERVICES_REQUESTS_ITEM",
+    apiId: "POST_DELIVER_SERVICES_REQUESTS_ITEM",
   });
 
-  const handleSaveServiceRequest = useCallback(
+  const handleDeliverItem = useCallback(
     ({
       ucaf_dtl_pk,
       service_code,
       qty,
-      price,
-      delivery_qty,
-      delivery_date,
-      delivery_doc_no,
-      status,
-      record_status,
-    }: ServiceItemValuesForPostApiType) => {
+    }: Pick<
+      ServiceItemValuesForPostApiType,
+      "ucaf_dtl_pk" | "service_code" | "qty"
+    >) => {
       const {
         root_organization_no,
         doctor_provider_no,
-        doctor_provider_name,
-        attendance_type,
         ucafe_date,
         claim_flag,
         ucaf_id,
         doctor_department_id,
-        complain,
-        signs,
-        primary_diag_code,
-        primary_diagnosis,
         ucafe_type,
-        is_chronic,
         patient_card_no,
         insurance_company_no,
-        provider_notes,
         paper_serial,
       } = baseDetailsValues;
-
-      if (!service_code) {
-        addNotification({
-          type: "error",
-          message: "plsslctprodct",
-        });
-        return;
-      }
 
       const data = {
         root_organization_no,
         patient_card_no,
         insurance_company_no,
-        provider_notes,
         ucafe_date,
         claim_flag,
-        attendance_type,
         provider_no: providerNo,
         ucaf_id,
         doctor_provider_no,
-        doctor_provider_name,
         doctor_department_id,
-        complain,
-        signs,
-        primary_diag_code,
-        primary_diagnosis,
         ucafe_type,
-        is_chronic,
         paper_serial,
         data: [
           {
-            ucaf_dtl_pk: record_status === "n" ? "" : ucaf_dtl_pk,
+            ucaf_dtl_pk,
             service_code,
-            delivery_qty,
             qty,
-            price,
-            delivery_date,
-            delivery_doc_no,
-            status: status || "O",
-            record_status,
           },
         ],
       };
@@ -113,8 +87,8 @@ const useSaveServiceRequest = (
       mutate({
         body: data,
         cb: ({ apiValues, error }) => {
-          console.log("data", data);
-          console.log("apiValues", apiValues);
+          console.log("data delivery", data);
+          console.log("delivery apiValues", apiValues);
           const isError = !!error || apiValues?.status !== "success";
           if (!isError) {
             onSuccess();
@@ -132,8 +106,8 @@ const useSaveServiceRequest = (
 
   return {
     loading,
-    handleSaveServiceRequest,
+    handleDeliverItem,
   };
 };
 
-export default useSaveServiceRequest;
+export default useDeliverRequest;

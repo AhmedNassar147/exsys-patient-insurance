@@ -4,7 +4,6 @@
  *
  */
 import { memo, useCallback } from "react";
-import DatePickerField from "@exsys-patient-insurance/date-picker-field";
 import InputNumber from "@exsys-patient-insurance/input-number";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import InputField from "@exsys-patient-insurance/input-field";
@@ -125,6 +124,7 @@ const EditOrCreateRequest = ({
           value={service_name}
           onClick={shouldRenderServiceModal ? handleOpen : undefined}
           justify="center"
+          ellipsis="true"
         />
         <InputNumber
           label="qty"
@@ -132,14 +132,23 @@ const EditOrCreateRequest = ({
           width="calc(21% - 5px)"
           value={qty}
           onChange={handleChange}
+          disabled={!service_name}
         />
-        <InputNumber
+
+        <LabeledViewLikeInput
           label="dlvryqty"
-          name="delivery_qty"
           width="calc(21% - 5px)"
+          justify="center"
           value={delivery_qty}
-          onChange={handleChange}
         />
+
+        <LabeledViewLikeInput
+          label="dlvydat"
+          width="200px"
+          justify="center"
+          value={delivery_date}
+        />
+
         <LabeledViewLikeInput
           label="prc"
           minWidth="100px"
@@ -153,13 +162,6 @@ const EditOrCreateRequest = ({
           width="auto"
           justify="center"
           value={qty * price}
-        />
-        <DatePickerField
-          name="delivery_date"
-          value={delivery_date}
-          onChange={handleChange}
-          width="200px"
-          label="dlvydat"
         />
         <InputField
           name="delivery_doc_no"

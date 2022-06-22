@@ -78,7 +78,7 @@ const ServicesModal = ({
           onChange={handleChange}
           label="prodctnam"
           width="300px"
-          onClick={onSearch}
+          onPressEnter={onSearch}
         />
       </Flex>
 

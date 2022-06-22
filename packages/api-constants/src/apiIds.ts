@@ -25,6 +25,9 @@ const API_IDS = {
   QUERY_SERVICES_REQUESTS_DATA: "mi_ucaf_request/pop_provider_service_data",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/mi_provider_ucaf_dml
   POST_SERVICES_REQUESTS_ITEM: "mi_ucaf_request/mi_provider_ucaf_dml",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/mi_provider_ucaf_delivery
+  POST_DELIVER_SERVICES_REQUESTS_ITEM:
+    "mi_ucaf_request/mi_provider_ucaf_delivery",
 };
 
 export default API_IDS;
