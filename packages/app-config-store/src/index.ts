@@ -17,3 +17,5 @@ export { default as useCurrentUserFullName } from "./hooks/useCurrentUserFullNam
 export { default as useCurrentUserType } from "./hooks/useCurrentUserType";
 export { default as useClearAppConfigState } from "./hooks/useClearAppConfigState";
 export { default as useGlobalProviderNo } from "./hooks/useGlobalProviderNo";
+export { default as usePagePrivilege } from "./hooks/usePagePrivilege";
+export { default as useHomePageUrl } from "./hooks/useHomePageUrl";

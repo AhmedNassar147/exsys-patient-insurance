@@ -1,6 +1,6 @@
 /*
  *
- * Constants: `@exsys-patient-insurance/find-patient-form`.
+ * Constants: `@exsys-patient-insurance/ucaf-list-page`.
  *
  */
 import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
@@ -44,6 +44,11 @@ export const initialValues = {
     },
     data: [] as RequestTableRecordType[],
   } as RequestsDataType,
+
+  tableSelectionRows: {
+    selectedKeys: [] as string[],
+    selectedRows: [] as RequestTableRecordType[],
+  },
 };
 
 export const REQUESTS_TABLE_COLUMNS = [
@@ -140,12 +145,3 @@ export const TABLE_COLUMNS = [
 export const ATTENDANCE_LIST_PARAMS = Object.freeze({
   pwhere: "('I','O','E')",
 });
-
-export const TABLE_ACTION_ICON = [
-  {
-    type: "button",
-    label: "dlvr",
-    buttonSize: "small",
-    buttonType: "primary",
-  },
-];

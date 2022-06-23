@@ -3,8 +3,9 @@
  * Package: `@exsys-patient-insurance/labels-provider`.
  *
  */
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
+import { useGetPageNameFromRouter } from "@exsys-patient-insurance/hooks";
 import {
   RecordType,
   QueryResponseValuesType,
@@ -16,16 +17,21 @@ interface IProps
     componentName?: string;
   }> {}
 
+const LOGIN_PAGE_CONVENTION_NAME = "base";
+
+const queryOptions = {
+  callOnFirstRender: true,
+  excludeAuthorization: true,
+  enableNetworkCache: true,
+};
+
 const LabelsProvider = ({ children, componentName }: IProps) => {
   const [state, setPageLabels] = useState<RecordType>({});
-  // const [basePageLabels, setPageLabels] = useState<RecordType>({});
-  // const pageNameFromRouter = useGetPageNameFromRouter();
-  // we need to use this hook here because the `userdb` in `useBasicQuery` could be,
-  // `undefined` since this context is the higher than the `packages/base-page`.
-  // const userdb = useMakeSelectCurrentUserdb();
+  const [basePageLabels, setBasePageLabels] = useState<RecordType>({});
+  const pageNameFromRouter = useGetPageNameFromRouter();
 
-  // const computedPageName = componentName || pageNameFromRouter;
-  // // const isBasePage = computedPageName === LOGIN_PAGE_CONVENTION_NAME;
+  const computedPageName = componentName || pageNameFromRouter;
+  const isBasePage = computedPageName === LOGIN_PAGE_CONVENTION_NAME;
 
   const handleLabelsResponse = useCallback(
     (setLabels: (value: React.SetStateAction<RecordType>) => void) =>
@@ -44,26 +50,36 @@ const LabelsProvider = ({ children, componentName }: IProps) => {
     []
   );
 
-  const shouldSkipQuery = !componentName;
-
-  const queryOptions = {
-    callOnFirstRender: true,
-    excludeAuthorization: true,
-    skipQuery: shouldSkipQuery,
-    enableNetworkCache: true,
-  };
+  const shouldSkipQuery = !computedPageName || isBasePage;
 
   useBasicQuery<RecordType>({
     apiId: "QUERY_EXSYS_PAGE_LABELS",
     onResponse: handleLabelsResponse(setPageLabels),
     debounceRequestTimeOutMS: 20,
     ...queryOptions,
+    skipQuery: shouldSkipQuery,
     params: {
-      pPageId: componentName,
+      pPageId: computedPageName,
     },
   });
 
-  return <Store.Provider value={state}>{children}</Store.Provider>;
+  useBasicQuery<RecordType>({
+    apiId: "QUERY_EXSYS_PAGE_LABELS",
+    onResponse: handleLabelsResponse(setBasePageLabels),
+    debounceRequestTimeOutMS: 25,
+    ...queryOptions,
+    skipQuery: shouldSkipQuery,
+    params: {
+      pPageId: "base",
+    },
+  });
+
+  const labelsValues = useMemo(
+    () => ({ ...state, ...basePageLabels }),
+    [state, basePageLabels]
+  );
+
+  return <Store.Provider value={labelsValues}>{children}</Store.Provider>;
 };
 
 export default LabelsProvider;

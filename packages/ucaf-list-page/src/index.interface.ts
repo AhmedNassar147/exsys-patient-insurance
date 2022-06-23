@@ -1,6 +1,6 @@
 /*
  *
- * Types: `@exsys-patient-insurance/find-patient-form`.
+ * Types: `@exsys-patient-insurance/ucaf-list-page`.
  *
  */
 import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";

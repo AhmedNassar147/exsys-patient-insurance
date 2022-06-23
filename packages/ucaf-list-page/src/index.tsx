@@ -1,6 +1,6 @@
 /*
  *
- * Package: `@exsys-patient-insurance/find-patient-form`.
+ * Package: `@exsys-patient-insurance/ucaf-list-page`.
  *
  */
 import { memo, useCallback } from "react";
@@ -13,7 +13,10 @@ import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-inp
 import InputField from "@exsys-patient-insurance/input-field";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
 import { checkIfThisDateGreaterThanOther } from "@exsys-patient-insurance/helpers";
-import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
+import {
+  useOpenCloseActionsWithState,
+  useCurrentPagePrivileges,
+} from "@exsys-patient-insurance/hooks";
 import {
   useGlobalProviderNo,
   useAppConfigStore,
@@ -30,8 +33,7 @@ import {
   RecordType,
   OnResponseActionType,
   TableBodyRowClickEvent,
-  TableActionElementType,
-  OnPressTableRowActionType,
+  TableSelectionChangeActionType,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
@@ -42,7 +44,6 @@ import {
   TABLE_COLUMNS,
   REQUESTS_TABLE_COLUMNS,
   ATTENDANCE_LIST_PARAMS,
-  TABLE_ACTION_ICON,
 } from "./constants";
 import {
   PatientItemRecordType,
@@ -62,7 +63,7 @@ const {
   },
 } = initialValues;
 
-const FindPatientForm = () => {
+const UcafListPage = () => {
   const { values, handleChange, handleChangeMultipleInputs } = useFormManager({
     initialValues,
   });
@@ -88,7 +89,10 @@ const FindPatientForm = () => {
     requestsData,
     editionModalType,
     selectedTableRecord,
+    tableSelectionRows,
   } = values;
+
+  const { selectedKeys, selectedRows } = tableSelectionRows;
 
   const {
     national_id,
@@ -226,6 +230,15 @@ const FindPatientForm = () => {
       onAfterSaveRequest
     );
 
+  const handleDeliverySuccess = useCallback(() => {
+    handleChange({
+      name: "tableSelectionRows",
+      value: initialValues.tableSelectionRows,
+    });
+
+    onSearchRequests();
+  }, [handleChange, onSearchRequests]);
+
   const { handleDeliverItem, loading: isDeliveringItem } = useDeliverRequest(
     {
       root_organization_no,
@@ -239,7 +252,7 @@ const FindPatientForm = () => {
       insurance_company_no,
       paper_serial,
     },
-    onSearchRequests
+    handleDeliverySuccess
   );
 
   const setPatientStatus = useCallback(
@@ -387,25 +400,37 @@ const FindPatientForm = () => {
     });
   }, [handleSaveServiceRequest, addNotification, canDeleteOrEdit]);
 
-  const onPressActionIcon: OnPressTableRowActionType<RequestTableRecordType> =
-    useCallback(
-      ({ approval_reply, qty, ucaf_dtl_pk, service_code }) => {
-        if (approval_reply != "A") {
-          addNotification({
-            type: "error",
-            message: "cantdlvrrequest",
-            description: "thisreqnotaprovdyet",
-          });
-          return;
-        }
+  const onSaveRequestedProductsToDelivery = useCallback(() => {
+    const filteredServices = selectedRows.filter(
+      ({ approval_reply }) => approval_reply === "A"
+    );
+    const filteredServicesLength = filteredServices.length;
 
-        handleDeliverItem({
-          qty,
-          ucaf_dtl_pk,
-          service_code,
+    if (filteredServicesLength < selectedRows.length) {
+      addNotification({
+        type: "warning",
+        message: "cantdlvrallrequests",
+        description: "somereqsnotaprovdyet",
+      });
+    }
+
+    if (filteredServicesLength) {
+      handleDeliverItem(filteredServices);
+    }
+  }, [addNotification, handleDeliverItem]);
+
+  const onSelectionChanged: TableSelectionChangeActionType<RequestTableRecordType> =
+    useCallback(
+      (selectedKeys, selectedRows) => {
+        handleChange({
+          name: "tableSelectionRows",
+          value: {
+            selectedKeys,
+            selectedRows,
+          },
         });
       },
-      [addNotification, handleDeliverItem]
+      [handleChange]
     );
 
   const searchDisabled = (search_value?.length || 0) < 4;
@@ -417,16 +442,24 @@ const FindPatientForm = () => {
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
-  const isEditableFieldsDisabled =
-    !foundPatientCardNo || !paper_serial || !!ucaf_id;
-  const canRenderDiagnosisModal =
-    !!foundPatientCardNo && !!doctor_department_id && !ucaf_id;
-
   const tableActionsAllowed = !!(
     foundPatientCardNo &&
     doctor_department_id &&
     paper_serial
   );
+
+  const { f_insert, f_update } = useCurrentPagePrivileges();
+  const areFieldsDisabled = f_insert === "N";
+  const updateDisabled = f_update === "N";
+
+  const canRenderDiagnosisModal =
+    !areFieldsDisabled &&
+    !!foundPatientCardNo &&
+    !!doctor_department_id &&
+    !ucaf_id;
+
+  const isEditableFieldsDisabled =
+    areFieldsDisabled || !foundPatientCardNo || !paper_serial || !!ucaf_id;
 
   return (
     <>
@@ -450,7 +483,7 @@ const FindPatientForm = () => {
 
         <Button
           label="srch"
-          disabled={searchDisabled}
+          disabled={updateDisabled || searchDisabled}
           onClick={onSearchPatients}
           type="primary"
           loading={patientSearchLoading}
@@ -462,7 +495,7 @@ const FindPatientForm = () => {
           name="paper_serial"
           label="serial"
           onChange={handleChange}
-          disabled={searchRequestsDisabled}
+          disabled={updateDisabled || searchRequestsDisabled}
           onPressEnter={onSearchRequests}
         />
 
@@ -537,22 +570,6 @@ const FindPatientForm = () => {
             apiParams={ATTENDANCE_LIST_PARAMS}
             allowClear={false}
           />
-          {/* <InputField
-            name="requestsData.details.ucafe_type"
-            value={ucafe_type}
-            disabled={isEditableFieldsDisabled}
-            onChange={handleChange}
-            label="ucaftyp"
-            width="20%"
-          />
-          <InputField
-            name="requestsData.details.claim_flag"
-            value={claim_flag}
-            disabled={isEditableFieldsDisabled}
-            onChange={handleChange}
-            label="clmflg"
-            width="20%"
-          /> */}
           <SelectionCheck
             name="requestsData.details.is_chronic"
             checked={is_chronic || "N"}
@@ -640,26 +657,33 @@ const FindPatientForm = () => {
         <Image src={patientImgUrl} alt="patient" width="sp15" height="sp17" />
       </Flex>
 
+      {!!selectedKeys?.length && (
+        <Flex width="100%" margin="0 0 12px">
+          <Button
+            type="primary"
+            loading={isDeliveringItem}
+            disabled={isDeliveringItem}
+            onClick={onSaveRequestedProductsToDelivery}
+            label="dlvr"
+          />
+        </Flex>
+      )}
+
       <Table
         dataSource={requestTableDataSource}
         rowKey="ucaf_dtl_pk"
         totalRecordsInDataBase={requestDataLength}
+        hideTableHeaderTools={!tableActionsAllowed}
         noPagination
-        canInsert={tableActionsAllowed}
-        canDelete={tableActionsAllowed}
-        canEdit={tableActionsAllowed}
-        withPdf={false}
-        withExcel={false}
-        withInfo={false}
         columns={REQUESTS_TABLE_COLUMNS}
-        height="400px"
+        height="320px"
         onPressAdd={setEditionModalState("n")}
         onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}
         onPressDelete={onDeleteTableRecord}
         loading={requestsLoading || isSavingRequest || isDeliveringItem}
-        onPressActionIcon={onPressActionIcon}
-        actionIcon={TABLE_ACTION_ICON as TableActionElementType[]}
+        selectionKeys={selectedKeys}
+        onSelectionChanged={onSelectionChanged}
       />
 
       <Modal
@@ -708,4 +732,4 @@ const FindPatientForm = () => {
   );
 };
 
-export default memo(FindPatientForm);
+export default memo(UcafListPage);

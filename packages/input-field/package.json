@@ -11,6 +11,7 @@
     "@exsys-patient-insurance/app-config-store": "1.0.0",
     "@exsys-patient-insurance/field-error-hint": "1.0.0",
     "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
     "@exsys-patient-insurance/labeled-input": "1.0.0",
     "@exsys-patient-insurance/labels-provider": "1.0.0",
     "@exsys-patient-insurance/styled-helpers": "1.0.0",

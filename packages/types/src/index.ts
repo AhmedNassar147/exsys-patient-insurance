@@ -3,6 +3,8 @@
  * Package: `@exsys-patient-insurance/types`.
  *
  */
+import { CapitalBooleanStringType, RecordType } from "./base.interface";
+
 export interface BaseSvgProps {
   width?: string;
   height?: string;
@@ -22,6 +24,12 @@ export type ModalTogglerRef = React.MutableRefObject<
   ModalToggleTypeForRef | undefined
 >;
 
+export interface PrivilegeItem {
+  f_insert?: CapitalBooleanStringType;
+  f_update?: CapitalBooleanStringType;
+  f_delete?: CapitalBooleanStringType;
+}
+
 export interface AppConfigStateType {
   language_id: number;
   authorization: string;
@@ -35,6 +43,8 @@ export interface AppConfigStateType {
   provider_name?: string;
   invoice_dept_code?: number;
   dashboard?: string;
+  privileges: RecordType<PrivilegeItem>;
+  homePageUrl: string;
 }
 
 export * from "./base.interface";

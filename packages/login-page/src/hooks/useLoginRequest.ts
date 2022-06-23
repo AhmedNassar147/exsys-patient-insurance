@@ -55,14 +55,19 @@ const useLoginRequest = () => {
         const { normalizedData, nextDir } =
           normalizeAppStoreLanguageAndDir(language_id);
 
+        const { privileges } = otherLoginValues;
+        const [firstKey] = Object.keys(privileges);
+        const homePageUrl = `/${firstKey}`;
+
         const newUserData = {
           ...otherLoginValues,
           ...normalizedData,
+          homePageUrl,
         };
 
         setAppConfigStoreData(newUserData);
         document.body.setAttribute("dir", nextDir);
-        navigate("/home");
+        navigate(homePageUrl);
       });
     },
     [runQuery, navigate, setAppConfigStoreData]

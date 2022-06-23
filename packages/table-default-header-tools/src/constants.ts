@@ -4,10 +4,10 @@
  *
  */
 export const TABLE_DEFAULT_HEADER_TOOLS_DEFAULT_PROPS = {
-  canInsert: true,
-  canDelete: true,
-  canEdit: true,
-  withInfo: true,
-  withExcel: true,
-  withPdf: true,
+  canInsert: false,
+  canDelete: false,
+  canEdit: false,
+  withInfo: false,
+  withExcel: false,
+  withPdf: false,
 };

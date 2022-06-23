@@ -9,6 +9,7 @@ import {
   useLanguageSwitcher,
   useClearAppConfigState,
   useCurrentUserFullName,
+  useHomePageUrl,
 } from "@exsys-patient-insurance/app-config-store";
 import { spacings } from "@exsys-patient-insurance/theme-values";
 import AppLogoImage from "@exsys-patient-insurance/app-image-logo";
@@ -37,6 +38,7 @@ const AppHeader = memo(() => {
   const handleSwitchLanguage = useLanguageSwitcher();
   const clearAppConfigState = useClearAppConfigState();
   const userFullName = useCurrentUserFullName();
+  const homePageUrl = useHomePageUrl();
 
   const { time, currentDate } = useTimeState();
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const AppHeader = memo(() => {
 
   return (
     <>
-      <Link to="/home">
+      <Link to={homePageUrl}>
         <AppLogoImage width={spacings.sp19} height={spacings.sp9} />
       </Link>
 
@@ -86,7 +88,7 @@ const AppHeader = memo(() => {
 });
 
 const MainAppHeader = () => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation() || {};
   const isLoginPage = pathname === "/";
 
   return (

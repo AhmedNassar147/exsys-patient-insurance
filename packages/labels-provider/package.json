@@ -9,6 +9,7 @@
   "sideEffects": false,
   "dependencies": {
     "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
     "@exsys-patient-insurance/network-hooks": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },

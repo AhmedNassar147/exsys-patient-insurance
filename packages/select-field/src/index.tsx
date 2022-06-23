@@ -10,6 +10,7 @@ import InputField, {
 import { useStopPropagation } from "@exsys-patient-insurance/hooks";
 import { removeTranslateLabelFromValue } from "@exsys-patient-insurance/helpers";
 import DropDown, { useDropdownRef } from "@exsys-patient-insurance/drop-down";
+import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import ArrowIcon from "@exsys-patient-insurance/arrow-icon";
 import LoadingIcon from "@exsys-patient-insurance/loading-icon";
 import CloseIcon from "@exsys-patient-insurance/close-icon";
@@ -21,19 +22,11 @@ import MenuItems, {
   GetSelectedKeysProp,
   MenuItemsDataSourceItemType,
 } from "@exsys-patient-insurance/menu-items";
-import {
-  StringNumber,
-  onChangeEvent,
-  RecordTypeWithAnyValue,
-} from "@exsys-patient-insurance/types";
+import { StringNumber, onChangeEvent } from "@exsys-patient-insurance/types";
 import { SelectFieldProps, SelectModeType } from "./index.interface";
 
 const { inputBorderColor, lighterBlack } = colors;
 const { type, ...defaultSelectFieldProps } = INPUT_FIELD_DEFAULT_PROPS;
-
-const usePageControls = () => ({
-  fieldsData: {} as RecordTypeWithAnyValue,
-});
 
 const SelectField = ({
   margin,
@@ -70,18 +63,10 @@ const SelectField = ({
   const menuItemsRef = useRef<HTMLUListElement>(null);
   const preventOpenModal = useStopPropagation();
 
-  const {
-    fieldsData: { [name]: fieldOptions },
-  } = usePageControls();
+  const { f_update } = useCurrentPagePrivileges();
 
-  const {
-    displayed,
-    required: fieldRequiredFromOptions,
-    enabled,
-  } = fieldOptions || {};
-
-  const fieldDisabled = disabled || enabled === "N";
-  const isFieldRequired = required || fieldRequiredFromOptions === "Y";
+  const fieldDisabled = disabled || f_update === "N";
+  const isFieldRequired = required;
 
   const [dropdownRef, { openDropdown, closeDropdown }] = useDropdownRef();
 
@@ -308,10 +293,6 @@ const SelectField = ({
 
     return "";
   }, [options, value, searchValue, isMultipleMode]);
-
-  if (displayed === "N") {
-    return null;
-  }
 
   return (
     <DropDown

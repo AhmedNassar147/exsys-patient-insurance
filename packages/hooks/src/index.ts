@@ -12,4 +12,5 @@ export { default as useBoundingClientRect } from "./useBoundingClientRect";
 export { default as useModalRef } from "./useModalRef";
 export { default as useEffectWithTimeout } from "./useEffectWithTimeout";
 export { default as useTableInputChangeCallback } from "./useTableInputChangeCallback";
+export { default as useCurrentPagePrivileges } from "./useCurrentPagePrivileges";
 export * from "./useOpenCloseActionsWithState";

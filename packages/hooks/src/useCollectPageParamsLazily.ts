@@ -8,7 +8,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { RecordType } from "@exsys-patient-insurance/types";
 
 const useCollectPageParamsLazily = <R = RecordType<string>>(): (() => R) => {
-  const { state } = useLocation();
+  const { state } = useLocation() || {};
   const params = useParams();
 
   return useCallback((): R => {

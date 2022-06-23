@@ -38,12 +38,6 @@ module.exports = {
     },
     ...defaultPrompts,
     {
-      type: "confirm",
-      name: "isModalInHomePage",
-      message: "render this package as modal in the `HomePage`.",
-      default: false,
-    },
-    {
       type: "input",
       name: "pagePath",
       when: cancShowPathNameOptions,
@@ -155,12 +149,6 @@ module.exports = {
     if (isPage) {
       events = events.concat({
         type: "update-generated-routes",
-      });
-    }
-
-    if (isModalInHomePage) {
-      events = events.concat({
-        type: "set-home-page-modals",
       });
     }
 

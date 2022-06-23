@@ -5,7 +5,10 @@
  */
 import { memo, useMemo, useState, useCallback } from "react";
 import LoadingOverlay from "@exsys-patient-insurance/overlay";
-import { useBoundingClientRect } from "@exsys-patient-insurance/hooks";
+import {
+  useBoundingClientRect,
+  useCurrentPagePrivileges,
+} from "@exsys-patient-insurance/hooks";
 import createLazyLoadedComponent from "@exsys-patient-insurance/react-lazy";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import {
@@ -317,6 +320,12 @@ const ExsysTable = <T extends TableRowRecordType>({
     [onSelectRow]
   );
 
+  const { f_update, f_insert, f_delete } = useCurrentPagePrivileges();
+
+  const canUserEdit = canEdit || f_update !== "N";
+  const canUserInsert = canInsert || f_insert !== "N";
+  const canUserDelete = canDelete || f_delete !== "N";
+
   const doesTableHasAnySelectedRecord =
     !!clickedRowKey || !!selectionKeys?.length;
 
@@ -344,9 +353,9 @@ const ExsysTable = <T extends TableRowRecordType>({
         showSaveIcon={showSaveIcon}
         hasSelectedRow={doesTableHasAnySelectedRecord}
         hasDataSource={!!dataSourceFromProps?.length}
-        canInsert={canInsert}
-        canDelete={canDelete}
-        canEdit={canEdit}
+        canInsert={canUserInsert}
+        canDelete={canUserDelete}
+        canEdit={canUserEdit}
         withInfo={withInfo}
         withExcel={withExcel}
         withPdf={withPdf}

@@ -1,6 +1,6 @@
 /*
  *
- * Styled: `@exsys-patient-insurance/home-page`.
+ * Styled: `@exsys-patient-insurance/base-page-wrapper`.
  *
  */
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ const height = `calc(
   100vh - ${APP_HEADER_HEIGHT} - ${APP_FOOTER_HEIGHT}
 )`;
 
-export const HomePageWrapper = styled(Flex)`
+export const BasePageWrapper = styled(Flex)`
   position: absolute;
   left: 2px;
   right: 2px;
@@ -30,12 +30,12 @@ export const HomePageWrapper = styled(Flex)`
   height: ${height};
 `;
 
-export const HomePageContent = styled.div`
+export const BasePageContent = styled.div`
   flex: 1;
   padding: ${APP_HEADER_MARGIN} ${APP_HEADER_HORIZONTAL_PADDING};
 `;
 
-export const ScreenItemContainer = styled(Flex)`
+export const ScreenItemContainer = styled(Flex)<{ selected?: boolean }>`
   transition: all 0.3s ease;
   padding-inline-start: 4px;
   font-size: ${fontSizes.ff8};
@@ -46,6 +46,12 @@ export const ScreenItemContainer = styled(Flex)`
     background-color: ${colors.lightGrey};
     color: ${colors.appPrimary};
   }
+  ${({ selected }) =>
+    selected &&
+    `
+    background-color: ${colors.lightGrey};
+    color: ${colors.appPrimary};
+  `};
 `;
 
 export const StyledLink = styled(Link)`

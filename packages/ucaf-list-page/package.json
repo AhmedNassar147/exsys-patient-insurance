@@ -1,5 +1,5 @@
 {
-  "name": "@exsys-patient-insurance/find-patient-form",
+  "name": "@exsys-patient-insurance/ucaf-list-page",
   "version": "1.0.0",
   "private": true,
   "description": "React component to render a form that helps finding patient.",

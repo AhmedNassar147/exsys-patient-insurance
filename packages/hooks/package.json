@@ -8,6 +8,7 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
     "@exsys-patient-insurance/helpers": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },

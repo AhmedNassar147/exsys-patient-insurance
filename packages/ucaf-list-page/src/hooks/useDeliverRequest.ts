@@ -9,10 +9,7 @@ import {
   useAppConfigStore,
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
-import {
-  RequestDetailsType,
-  ServiceItemValuesForPostApiType,
-} from "../index.interface";
+import { RequestDetailsType, RequestTableRecordType } from "../index.interface";
 
 type BaseRequestValuesType = Pick<
   RequestDetailsType,
@@ -42,14 +39,7 @@ const useDeliverRequest = (
   });
 
   const handleDeliverItem = useCallback(
-    ({
-      ucaf_dtl_pk,
-      service_code,
-      qty,
-    }: Pick<
-      ServiceItemValuesForPostApiType,
-      "ucaf_dtl_pk" | "service_code" | "qty"
-    >) => {
+    (services: RequestTableRecordType[]) => {
       const {
         root_organization_no,
         doctor_provider_no,
@@ -75,13 +65,11 @@ const useDeliverRequest = (
         doctor_department_id,
         ucafe_type,
         paper_serial,
-        data: [
-          {
-            ucaf_dtl_pk,
-            service_code,
-            qty,
-          },
-        ],
+        data: services.map(({ ucaf_dtl_pk, service_code, qty }) => ({
+          ucaf_dtl_pk,
+          service_code,
+          qty,
+        })),
       };
 
       mutate({

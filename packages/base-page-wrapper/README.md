@@ -3,7 +3,7 @@
 ## Description:
 
 ```sh
-  React component to render the home page.
+  React component to render the base app layout .
 ```
 
 # 🔨 Usage Examples

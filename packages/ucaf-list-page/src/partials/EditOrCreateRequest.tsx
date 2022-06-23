@@ -84,14 +84,7 @@ const EditOrCreateRequest = ({
     attendanceType
   );
 
-  const {
-    service_name,
-    qty,
-    delivery_qty,
-    price,
-    delivery_date,
-    delivery_doc_no,
-  } = values;
+  const { service_name, qty, price, delivery_doc_no } = values;
 
   const handleSelectService: OnSelectServiceType = useCallback(
     ({ price, service_name, service_id }) =>
@@ -99,7 +92,6 @@ const EditOrCreateRequest = ({
         service_code: service_id,
         service_name,
         price,
-        delivery_qty: 0,
         qty: 1,
       }),
     [handleChangeMultipleInputs]
@@ -134,21 +126,6 @@ const EditOrCreateRequest = ({
           onChange={handleChange}
           disabled={!service_name}
         />
-
-        <LabeledViewLikeInput
-          label="dlvryqty"
-          width="calc(21% - 5px)"
-          justify="center"
-          value={delivery_qty}
-        />
-
-        <LabeledViewLikeInput
-          label="dlvydat"
-          width="200px"
-          justify="center"
-          value={delivery_date}
-        />
-
         <LabeledViewLikeInput
           label="prc"
           minWidth="100px"
@@ -168,7 +145,7 @@ const EditOrCreateRequest = ({
           value={delivery_doc_no}
           onChange={handleChange}
           width="200px"
-          label="dlvydocno"
+          label="invcid"
         />
 
         {shouldRenderServiceModal && (

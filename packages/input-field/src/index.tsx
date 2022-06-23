@@ -8,8 +8,8 @@ import { useTranslateIdFactory } from "@exsys-patient-insurance/labels-provider"
 import LabeledInput from "@exsys-patient-insurance/labeled-input";
 import FieldErrorHint from "@exsys-patient-insurance/field-error-hint";
 import { useMakeSelectIsRTLLayout } from "@exsys-patient-insurance/app-config-store";
-import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 import useCreateChangeEventFromDomInput from "./hooks/useCreateChangeEventFromDomInput";
+import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import {
   inputCssHelper,
   InputFieldWrapper,
@@ -27,10 +27,6 @@ import {
   InputFieldSizesWithoutAuto,
   InputFieldRefType,
 } from "./index.interface";
-
-const usePageControls = () => ({
-  fieldsData: {} as RecordTypeWithAnyValue,
-});
 
 const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
   const {
@@ -79,9 +75,7 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
     ...inputProps
   } = { ...INPUT_FIELD_DEFAULT_PROPS, ...props };
 
-  const {
-    fieldsData: { [name]: fieldOptions },
-  } = usePageControls();
+  const { f_update } = useCurrentPagePrivileges();
 
   const translateLabelId = useTranslateIdFactory();
   const isRightToLeft = useMakeSelectIsRTLLayout();
@@ -96,10 +90,6 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
       upperCaseFirstCharacter,
     }
   );
-
-  // const inputDir = useMemo(() => {
-  //   return (!value && isRightToLeft) || isThisTextContainsArabicValue(value) ? "rtl" : dir
-  // }, [value, dir, isRightToLeft]);
 
   const isLabeledInput = !!label;
 
@@ -116,18 +106,8 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
     [customInputComponent]
   );
 
-  const {
-    displayed,
-    required: fieldRequiredFromOptions,
-    enabled,
-  } = fieldOptions || {};
-
-  if (displayed === "N") {
-    return null;
-  }
-
-  const fieldDisabled = disabled || enabled === "N";
-  const isFieldRequired = required || fieldRequiredFromOptions === "Y";
+  const fieldDisabled = disabled || f_update === "N";
+  const isFieldRequired = required;
   const inputValue = typeof value === "undefined" ? "" : value;
 
   const inputNode = (
@@ -161,7 +141,6 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
         addonAfterWidth={!!addonAfter ? addonAfterWidth : "0px"}
         tabIndex={tabIndex ? tabIndex + 1 : 2}
         name={name}
-        // autoFocus={autoFocus}
         {...inputProps}
       />
       {!!addonAfter && (

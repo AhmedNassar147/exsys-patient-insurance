@@ -4,6 +4,7 @@
  *
  */
 import { memo, useCallback, useState } from "react";
+import { useLocation } from "react-router-dom";
 import AppSidebar, { SizeType } from "@exsys-patient-insurance/app-sidebar";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
 import { useCurrentJobId } from "@exsys-patient-insurance/app-config-store";
@@ -120,6 +121,7 @@ const SideBarWithItem = () => {
   const [{ screens, reports }, setScreens] = useState(initialState);
   const [sideBarSize, setSideBarSize] = useState<SizeType>("small");
   const { visible, handleOpen, handleClose } = useOpenCloseActionsWithState();
+  const { pathname } = useLocation() || {};
 
   const handleResponse: OnResponseActionType<JobsResponseType> = useCallback(
     ({ apiValues }) => {
@@ -132,6 +134,7 @@ const SideBarWithItem = () => {
     apiId: "QUERY_JOB_SCREENS_LIST",
     callOnFirstRender: !!jobId,
     onResponse: handleResponse,
+    enableNetworkCache: true,
     params: {
       job_id: jobId,
     },
@@ -145,12 +148,13 @@ const SideBarWithItem = () => {
     <AppSidebar minWidth="65px" maxWidth="200px" onChange={setSideBarSize}>
       {shouldRenderScreens
         ? screens?.map(({ value, key, icon_name }) => (
-            <StyledLink key={key} to={`/home/${key}`} title={value}>
+            <StyledLink key={key} to={`/${key}`} title={value}>
               <ScreenItemContainer
                 height="33px"
                 width="100%"
                 align="center"
                 gap="5px"
+                selected={pathname === `/${key}`}
                 justify={!isLargeSideBarSize ? "center" : undefined}
               >
                 <svg

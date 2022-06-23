@@ -9,6 +9,7 @@ import {
   getBooleanValueFromMaybeNonOne,
   getCheckInputNextCheckValue,
 } from "@exsys-patient-insurance/helpers";
+import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import { colors } from "@exsys-patient-insurance/theme-values";
 import { SelectionCheckProps } from "@exsys-patient-insurance/types";
 import { SelectedContainer, CheckWrapper, CheckMark } from "./styled";
@@ -30,10 +31,12 @@ const SelectionCheck = ({
   overflow,
   readonly,
 }: SelectionCheckProps) => {
+  const { f_update } = useCurrentPagePrivileges();
+
+  const fieldDisabled = disabled || f_update === "N";
+
   const [{ actualValue: checkedValue, isStringValue: isCheckBooleanString }] =
-    useMemo(() => {
-      return [getBooleanValueFromMaybeNonOne(checked)];
-    }, [checked]);
+    useMemo(() => [getBooleanValueFromMaybeNonOne(checked)], [checked]);
 
   const handleClick = useCallback(() => {
     const nextChecked = getCheckInputNextCheckValue(
@@ -49,15 +52,15 @@ const SelectionCheck = ({
   }, [checkedValue, isCheckBooleanString, checked, onChange, name]);
 
   const sharedProps = {
-    disabled,
+    disabled: fieldDisabled,
     mode,
     checked: checkedValue,
   };
 
   return (
     <SelectedContainer
-      disabled={disabled}
-      onClick={disabled || readonly ? undefined : handleClick}
+      disabled={fieldDisabled}
+      onClick={fieldDisabled || readonly ? undefined : handleClick}
       height={height}
       margin={margin}
       block={block}
