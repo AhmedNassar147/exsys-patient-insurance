@@ -34,6 +34,7 @@ import {
   OnResponseActionType,
   TableBodyRowClickEvent,
   TableSelectionChangeActionType,
+  onChangeEvent,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
@@ -64,9 +65,10 @@ const {
 } = initialValues;
 
 const UcafListPage = () => {
-  const { values, handleChange, handleChangeMultipleInputs } = useFormManager({
-    initialValues,
-  });
+  const { values, handleChange, handleChangeMultipleInputs, resetForm } =
+    useFormManager({
+      initialValues,
+    });
 
   const globalProviderNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
@@ -74,7 +76,7 @@ const UcafListPage = () => {
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
   const skipQuery = useCallback(
-    ({ search_value }: RecordType<string>) => (search_value?.length || 0) < 4,
+    ({ search_value }: RecordType<string>) => (search_value?.length || 0) < 3,
     []
   );
 
@@ -433,7 +435,37 @@ const UcafListPage = () => {
       [handleChange]
     );
 
-  const searchDisabled = (search_value?.length || 0) < 4;
+  const handleMainFieldsChangeAndResetFrom: onChangeEvent = useCallback(
+    ({ name, value }) => {
+      resetForm();
+      handleChangeMultipleInputs({
+        [name]: value,
+        ...(name === "search_value" ? { search_type } : null),
+        ...(name === "paper_serial"
+          ? {
+              search_type,
+              search_value,
+              currentPatientData,
+              patientsDataList,
+              selectionModalOpened,
+              isCurrentPatientActive,
+            }
+          : null),
+      });
+    },
+    [
+      resetForm,
+      handleChangeMultipleInputs,
+      search_type,
+      search_value,
+      currentPatientData,
+      patientsDataList,
+      selectionModalOpened,
+      isCurrentPatientActive,
+    ]
+  );
+
+  const searchDisabled = (search_value?.length || 0) < 3;
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
@@ -469,7 +501,7 @@ const UcafListPage = () => {
           options={SEARCH_RADIO_OPTIONS}
           name="search_type"
           value={search_type}
-          onChange={handleChange}
+          onChange={handleMainFieldsChangeAndResetFrom}
           mode="radio"
         />
 
@@ -477,7 +509,7 @@ const UcafListPage = () => {
           width="200px"
           value={search_value}
           name="search_value"
-          onChange={handleChange}
+          onChange={handleMainFieldsChangeAndResetFrom}
           onPressEnter={onSearchPatients}
         />
 
@@ -494,7 +526,7 @@ const UcafListPage = () => {
           value={paper_serial}
           name="paper_serial"
           label="serial"
-          onChange={handleChange}
+          onChange={handleMainFieldsChangeAndResetFrom}
           disabled={updateDisabled || searchRequestsDisabled}
           onPressEnter={onSearchRequests}
         />
