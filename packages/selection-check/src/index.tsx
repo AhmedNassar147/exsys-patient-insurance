@@ -9,7 +9,6 @@ import {
   getBooleanValueFromMaybeNonOne,
   getCheckInputNextCheckValue,
 } from "@exsys-patient-insurance/helpers";
-import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import { colors } from "@exsys-patient-insurance/theme-values";
 import { SelectionCheckProps } from "@exsys-patient-insurance/types";
 import { SelectedContainer, CheckWrapper, CheckMark } from "./styled";
@@ -31,9 +30,7 @@ const SelectionCheck = ({
   overflow,
   readonly,
 }: SelectionCheckProps) => {
-  const { f_update } = useCurrentPagePrivileges();
-
-  const fieldDisabled = disabled || f_update === "N";
+  const fieldDisabled = disabled;
 
   const [{ actualValue: checkedValue, isStringValue: isCheckBooleanString }] =
     useMemo(() => [getBooleanValueFromMaybeNonOne(checked)], [checked]);

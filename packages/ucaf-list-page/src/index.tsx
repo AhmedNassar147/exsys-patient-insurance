@@ -480,9 +480,8 @@ const UcafListPage = () => {
     paper_serial
   );
 
-  const { f_insert, f_update } = useCurrentPagePrivileges();
+  const { f_insert } = useCurrentPagePrivileges();
   const areFieldsDisabled = f_insert === "N";
-  const updateDisabled = f_update === "N";
 
   const canRenderDiagnosisModal =
     !areFieldsDisabled &&
@@ -515,7 +514,7 @@ const UcafListPage = () => {
 
         <Button
           label="srch"
-          disabled={updateDisabled || searchDisabled}
+          disabled={searchDisabled}
           onClick={onSearchPatients}
           type="primary"
           loading={patientSearchLoading}
@@ -527,7 +526,7 @@ const UcafListPage = () => {
           name="paper_serial"
           label="serial"
           onChange={handleMainFieldsChangeAndResetFrom}
-          disabled={updateDisabled || searchRequestsDisabled}
+          disabled={searchRequestsDisabled}
           onPressEnter={onSearchRequests}
         />
 

@@ -9,7 +9,6 @@ import LabeledInput from "@exsys-patient-insurance/labeled-input";
 import FieldErrorHint from "@exsys-patient-insurance/field-error-hint";
 import { useMakeSelectIsRTLLayout } from "@exsys-patient-insurance/app-config-store";
 import useCreateChangeEventFromDomInput from "./hooks/useCreateChangeEventFromDomInput";
-import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import {
   inputCssHelper,
   InputFieldWrapper,
@@ -75,8 +74,6 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
     ...inputProps
   } = { ...INPUT_FIELD_DEFAULT_PROPS, ...props };
 
-  const { f_update } = useCurrentPagePrivileges();
-
   const translateLabelId = useTranslateIdFactory();
   const isRightToLeft = useMakeSelectIsRTLLayout();
 
@@ -106,7 +103,7 @@ const InputField = (props: InputFieldProps, inputRef?: InputFieldRefType) => {
     [customInputComponent]
   );
 
-  const fieldDisabled = disabled || f_update === "N";
+  const fieldDisabled = disabled;
   const isFieldRequired = required;
   const inputValue = typeof value === "undefined" ? "" : value;
 

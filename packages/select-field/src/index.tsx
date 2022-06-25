@@ -10,7 +10,6 @@ import InputField, {
 import { useStopPropagation } from "@exsys-patient-insurance/hooks";
 import { removeTranslateLabelFromValue } from "@exsys-patient-insurance/helpers";
 import DropDown, { useDropdownRef } from "@exsys-patient-insurance/drop-down";
-import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import ArrowIcon from "@exsys-patient-insurance/arrow-icon";
 import LoadingIcon from "@exsys-patient-insurance/loading-icon";
 import CloseIcon from "@exsys-patient-insurance/close-icon";
@@ -63,9 +62,7 @@ const SelectField = ({
   const menuItemsRef = useRef<HTMLUListElement>(null);
   const preventOpenModal = useStopPropagation();
 
-  const { f_update } = useCurrentPagePrivileges();
-
-  const fieldDisabled = disabled || f_update === "N";
+  const fieldDisabled = disabled;
   const isFieldRequired = required;
 
   const [dropdownRef, { openDropdown, closeDropdown }] = useDropdownRef();
