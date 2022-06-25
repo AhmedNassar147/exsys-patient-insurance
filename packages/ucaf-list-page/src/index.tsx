@@ -465,6 +465,11 @@ const UcafListPage = () => {
     ]
   );
 
+  const disabledRowsSelection = useCallback(
+    ({ approval_reply }: RequestTableRecordType) => approval_reply !== "A",
+    []
+  );
+
   const searchDisabled = (search_value?.length || 0) < 3;
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
@@ -715,6 +720,7 @@ const UcafListPage = () => {
         loading={requestsLoading || isSavingRequest || isDeliveringItem}
         selectionKeys={selectedKeys}
         onSelectionChanged={onSelectionChanged}
+        disabledRowsSelection={disabledRowsSelection}
       />
 
       <Modal

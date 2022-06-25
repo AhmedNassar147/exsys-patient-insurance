@@ -55,47 +55,52 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prdctcde",
     dataIndex: "service_code",
-    width: "8%",
+    width: "6%",
   },
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "16%",
+    width: "20%",
   },
   {
     title: "qty",
     dataIndex: "qty",
-    width: "11%",
+    width: "7%",
   },
   {
     title: "apprvdqntty",
     dataIndex: "approved_quantity",
-    width: "10%",
+    width: "9%",
   },
   {
     title: "prc",
     dataIndex: "price",
-    width: "10%",
+    width: "5%",
   },
   {
     title: "dlvryqty",
     dataIndex: "delivery_qty",
-    width: "10%",
+    width: "8%",
   },
   {
     title: "dlvydat",
     dataIndex: "delivery_date",
-    width: "10%",
+    width: "8%",
   },
   {
     title: "apprvl",
     dataIndex: "approval_reply_name",
-    width: "10%",
+    width: "8%",
+  },
+  {
+    title: "rjctrson",
+    dataIndex: "rejection_reason",
+    width: "19%",
   },
   {
     title: "stts",
     dataIndex: "status_name",
-    width: "10%",
+    width: "5%",
   },
 ];
 
