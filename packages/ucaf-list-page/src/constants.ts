@@ -60,27 +60,27 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "20%",
+    width: "21.8%",
   },
   {
     title: "qty",
     dataIndex: "qty",
-    width: "7%",
+    width: "4%",
   },
   {
     title: "apprvdqntty",
     dataIndex: "approved_quantity",
-    width: "9%",
+    width: "4.5%",
   },
   {
     title: "prc",
     dataIndex: "price",
-    width: "5%",
+    width: "4%",
   },
   {
     title: "dlvryqty",
     dataIndex: "delivery_qty",
-    width: "8%",
+    width: "4.5%",
   },
   {
     title: "dlvydat",
@@ -90,17 +90,27 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "apprvl",
     dataIndex: "approval_reply_name",
-    width: "8%",
+    width: "6%",
   },
   {
     title: "rjctrson",
     dataIndex: "rejection_reason",
-    width: "19%",
+    width: "17%",
   },
   {
     title: "stts",
     dataIndex: "status_name",
     width: "5%",
+  },
+  {
+    title: "lstdlvydat",
+    dataIndex: "last_delivery_date",
+    width: "8%",
+  },
+  {
+    title: "duedlvydat",
+    dataIndex: "due_delivery_date",
+    width: "8%",
   },
 ];
 

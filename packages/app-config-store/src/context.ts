@@ -26,6 +26,7 @@ export const initialState: AppConfigStateType = {
   provider_category: "",
   privileges: {},
   homePageUrl: "/",
+  loggedInUserName: "",
 };
 
 export default createContext<AppConfigStoreApi>({

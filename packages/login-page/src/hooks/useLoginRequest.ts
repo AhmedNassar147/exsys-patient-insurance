@@ -63,6 +63,7 @@ const useLoginRequest = () => {
           ...otherLoginValues,
           ...normalizedData,
           homePageUrl,
+          loggedInUserName: username,
         };
 
         setAppConfigStoreData(newUserData);

@@ -15,6 +15,7 @@ import {
   OnResponseActionType,
   CapitalBooleanStringType,
 } from "@exsys-patient-insurance/types";
+import { SIDE_BAR_SIZES } from "../constants";
 import { StyledLink, StyledText, ScreenItemContainer } from "../styled";
 
 type JobScreenItemType = {
@@ -116,10 +117,17 @@ const initialState = {
 
 type JobsResponseType = typeof initialState;
 
-const SideBarWithItem = () => {
+interface SideBarWithItemProps {
+  sideBarSize: SizeType;
+  setSideBarSize: React.Dispatch<React.SetStateAction<SizeType>>;
+}
+
+const SideBarWithItem = ({
+  sideBarSize,
+  setSideBarSize,
+}: SideBarWithItemProps) => {
   const jobId = useCurrentJobId();
   const [{ screens, reports }, setScreens] = useState(initialState);
-  const [sideBarSize, setSideBarSize] = useState<SizeType>("small");
   const { visible, handleOpen, handleClose } = useOpenCloseActionsWithState();
   const { pathname } = useLocation() || {};
 
@@ -145,7 +153,11 @@ const SideBarWithItem = () => {
   const hasReports = !loading && !!reports?.length;
 
   return (
-    <AppSidebar minWidth="65px" maxWidth="200px" onChange={setSideBarSize}>
+    <AppSidebar
+      minWidth={SIDE_BAR_SIZES.small}
+      maxWidth={SIDE_BAR_SIZES.large}
+      onChange={setSideBarSize}
+    >
       {shouldRenderScreens
         ? screens?.map(({ value, key, icon_name }) => (
             <StyledLink key={key} to={`/${key}`} title={value}>

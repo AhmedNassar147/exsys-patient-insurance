@@ -132,6 +132,7 @@ const UcafListPage = () => {
       ucaf_id,
       doctor_provider_no,
       provider_notes,
+      reviwed_date,
     },
     data: requestTableDataSource,
   } = requestsData;
@@ -244,15 +245,10 @@ const UcafListPage = () => {
   const { handleDeliverItem, loading: isDeliveringItem } = useDeliverRequest(
     {
       root_organization_no,
-      doctor_provider_no,
-      ucafe_date,
-      claim_flag,
       ucaf_id,
-      doctor_department_id,
-      ucafe_type,
       patient_card_no: foundPatientCardNo,
-      insurance_company_no,
       paper_serial,
+      is_chronic,
     },
     handleDeliverySuccess
   );
@@ -466,8 +462,9 @@ const UcafListPage = () => {
   );
 
   const disabledRowsSelection = useCallback(
-    ({ approval_reply }: RequestTableRecordType) => approval_reply !== "A",
-    []
+    ({ approval_reply, canDeliverRequest }: RequestTableRecordType) =>
+      canDeliverRequest !== "Y" || approval_reply !== "A",
+    [reviwed_date]
   );
 
   const searchDisabled = (search_value?.length || 0) < 3;
@@ -486,16 +483,13 @@ const UcafListPage = () => {
   );
 
   const { f_insert } = useCurrentPagePrivileges();
-  const areFieldsDisabled = f_insert === "N";
+  const areFieldsDisabled = !!reviwed_date || f_insert === "N";
 
   const canRenderDiagnosisModal =
-    !areFieldsDisabled &&
-    !!foundPatientCardNo &&
-    !!doctor_department_id &&
-    !ucaf_id;
+    !areFieldsDisabled && !!foundPatientCardNo && !!doctor_department_id;
 
   const isEditableFieldsDisabled =
-    areFieldsDisabled || !foundPatientCardNo || !paper_serial || !!ucaf_id;
+    areFieldsDisabled || !foundPatientCardNo || !paper_serial;
 
   return (
     <>
@@ -709,7 +703,7 @@ const UcafListPage = () => {
         dataSource={requestTableDataSource}
         rowKey="ucaf_dtl_pk"
         totalRecordsInDataBase={requestDataLength}
-        hideTableHeaderTools={!tableActionsAllowed}
+        hideTableHeaderTools={!!reviwed_date || !tableActionsAllowed}
         noPagination
         columns={REQUESTS_TABLE_COLUMNS}
         height="320px"

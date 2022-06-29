@@ -19,3 +19,4 @@ export { default as useClearAppConfigState } from "./hooks/useClearAppConfigStat
 export { default as useGlobalProviderNo } from "./hooks/useGlobalProviderNo";
 export { default as usePagePrivilege } from "./hooks/usePagePrivilege";
 export { default as useHomePageUrl } from "./hooks/useHomePageUrl";
+export { default as useLoggedInUserName } from "./hooks/useLoggedInUserName";

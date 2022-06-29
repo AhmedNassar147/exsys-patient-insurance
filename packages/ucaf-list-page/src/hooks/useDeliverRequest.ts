@@ -7,20 +7,14 @@ import { useCallback } from "react";
 import {
   useGlobalProviderNo,
   useAppConfigStore,
+  useLoggedInUserName,
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import { RequestDetailsType, RequestTableRecordType } from "../index.interface";
 
 type BaseRequestValuesType = Pick<
   RequestDetailsType,
-  | "root_organization_no"
-  | "doctor_provider_no"
-  | "ucafe_date"
-  | "claim_flag"
-  | "claim_flag"
-  | "ucaf_id"
-  | "doctor_department_id"
-  | "ucafe_type"
+  "root_organization_no" | "ucaf_id" | "is_chronic"
 > & {
   patient_card_no?: string;
   insurance_company_no?: number;
@@ -33,6 +27,7 @@ const useDeliverRequest = (
 ) => {
   const providerNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
+  const loggedInUser = useLoggedInUserName();
 
   const { loading, mutate } = useBasicMutation({
     apiId: "POST_DELIVER_SERVICES_REQUESTS_ITEM",
@@ -42,41 +37,44 @@ const useDeliverRequest = (
     (services: RequestTableRecordType[]) => {
       const {
         root_organization_no,
-        doctor_provider_no,
-        ucafe_date,
-        claim_flag,
         ucaf_id,
-        doctor_department_id,
-        ucafe_type,
         patient_card_no,
-        insurance_company_no,
         paper_serial,
+        is_chronic,
       } = baseDetailsValues;
 
       const data = {
         root_organization_no,
         patient_card_no,
-        insurance_company_no,
-        ucafe_date,
-        claim_flag,
-        provider_no: providerNo,
-        ucaf_id,
-        doctor_provider_no,
-        doctor_department_id,
-        ucafe_type,
         paper_serial,
-        data: services.map(({ ucaf_dtl_pk, service_code, qty }) => ({
-          ucaf_dtl_pk,
-          service_code,
-          qty,
-        })),
+        ucaf_id,
+        is_chronic: is_chronic || "N",
+        data: services.map(
+          ({
+            ucaf_dtl_pk,
+            service_code,
+            qty,
+            delivery_qty,
+            delivery_doc_no,
+            delivery_date,
+            ucaf_delivery_pk,
+          }) => ({
+            ucaf_dtl_pk,
+            ucaf_delivery_pk,
+            service_code,
+            qty,
+            delivery_qty,
+            delivery_date,
+            delivery_doc_no,
+            delivery_by: loggedInUser,
+            record_status: "u",
+          })
+        ),
       };
 
       mutate({
         body: data,
         cb: ({ apiValues, error }) => {
-          console.log("data delivery", data);
-          console.log("delivery apiValues", apiValues);
           const isError = !!error || apiValues?.status !== "success";
           if (!isError) {
             onSuccess();
@@ -89,7 +87,14 @@ const useDeliverRequest = (
         },
       });
     },
-    [mutate, providerNo, baseDetailsValues, onSuccess, addNotification]
+    [
+      mutate,
+      providerNo,
+      baseDetailsValues,
+      onSuccess,
+      addNotification,
+      loggedInUser,
+    ]
   );
 
   return {

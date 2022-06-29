@@ -43,7 +43,6 @@ const useSaveServiceRequest = (
       delivery_qty,
       delivery_date,
       delivery_doc_no,
-      status,
       record_status,
     }: ServiceItemValuesForPostApiType) => {
       const {
@@ -71,6 +70,14 @@ const useSaveServiceRequest = (
         addNotification({
           type: "error",
           message: "plsslctprodct",
+        });
+        return;
+      }
+
+      if (!primary_diag_code || !primary_diagnosis) {
+        addNotification({
+          type: "error",
+          message: "plsslctdiag",
         });
         return;
       }
@@ -104,7 +111,6 @@ const useSaveServiceRequest = (
             price,
             delivery_date,
             delivery_doc_no,
-            status: status || "O",
             record_status,
           },
         ],
@@ -113,8 +119,6 @@ const useSaveServiceRequest = (
       mutate({
         body: data,
         cb: ({ apiValues, error }) => {
-          console.log("data", data);
-          console.log("apiValues", apiValues);
           const isError = !!error || apiValues?.status !== "success";
           if (!isError) {
             onSuccess();

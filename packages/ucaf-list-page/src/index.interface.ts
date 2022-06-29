@@ -48,6 +48,9 @@ export interface RequestDetailsType {
   claim_flag?: string;
   attendance_type?: string;
   provider_notes?: string;
+  reviwed_date?: string;
+  chronic_period_months?: number;
+  chronic_delivery_frequency?: number;
 }
 
 export interface RequestTableRecordType {
@@ -67,6 +70,13 @@ export interface RequestTableRecordType {
   status: string;
   status_name: string;
   provider_notes?: string;
+  ucaf_delivery_pk?: string;
+  canDeliverRequest?: CapitalBooleanStringType;
+  record_status?: string;
+  total_price?: number;
+  due_delivery_date?: string;
+  due_delivery_qty?: number;
+  last_delivery_date?: string;
 }
 
 export interface RequestsDataType {

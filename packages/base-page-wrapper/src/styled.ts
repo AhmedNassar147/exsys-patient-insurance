@@ -15,6 +15,8 @@ import {
   APP_HEADER_MARGIN,
   APP_HEADER_HORIZONTAL_PADDING,
 } from "@exsys-patient-insurance/global-app-constants";
+import type { SizeType } from "@exsys-patient-insurance/app-sidebar";
+import { SIDE_BAR_SIZES } from "./constants";
 
 const height = `calc(
   100vh - ${APP_HEADER_HEIGHT} - ${APP_FOOTER_HEIGHT}
@@ -30,9 +32,17 @@ export const BasePageWrapper = styled(Flex)`
   height: ${height};
 `;
 
-export const BasePageContent = styled.div`
+export const BasePageContent = styled.div<{ sideBarSize: SizeType }>`
   flex: 1;
   padding: ${APP_HEADER_MARGIN} ${APP_HEADER_HORIZONTAL_PADDING};
+  ${({ sideBarSize }) => {
+    const currentSideBarWidth = SIDE_BAR_SIZES[sideBarSize];
+    const width = `calc(100% - ${currentSideBarWidth})`;
+    return `
+    min-width: ${width};
+    max-width: ${width};
+  `;
+  }}
 `;
 
 export const ScreenItemContainer = styled(Flex)<{ selected?: boolean }>`

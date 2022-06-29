@@ -45,6 +45,7 @@ export interface AppConfigStateType {
   dashboard?: string;
   privileges: RecordType<PrivilegeItem>;
   homePageUrl: string;
+  loggedInUserName: string;
 }
 
 export * from "./base.interface";

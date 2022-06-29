@@ -24,6 +24,7 @@ export const SideBar = styled.aside<{ width: string }>`
   z-index: ${zIndices.drawer};
   background-color: ${colors.white};
   width: ${({ width }) => width};
+  min-width: ${({ width }) => width};
   transition: all 0.5s ease;
   position: relative;
   padding: ${spacings.sp3} ${spacings.sp3} 0;
