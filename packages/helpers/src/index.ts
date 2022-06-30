@@ -26,4 +26,6 @@ export { default as clearObjectFields } from "./clearObjectFields";
 export { default as getDataBaseTotalsRecords } from "./getDataBaseTotalsRecords";
 export { default as ensureBackEndSetsProperTotal } from "./ensureBackEndSetsProperTotal";
 export { default as getCurrentDateString } from "./getCurrentDateString";
+export { default as generateDefaultMonthAndYear } from "./generateDefaultMonthAndYear";
+export * from "./generateYearsBasedOnGivenParams";
 export * from "./localStorage";

@@ -13,6 +13,8 @@ const API_IDS = {
   CODE_LIST: "EX_CODES/POP_CODES_WITH_CODE",
   // http://207.180.237.36:9090/ords/exsysexsysdba/EX_CODES/pop_codes_with_u_code?pcodetype=408&planguageid=1&authorization=1634454
   U_CODE_LIST: "EX_CODES/pop_codes_with_u_code",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_claim/pop_provider_tpa?authorization=3840267&provider_no=4&planguageid=1
+  QUERY_TPA_PROVIDER_LIST: "mi_claim/pop_provider_tpa",
   // http://207.180.237.36:9090/ords/exsys_api/mi_web_user/pop_user_job_screen?authorization=3784948&planguageid=1&job_id=1&
   QUERY_JOB_SCREENS_LIST: "mi_web_user/pop_user_job_screen",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_patient_card_data?authorization=3574833&planguageid=1&search_type=C&search_value=CSA-0334-00-06-0978
@@ -28,6 +30,10 @@ const API_IDS = {
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/mi_provider_ucaf_delivery
   POST_DELIVER_SERVICES_REQUESTS_ITEM:
     "mi_ucaf_request/mi_provider_ucaf_delivery",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_claim/get_provider_batch?authorization=3840267&type=T&provider_no=4&year=2022&month=&planguageid=1&tpa_no=001
+  QUERY_MI_BATCHES_TABLE_DATA: "mi_claim/get_provider_batch",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_claim/mi-provider_batch_dml
+  POST_MI_BATCHES_TABLE_DATA: "mi_claim/mi-provider_batch_dml",
 };
 
 export default API_IDS;

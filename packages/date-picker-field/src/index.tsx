@@ -17,7 +17,7 @@ interface DatePickerFieldProps {
   label?: string;
   width?: string;
   value?: string;
-  errors?: string;
+  error?: string;
   onChange?: onChangeEvent;
   min?: string;
   max?: string;

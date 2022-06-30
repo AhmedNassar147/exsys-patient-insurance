@@ -1,0 +1,19 @@
+{
+  "name": "@exsys-patient-insurance/search-clear-icons",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a search and clear icons as buttons.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/button": "1.0.0",
+    "@exsys-patient-insurance/clear-icon": "1.0.0",
+    "@exsys-patient-insurance/search-icon": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

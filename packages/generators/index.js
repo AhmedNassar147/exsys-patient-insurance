@@ -7,7 +7,6 @@ const normalPackageGenerator = require("./normal-package");
 const defineReactComponentPlopHelpers = require("./utils/defineReactComponentPlopHelpers");
 const definePlopActionsAfterPackageCreation = require("./utils/definePlopActionsAfterPackageCreation");
 const definePageRouteRouteData = require("./utils/definePageRouteRouteData");
-const defineBuildModalInHomePageAction = require("./utils/defineBuildModalInHomePageAction");
 
 module.exports = (plop) => {
   // generators
@@ -17,7 +16,6 @@ module.exports = (plop) => {
   // react plop helpers
   defineReactComponentPlopHelpers(plop);
   definePageRouteRouteData(plop);
-  defineBuildModalInHomePageAction(plop);
 
   // plop actions
   definePlopActionsAfterPackageCreation(plop);
