@@ -78,8 +78,8 @@ export const REQUESTS_TABLE_COLUMNS = [
     width: "4%",
   },
   {
-    title: "dlvryqty",
-    dataIndex: "delivery_qty",
+    title: "patshr",
+    dataIndex: "patientShare",
     width: "4.5%",
   },
   {

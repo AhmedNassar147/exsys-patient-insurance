@@ -29,10 +29,12 @@ const YearsSelectField = ({
         howManyYearsBefore,
         howManyYearsAfter,
         includeStartingYear,
-      }).map((year) => ({
-        key: year,
-        value: year,
-      })),
+      })
+        .map((year) => ({
+          key: year,
+          value: year,
+        }))
+        .reverse(),
     [startAtYear, howManyYearsBefore, howManyYearsAfter, includeStartingYear]
   );
 

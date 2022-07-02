@@ -61,7 +61,7 @@ const MiBatchesPage = () => {
 
       setTableData([]);
     },
-    [handleChangeMultipleInputs]
+    [handleChangeMultipleInputs, setTableData]
   );
 
   const onPressClear = useCallback(() => {
@@ -76,6 +76,7 @@ const MiBatchesPage = () => {
         month,
         provider_no: globalProviderNo,
         tpa_no,
+        type,
       }),
     [year, month, fetchTableData, globalProviderNo, tpa_no]
   );
