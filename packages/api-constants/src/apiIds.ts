@@ -32,8 +32,8 @@ const API_IDS = {
     "mi_ucaf_request/mi_provider_ucaf_delivery",
   // http://207.180.237.36:9090/ords/exsys_api/mi_claim/get_provider_batch?authorization=3840267&type=T&provider_no=4&year=2022&month=&planguageid=1&tpa_no=001
   QUERY_MI_BATCHES_TABLE_DATA: "mi_claim/get_provider_batch",
-  // http://207.180.237.36:9090/ords/exsys_api/mi_claim/mi-provider_batch_dml
-  POST_MI_BATCHES_TABLE_DATA: "mi_claim/mi-provider_batch_dml",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_claim/mi_provider_batch_auto_create
+  POST_MI_BATCHES_TABLE_DATA: "mi_claim/mi_provider_batch_auto_create",
 };
 
 export default API_IDS;

@@ -83,6 +83,12 @@ const MiBatchesPage = () => {
 
   const isAllTpa = type === "A";
 
+  const computedColumns = useMemo(() => {
+    const [_, ...restColumns] = TABLE_COLUMNS;
+
+    return isAllTpa ? TABLE_COLUMNS : restColumns;
+  }, [isAllTpa]);
+
   return (
     <>
       <Flex width="100%" align="center" bordered padding="10px" gap="10px">
@@ -104,6 +110,7 @@ const MiBatchesPage = () => {
               width="320px"
               name="tpa_no"
               enableNetworkCache
+              preselectFirstKey
               queryType="query"
               apiOrCodeId="QUERY_TPA_PROVIDER_LIST"
               value={tpa_no}
@@ -148,7 +155,7 @@ const MiBatchesPage = () => {
       <ExsysTableWithApiQuery<MiBatchesTableRecordType>
         // @ts-ignore we already know it takes a ref.
         ref={tableValuesRef}
-        columns={TABLE_COLUMNS}
+        columns={computedColumns}
         rowKey="batch_no"
         queryApiId="QUERY_MI_BATCHES_TABLE_DATA"
         useAlignedTotalCells

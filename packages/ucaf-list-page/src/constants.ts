@@ -56,16 +56,25 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "prdctcde",
     dataIndex: "service_code",
     width: "6%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "prodctnam",
     dataIndex: "service_name",
     width: "21.8%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "qty",
     dataIndex: "qty",
     width: "4%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "apprvdqntty",
@@ -86,11 +95,17 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "dlvydat",
     dataIndex: "delivery_date",
     width: "8%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "apprvl",
     dataIndex: "approval_reply_name",
     width: "6%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "rjctrson",
@@ -101,16 +116,25 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "stts",
     dataIndex: "status_name",
     width: "5%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "lstdlvydat",
     dataIndex: "last_delivery_date",
     width: "8%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "duedlvydat",
     dataIndex: "due_delivery_date",
     width: "8%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
 ];
 

@@ -715,6 +715,7 @@ const UcafListPage = () => {
         selectionKeys={selectedKeys}
         onSelectionChanged={onSelectionChanged}
         disabledRowsSelection={disabledRowsSelection}
+        useAlignedTotalCells
       />
 
       <Modal
