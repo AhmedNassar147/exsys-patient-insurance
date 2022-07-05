@@ -27,5 +27,7 @@ export { default as getDataBaseTotalsRecords } from "./getDataBaseTotalsRecords"
 export { default as ensureBackEndSetsProperTotal } from "./ensureBackEndSetsProperTotal";
 export { default as getCurrentDateString } from "./getCurrentDateString";
 export { default as generateDefaultMonthAndYear } from "./generateDefaultMonthAndYear";
+export { default as createFullImageUrl } from "./createFullImageUrl";
 export * from "./generateYearsBasedOnGivenParams";
+export * from "./fileHelpers";
 export * from "./localStorage";

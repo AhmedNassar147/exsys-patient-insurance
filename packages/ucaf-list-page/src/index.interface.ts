@@ -87,3 +87,9 @@ export interface RequestsDataType {
 export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
   record_status: string;
 };
+
+export type SaveAttachmentEventType = {
+  imageType?: string;
+  imageID?: string;
+  onSuccess?: (imageFileName: string) => Promise<void>;
+};

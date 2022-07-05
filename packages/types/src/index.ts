@@ -54,3 +54,4 @@ export * from "./network.interface";
 export * from "./styledHelpers.interface";
 export * from "./table.interface";
 export * from "./downloadExcel.interface";
+export * from "./file-upload.interface";

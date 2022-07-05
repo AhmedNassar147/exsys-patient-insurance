@@ -13,4 +13,5 @@ export { default as useModalRef } from "./useModalRef";
 export { default as useEffectWithTimeout } from "./useEffectWithTimeout";
 export { default as useTableInputChangeCallback } from "./useTableInputChangeCallback";
 export { default as useCurrentPagePrivileges } from "./useCurrentPagePrivileges";
+export { default as useFilesFullUrlsFromRelativePaths } from "./useFilesFullUrlsFromRelativePaths";
 export * from "./useOpenCloseActionsWithState";

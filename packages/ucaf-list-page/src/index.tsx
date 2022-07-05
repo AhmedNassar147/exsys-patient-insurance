@@ -11,8 +11,15 @@ import Text from "@exsys-patient-insurance/text";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
-import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
-import { checkIfThisDateGreaterThanOther } from "@exsys-patient-insurance/helpers";
+import {
+  useBasicQuery,
+  useUploadFilesMutation,
+  useBasicMutation,
+} from "@exsys-patient-insurance/network-hooks";
+import {
+  checkIfThisDateGreaterThanOther,
+  normalizeNativeInputFile,
+} from "@exsys-patient-insurance/helpers";
 import {
   useOpenCloseActionsWithState,
   useCurrentPagePrivileges,
@@ -26,9 +33,12 @@ import Modal from "@exsys-patient-insurance/modal";
 import Table from "@exsys-patient-insurance/exsys-table";
 import Image from "@exsys-patient-insurance/image";
 import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import FileUploadInputField from "@exsys-patient-insurance/file-upload-input-field";
+import FilesGallery from "@exsys-patient-insurance/files-gallery";
 import DiagnosisModal, {
   OnSelectDiagnosisType,
 } from "@exsys-patient-insurance/diagnosis-modal";
+import { UPLOAD_ACCEPTED_EXTENSIONS } from "@exsys-patient-insurance/global-app-constants";
 import {
   RecordType,
   OnResponseActionType,
@@ -50,7 +60,10 @@ import {
   PatientItemRecordType,
   RequestsDataType,
   RequestTableRecordType,
+  SaveAttachmentEventType,
 } from "./index.interface";
+
+const { IMAGES_AND_FILES } = UPLOAD_ACCEPTED_EXTENSIONS;
 
 const { currentPatientData: initialPatientData } = initialValues;
 const {
@@ -72,6 +85,11 @@ const UcafListPage = () => {
 
   const globalProviderNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
+  const { handleUploadOneFile, uploading } = useUploadFilesMutation();
+  const { loading: isSavingAttachment, mutate: saveAttachment } =
+    useBasicMutation({
+      apiId: "POST_UCAF_ATTACHMENT",
+    });
 
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
@@ -92,6 +110,7 @@ const UcafListPage = () => {
     editionModalType,
     selectedTableRecord,
     tableSelectionRows,
+    attachments,
   } = values;
 
   const { selectedKeys, selectedRows } = tableSelectionRows;
@@ -183,6 +202,32 @@ const UcafListPage = () => {
         root_organization_no,
         patient_card_no: foundPatientCardNo,
         paper_serial,
+        provider_no: globalProviderNo,
+      },
+    });
+
+  const handleAttachmentsResponse: OnResponseActionType<
+    RecordType<RecordType[]>
+  > = useCallback(
+    ({ apiValues, error }) => {
+      const baseValues = apiValues?.data;
+      handleChange({
+        name: "attachments",
+        value: !!error || !baseValues?.length ? [] : baseValues,
+      });
+    },
+    [handleChange]
+  );
+
+  const { loading: attachmentsLoading, runQuery: fetchAttachments } =
+    useBasicQuery({
+      apiId: "QUERY_UCAF_ATTACHMENTS",
+      callOnFirstRender: false,
+      // skipQuery: skipAttachmentsQuery,
+      checkAllParamsValuesToQuery: true,
+      onResponse: handleAttachmentsResponse,
+      params: {
+        ucaf_id,
         provider_no: globalProviderNo,
       },
     });
@@ -467,6 +512,78 @@ const UcafListPage = () => {
     [reviwed_date]
   );
 
+  const handleSaveAttachment = useCallback(
+    async ({ imageType, imageID, onSuccess }: SaveAttachmentEventType) => {
+      const isDelete = !!imageID;
+      await saveAttachment({
+        body: {
+          root_organization_no,
+          patient_card_no: foundPatientCardNo,
+          ucaf_id,
+          provider_no: globalProviderNo,
+          record_status: isDelete ? "d" : "n",
+          image_file_name: imageType,
+          image_id: imageID || "",
+        },
+        cb: async ({ apiValues, error }) => {
+          const { status, imageFileName } = apiValues || {};
+          const isError = !!error || status !== "success";
+
+          if (onSuccess) {
+            await onSuccess(imageFileName);
+          }
+
+          addNotification({
+            type: isError ? "error" : "success",
+            message: isError ? "flssve" : "succmsg",
+          });
+
+          if (!isError) {
+            await fetchAttachments();
+          }
+        },
+      });
+    },
+    [
+      fetchAttachments,
+      saveAttachment,
+      foundPatientCardNo,
+      globalProviderNo,
+      root_organization_no,
+    ]
+  );
+
+  const handleAddAttachment: onChangeEvent<File | undefined> = useCallback(
+    async ({ value, name }) => {
+      if (!value) {
+        return;
+      }
+
+      const { imageType } = normalizeNativeInputFile(value);
+
+      await handleSaveAttachment({
+        imageType,
+        onSuccess: async (imageFileName) => {
+          await handleUploadOneFile({
+            file: value,
+            directory: "PATIENTIMAGE",
+            fieldName: name,
+            customUniqueFileNameOrFn: imageFileName,
+          });
+        },
+      });
+    },
+    [handleSaveAttachment, handleUploadOneFile]
+  );
+
+  const onDeleteAttachment = useCallback(
+    async ({ image_id }: RecordType) =>
+      await handleSaveAttachment({
+        imageID: image_id,
+      }),
+    [handleSaveAttachment]
+  );
+
   const searchDisabled = (search_value?.length || 0) < 3;
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
@@ -559,6 +676,7 @@ const UcafListPage = () => {
         bordered
         padding="10px 12px"
         margin="12px 0"
+        wrap="true"
       >
         <Flex wrap="true" width="30%" gap="10px">
           <InputField
@@ -618,12 +736,30 @@ const UcafListPage = () => {
           />
         </Flex>
 
-        <Image
-          src={organizationUrl}
-          alt="organization"
-          width="sp18"
-          height="sp17"
-        />
+        <Flex column="true" gap="5px">
+          <Image
+            src={organizationUrl}
+            alt="organization"
+            width="sp18"
+            height="sp17"
+          />
+
+          <FileUploadInputField
+            dashed
+            width="100%"
+            height="60px"
+            onChange={handleAddAttachment}
+            messageLabelId="attachmnt"
+            name="fileUrl"
+            accept={IMAGES_AND_FILES}
+            disabled={
+              uploading ||
+              isSavingAttachment ||
+              attachmentsLoading ||
+              !isEditableFieldsDisabled
+            }
+          />
+        </Flex>
 
         <Flex wrap="true" width="54%" gap="10px" height="90px">
           <LabeledViewLikeInput
@@ -685,8 +821,20 @@ const UcafListPage = () => {
         </Flex>
 
         <Image src={patientImgUrl} alt="patient" width="sp15" height="sp17" />
+        <FilesGallery
+          width="calc(100%)"
+          itemWidth="120px"
+          itemHeight="60px"
+          margin="0px"
+          padding="0px"
+          bordered={false}
+          dataSource={attachments}
+          shouldMountChunk={!!attachments.length}
+          itemKeyPropName="image_id"
+          fileUrlKeyPropName="image"
+          onDeleteFile={onDeleteAttachment}
+        />
       </Flex>
-
       {!!selectedKeys?.length && (
         <Flex width="100%" margin="0 0 12px">
           <Button

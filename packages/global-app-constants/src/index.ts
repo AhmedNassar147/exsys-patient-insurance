@@ -12,6 +12,14 @@ export const APP_HEADER_MARGIN = spacings.sp4;
 export const APP_HEADER_HORIZONTAL_PADDING = spacings.sp6;
 export const APP_FOOTER_HEIGHT = `calc(${spacings.sp9} - ${spacings.sp1})`;
 
+const acceptableImageTypes = ".png, .jpg, .jpeg";
+
+export const UPLOAD_ACCEPTED_EXTENSIONS = {
+  IMAGES: acceptableImageTypes,
+  IMAGES_AND_FILES: `${acceptableImageTypes} , application/pdf, pdf`,
+  EXCEL_FILES: `application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx, .xls`,
+};
+
 export const LANGUAGE_IDS = Object.freeze({
   PRIMARY: 1,
   SECONDARY: 2,

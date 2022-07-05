@@ -4,6 +4,8 @@
  *
  */
 const API_IDS = {
+  // http://207.180.237.36:9090/ords/exsysexsysdba/EX_SECURITY/exsys_upload_file
+  POST_EXSYS_UPLOAD_FILE: "EX_SECURITY/exsys_upload_file",
   // http://207.180.237.36:9090/ords/exsysexsysdba/EX_SECURITY/Ex_page_lable?pPageId=clinicalDoctorsSearch&planguageid=1&authorization=1634454
   QUERY_EXSYS_PAGE_LABELS: "EX_SECURITY/Ex_page_lable",
   // http://207.180.237.36:9090/ords/exsys_api/mi_web_user/mi_validate_user?username=admin&password=123456&location=my_ip
@@ -34,6 +36,10 @@ const API_IDS = {
   QUERY_MI_BATCHES_TABLE_DATA: "mi_claim/get_provider_batch",
   // http://207.180.237.36:9090/ords/exsys_api/mi_claim/mi_provider_batch_auto_create
   POST_MI_BATCHES_TABLE_DATA: "mi_claim/mi_provider_batch_auto_create",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_ucaf_providers_attachment?authorization=3574833&provider_no=&ucaf_id=
+  QUERY_UCAF_ATTACHMENTS: "mi_ucaf_request/pop_ucaf_providers_attachment",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/ucaf_providers_attachment_dml
+  POST_UCAF_ATTACHMENT: "mi_ucaf_request/ucaf_providers_attachment_dml",
 };
 
 export default API_IDS;

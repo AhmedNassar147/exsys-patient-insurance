@@ -4,6 +4,7 @@
  *
  */
 import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
+import { RecordType } from "@exsys-patient-insurance/types";
 import {
   PatientItemRecordType,
   RequestsDataType,
@@ -49,6 +50,7 @@ export const initialValues = {
     selectedKeys: [] as string[],
     selectedRows: [] as RequestTableRecordType[],
   },
+  attachments: [] as RecordType[],
 };
 
 export const REQUESTS_TABLE_COLUMNS = [

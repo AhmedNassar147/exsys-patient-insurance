@@ -79,6 +79,8 @@
     "@exsys-patient-insurance/mi-batches-page": "1.0.0",
     "@exsys-patient-insurance/months-select-field": "1.0.0",
     "@exsys-patient-insurance/years-select-field": "1.0.0",
+    "@exsys-patient-insurance/file-upload-input-field": "1.0.0",
+    "@exsys-patient-insurance/files-gallery": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0",
     "@exsys-patient-insurance/search-clear-icons": "1.0.0",
     "@testing-library/jest-dom": "^5.14.1",
