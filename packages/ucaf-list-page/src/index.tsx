@@ -11,6 +11,7 @@ import Text from "@exsys-patient-insurance/text";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
+import FilesGalleryWithModalCarousel from "@exsys-patient-insurance/files-gallery-with-modal-carousel";
 import {
   useBasicQuery,
   useUploadFilesMutation,
@@ -34,7 +35,6 @@ import Table from "@exsys-patient-insurance/exsys-table";
 import Image from "@exsys-patient-insurance/image";
 import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
 import FileUploadInputField from "@exsys-patient-insurance/file-upload-input-field";
-import FilesGallery from "@exsys-patient-insurance/files-gallery";
 import DiagnosisModal, {
   OnSelectDiagnosisType,
 } from "@exsys-patient-insurance/diagnosis-modal";
@@ -821,17 +821,16 @@ const UcafListPage = () => {
         </Flex>
 
         <Image src={patientImgUrl} alt="patient" width="sp15" height="sp17" />
-        <FilesGallery
-          width="calc(100%)"
-          itemWidth="120px"
-          itemHeight="60px"
-          margin="0px"
-          padding="0px"
-          bordered={false}
+        <FilesGalleryWithModalCarousel
+          shouldMountChunk={!!attachments?.length}
           dataSource={attachments}
-          shouldMountChunk={!!attachments.length}
           itemKeyPropName="image_id"
           fileUrlKeyPropName="image"
+          itemHeight="60px"
+          itemWidth="120px"
+          bordered={false}
+          padding="0"
+          margin="0px"
           onDeleteFile={onDeleteAttachment}
         />
       </Flex>

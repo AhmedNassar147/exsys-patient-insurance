@@ -6,8 +6,14 @@
 import { memo, useCallback } from "react";
 import { useFilesFullUrlsFromRelativePaths } from "@exsys-patient-insurance/hooks";
 import DeleteIcon from "@exsys-patient-insurance/delete-icon";
-import { GalleryWrapper, GalleryItemView, StyledButton } from "./styled";
-import FilesGalleryProps, { GalleryItemProps } from "./index.interface";
+import {
+  GalleryWrapper,
+  GalleryItemView,
+  StyledButton,
+  ObjectElement,
+  ObjectContainer,
+} from "./styled";
+import { GalleryItemProps, FilesGalleryProps } from "./index.interface";
 
 const FilesGallery = <T extends GalleryItemProps>({
   dataSource,
@@ -31,6 +37,7 @@ const FilesGallery = <T extends GalleryItemProps>({
   const handleItemAction = useCallback(
     (fileData: T, actionType: "select" | "delete", currentFileIndex: number) =>
       () => {
+        console.log("here");
         if (onDeleteFile && actionType === "delete") {
           onDeleteFile(fileData, currentFileIndex);
         }
@@ -79,13 +86,15 @@ const FilesGallery = <T extends GalleryItemProps>({
             key={fileKey}
           >
             {isPdfFile && (
-              <object
-                data={fileUrl}
-                width="100%"
-                children="Your browser does not support pdf files."
-                onClick={selectHandler}
-                height={itemHeight}
-              />
+              <ObjectContainer onClick={selectHandler}>
+                <ObjectElement
+                  data={fileUrl}
+                  width="100%"
+                  children="Your browser does not support pdf files."
+                  height="100%"
+                  onClick={selectHandler}
+                />
+              </ObjectContainer>
             )}
 
             {!isPdfFile && !!fileUrl && (

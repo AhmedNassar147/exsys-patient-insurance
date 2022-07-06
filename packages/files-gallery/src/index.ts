@@ -11,3 +11,4 @@ export default createLazyComponent(
       "./component" /* webpackChunkName: "exsys-patient-insurance.files-gallery" */
     )
 );
+export type { FilesGalleryProps } from "./index.interface";

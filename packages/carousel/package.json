@@ -1,0 +1,21 @@
+{
+  "name": "@exsys-patient-insurance/carousel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a carousel.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/react-lazy": "1.0.0",
+    "@exsys-patient-insurance/swipe-views": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0",
+    "@exsys-patient-insurance/zoom": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

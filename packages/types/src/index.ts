@@ -55,3 +55,5 @@ export * from "./styledHelpers.interface";
 export * from "./table.interface";
 export * from "./downloadExcel.interface";
 export * from "./file-upload.interface";
+export * from "./swipe-views.interface";
+export * from "./carousel.interface";

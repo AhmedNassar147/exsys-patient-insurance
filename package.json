@@ -83,6 +83,14 @@
     "@exsys-patient-insurance/files-gallery": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0",
     "@exsys-patient-insurance/search-clear-icons": "1.0.0",
+    "@exsys-patient-insurance/swipe-views": "1.0.0",
+    "@exsys-patient-insurance/zoom": "1.0.0",
+    "@exsys-patient-insurance/modal-carousel": "1.0.0",
+    "@exsys-patient-insurance/carousel": "1.0.0",
+    "@exsys-patient-insurance/files-gallery-with-modal-carousel": "1.0.0",
+    "@exsys-patient-insurance/zoom-icon": "1.0.0",
+    "@exsys-patient-insurance/undo-icon": "1.0.0",
+    "@exsys-patient-insurance/pause-play-icon": "1.0.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -98,7 +106,9 @@
     "styled-components": "^5.3.5",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
-    "xlsx": "^0.16.9"
+    "xlsx": "^0.16.9",
+    "react-zoom-pan-pinch": "^2.1.3",
+    "react-swipeable": "^6.2.0"
   },
   "devDependencies": {
     "@exsys-patient-insurance/command-line-utils": "1.0.0",

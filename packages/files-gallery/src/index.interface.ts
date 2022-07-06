@@ -23,7 +23,7 @@ export type GalleryItemProps = RecordType<StringNumber>;
 
 type SelectAction<T> = (fileData: T, currentFileIndex: number) => void;
 
-export default interface FilesGalleryProps<T extends GalleryItemProps>
+export interface FilesGalleryProps<T extends GalleryItemProps>
   extends WrapperProps,
     GalleryItemViewProps {
   dataSource?: T[];
