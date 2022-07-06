@@ -84,6 +84,7 @@ const FilesGallery = <T extends GalleryItemProps>({
                 width="100%"
                 children="Your browser does not support pdf files."
                 onClick={selectHandler}
+                height={itemHeight}
               />
             )}
 

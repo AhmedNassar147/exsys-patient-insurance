@@ -761,7 +761,7 @@ const UcafListPage = () => {
           />
         </Flex>
 
-        <Flex wrap="true" width="54%" gap="10px" height="90px">
+        <Flex wrap="true" width="53%" gap="10px" height="90px">
           <LabeledViewLikeInput
             label="cardno"
             value={foundPatientCardNo}
