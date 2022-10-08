@@ -14,6 +14,7 @@
     "@exsys-patient-insurance/exsys-table": "1.0.0",
     "@exsys-patient-insurance/file-upload-input-field": "1.0.0",
     "@exsys-patient-insurance/files-gallery-with-modal-carousel": "1.0.0",
+    "@exsys-patient-insurance/find-patient-form": "1.0.0",
     "@exsys-patient-insurance/flex": "1.0.0",
     "@exsys-patient-insurance/form-manager": "1.0.0",
     "@exsys-patient-insurance/global-app-constants": "1.0.0",
@@ -27,9 +28,7 @@
     "@exsys-patient-insurance/network-hooks": "1.0.0",
     "@exsys-patient-insurance/select-with-api-query": "1.0.0",
     "@exsys-patient-insurance/selection-check": "1.0.0",
-    "@exsys-patient-insurance/selection-check-group": "1.0.0",
     "@exsys-patient-insurance/services-modal": "1.0.0",
-    "@exsys-patient-insurance/text": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {

@@ -4,13 +4,12 @@
  *
  */
 import { memo, useCallback } from "react";
-import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import SelectionCheck from "@exsys-patient-insurance/selection-check";
 import Flex from "@exsys-patient-insurance/flex";
-import Text from "@exsys-patient-insurance/text";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
+import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import FilesGalleryWithModalCarousel from "@exsys-patient-insurance/files-gallery-with-modal-carousel";
 import {
   useBasicQuery,
@@ -30,7 +29,6 @@ import {
   useAppConfigStore,
 } from "@exsys-patient-insurance/app-config-store";
 import Button from "@exsys-patient-insurance/button";
-import Modal from "@exsys-patient-insurance/modal";
 import Table from "@exsys-patient-insurance/exsys-table";
 import Image from "@exsys-patient-insurance/image";
 import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
@@ -45,14 +43,13 @@ import {
   TableBodyRowClickEvent,
   TableSelectionChangeActionType,
   onChangeEvent,
+  RecordTypeWithAnyValue,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
 import useDeliverRequest from "./hooks/useDeliverRequest";
 import {
   initialValues,
-  SEARCH_RADIO_OPTIONS,
-  TABLE_COLUMNS,
   REQUESTS_TABLE_COLUMNS,
   ATTENDANCE_LIST_PARAMS,
 } from "./constants";
@@ -364,7 +361,7 @@ const UcafListPage = () => {
 
   const onSearchPatients = useCallback(() => runQuery(), [runQuery]);
 
-  const onDoubleClickPatientRecord: TableBodyRowClickEvent<PatientItemRecordType> =
+  const onDoubleClickPatientRecord: TableBodyRowClickEvent<RecordTypeWithAnyValue> =
     useCallback(
       (currentRecord) => {
         handleChangeMultipleInputs({
@@ -584,19 +581,11 @@ const UcafListPage = () => {
     [handleSaveAttachment]
   );
 
-  const searchDisabled = (search_value?.length || 0) < 3;
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
     !foundPatientCardNo ||
     !globalProviderNo;
-
-  console.log("searchRequestsDisabled", {
-    isCurrentPatientActive,
-    root_organization_no,
-    foundPatientCardNo,
-    globalProviderNo,
-  });
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
@@ -618,29 +607,16 @@ const UcafListPage = () => {
   return (
     <>
       <Flex width="100%" gap="10px" bordered padding="10px 12px" align="center">
-        <Text margin="0">fndpat</Text>
-        <SelectionCheckGroup
-          options={SEARCH_RADIO_OPTIONS}
-          name="search_type"
-          value={search_type}
-          onChange={handleMainFieldsChangeAndResetFrom}
-          mode="radio"
-        />
-
-        <InputField
-          width="200px"
-          value={search_value}
-          name="search_value"
-          onChange={handleMainFieldsChangeAndResetFrom}
-          onPressEnter={onSearchPatients}
-        />
-
-        <Button
-          label="srch"
-          disabled={searchDisabled}
-          onClick={onSearchPatients}
-          type="primary"
-          loading={patientSearchLoading}
+        <FindPatientForm
+          searchType={search_type}
+          searchValue={search_value}
+          onSearchPatients={onSearchPatients}
+          handleChange={handleMainFieldsChangeAndResetFrom}
+          selectionModalOpened={selectionModalOpened}
+          closeSelectionModal={closeSelectionModal}
+          patientsDataList={patientsDataList}
+          onDoubleClickPatientRecord={onDoubleClickPatientRecord}
+          patientSearchLoading={patientSearchLoading}
         />
 
         <InputField
@@ -871,25 +847,6 @@ const UcafListPage = () => {
         disabledRowsSelection={disabledRowsSelection}
         useAlignedTotalCells
       />
-
-      <Modal
-        title="slctpat"
-        width="1100px"
-        visible={selectionModalOpened}
-        onClose={closeSelectionModal}
-        maskClosable={false}
-        noCancelButton
-      >
-        <Table
-          dataSource={patientsDataList}
-          rowKey="rowKey"
-          totalRecordsInDataBase={patientsDataList?.length}
-          noPagination
-          hideTableHeaderTools
-          columns={TABLE_COLUMNS}
-          onDoubleClick={onDoubleClickPatientRecord}
-        />
-      </Modal>
 
       {canRenderDiagnosisModal && (
         <DiagnosisModal
