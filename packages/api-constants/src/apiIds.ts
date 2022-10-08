@@ -19,8 +19,6 @@ const API_IDS = {
   QUERY_TPA_PROVIDER_LIST: "mi_claim/pop_provider_tpa",
   // http://207.180.237.36:9090/ords/exsys_api/mi_web_user/pop_user_job_screen?authorization=3784948&planguageid=1&job_id=1&
   QUERY_JOB_SCREENS_LIST: "mi_web_user/pop_user_job_screen",
-  // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_patient_card_data?authorization=3574833&planguageid=1&search_type=C&search_value=CSA-0334-00-06-0978
-  QUERY_PATIENT_DATA: "mi_ucaf_request/pop_patient_card_data",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/get_ucaf_serial_request?authorization=3798723&root_organization_no=001&patient_card_no=CSA-0334-00-01-0055&planguageid=1&paper_serial=124&provider_no=4
   QUERY_UCAF_REQUESTS_DATA: "mi_ucaf_request/get_ucaf_serial_request",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_diagnosis_data?authorization=3574833&department_id=3&search_type=F&search_word=
@@ -40,6 +38,16 @@ const API_IDS = {
   QUERY_UCAF_ATTACHMENTS: "mi_ucaf_request/pop_ucaf_providers_attachment",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/ucaf_providers_attachment_dml
   POST_UCAF_ATTACHMENT: "mi_ucaf_request/ucaf_providers_attachment_dml",
+  // http://207.180.237.36:9090/ords/exsys_api/mi_claim/get_patient_limits?authorization=3232107&planguageid=1&patient_card_no=1800
+  QUERY_MI_PATIENT_LIMIT_DATA: "mi_claim/get_patient_limits",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/pop_patient_card_data?authorization=1419715&planguageid=1&search_type=C&search_value=CSA-0334-00-06-0978
+  QUERY_MI_UCAF_PATIENT_DATA: "mi_ucaf_request/pop_patient_card_data",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_provider_request/mi_patient_ucaf_query?authorization=1419715&planguageid=1&patient_card_no=CSA-0334-00-01-0055
+  QUERY_MI_UCAF_PATIENTS_TABLE_DATA:
+    "mi_provider_request/mi_patient_ucaf_query",
+  // http://207.180.237.36:9090/ords/exsysexsysdba/mi_ucaf_request/get_patient_history?authorization=3840267&current_doctor_only=N&current_specialty_only=N&patientfileno=1900&organization_no=001&doctor_id
+  QUERY_MI_PROVIDERS_APPROVAL_PATIENT_HISTORY:
+    "mi_ucaf_request/get_patient_history",
 };
 
 export default API_IDS;

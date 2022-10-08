@@ -45,6 +45,7 @@ export interface FlexProps extends EllipsisCssHelperProps {
   order?: number;
   maxHeight?: string;
   cursor?: string;
+  color?: ColorsType;
 }
 
 const { grey4 } = colors;
@@ -95,6 +96,11 @@ export default styled.div<FlexProps>`
     borderColor &&
     `
     border-color: ${colors[borderColor]};
+  `};
+  ${({ color }) =>
+    color &&
+    `
+    color: ${colors[color]};
   `};
   ${({ cursor }) =>
     cursor &&

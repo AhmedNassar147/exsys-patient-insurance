@@ -1,0 +1,30 @@
+{
+  "name": "@exsys-patient-insurance/mi-ucaf-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the ucaf list page.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/button": "1.0.0",
+    "@exsys-patient-insurance/exsys-table-with-api-query": "1.0.0",
+    "@exsys-patient-insurance/find-patient-form": "1.0.0",
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/form-manager": "1.0.0",
+    "@exsys-patient-insurance/mi-preview-patient-data": "1.0.0",
+    "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
+    "@exsys-patient-insurance/patient-history-components": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "routeData": {
+    "path": "/miUcaf"
+  },
+  "enableBabelTranspilation": true
+}

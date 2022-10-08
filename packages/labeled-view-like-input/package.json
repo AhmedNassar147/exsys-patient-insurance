@@ -9,7 +9,8 @@
   "sideEffects": false,
   "dependencies": {
     "@exsys-patient-insurance/flex": "1.0.0",
-    "@exsys-patient-insurance/labeled-input": "1.0.0"
+    "@exsys-patient-insurance/labeled-input": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
   },
   "enableBabelTranspilation": true
 }

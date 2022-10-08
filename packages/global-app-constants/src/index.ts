@@ -5,6 +5,8 @@
  */
 import { spacings } from "@exsys-patient-insurance/theme-values";
 
+export const MIN_PATIENT_FILE_NO_LENGTH = 5;
+
 export const T_TRANSLATE_REGEXP = /__t__\w+/gim;
 
 export const APP_HEADER_HEIGHT = `calc(${spacings.sp6} + ${spacings.sp8})`;

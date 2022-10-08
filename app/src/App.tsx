@@ -13,6 +13,7 @@ import AppFooter from "@exsys-patient-insurance/app-footer";
 import LoginPage from "@exsys-patient-insurance/login-page";
 import UcafListPage from "@exsys-patient-insurance/ucaf-list-page";
 import MiBatchesPage from "@exsys-patient-insurance/mi-batches-page";
+import MiUcafPage from "@exsys-patient-insurance/mi-ucaf-page";
 
 const App = () => (
   <>
@@ -25,8 +26,9 @@ const App = () => (
               <BasePageWrapper>
                 <Routes>
                   <Route path="/" element={<LoginPage />} />
-                  <Route path="tpaUcaf" element={<UcafListPage />} />
+                  <Route path="tpaProviderUcaf" element={<UcafListPage />} />
                   <Route path="tpaMiBatches" element={<MiBatchesPage />} />
+                  <Route path="tpaDoctorUcaf" element={<MiUcafPage />} />
                 </Routes>
               </BasePageWrapper>
             </Suspense>

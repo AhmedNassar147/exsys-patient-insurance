@@ -47,7 +47,7 @@ const DEFAULT_VARS_WITH_VALUES = {
 };
 
 const CLIENTS_URLS = {
-  [CLIENTS_NAMES.CLOUD]: "http://207.180.237.36",
+  [CLIENTS_NAMES.CLOUD]: "http://149.102.140.8",
 };
 module.exports = {
   DEFAULT_VARS_WITH_VALUES,

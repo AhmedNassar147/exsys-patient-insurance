@@ -18,6 +18,7 @@ const LabeledViewLikeInput = ({
   lineheight,
   justify,
   onClick,
+  color,
   ...props
 }: LabeledViewLikeInputProps) => (
   <LabeledInput {...props} value={value}>
@@ -32,6 +33,7 @@ const LabeledViewLikeInput = ({
       ellipsis={ellipsis}
       justify={justify}
       onClick={onClick}
+      color={color}
     >
       {children || value}
     </Flex>

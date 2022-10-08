@@ -1,0 +1,28 @@
+{
+  "name": "@exsys-patient-insurance/mi-preview-patient-data",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render the mi patient data.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/button": "1.0.0",
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/image": "1.0.0",
+    "@exsys-patient-insurance/labeled-view-like-input": "1.0.0",
+    "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
+    "@exsys-patient-insurance/selection-check": "1.0.0",
+    "@exsys-patient-insurance/snippets-icon": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

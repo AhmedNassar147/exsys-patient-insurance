@@ -3,7 +3,8 @@
  * Types: `@exsys-patient-insurance/labeled-view-like-input`.
  *
  */
-import { LabeledInputProps } from "@exsys-patient-insurance/labeled-input";
+import type { LabeledInputProps } from "@exsys-patient-insurance/labeled-input";
+import type { ColorsType } from "@exsys-patient-insurance/types";
 
 export interface LabeledViewLikeInputProps extends LabeledInputProps {
   minWidth?: string;
@@ -14,4 +15,5 @@ export interface LabeledViewLikeInputProps extends LabeledInputProps {
   lineheight?: string;
   justify?: string;
   onClick?: () => void;
+  color?: ColorsType;
 }

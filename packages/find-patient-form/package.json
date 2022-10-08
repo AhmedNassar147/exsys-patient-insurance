@@ -1,0 +1,24 @@
+{
+  "name": "@exsys-patient-insurance/find-patient-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a form to search patients.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/button": "1.0.0",
+    "@exsys-patient-insurance/exsys-table": "1.0.0",
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/input-field": "1.0.0",
+    "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/selection-check-group": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}

@@ -352,7 +352,7 @@ const UcafListPage = () => {
   const { runQuery, loading: patientSearchLoading } = useBasicQuery<
     RecordType<PatientItemRecordType[]>
   >({
-    apiId: "QUERY_PATIENT_DATA",
+    apiId: "QUERY_MI_UCAF_PATIENT_DATA",
     disableParamsChangeCheck: true,
     skipQuery,
     onResponse: handlePatientsResponse,
@@ -590,6 +590,13 @@ const UcafListPage = () => {
     !root_organization_no ||
     !foundPatientCardNo ||
     !globalProviderNo;
+
+  console.log("searchRequestsDisabled", {
+    isCurrentPatientActive,
+    root_organization_no,
+    foundPatientCardNo,
+    globalProviderNo,
+  });
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 

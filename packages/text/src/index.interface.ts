@@ -34,3 +34,9 @@ export interface BaseTextProps {
 }
 
 export interface TextProps extends TextPropsStyleSheet, BaseTextProps {}
+
+export interface TitleProps extends TextProps {
+  bottomborder?: boolean | "true";
+  bordercolor?: string;
+  center?: boolean;
+}
