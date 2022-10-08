@@ -42,7 +42,7 @@ export const TABLE_COLUMNS = [
   {
     title: "membrof",
     dataIndex: "member_of",
-    width: "10%",
+    width: "16.5%",
   },
 ];
 

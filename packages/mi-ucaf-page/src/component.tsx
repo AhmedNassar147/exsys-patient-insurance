@@ -26,6 +26,9 @@ import {
 import { initialValues, BASE_DETAILS_COLUMN } from "./constants";
 import { UcafPatientDataPropType } from "./index.interface";
 
+// provider_name: "Ahmed Wahid Pharmacy"
+// for new moda
+
 const { currentPatientData: initialPatientData } = initialValues;
 
 const MiUcafPage = () => {

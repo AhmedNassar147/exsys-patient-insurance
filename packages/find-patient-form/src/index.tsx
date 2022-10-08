@@ -79,7 +79,7 @@ const FindPatientForm = ({
       {selectionModalOpened && (
         <Modal
           title="slctpat"
-          width="1100px"
+          width="90%"
           visible={selectionModalOpened}
           onClose={closeSelectionModal}
           maskClosable={false}
