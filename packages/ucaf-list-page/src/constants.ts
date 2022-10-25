@@ -14,6 +14,7 @@ import {
 export const initialValues = {
   search_type: "C",
   search_value: "",
+  historyModalShown: false,
   currentPatientData: {} as PatientItemRecordType,
   patientsDataList: [] as PatientItemRecordType[],
   selectionModalOpened: false,
@@ -23,9 +24,12 @@ export const initialValues = {
   selectedTableRecord: {} as RequestTableRecordType,
   requestsData: {
     details: {
-      attendance_type: "O",
-      ucafe_type: "N",
+      ucafe_type: "O",
       claim_flag: "A",
+      stamped: "N",
+      agreed: "N",
+      expected_days: 1,
+      expected_amount: 1,
       ucafe_date: getCurrentDateString(),
     },
     data: [] as RequestTableRecordType[],
@@ -102,7 +106,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "stts",
     dataIndex: "status_name",
-    width: "5%",
+    width: "4.5%",
     totalCellProps: {
       isFragment: true,
     },
@@ -125,6 +129,40 @@ export const REQUESTS_TABLE_COLUMNS = [
   },
 ];
 
-export const ATTENDANCE_LIST_PARAMS = Object.freeze({
-  pwhere: "('I','O','E')",
-});
+export const UCAF_TYPES_RADIO_OPTIONS = [
+  {
+    label: "outptnt",
+    value: "O",
+  },
+  {
+    label: "inptnt",
+    value: "I",
+  },
+  {
+    label: "emrgncy",
+    value: "E",
+  },
+  // {
+  //   label: "rmbrsmnt",
+  //   value: "R",
+  // },
+];
+
+export const CLAIM_TYPES_RADIO_OPTIONS = [
+  {
+    label: "isacute",
+    value: "A",
+  },
+  {
+    label: "prexst",
+    value: "P",
+  },
+  {
+    label: "chrnc",
+    value: "C",
+  },
+  {
+    label: "excptnal",
+    value: "E",
+  },
+];

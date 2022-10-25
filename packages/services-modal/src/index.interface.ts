@@ -17,7 +17,10 @@ export interface ServiceRequestItemType {
   specialty_type: string;
 }
 
-export type OnSelectServiceType = (item: ServiceRequestItemType) => void;
+export type OnSelectServiceType = (
+  item: ServiceRequestItemType,
+  inClinicService: boolean
+) => void;
 
 export interface ServicesModalProps {
   visible: boolean;

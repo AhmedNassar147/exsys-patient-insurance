@@ -10,15 +10,17 @@ import {
   useLoggedInUserName,
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
+import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
 import { RequestDetailsType, RequestTableRecordType } from "../index.interface";
 
 type BaseRequestValuesType = Pick<
   RequestDetailsType,
-  "root_organization_no" | "ucaf_id" | "is_chronic"
+  "root_organization_no" | "ucaf_id"
 > & {
   patient_card_no?: string;
   insurance_company_no?: number;
   paper_serial: string;
+  is_chronic?: CapitalBooleanStringType;
 };
 
 const useDeliverRequest = (

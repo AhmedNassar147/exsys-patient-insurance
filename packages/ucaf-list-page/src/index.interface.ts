@@ -29,6 +29,8 @@ export interface PatientItemRecordType {
   total: number;
   class?: string;
   member_of?: string;
+  declaration_file_path?: string;
+  declaration_req?: string;
 }
 
 export interface RequestDetailsType {
@@ -41,16 +43,18 @@ export interface RequestDetailsType {
   ucafe_date?: string;
   complain?: string;
   signs?: string;
-  is_chronic?: CapitalBooleanStringType;
   primary_diag_code?: number;
   primary_diagnosis?: string;
-  ucafe_type?: CapitalBooleanStringType;
+  ucafe_type?: string;
   claim_flag?: string;
-  attendance_type?: string;
   provider_notes?: string;
   reviwed_date?: string;
   chronic_period_months?: number;
   chronic_delivery_frequency?: number;
+  stamped?: CapitalBooleanStringType;
+  agreed?: CapitalBooleanStringType;
+  expected_days?: number;
+  expected_amount?: number;
 }
 
 export interface RequestTableRecordType {
@@ -77,6 +81,7 @@ export interface RequestTableRecordType {
   due_delivery_date?: string;
   due_delivery_qty?: number;
   last_delivery_date?: string;
+  provider_no?: number;
 }
 
 export interface RequestsDataType {
@@ -86,6 +91,7 @@ export interface RequestsDataType {
 
 export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
   record_status: string;
+  inClinicService?: boolean;
 };
 
 export type SaveAttachmentEventType = {

@@ -24,6 +24,7 @@ const { red, appPrimary } = colors;
 
 interface MiPreviewPatientDataProps {
   width?: string;
+  height?: string;
   patientCardNo: string;
   patientName: string;
   gender: string;
@@ -36,11 +37,11 @@ interface MiPreviewPatientDataProps {
   end_date: string;
   class?: string;
   plan: string;
-  member_of: string;
+  member_of?: string;
   subsidiary: string;
   relationship: string;
-  declaration_file_path: string;
-  declaration_req: string;
+  declaration_file_path?: string;
+  declaration_req?: string;
 }
 
 const initialState = {
@@ -67,6 +68,7 @@ const MiPreviewPatientData = ({
   declaration_file_path,
   declaration_req,
   width,
+  height,
 }: MiPreviewPatientDataProps) => {
   const { visible, handleOpen, handleClose } = useOpenCloseActionsWithState();
 
@@ -108,6 +110,7 @@ const MiPreviewPatientData = ({
     callOnFirstRender: false,
     runQueryWhenLanguageChanged: true,
     onResponse: handleViewLimitsData,
+    skipQuery: !patientCardNo,
   });
 
   const viewPatientLimit = useCallback(() => {
@@ -116,7 +119,7 @@ const MiPreviewPatientData = ({
 
   return (
     <>
-      <Flex gap="10px" width={width}>
+      <Flex gap="10px" width={width} height={height}>
         <Flex
           bordered
           padding="10px"
@@ -213,7 +216,7 @@ const MiPreviewPatientData = ({
             onClick={viewPatientLimit}
             width="150px"
             loading={loading}
-            disabled={loading}
+            disabled={loading || !patientCardNo}
           />
         </Flex>
 

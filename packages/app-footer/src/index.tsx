@@ -3,6 +3,7 @@
  * Package: `@exsys-patient-insurance/app-footer`.
  *
  */
+import { memo } from "react";
 import exsysIcon from "./assets/exsys.svg";
 import { StyledFooter, FooterImage } from "./styled";
 
@@ -19,4 +20,4 @@ const AppFooter = () => (
   </StyledFooter>
 );
 
-export default AppFooter;
+export default memo(AppFooter);

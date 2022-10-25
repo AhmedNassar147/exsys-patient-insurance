@@ -4,13 +4,20 @@
  *
  */
 import { memo, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import SelectionCheck from "@exsys-patient-insurance/selection-check";
 import Flex from "@exsys-patient-insurance/flex";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
+import InputNumber from "@exsys-patient-insurance/input-number";
+import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
 import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import FilesGalleryWithModalCarousel from "@exsys-patient-insurance/files-gallery-with-modal-carousel";
+import MiPreviewPatientData from "@exsys-patient-insurance/mi-preview-patient-data";
+import { PatientHistoryWithApiQuery } from "@exsys-patient-insurance/patient-history-components";
+import Modal from "@exsys-patient-insurance/modal";
 import {
   useBasicQuery,
   useUploadFilesMutation,
@@ -27,11 +34,11 @@ import {
 import {
   useGlobalProviderNo,
   useAppConfigStore,
+  useCurrentUserType,
 } from "@exsys-patient-insurance/app-config-store";
 import Button from "@exsys-patient-insurance/button";
 import Table from "@exsys-patient-insurance/exsys-table";
 import Image from "@exsys-patient-insurance/image";
-import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
 import FileUploadInputField from "@exsys-patient-insurance/file-upload-input-field";
 import DiagnosisModal, {
   OnSelectDiagnosisType,
@@ -44,6 +51,7 @@ import {
   TableSelectionChangeActionType,
   onChangeEvent,
   RecordTypeWithAnyValue,
+  SelectChangeHandlerType,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
@@ -51,7 +59,8 @@ import useDeliverRequest from "./hooks/useDeliverRequest";
 import {
   initialValues,
   REQUESTS_TABLE_COLUMNS,
-  ATTENDANCE_LIST_PARAMS,
+  UCAF_TYPES_RADIO_OPTIONS,
+  CLAIM_TYPES_RADIO_OPTIONS,
 } from "./constants";
 import {
   PatientItemRecordType,
@@ -66,15 +75,20 @@ const { currentPatientData: initialPatientData } = initialValues;
 const {
   requestsData: {
     details: {
-      attendance_type: defaultAttendence,
       ucafe_type: defaultUcafType,
       claim_flag: defaultClaimType,
       ucafe_date: defaultUcafDate,
+      stamped: defaultStamped,
+      agreed: defaultAgreed,
+      expected_days: defaultNoOfDays,
+      expected_amount: defaultAmount,
     },
   },
 } = initialValues;
 
 const UcafListPage = () => {
+  const { pageType } = useParams();
+  const { isDoctorUser } = useCurrentUserType();
   const { values, handleChange, handleChangeMultipleInputs, resetForm } =
     useFormManager({
       initialValues,
@@ -108,6 +122,7 @@ const UcafListPage = () => {
     selectedTableRecord,
     tableSelectionRows,
     attachments,
+    historyModalShown,
   } = values;
 
   const { selectedKeys, selectedRows } = tableSelectionRows;
@@ -129,29 +144,55 @@ const UcafListPage = () => {
     member_of,
     root_organization_no,
     insurance_company_no,
+    gender,
+    status,
+    declaration_file_path,
+    declaration_req,
   } = currentPatientData;
 
   const {
     details: {
-      doctor_department_name,
-      doctor_provider_name,
       doctor_department_id,
+      doctor_provider_no,
+      doctor_provider_name,
       complain,
       signs,
-      is_chronic,
       primary_diagnosis,
       primary_diag_code,
       ucafe_type,
       claim_flag,
       ucafe_date,
-      attendance_type,
       ucaf_id,
-      doctor_provider_no,
       provider_notes,
       reviwed_date,
+      stamped,
+      agreed,
+      expected_days,
+      expected_amount,
     },
     data: requestTableDataSource,
   } = requestsData;
+
+  const isChronic = claim_flag === "C" ? "Y" : "N";
+
+  const toggleHistoryModal = useCallback(
+    () =>
+      handleChange({
+        name: "historyModalShown",
+        value: !historyModalShown,
+      }),
+    [handleChange, historyModalShown]
+  );
+
+  const handleChangeDoctorDepartmentOrProviderNo: SelectChangeHandlerType =
+    useCallback(
+      ({ name, value, itemOptionData }) =>
+        handleChangeMultipleInputs({
+          [name]: value,
+          [name.replace(/_no|_id/, "_name")]: itemOptionData?.value,
+        }),
+      [handleChangeMultipleInputs]
+    );
 
   const setEditionModalState = useCallback(
     (value?: string) => () =>
@@ -166,6 +207,14 @@ const UcafListPage = () => {
     useCallback(
       ({ apiValues, error }) => {
         const { details } = apiValues || {};
+        const { doctor_provider_no, doctor_department_id } = details || {};
+
+        if (!doctor_provider_no || !doctor_department_id) {
+          addNotification({
+            type: "error",
+            message: "invldsrialno",
+          });
+        }
 
         const data =
           error || !apiValues
@@ -174,10 +223,13 @@ const UcafListPage = () => {
                 ...apiValues,
                 details: {
                   ...details,
-                  attendance_type: details.attendance_type || defaultAttendence,
                   ucafe_type: details.ucafe_type || defaultUcafType,
                   claim_flag: details.claim_flag || defaultClaimType,
                   ucafe_date: details.ucafe_date || defaultUcafDate,
+                  stamped: details.stamped || defaultStamped,
+                  agreed: details.agreed || defaultAgreed,
+                  expected_days: details.expected_days || defaultNoOfDays,
+                  expected_amount: details.expected_amount || defaultAmount,
                 },
               };
 
@@ -200,6 +252,7 @@ const UcafListPage = () => {
         patient_card_no: foundPatientCardNo,
         paper_serial,
         provider_no: globalProviderNo,
+        pageType,
       },
     });
 
@@ -250,14 +303,27 @@ const UcafListPage = () => {
     onSearchRequests();
   }, [onSearchRequests, setEditionModalState]);
 
+  const handleChangeUcafType: onChangeEvent = useCallback(
+    ({ name, value }) =>
+      handleChangeMultipleInputs({
+        [name]: value,
+        ...(value !== "I"
+          ? {
+              no_of_days: undefined,
+            }
+          : null),
+      }),
+    [handleChangeMultipleInputs]
+  );
+
   const { loading: isSavingRequest, handleSaveServiceRequest } =
     useSaveServiceRequest(
       {
         root_organization_no,
         doctor_provider_no,
         doctor_provider_name,
-        attendance_type,
         ucafe_date,
+        ucafe_type,
         claim_flag,
         ucaf_id,
         doctor_department_id,
@@ -265,12 +331,15 @@ const UcafListPage = () => {
         signs,
         primary_diag_code,
         primary_diagnosis,
-        ucafe_type,
-        is_chronic,
+        is_chronic: isChronic,
         patient_card_no: foundPatientCardNo,
         insurance_company_no,
         provider_notes,
         paper_serial,
+        agreed,
+        stamped,
+        expected_amount,
+        expected_days,
       },
       onAfterSaveRequest
     );
@@ -290,7 +359,7 @@ const UcafListPage = () => {
       ucaf_id,
       patient_card_no: foundPatientCardNo,
       paper_serial,
-      is_chronic,
+      is_chronic: isChronic,
     },
     handleDeliverySuccess
   );
@@ -581,6 +650,8 @@ const UcafListPage = () => {
     [handleSaveAttachment]
   );
 
+  const isInPatientUcafType = ucafe_type === "I";
+
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
@@ -603,6 +674,11 @@ const UcafListPage = () => {
 
   const isEditableFieldsDisabled =
     areFieldsDisabled || !foundPatientCardNo || !paper_serial;
+
+  const patientHistoryParams = {
+    organization_no: root_organization_no,
+    patientfileno: foundPatientCardNo,
+  };
 
   return (
     <>
@@ -639,17 +715,47 @@ const UcafListPage = () => {
           }
         />
 
-        <LabeledViewLikeInput
+        <SelectWithApiQuery
           label="docprvdrnam"
-          value={doctor_provider_name}
-          minWidth="200px"
-          width="auto"
+          value={doctor_provider_no}
+          width="250px"
+          apiOrCodeId="QUERY_PROVIDER_NAMES_LIST"
+          queryType="query"
+          name="requestsData.details.doctor_provider_no"
+          onChange={handleChangeDoctorDepartmentOrProviderNo}
+          allowClear={false}
+          disabled={
+            isDoctorUser ||
+            !doctor_provider_no ||
+            !foundPatientCardNo ||
+            !paper_serial
+          }
+          apiParams={{
+            doctor_only: "Y",
+          }}
         />
-        <LabeledViewLikeInput
+        <SelectWithApiQuery
           label="spec"
-          value={doctor_department_name}
-          minWidth="120px"
-          width="auto"
+          value={doctor_department_id}
+          width="180px"
+          apiOrCodeId="QUERY_INVOICE_DEPARTMENT_LIST"
+          queryType="query"
+          name="requestsData.details.doctor_department_id"
+          onChange={handleChangeDoctorDepartmentOrProviderNo}
+          allowClear={false}
+          disabled={
+            isDoctorUser ||
+            !doctor_provider_no ||
+            !foundPatientCardNo ||
+            !paper_serial
+          }
+        />
+
+        <Button
+          label="ptnthstry"
+          type="primary"
+          onClick={toggleHistoryModal}
+          disabled={!foundPatientCardNo}
         />
       </Flex>
 
@@ -666,14 +772,14 @@ const UcafListPage = () => {
             width="48.5%"
             name="requestsData.details.complain"
             value={complain}
-            disabled={isEditableFieldsDisabled}
+            disabled={isEditableFieldsDisabled || !doctor_provider_no}
             onChange={handleChange}
             label="cmplns"
           />
           <InputField
             name="requestsData.details.signs"
             value={signs}
-            disabled={isEditableFieldsDisabled}
+            disabled={isEditableFieldsDisabled || !doctor_provider_no}
             onChange={handleChange}
             label="signs"
             width="48.5%"
@@ -689,34 +795,80 @@ const UcafListPage = () => {
                 : handleOpen
             }
           />
-          <SelectWithApiQuery
-            queryType="u_code"
-            apiOrCodeId="ATTENDANCE_TYPES"
-            value={attendance_type}
-            name="requestsData.details.attendance_type"
-            onChange={handleChange}
-            width="38%"
-            label="atndc"
-            disabled={isEditableFieldsDisabled}
-            apiParams={ATTENDANCE_LIST_PARAMS}
-            allowClear={false}
+
+          <SelectionCheckGroup
+            options={UCAF_TYPES_RADIO_OPTIONS}
+            label="ucaftype"
+            labelType="inlined"
+            name="requestsData.details.ucafe_type"
+            value={ucafe_type}
+            onChange={handleChangeUcafType}
+            disabled={isEditableFieldsDisabled || !doctor_provider_no}
+            width="100%"
+            mode="radio"
           />
-          <SelectionCheck
-            name="requestsData.details.is_chronic"
-            checked={is_chronic || "N"}
-            disabled={isEditableFieldsDisabled}
+          <SelectionCheckGroup
+            options={CLAIM_TYPES_RADIO_OPTIONS}
+            label="clmtype"
+            labelType="inlined"
+            name="requestsData.details.claim_flag"
+            value={claim_flag}
             onChange={handleChange}
-            label="chrnc"
+            disabled={isEditableFieldsDisabled || !doctor_provider_no}
+            width="100%"
+            mode="radio"
           />
+
+          {isInPatientUcafType && (
+            <>
+              <InputNumber
+                name="requestsData.details.expected_days"
+                width="70px"
+                label="daysno"
+                value={expected_days}
+                min={1}
+                onChange={handleChange}
+                disabled={isEditableFieldsDisabled || !doctor_provider_no}
+              />
+
+              <InputNumber
+                name="requestsData.details.expected_amount"
+                width="70px"
+                label="amnt"
+                value={expected_amount}
+                min={1}
+                onChange={handleChange}
+                disabled={isEditableFieldsDisabled || !doctor_provider_no}
+              />
+            </>
+          )}
 
           <InputField
             name="requestsData.details.provider_notes"
             value={provider_notes}
-            disabled={isEditableFieldsDisabled}
+            disabled={isEditableFieldsDisabled || !doctor_provider_no}
             onChange={handleChange}
             label="nots"
-            width="100%"
+            width={isInPatientUcafType ? "calc(100% - 165px)" : "100%"}
           />
+
+          <Flex width="100%" wrap="true" align="center" gap="10px">
+            <SelectionCheck
+              name="requestsData.details.stamped"
+              label="stmpd"
+              checked={stamped}
+              onChange={handleChange}
+              disabled={isEditableFieldsDisabled || !doctor_provider_no}
+            />
+
+            <SelectionCheck
+              name="requestsData.details.agreed"
+              label="weagreflowcntrctmedclnots"
+              checked={agreed}
+              disabled={isEditableFieldsDisabled || !doctor_provider_no}
+              onChange={handleChange}
+            />
+          </Flex>
         </Flex>
 
         <Flex column="true" gap="5px">
@@ -744,66 +896,28 @@ const UcafListPage = () => {
           />
         </Flex>
 
-        <Flex wrap="true" width="53%" gap="10px" height="90px">
-          <LabeledViewLikeInput
-            label="cardno"
-            value={foundPatientCardNo}
-            width="140px"
-            ellipsis="true"
-          />
-          <LabeledViewLikeInput
-            label="class"
-            value={patientClass}
-            width="80px"
-            ellipsis="true"
-          />
-          <LabeledViewLikeInput
-            label="bnfcryid"
-            value={national_id}
-            minWidth="100px"
-            width="120px"
-            ellipsis="true"
-          />
-          <LabeledViewLikeInput
-            label="bnfcry"
-            value={`${patient_name || ""} (${age || ""})`}
-            width="270px"
-            ellipsis="true"
-          />
-          <LabeledViewLikeInput
-            label="phn"
-            value={phone_no}
-            minWidth="90px"
-            width="auto"
-          />
-          <LabeledViewLikeInput label="pln" value={plan} width="220px" />
-          <LabeledViewLikeInput
-            label="strtend"
-            value={`${start_date || ""} ~ ${end_date || ""}`}
-            width="160px"
-            ellipsis="true"
-            justify="center"
-          />
-          <LabeledViewLikeInput
-            label="rltnship"
-            value={relationship}
-            width="90px"
-            ellipsis="true"
-          />
-          <LabeledViewLikeInput
-            label="subsdry"
-            value={subsidiary}
-            width="110px"
-            ellipsis="true"
-          />
-          <LabeledViewLikeInput
-            label="membrof"
-            value={member_of}
-            width="220px"
-          />
-        </Flex>
+        <MiPreviewPatientData
+          width="60%"
+          height="fit-content"
+          patientCardNo={foundPatientCardNo}
+          patientName={patient_name}
+          age={age}
+          phone={phone_no}
+          nationalId={national_id}
+          start_date={start_date}
+          end_date={end_date}
+          class={patientClass}
+          relationship={relationship}
+          plan={plan}
+          subsidiary={subsidiary}
+          member_of={member_of}
+          patientImgUrl={patientImgUrl}
+          gender={gender}
+          status={status}
+          declaration_file_path={declaration_file_path}
+          declaration_req={declaration_req}
+        />
 
-        <Image src={patientImgUrl} alt="patient" width="sp15" height="sp17" />
         <FilesGalleryWithModalCarousel
           shouldMountChunk={!!attachments?.length}
           dataSource={attachments}
@@ -833,7 +947,9 @@ const UcafListPage = () => {
         dataSource={requestTableDataSource}
         rowKey="ucaf_dtl_pk"
         totalRecordsInDataBase={requestDataLength}
-        hideTableHeaderTools={!!reviwed_date || !tableActionsAllowed}
+        hideTableHeaderTools={
+          agreed !== "Y" || !!reviwed_date || !tableActionsAllowed
+        }
         noPagination
         columns={REQUESTS_TABLE_COLUMNS}
         height="320px"
@@ -863,7 +979,7 @@ const UcafListPage = () => {
           patientCardNo={foundPatientCardNo}
           ucafDate={ucafe_date}
           claimFlag={claim_flag}
-          attendanceType={attendance_type}
+          ucafType={ucafe_type}
           recordStatus={editionModalType}
           closeEditionModal={setEditionModalState("")}
           selectedRecord={selectedTableRecord}
@@ -871,6 +987,24 @@ const UcafListPage = () => {
           isSavingCurrentRequest={isSavingRequest}
         />
       )}
+
+      <Modal
+        width="40%"
+        bodyMaxHeight="95%"
+        visible={historyModalShown}
+        onClose={toggleHistoryModal}
+        destroyOnClose
+        title="ptnthstry"
+        noFooter
+        maskClosable={false}
+      >
+        <PatientHistoryWithApiQuery
+          maxHeight="100%"
+          apiParams={patientHistoryParams}
+          skipQuery={!foundPatientCardNo}
+          apiId="QUERY_MI_PROVIDERS_APPROVAL_PATIENT_HISTORY"
+        />
+      </Modal>
     </>
   );
 };

@@ -3,11 +3,13 @@
  * Package: `@exsys-patient-insurance/services-modal`.
  *
  */
-import { memo, useCallback } from "react";
+import { memo, useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import Modal from "@exsys-patient-insurance/modal";
 import InputField from "@exsys-patient-insurance/input-field";
 import Flex from "@exsys-patient-insurance/flex";
 import useFormManager from "@exsys-patient-insurance/form-manager";
+import SelectionCheck from "@exsys-patient-insurance/selection-check";
 import { useGlobalProviderNo } from "@exsys-patient-insurance/app-config-store";
 import TableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
@@ -25,15 +27,23 @@ const ServicesModal = ({
   searchParams,
   onSelectService,
 }: ServicesModalProps) => {
-  const { values, handleChange } = useFormManager({
-    initialValues: initialState,
+  const { pageType } = useParams();
+
+  const isDoctorView = pageType === "D";
+
+  const {
+    values: { search_word, inClinicService },
+    handleChange,
+  } = useFormManager({
+    initialValues: {
+      ...initialState,
+      inClinicService: !isDoctorView,
+    },
   });
   const providerNo = useGlobalProviderNo();
 
   const { tableValuesRef, fetchTableData } =
     useCreateTableActionsFromRefToForm<ServiceRequestItemType>();
-
-  const { search_word } = values;
 
   const onSearch = useCallback(() => {
     if (search_word?.length > 3) {
@@ -51,27 +61,53 @@ const ServicesModal = ({
   const onDoubleClickRecord: TableBodyRowClickEvent<ServiceRequestItemType> =
     useCallback(
       (record) => {
-        onSelectService(record);
+        onSelectService(record, inClinicService);
         onClose();
       },
-      [onSelectService, onClose]
+      [onSelectService, onClose, inClinicService]
     );
 
   const baseSearchParams = {
     ...searchParams,
-    provider_no: providerNo,
+    provider_no: inClinicService ? providerNo : "",
   };
+
+  const computedTableColumns = useMemo(
+    () => [
+      ...TABLE_COLUMNS,
+      {
+        title: "prrequst",
+        dataIndex: "prerequisite",
+        width: "8%",
+        render: (prerequisite: string) => (
+          <div title={prerequisite}>
+            <SelectionCheck checked={!!prerequisite} />
+          </div>
+        ),
+      },
+    ],
+    []
+  );
 
   return (
     <Modal
       title="selctservcs"
       onClose={onClose}
       visible={visible}
-      width="800px"
+      width="850px"
       noCancelButton
       maskClosable={false}
     >
-      <Flex width="100%" align="center" margin="0 0 12px" justify="center">
+      <Flex width="100%" align="center" margin="0 0 12px" gap="20%">
+        {isDoctorView && (
+          <SelectionCheck
+            name="inClinicService"
+            checked={inClinicService}
+            label="inclncsrvs"
+            onChange={handleChange}
+          />
+        )}
+
         <InputField
           name="search_word"
           value={search_word}
@@ -87,7 +123,7 @@ const ServicesModal = ({
         ref={tableValuesRef}
         queryApiId="QUERY_SERVICES_REQUESTS_DATA"
         rowKey="service_id"
-        columns={TABLE_COLUMNS}
+        columns={computedTableColumns}
         baseQueryAPiParams={baseSearchParams}
         margin="0"
         skipQuery={skipQuery}

@@ -11,31 +11,31 @@ export const TABLE_COLUMNS = [
   {
     title: "srvcod",
     dataIndex: "service_id",
-    width: "12%",
+    width: "10%",
   },
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "40%",
+    width: "39%",
   },
   {
     title: "prc",
     dataIndex: "price",
+    width: "8%",
+  },
+  {
+    title: "spec",
+    dataIndex: "specialty_type",
+    width: "12%",
+  },
+  {
+    title: "apprvl",
+    dataIndex: "approval",
     width: "10%",
   },
   {
     title: "copay",
     dataIndex: "copay",
     width: "12%",
-  },
-  {
-    title: "spec",
-    dataIndex: "specialty_type",
-    width: "10%",
-  },
-  {
-    title: "apprvl",
-    dataIndex: "approval",
-    width: "10%",
   },
 ];

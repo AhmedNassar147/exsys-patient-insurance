@@ -24,7 +24,7 @@ interface EditOrCreateRequestProps {
   patientCardNo: string;
   ucafDate?: string;
   claimFlag?: string;
-  attendanceType?: string;
+  ucafType?: string;
   closeEditionModal: () => void;
   recordStatus: string;
   selectedRecord: RequestTableRecordType;
@@ -42,6 +42,7 @@ const initialState = {
   delivery_doc_no: undefined,
   status: "O",
   service_name: "",
+  inClinicService: false,
 };
 
 const EditOrCreateRequest = ({
@@ -49,10 +50,10 @@ const EditOrCreateRequest = ({
   patientCardNo,
   ucafDate,
   claimFlag,
-  attendanceType,
+  ucafType,
   recordStatus,
   closeEditionModal,
-  selectedRecord,
+  selectedRecord: { provider_no, ...selectedRecord },
   handleSaveServiceRequest,
   isSavingCurrentRequest,
 }: EditOrCreateRequestProps) => {
@@ -63,6 +64,7 @@ const EditOrCreateRequest = ({
       initialValues: {
         ...initialState,
         ...selectedRecord,
+        inClinicService: !!provider_no,
         record_status: recordStatus,
       },
       onSubmit: handleSaveServiceRequest,
@@ -73,7 +75,7 @@ const EditOrCreateRequest = ({
     patient_card_no: patientCardNo,
     ucaf_date: ucafDate,
     claim_flag: claimFlag,
-    attendance_type: attendanceType,
+    attendance_type: ucafType,
   };
 
   const shouldRenderServiceModal = !!(
@@ -81,18 +83,20 @@ const EditOrCreateRequest = ({
     patientCardNo &&
     ucafDate &&
     claimFlag &&
-    attendanceType
+    ucafType
   );
 
-  const { service_name, qty, price, delivery_doc_no } = values;
+  const { service_name, qty, price, delivery_doc_no, inClinicService } = values;
 
   const handleSelectService: OnSelectServiceType = useCallback(
-    ({ price, service_name, service_id }) =>
+    ({ price, service_name, service_id }, inClinicService) =>
       handleChangeMultipleInputs({
         service_code: service_id,
         service_name,
         price,
         qty: 1,
+        inClinicService,
+        ...(inClinicService ? null : { delivery_doc_no: undefined }),
       }),
     [handleChangeMultipleInputs]
   );
@@ -140,13 +144,15 @@ const EditOrCreateRequest = ({
           justify="center"
           value={qty * price}
         />
-        <InputField
-          name="delivery_doc_no"
-          value={delivery_doc_no}
-          onChange={handleChange}
-          width="200px"
-          label="invcid"
-        />
+        {inClinicService && (
+          <InputField
+            name="delivery_doc_no"
+            value={delivery_doc_no}
+            onChange={handleChange}
+            width="200px"
+            label="invcid"
+          />
+        )}
 
         {shouldRenderServiceModal && (
           <ServicesModal
