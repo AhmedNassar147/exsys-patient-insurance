@@ -3,6 +3,14 @@
  * Constants: `@exsys-patient-insurance/find-patient-form`.
  *
  */
+import { PatientItemRecordType } from "./index.interface";
+
+export const initialState = {
+  search_type: "C",
+  search_value: "",
+  patientsDataList: [] as PatientItemRecordType[],
+};
+
 export const TABLE_COLUMNS = [
   {
     title: "bnfcry",
@@ -60,3 +68,5 @@ export const SEARCH_RADIO_OPTIONS = [
     value: "P",
   },
 ];
+
+export const initialPatientData = {};

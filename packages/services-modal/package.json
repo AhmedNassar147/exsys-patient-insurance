@@ -14,10 +14,12 @@
     "@exsys-patient-insurance/form-manager": "1.0.0",
     "@exsys-patient-insurance/input-field": "1.0.0",
     "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/selection-check": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
-    "@types/react": "^18.x.x"
+    "@types/react": "^18.x.x",
+    "@types/react-router-dom": "^5.x.x"
   },
   "enableBabelTranspilation": true
 }

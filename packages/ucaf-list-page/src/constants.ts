@@ -4,20 +4,13 @@
  *
  */
 import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
+import type { PatientItemRecordType } from "@exsys-patient-insurance/find-patient-form";
 import { RecordType } from "@exsys-patient-insurance/types";
-import {
-  PatientItemRecordType,
-  RequestsDataType,
-  RequestTableRecordType,
-} from "./index.interface";
+import { RequestsDataType, RequestTableRecordType } from "./index.interface";
 
 export const initialValues = {
-  search_type: "C",
-  search_value: "",
   historyModalShown: false,
   currentPatientData: {} as PatientItemRecordType,
-  patientsDataList: [] as PatientItemRecordType[],
-  selectionModalOpened: false,
   paper_serial: "",
   isCurrentPatientActive: false,
   editionModalType: "",
@@ -34,7 +27,6 @@ export const initialValues = {
     },
     data: [] as RequestTableRecordType[],
   } as RequestsDataType,
-
   tableSelectionRows: {
     selectedKeys: [] as string[],
     selectedRows: [] as RequestTableRecordType[],

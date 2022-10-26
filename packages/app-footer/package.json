@@ -14,6 +14,7 @@
     "@exsys-patient-insurance/theme-values": "1.0.0"
   },
   "peerDependencies": {
+    "@types/react": "^18.x.x",
     "@types/styled-components": "^5.x.x"
   },
   "enableBabelTranspilation": true
