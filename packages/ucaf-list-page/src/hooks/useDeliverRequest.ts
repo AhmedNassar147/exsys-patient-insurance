@@ -5,7 +5,6 @@
  */
 import { useCallback } from "react";
 import {
-  useGlobalProviderNo,
   useAppConfigStore,
   useLoggedInUserName,
 } from "@exsys-patient-insurance/app-config-store";
@@ -27,7 +26,6 @@ const useDeliverRequest = (
   baseDetailsValues: BaseRequestValuesType,
   onSuccess: () => void
 ) => {
-  const providerNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
   const loggedInUser = useLoggedInUserName();
 
@@ -89,14 +87,7 @@ const useDeliverRequest = (
         },
       });
     },
-    [
-      mutate,
-      providerNo,
-      baseDetailsValues,
-      onSuccess,
-      addNotification,
-      loggedInUser,
-    ]
+    [mutate, baseDetailsValues, onSuccess, addNotification, loggedInUser]
   );
 
   return {

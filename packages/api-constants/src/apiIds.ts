@@ -51,7 +51,7 @@ const API_IDS = {
   // http://207.180.237.36:9090/ords/exsysexsysdba/mi_pkg/pop_provider_data?provider_category=&planguageid=1&authorization=2687828&doctor_only=N
   QUERY_PROVIDER_NAMES_LIST: "mi_pkg/pop_provider_data",
   // http://5.1810.142.107:100100/ords/exsys_api/mi_pkg/pop_mi_invoice_department?authorization=2017102&planguageid=1
-  QUERY_INVOICE_DEPARTMENT_LIST: "mi_pkg/pop_mi_invoice_department",
+  QUERY_MI_DEPARTMENTS_LIST: "mi_pkg/pop_mi_invoice_department",
 };
 
 export default API_IDS;

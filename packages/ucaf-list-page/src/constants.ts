@@ -34,6 +34,10 @@ export const initialValues = {
   attachments: [] as RecordType[],
 };
 
+export const doctorsProviderListParams = {
+  doctor_only: "Y",
+};
+
 export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prdctcde",

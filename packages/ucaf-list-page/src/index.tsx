@@ -50,6 +50,7 @@ import {
   REQUESTS_TABLE_COLUMNS,
   UCAF_TYPES_RADIO_OPTIONS,
   CLAIM_TYPES_RADIO_OPTIONS,
+  doctorsProviderListParams,
 } from "./constants";
 import { RequestTableRecordType } from "./index.interface";
 
@@ -440,21 +441,19 @@ const UcafListPage = () => {
           name="requestsData.details.doctor_provider_no"
           onChange={handleChangeDoctorDepartmentOrProviderNo}
           allowClear={false}
+          apiParams={doctorsProviderListParams}
           disabled={
             isDoctorUser ||
             !doctor_provider_no ||
             !foundPatientCardNo ||
             !paper_serial
           }
-          apiParams={{
-            doctor_only: "Y",
-          }}
         />
         <SelectWithApiQuery
           label="spec"
           value={doctor_department_id}
           width="180px"
-          apiOrCodeId="QUERY_INVOICE_DEPARTMENT_LIST"
+          apiOrCodeId="QUERY_MI_DEPARTMENTS_LIST"
           queryType="query"
           name="requestsData.details.doctor_department_id"
           onChange={handleChangeDoctorDepartmentOrProviderNo}
