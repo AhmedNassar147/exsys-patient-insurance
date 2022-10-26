@@ -46,7 +46,7 @@ const ServicesModal = ({
     useCreateTableActionsFromRefToForm<ServiceRequestItemType>();
 
   const onSearch = useCallback(() => {
-    if (search_word?.length > 3) {
+    if (search_word?.length >= 3) {
       fetchTableData({
         search_word,
       });
@@ -97,6 +97,8 @@ const ServicesModal = ({
       width="850px"
       noCancelButton
       maskClosable={false}
+      bodyMinHeight="100px"
+      bodyMaxHeight="calc(100vh - 210px)"
     >
       <Flex width="100%" align="center" margin="0 0 12px" gap="20%">
         {isDoctorView && (

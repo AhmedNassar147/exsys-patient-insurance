@@ -41,7 +41,7 @@ const DiagnosisModal = ({
     ({ department_id, search_type, search_word }: RecordType) => {
       return (
         !department_id ||
-        (search_type === "W" && (search_word || "").length < 4)
+        (search_type === "W" && (search_word || "").length < 3)
       );
     },
     []
@@ -67,6 +67,7 @@ const DiagnosisModal = ({
     skipQuery,
     callOnFirstRender: visible && !!departmentId,
     onResponse: handleDiagnosisResponse,
+    debounceRequestTimeOutMS: 2000,
     params: {
       department_id: departmentId,
       search_type,
@@ -95,7 +96,7 @@ const DiagnosisModal = ({
   );
 
   const searchButtonDisabled =
-    !isFavoriteSearch && (search_value || "").length < 4;
+    !isFavoriteSearch && (search_value || "").length < 3;
 
   return (
     <Modal
@@ -105,6 +106,8 @@ const DiagnosisModal = ({
       width="1000px"
       noCancelButton
       maskClosable={false}
+      bodyMinHeight="100px"
+      bodyMaxHeight="calc(100vh - 210px)"
     >
       <Flex width="100%" align="center" margin="0 0 12px" gap="12px">
         <SelectionCheckGroup
