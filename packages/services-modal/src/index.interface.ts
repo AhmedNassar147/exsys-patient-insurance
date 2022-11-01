@@ -27,4 +27,6 @@ export interface ServicesModalProps {
   onClose: () => void;
   onSelectService: OnSelectServiceType;
   searchParams?: RecordTypeWithAnyValue;
+  initialInClinicService?: boolean;
+  showInClinicServiceCheckbox?: boolean;
 }

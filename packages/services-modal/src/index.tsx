@@ -4,7 +4,6 @@
  *
  */
 import { memo, useCallback, useMemo } from "react";
-import { useParams } from "react-router-dom";
 import Modal from "@exsys-patient-insurance/modal";
 import InputField from "@exsys-patient-insurance/input-field";
 import Flex from "@exsys-patient-insurance/flex";
@@ -26,18 +25,16 @@ const ServicesModal = ({
   visible,
   searchParams,
   onSelectService,
+  initialInClinicService,
+  showInClinicServiceCheckbox,
 }: ServicesModalProps) => {
-  const { pageType } = useParams();
-
-  const isDoctorView = pageType === "D";
-
   const {
     values: { search_word, inClinicService },
     handleChange,
   } = useFormManager({
     initialValues: {
       ...initialState,
-      inClinicService: !isDoctorView,
+      inClinicService: !!initialInClinicService,
     },
   });
   const providerNo = useGlobalProviderNo();
@@ -101,7 +98,7 @@ const ServicesModal = ({
       bodyMaxHeight="calc(100vh - 210px)"
     >
       <Flex width="100%" align="center" margin="0 0 12px" gap="20%">
-        {isDoctorView && (
+        {showInClinicServiceCheckbox && (
           <SelectionCheck
             name="inClinicService"
             checked={inClinicService}
@@ -123,7 +120,7 @@ const ServicesModal = ({
       <TableWithApiQuery<ServiceRequestItemType>
         // @ts-ignore ignore this for now.
         ref={tableValuesRef}
-        queryApiId="QUERY_SERVICES_REQUESTS_DATA"
+        queryApiId="QUERY_MI_SERVICES_REQUESTS_TABLE_DATA"
         rowKey="service_id"
         columns={computedTableColumns}
         baseQueryAPiParams={baseSearchParams}

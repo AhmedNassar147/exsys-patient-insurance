@@ -22,9 +22,10 @@ const API_IDS = {
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/get_ucaf_serial_request?authorization=3798723&root_organization_no=001&patient_card_no=CSA-0334-00-01-0055&planguageid=1&paper_serial=124&provider_no=4&pageType="D"
   QUERY_UCAF_REQUESTS_DATA: "mi_ucaf_request/get_ucaf_serial_request",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_diagnosis_data?authorization=3574833&department_id=3&search_type=F&search_word=
-  QUERY_DIAGNOSIS_DATA: "mi_ucaf_request/pop_diagnosis_data",
+  QUERY_MI_DIAGNOSIS_DATA: "mi_ucaf_request/pop_diagnosis_data",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/pop_provider_service_data?authorization=3574833&root_organization_no=001&patient_card_no=CSA-0334-00-01-0055&planguageid=1&ucaf_date=01-06-2022&provider_no=4&claim_flag=A&attendance_type=O&search_word=&poffset=0
-  QUERY_SERVICES_REQUESTS_DATA: "mi_ucaf_request/pop_provider_service_data",
+  QUERY_MI_SERVICES_REQUESTS_TABLE_DATA:
+    "mi_ucaf_request/pop_provider_service_data",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/mi_provider_ucaf_dml
   POST_SERVICES_REQUESTS_ITEM: "mi_ucaf_request/mi_provider_ucaf_dml",
   // http://207.180.237.36:9090/ords/exsys_api/mi_ucaf_request/mi_provider_ucaf_delivery

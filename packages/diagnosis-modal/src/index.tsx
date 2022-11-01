@@ -62,7 +62,7 @@ const DiagnosisModal = ({
     );
 
   const { loading, runQuery } = useBasicQuery<ResponseType>({
-    apiId: "QUERY_DIAGNOSIS_DATA",
+    apiId: "QUERY_MI_DIAGNOSIS_DATA",
     disableParamsChangeCheck: true,
     skipQuery,
     callOnFirstRender: visible && !!departmentId,

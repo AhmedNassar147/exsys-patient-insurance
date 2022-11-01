@@ -4,6 +4,7 @@
  *
  */
 import { memo, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import InputNumber from "@exsys-patient-insurance/input-number";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import InputField from "@exsys-patient-insurance/input-field";
@@ -57,6 +58,7 @@ const EditOrCreateRequest = ({
   handleSaveServiceRequest,
   isSavingCurrentRequest,
 }: EditOrCreateRequestProps) => {
+  const { pageType } = useParams();
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
   const { values, handleChange, handleChangeMultipleInputs, handleSubmit } =
@@ -69,6 +71,8 @@ const EditOrCreateRequest = ({
       },
       onSubmit: handleSaveServiceRequest,
     });
+
+  const isDoctorView = pageType === "D";
 
   const servicesRequestParams = {
     root_organization_no: rootOrganizationNo,
@@ -160,6 +164,8 @@ const EditOrCreateRequest = ({
             searchParams={servicesRequestParams}
             onClose={handleClose}
             onSelectService={handleSelectService}
+            showInClinicServiceCheckbox={isDoctorView}
+            initialInClinicService={!!provider_no || !isDoctorView}
           />
         )}
       </Flex>
