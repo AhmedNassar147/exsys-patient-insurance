@@ -11,7 +11,6 @@ import PasswordIcon from "@exsys-patient-insurance/password-icon";
 import DropDown from "@exsys-patient-insurance/drop-down";
 import SettingIcon from "@exsys-patient-insurance/setting-icon";
 import { useModalRef } from "@exsys-patient-insurance/hooks";
-import { useGetPageNameFromRouter } from "@exsys-patient-insurance/hooks";
 import useChangePassword from "../hooks/useChangePassword";
 import { PopoverItem, StyledFlex, PopOverContent } from "../styled";
 
@@ -22,15 +21,11 @@ const iconDimensions = {
 
 const SettingsItem = () => {
   const { modalRef, toggle, close } = useModalRef();
-  const pageNameFromRouter = useGetPageNameFromRouter();
 
   const { handleChange, isSubmiting, onSubmit, error, disabled, formValues } =
     useChangePassword(close);
 
-  const trigger = useMemo(
-    () => <SettingIcon {...iconDimensions} />,
-    [pageNameFromRouter, toggle]
-  );
+  const trigger = useMemo(() => <SettingIcon {...iconDimensions} />, [toggle]);
 
   return (
     <>

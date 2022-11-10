@@ -7,18 +7,28 @@ import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { getPageNameFromPathName } from "@exsys-patient-insurance/helpers";
 
-const useGetPageNameFromRouter = (useActualPageName?: boolean) => {
+export type UseGetPageNameFromRouterOptions = {
+  useActualPageName?: boolean;
+  useFullPathName?: boolean;
+};
+
+const useGetPageNameFromRouter = (
+  options?: UseGetPageNameFromRouterOptions
+) => {
+  const { useFullPathName, useActualPageName } = options || {};
   const { pathname } = useLocation() || {};
 
   return useMemo(() => {
-    let pageName = getPageNameFromPathName(pathname);
+    let pageName = useFullPathName
+      ? pathname.substring(1)
+      : getPageNameFromPathName(pathname);
 
     if (!useActualPageName) {
       pageName = pageName.replace(/login/, "base");
     }
 
     return pageName;
-  }, [pathname, useActualPageName]);
+  }, [pathname, useActualPageName, useFullPathName]);
 };
 
 export default useGetPageNameFromRouter;

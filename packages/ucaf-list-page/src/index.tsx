@@ -3,7 +3,8 @@
  * Package: `@exsys-patient-insurance/ucaf-list-page`.
  *
  */
-import { memo, useCallback } from "react";
+import { memo, useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import SelectionCheck from "@exsys-patient-insurance/selection-check";
 import Flex from "@exsys-patient-insurance/flex";
@@ -45,6 +46,7 @@ import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
 import useDeliverRequest from "./hooks/useDeliverRequest";
 import useRequestUcafBySerialNo from "./hooks/useRequestUcafBySerialNo";
 import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
+import useLinkServices from "./hooks/useLinkServices";
 import {
   initialValues,
   REQUESTS_TABLE_COLUMNS,
@@ -60,8 +62,11 @@ const UcafListPage = () => {
   const { isDoctorUser } = useCurrentUserType();
   const globalProviderNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
-  const { f_insert } = useCurrentPagePrivileges();
+  const { f_insert, f_delete, f_update } = useCurrentPagePrivileges({
+    useFullPathName: true,
+  });
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
+  const { pageType } = useParams();
 
   const { values, handleChange, handleChangeMultipleInputs, resetForm } =
     useFormManager({
@@ -96,13 +101,35 @@ const UcafListPage = () => {
         agreed,
         expected_days,
         expected_amount,
+        written_by_doctor,
       },
       data: requestTableDataSource,
     },
   } = values;
 
+  const isProviderView = pageType === "P";
+  const isDoctorView = pageType === "D";
   const isChronic = claim_flag === "C" ? "Y" : "N";
   const { selectedKeys, selectedRows } = tableSelectionRows;
+
+  const dispenseItemsRows = useMemo(
+    () =>
+      selectedRows?.filter(
+        ({ approval_reply, canDeliverRequest }) =>
+          canDeliverRequest === "Y" && approval_reply === "A"
+      ),
+    [selectedRows]
+  );
+
+  const linkItemsRows = useMemo(() => {
+    if (isDoctorView) {
+      return undefined;
+    }
+
+    return selectedRows?.filter(
+      ({ approval_reply, provider_no }) => !provider_no && !approval_reply
+    );
+  }, [selectedRows, isDoctorView]);
 
   const {
     national_id,
@@ -147,37 +174,42 @@ const UcafListPage = () => {
     ucaf_id,
   });
 
-  const toggleHistoryModal = useCallback(
-    () =>
-      handleChange({
-        name: "historyModalShown",
-        value: !historyModalShown,
-      }),
-    [handleChange, historyModalShown]
-  );
+  const onSearchRequests = useCallback(() => {
+    handleChangeMultipleInputs({
+      tableSelectionRows: initialValues.tableSelectionRows,
+      selectedTableRecord: initialValues.selectedTableRecord,
+    });
+    fetchUcafRequests();
+  }, [fetchUcafRequests, handleChange]);
 
-  const handleChangeDoctorDepartmentOrProviderNo: SelectChangeHandlerType =
-    useCallback(
-      ({ name, value, itemOptionData }) =>
-        handleChangeMultipleInputs({
-          [name]: value,
-          [name.replace(/_no|_id/, "_name")]: itemOptionData?.value,
-        }),
-      [handleChangeMultipleInputs]
-    );
+  const { isLinkingServices, makeLinkServicesRequest } = useLinkServices({
+    root_organization_no,
+    ucaf_id,
+    patient_card_no: foundPatientCardNo,
+    paper_serial,
+    ucafe_date,
+    provider_notes,
+    insurance_company_no,
+    onSuccess: onSearchRequests,
+  });
+
+  const handleLinkServices = useCallback(() => {
+    if (linkItemsRows?.length) {
+      makeLinkServicesRequest(linkItemsRows);
+    }
+  }, [makeLinkServicesRequest, linkItemsRows]);
 
   const setEditionModalState = useCallback(
     (value?: string) => () =>
-      handleChange({
-        name: "editionModalType",
-        value,
+      handleChangeMultipleInputs({
+        editionModalType: value,
+        ...(value === "n"
+          ? {
+              selectedTableRecord: initialValues.selectedTableRecord,
+            }
+          : null),
       }),
     [handleChange]
-  );
-
-  const onSearchRequests = useCallback(
-    () => fetchUcafRequests(),
-    [fetchUcafRequests]
   );
 
   const onAfterSaveRequest = useCallback(() => {
@@ -201,52 +233,58 @@ const UcafListPage = () => {
   );
 
   const { loading: isSavingRequest, handleSaveServiceRequest } =
-    useSaveServiceRequest(
-      {
-        root_organization_no,
-        doctor_provider_no,
-        doctor_provider_name,
-        ucafe_date,
-        ucafe_type,
-        claim_flag,
-        ucaf_id,
-        doctor_department_id,
-        complain,
-        signs,
-        primary_diag_code,
-        primary_diagnosis,
-        is_chronic: isChronic,
-        patient_card_no: foundPatientCardNo,
-        insurance_company_no,
-        provider_notes,
-        paper_serial,
-        agreed,
-        stamped,
-        expected_amount,
-        expected_days,
-      },
-      onAfterSaveRequest
-    );
-
-  const handleDeliverySuccess = useCallback(() => {
-    handleChange({
-      name: "tableSelectionRows",
-      value: initialValues.tableSelectionRows,
+    useSaveServiceRequest({
+      root_organization_no,
+      doctor_provider_no,
+      doctor_provider_name,
+      ucafe_date,
+      ucafe_type,
+      claim_flag,
+      ucaf_id,
+      doctor_department_id,
+      complain,
+      signs,
+      primary_diag_code,
+      primary_diagnosis,
+      is_chronic: isChronic,
+      patient_card_no: foundPatientCardNo,
+      insurance_company_no,
+      provider_notes,
+      paper_serial,
+      agreed,
+      stamped,
+      expected_amount,
+      expected_days,
+      onSuccess: onAfterSaveRequest,
     });
 
-    onSearchRequests();
-  }, [handleChange, onSearchRequests]);
-
-  const { handleDeliverItem, loading: isDeliveringItem } = useDeliverRequest(
-    {
-      root_organization_no,
-      ucaf_id,
-      patient_card_no: foundPatientCardNo,
-      paper_serial,
-      is_chronic: isChronic,
-    },
-    handleDeliverySuccess
+  const toggleHistoryModal = useCallback(
+    () =>
+      handleChange({
+        name: "historyModalShown",
+        value: !historyModalShown,
+      }),
+    [handleChange, historyModalShown]
   );
+
+  const handleChangeDoctorDepartmentOrProviderNo: SelectChangeHandlerType =
+    useCallback(
+      ({ name, value, itemOptionData }) =>
+        handleChangeMultipleInputs({
+          [name]: value,
+          [name.replace(/_no|_id/, "_name")]: itemOptionData?.value,
+        }),
+      [handleChangeMultipleInputs]
+    );
+
+  const { handleDeliverItem, loading: isDeliveringItem } = useDeliverRequest({
+    root_organization_no,
+    ucaf_id,
+    patient_card_no: foundPatientCardNo,
+    paper_serial,
+    is_chronic: isChronic,
+    onSuccess: onSearchRequests,
+  });
 
   const onSelectDiagnosis: OnSelectDiagnosisType = useCallback(
     ({ diag_code, diage_name }) =>
@@ -314,23 +352,10 @@ const UcafListPage = () => {
   }, [handleSaveServiceRequest, addNotification, canDeleteOrEdit]);
 
   const onSaveRequestedProductsToDelivery = useCallback(() => {
-    const filteredServices = selectedRows.filter(
-      ({ approval_reply }) => approval_reply === "A"
-    );
-    const filteredServicesLength = filteredServices.length;
-
-    if (filteredServicesLength < selectedRows.length) {
-      addNotification({
-        type: "warning",
-        message: "cantdlvrallrequests",
-        description: "somereqsnotaprovdyet",
-      });
+    if (dispenseItemsRows?.length) {
+      handleDeliverItem(dispenseItemsRows);
     }
-
-    if (filteredServicesLength) {
-      handleDeliverItem(filteredServices);
-    }
-  }, [addNotification, handleDeliverItem]);
+  }, [handleDeliverItem, dispenseItemsRows]);
 
   const onSelectionChanged: TableSelectionChangeActionType<RequestTableRecordType> =
     useCallback(
@@ -368,9 +393,8 @@ const UcafListPage = () => {
   );
 
   const disabledRowsSelection = useCallback(
-    ({ approval_reply, canDeliverRequest }: RequestTableRecordType) =>
-      canDeliverRequest !== "Y" || approval_reply !== "A",
-    [reviwed_date]
+    ({ approval_reply }: RequestTableRecordType) => approval_reply === "R",
+    []
   );
 
   const isInPatientUcafType = ucafe_type === "I";
@@ -383,11 +407,27 @@ const UcafListPage = () => {
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
-  const tableActionsAllowed = !!(
-    foundPatientCardNo &&
-    doctor_department_id &&
-    paper_serial
-  );
+  const isDataWrittenByDoctor = written_by_doctor === "Y";
+  const isDataWrittenByDoctorAndProviderView =
+    isDataWrittenByDoctor && isProviderView;
+
+  const hideTableHeaderTools =
+    !foundPatientCardNo ||
+    !doctor_department_id ||
+    !paper_serial ||
+    agreed !== "Y" ||
+    !!reviwed_date;
+
+  const canInsert = f_insert !== "N";
+  const canDelete = f_delete !== "N";
+  const canUserInsert =
+    !primary_diagnosis || isDataWrittenByDoctorAndProviderView
+      ? false
+      : canInsert;
+
+  const canUserDelete = isDataWrittenByDoctorAndProviderView
+    ? false
+    : canDelete;
 
   const areFieldsDisabled = !!reviwed_date || f_insert === "N";
 
@@ -396,6 +436,7 @@ const UcafListPage = () => {
 
   const isEditableFieldsDisabled =
     areFieldsDisabled ||
+    isDataWrittenByDoctorAndProviderView ||
     !doctor_provider_no ||
     !doctor_department_id ||
     !foundPatientCardNo ||
@@ -405,6 +446,9 @@ const UcafListPage = () => {
     organization_no: root_organization_no,
     patientfileno: foundPatientCardNo,
   };
+
+  const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
+  const linkItemsRowsLength = linkItemsRows?.length ?? 0;
 
   return (
     <>
@@ -646,15 +690,28 @@ const UcafListPage = () => {
           onDeleteFile={onDeleteAttachment}
         />
       </Flex>
-      {!!selectedKeys?.length && (
-        <Flex width="100%" margin="0 0 12px">
-          <Button
-            type="primary"
-            loading={isDeliveringItem}
-            disabled={isDeliveringItem}
-            onClick={onSaveRequestedProductsToDelivery}
-            label="dlvr"
-          />
+
+      {!!(linkItemsRowsLength || dispenseItemsRowsLength) && (
+        <Flex width="100%" margin="0 0 12px" gap="10px">
+          {!!dispenseItemsRowsLength && (
+            <Button
+              type="primary"
+              loading={isDeliveringItem}
+              disabled={isDeliveringItem || isLinkingServices}
+              onClick={onSaveRequestedProductsToDelivery}
+              label="dlvr"
+            />
+          )}
+
+          {!!linkItemsRowsLength && (
+            <Button
+              type="primary"
+              loading={isLinkingServices}
+              onClick={handleLinkServices}
+              label="reqaprov"
+              disabled={isLinkingServices || isDeliveringItem}
+            />
+          )}
         </Flex>
       )}
 
@@ -662,12 +719,13 @@ const UcafListPage = () => {
         dataSource={requestTableDataSource}
         rowKey="ucaf_dtl_pk"
         totalRecordsInDataBase={requestDataLength}
-        hideTableHeaderTools={
-          agreed !== "Y" || !!reviwed_date || !tableActionsAllowed
-        }
+        hideTableHeaderTools={hideTableHeaderTools}
         noPagination
         columns={REQUESTS_TABLE_COLUMNS}
         height="320px"
+        canDelete={canUserDelete}
+        canInsert={canUserInsert}
+        canEdit={f_update !== "N"}
         onPressAdd={setEditionModalState("n")}
         onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}

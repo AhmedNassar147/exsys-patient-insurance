@@ -27,6 +27,7 @@ export interface RequestDetailsType {
   agreed?: CapitalBooleanStringType;
   expected_days?: number;
   expected_amount?: number;
+  written_by_doctor?: CapitalBooleanStringType;
 }
 
 export interface RequestTableRecordType {
@@ -49,11 +50,18 @@ export interface RequestTableRecordType {
   ucaf_delivery_pk?: string;
   canDeliverRequest?: CapitalBooleanStringType;
   record_status?: string;
-  total_price?: number;
   due_delivery_date?: string;
   due_delivery_qty?: number;
   last_delivery_date?: string;
   provider_no?: number;
+  patientShare?: number;
+  unit_discount?: number;
+  specialty_type?: string;
+  patient_share_prc?: number;
+  price_disc_prc?: number;
+  total_price?: number;
+  total_patient_share?: number;
+  total_patient_discount?: number;
 }
 export interface RequestsDataType {
   details: RequestDetailsType;

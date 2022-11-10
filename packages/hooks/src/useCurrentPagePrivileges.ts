@@ -4,10 +4,15 @@
  *
  */
 import { usePagePrivilege } from "@exsys-patient-insurance/app-config-store";
-import useGetPageNameFromRouter from "./useGetPageNameFromRouter";
+import useGetPageNameFromRouter, {
+  UseGetPageNameFromRouterOptions,
+} from "./useGetPageNameFromRouter";
 
-const useCurrentPagePrivileges = () => {
-  const pageName = useGetPageNameFromRouter();
+const useCurrentPagePrivileges = (
+  options?: UseGetPageNameFromRouterOptions
+) => {
+  const pageName = useGetPageNameFromRouter(options);
+
   const { [pageName]: privileges } = usePagePrivilege();
 
   return privileges || {};

@@ -23,6 +23,7 @@ export const initialValues = {
       agreed: "N",
       expected_days: 1,
       expected_amount: 1,
+      written_by_doctor: undefined,
       ucafe_date: getCurrentDateString(),
     },
     data: [] as RequestTableRecordType[],
@@ -42,7 +43,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prdctcde",
     dataIndex: "service_code",
-    width: "6%",
+    width: "5%",
     totalCellProps: {
       isFragment: true,
     },
@@ -50,7 +51,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "21.8%",
+    width: "19%",
     totalCellProps: {
       isFragment: true,
     },
@@ -67,21 +68,37 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "apprvdqntty",
     dataIndex: "approved_quantity",
     width: "4.5%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
-    title: "prc",
+    title: "unitprice",
     dataIndex: "price",
     width: "4%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
-    title: "patshr",
-    dataIndex: "patientShare",
+    title: "totalprc",
+    dataIndex: "total_price",
+    width: "4.5%",
+  },
+  {
+    title: "totdiscount",
+    dataIndex: "total_patient_discount",
+    width: "6%",
+  },
+  {
+    title: "totptntshr",
+    dataIndex: "total_patient_share",
     width: "4.5%",
   },
   {
     title: "dlvydat",
     dataIndex: "delivery_date",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -97,7 +114,10 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "rjctrson",
     dataIndex: "rejection_reason",
-    width: "17%",
+    width: "13%",
+    totalCellProps: {
+      isFragment: true,
+    },
   },
   {
     title: "stts",
@@ -110,7 +130,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "lstdlvydat",
     dataIndex: "last_delivery_date",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -118,7 +138,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "duedlvydat",
     dataIndex: "due_delivery_date",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },

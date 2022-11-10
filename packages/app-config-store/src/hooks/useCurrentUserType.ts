@@ -4,15 +4,6 @@
  *
  */
 import useAppConfigStore from "./useAppConfigStore";
-// type UseCurrentUserTypeReturnType = {
-//   isDoctorUser: boolean;
-//   isLabUser: boolean;
-//   isRadiologyUser: boolean;
-//   isOpticalUser: boolean;
-//   isAdminUser: boolean;
-//   isCustomerSupportUser: boolean;
-//   isPhysiotherapyUser: boolean;
-// };
 
 const useCurrentUserType = () => {
   const {

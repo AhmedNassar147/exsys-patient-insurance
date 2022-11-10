@@ -3,7 +3,7 @@
  * Component: `EditOrCreateRequest`
  *
  */
-import { memo, useCallback } from "react";
+import { memo, useCallback, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import InputNumber from "@exsys-patient-insurance/input-number";
 import useFormManager from "@exsys-patient-insurance/form-manager";
@@ -44,6 +44,11 @@ const initialState = {
   status: "O",
   service_name: "",
   inClinicService: false,
+  unit_discount: undefined,
+  patientShare: undefined,
+  price_disc_prc: undefined,
+  patient_share_prc: undefined,
+  specialty_type: "",
 };
 
 const EditOrCreateRequest = ({
@@ -61,18 +66,40 @@ const EditOrCreateRequest = ({
   const { pageType } = useParams();
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
-  const { values, handleChange, handleChangeMultipleInputs, handleSubmit } =
-    useFormManager({
-      initialValues: {
-        ...initialState,
-        ...selectedRecord,
-        inClinicService: !!provider_no,
-        record_status: recordStatus,
-      },
-      onSubmit: handleSaveServiceRequest,
-    });
+  const {
+    values: {
+      service_name,
+      qty,
+      price,
+      delivery_doc_no,
+      inClinicService,
+      specialty_type,
+    },
+    handleChange,
+    handleChangeMultipleInputs,
+    handleSubmit,
+  } = useFormManager({
+    initialValues: {
+      ...initialState,
+      ...selectedRecord,
+      inClinicService: !!provider_no,
+      record_status: recordStatus,
+    },
+    onSubmit: handleSaveServiceRequest,
+  });
 
   const isDoctorView = pageType === "D";
+  const isNewRecord = recordStatus === "n";
+
+  useLayoutEffect(
+    () => {
+      if (isNewRecord) {
+        handleOpen();
+      }
+    },
+    // eslint-disable-next-line
+    [isNewRecord]
+  );
 
   const servicesRequestParams = {
     root_organization_no: rootOrganizationNo,
@@ -90,16 +117,27 @@ const EditOrCreateRequest = ({
     ucafType
   );
 
-  const { service_name, qty, price, delivery_doc_no, inClinicService } = values;
-
   const handleSelectService: OnSelectServiceType = useCallback(
-    ({ price, service_name, service_id }, inClinicService) =>
+    (
+      {
+        price,
+        service_name,
+        service_id,
+        price_disc_prc,
+        copay,
+        specialty_type,
+      },
+      inClinicService
+    ) =>
       handleChangeMultipleInputs({
         service_code: service_id,
         service_name,
-        price,
         qty: 1,
+        price,
         inClinicService,
+        specialty_type,
+        price_disc_prc,
+        patient_share_prc: copay,
         ...(inClinicService ? null : { delivery_doc_no: undefined }),
       }),
     [handleChangeMultipleInputs]
@@ -116,6 +154,7 @@ const EditOrCreateRequest = ({
       disabled={isSavingCurrentRequest}
       loading={isSavingCurrentRequest}
       okText="save"
+      maskClosable={false}
     >
       <Flex width="100%" wrap="true" gap="10px">
         <LabeledViewLikeInput
@@ -129,17 +168,19 @@ const EditOrCreateRequest = ({
         <InputNumber
           label="qty"
           name="qty"
-          width="calc(21% - 5px)"
+          width="110px"
           value={qty}
           onChange={handleChange}
           disabled={!service_name}
         />
-        <LabeledViewLikeInput
+        <InputNumber
           label="prc"
-          minWidth="100px"
-          width="auto"
-          justify="center"
+          width="100px"
           value={price}
+          onChange={handleChange}
+          name="price"
+          disabled={!service_name || specialty_type !== "MED"}
+          min={1}
         />
         <LabeledViewLikeInput
           label="totl"

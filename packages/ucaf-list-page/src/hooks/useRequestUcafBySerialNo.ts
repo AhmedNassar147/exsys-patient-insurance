@@ -27,6 +27,7 @@ const {
     agreed: defaultAgreed,
     expected_days: defaultNoOfDays,
     expected_amount: defaultAmount,
+    written_by_doctor: defaultWrittenByDoctor,
   },
 } = requestsData;
 
@@ -51,7 +52,18 @@ const useRequestUcafBySerialNo = ({
     useCallback(
       ({ apiValues, error }) => {
         const { details } = apiValues || {};
-        const { doctor_provider_no, doctor_department_id } = details || {};
+        const {
+          doctor_provider_no,
+          doctor_department_id,
+          ucafe_type,
+          claim_flag,
+          ucafe_date,
+          stamped,
+          agreed,
+          expected_days,
+          expected_amount,
+          written_by_doctor,
+        } = details || {};
 
         if (!doctor_provider_no || !doctor_department_id) {
           addNotification({
@@ -67,13 +79,15 @@ const useRequestUcafBySerialNo = ({
                 ...apiValues,
                 details: {
                   ...details,
-                  ucafe_type: details.ucafe_type || defaultUcafType,
-                  claim_flag: details.claim_flag || defaultClaimType,
-                  ucafe_date: details.ucafe_date || defaultUcafDate,
-                  stamped: details.stamped || defaultStamped,
-                  agreed: details.agreed || defaultAgreed,
-                  expected_days: details.expected_days || defaultNoOfDays,
-                  expected_amount: details.expected_amount || defaultAmount,
+                  ucafe_type: ucafe_type || defaultUcafType,
+                  claim_flag: claim_flag || defaultClaimType,
+                  ucafe_date: ucafe_date || defaultUcafDate,
+                  stamped: stamped || defaultStamped,
+                  agreed: agreed || defaultAgreed,
+                  expected_days: expected_days || defaultNoOfDays,
+                  expected_amount: expected_amount || defaultAmount,
+                  written_by_doctor:
+                    written_by_doctor || defaultWrittenByDoctor,
                 },
               };
 
@@ -82,7 +96,7 @@ const useRequestUcafBySerialNo = ({
           value: data,
         });
       },
-      [handleChange]
+      [handleChange, addNotification]
     );
 
   const { runQuery: fetchUcafRequests, loading: requestsLoading } =

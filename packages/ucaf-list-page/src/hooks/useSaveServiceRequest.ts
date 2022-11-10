@@ -11,12 +11,13 @@ import {
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
+import calculatePatientShareAndDiscount from "../helpers/calculatePatientShareAndDiscount";
 import {
   RequestDetailsType,
   ServiceItemValuesForPostApiType,
 } from "../index.interface";
 
-type BaseRequestValuesType = Omit<
+type UseSaveServiceRequestOptionsType = Omit<
   RequestDetailsType,
   "doctor_department_name"
 > & {
@@ -24,12 +25,33 @@ type BaseRequestValuesType = Omit<
   insurance_company_no?: number;
   paper_serial: string;
   is_chronic?: CapitalBooleanStringType;
+  onSuccess: () => void;
 };
 
-const useSaveServiceRequest = (
-  baseDetailsValues: BaseRequestValuesType,
-  onSuccess: () => void
-) => {
+const useSaveServiceRequest = ({
+  root_organization_no,
+  doctor_provider_no,
+  doctor_provider_name,
+  ucafe_date,
+  ucafe_type,
+  claim_flag,
+  ucaf_id,
+  doctor_department_id,
+  complain,
+  signs,
+  primary_diag_code,
+  primary_diagnosis,
+  is_chronic,
+  patient_card_no,
+  insurance_company_no,
+  provider_notes,
+  paper_serial,
+  agreed,
+  stamped,
+  expected_amount,
+  expected_days,
+  onSuccess,
+}: UseSaveServiceRequestOptionsType) => {
   const providerNo = useGlobalProviderNo();
   const { isDoctorUser } = useCurrentUserType();
   const { addNotification } = useAppConfigStore();
@@ -49,31 +71,10 @@ const useSaveServiceRequest = (
       delivery_doc_no,
       record_status,
       inClinicService,
+      specialty_type,
+      patient_share_prc,
+      price_disc_prc,
     }: ServiceItemValuesForPostApiType) => {
-      const {
-        root_organization_no,
-        doctor_provider_no,
-        doctor_provider_name,
-        ucafe_type,
-        ucafe_date,
-        claim_flag,
-        ucaf_id,
-        doctor_department_id,
-        complain,
-        signs,
-        primary_diag_code,
-        primary_diagnosis,
-        is_chronic,
-        patient_card_no,
-        insurance_company_no,
-        provider_notes,
-        paper_serial,
-        stamped,
-        agreed,
-        expected_days,
-        expected_amount,
-      } = baseDetailsValues;
-
       if (!service_code) {
         addNotification({
           type: "error",
@@ -127,11 +128,16 @@ const useSaveServiceRequest = (
             service_code,
             delivery_qty,
             qty,
-            price,
+            ...calculatePatientShareAndDiscount(
+              price,
+              patient_share_prc,
+              price_disc_prc
+            ),
             delivery_date,
             delivery_doc_no,
             record_status,
-            provider_no: provider_no,
+            provider_no,
+            specialty_type,
             provider_notes: inClinicService ? provider_notes : "",
           },
         ],
@@ -152,7 +158,33 @@ const useSaveServiceRequest = (
         },
       });
     },
-    [mutate, providerNo, baseDetailsValues, onSuccess, addNotification]
+    [
+      mutate,
+      providerNo,
+      addNotification,
+      root_organization_no,
+      doctor_provider_no,
+      doctor_provider_name,
+      ucafe_date,
+      ucafe_type,
+      claim_flag,
+      ucaf_id,
+      doctor_department_id,
+      complain,
+      signs,
+      primary_diag_code,
+      primary_diagnosis,
+      is_chronic,
+      patient_card_no,
+      insurance_company_no,
+      provider_notes,
+      paper_serial,
+      agreed,
+      stamped,
+      expected_amount,
+      expected_days,
+      onSuccess,
+    ]
   );
 
   return {

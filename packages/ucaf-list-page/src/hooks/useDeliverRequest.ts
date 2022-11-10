@@ -12,7 +12,7 @@ import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
 import { RequestDetailsType, RequestTableRecordType } from "../index.interface";
 
-type BaseRequestValuesType = Pick<
+type UseDeliverRequestOptionsType = Pick<
   RequestDetailsType,
   "root_organization_no" | "ucaf_id"
 > & {
@@ -20,12 +20,17 @@ type BaseRequestValuesType = Pick<
   insurance_company_no?: number;
   paper_serial: string;
   is_chronic?: CapitalBooleanStringType;
+  onSuccess: () => void;
 };
 
-const useDeliverRequest = (
-  baseDetailsValues: BaseRequestValuesType,
-  onSuccess: () => void
-) => {
+const useDeliverRequest = ({
+  root_organization_no,
+  ucaf_id,
+  patient_card_no,
+  paper_serial,
+  is_chronic,
+  onSuccess,
+}: UseDeliverRequestOptionsType) => {
   const { addNotification } = useAppConfigStore();
   const loggedInUser = useLoggedInUserName();
 
@@ -35,14 +40,6 @@ const useDeliverRequest = (
 
   const handleDeliverItem = useCallback(
     (services: RequestTableRecordType[]) => {
-      const {
-        root_organization_no,
-        ucaf_id,
-        patient_card_no,
-        paper_serial,
-        is_chronic,
-      } = baseDetailsValues;
-
       const data = {
         root_organization_no,
         patient_card_no,
@@ -53,20 +50,24 @@ const useDeliverRequest = (
           ({
             ucaf_dtl_pk,
             service_code,
-            qty,
             delivery_qty,
             delivery_doc_no,
             delivery_date,
             ucaf_delivery_pk,
+            approved_quantity,
+            unit_discount,
+            patientShare,
           }) => ({
             ucaf_dtl_pk,
             ucaf_delivery_pk,
             service_code,
-            qty,
             delivery_qty,
             delivery_date,
             delivery_doc_no,
             delivery_by: loggedInUser,
+            approved_quantity: approved_quantity || 0,
+            unit_discount,
+            patientShare,
             record_status: "u",
           })
         ),
@@ -87,7 +88,17 @@ const useDeliverRequest = (
         },
       });
     },
-    [mutate, baseDetailsValues, onSuccess, addNotification, loggedInUser]
+    [
+      mutate,
+      onSuccess,
+      addNotification,
+      loggedInUser,
+      root_organization_no,
+      ucaf_id,
+      patient_card_no,
+      paper_serial,
+      is_chronic,
+    ]
   );
 
   return {
