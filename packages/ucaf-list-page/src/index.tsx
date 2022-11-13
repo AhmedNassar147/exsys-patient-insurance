@@ -115,9 +115,16 @@ const UcafListPage = () => {
   const dispenseItemsRows = useMemo(
     () =>
       selectedRows?.filter(
-        ({ approval_reply, canDeliverRequest }) =>
-          canDeliverRequest === "Y" && approval_reply === "A"
+        ({ approval_reply, canDeliverRequest, status, is_system_approved }) =>
+          status !== "D" &&
+          canDeliverRequest === "Y" &&
+          (approval_reply === "A" || is_system_approved === "Y")
       ),
+    [selectedRows]
+  );
+
+  const postItemsRows = useMemo(
+    () => selectedRows?.filter(({ status }) => status === "D"),
     [selectedRows]
   );
 
@@ -127,9 +134,12 @@ const UcafListPage = () => {
     }
 
     return selectedRows?.filter(
-      ({ approval_reply, provider_no }) => !provider_no && !approval_reply
+      ({ approval_reply, provider_no, status, is_system_approved }) =>
+        status !== "D" &&
+        !provider_no &&
+        (!approval_reply || is_system_approved === "Y")
     );
-  }, [selectedRows, isDoctorView]);
+  }, [isDoctorView, selectedRows]);
 
   const {
     national_id,
@@ -258,6 +268,23 @@ const UcafListPage = () => {
       onSuccess: onAfterSaveRequest,
     });
 
+  const handlePostServices = useCallback(async () => {
+    const length = postItemsRows?.length ?? 0;
+    if (length) {
+      const configPromises = postItemsRows.map((item, index) =>
+        handleSaveServiceRequest(
+          {
+            ...item,
+            status: "P",
+          },
+          index === length - 1
+        )
+      );
+
+      await Promise.all(configPromises);
+    }
+  }, [handleSaveServiceRequest, postItemsRows]);
+
   const toggleHistoryModal = useCallback(
     () =>
       handleChange({
@@ -345,10 +372,13 @@ const UcafListPage = () => {
       return;
     }
 
-    handleSaveServiceRequest({
-      record_status: "d",
-      ...selectedTableRecord,
-    });
+    handleSaveServiceRequest(
+      {
+        ...selectedTableRecord,
+        record_status: "d",
+      },
+      true
+    );
   }, [handleSaveServiceRequest, addNotification, canDeleteOrEdit]);
 
   const onSaveRequestedProductsToDelivery = useCallback(() => {
@@ -449,6 +479,7 @@ const UcafListPage = () => {
 
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
   const linkItemsRowsLength = linkItemsRows?.length ?? 0;
+  const postItemsRowsLength = postItemsRows?.length ?? 0;
 
   return (
     <>
@@ -691,8 +722,22 @@ const UcafListPage = () => {
         />
       </Flex>
 
-      {!!(linkItemsRowsLength || dispenseItemsRowsLength) && (
+      {!!(
+        linkItemsRowsLength ||
+        dispenseItemsRowsLength ||
+        postItemsRowsLength
+      ) && (
         <Flex width="100%" margin="0 0 12px" gap="10px">
+          {!!postItemsRowsLength && (
+            <Button
+              type="primary"
+              loading={isSavingRequest}
+              disabled={isSavingRequest}
+              onClick={handlePostServices}
+              label="sndtotpa"
+            />
+          )}
+
           {!!dispenseItemsRowsLength && (
             <Button
               type="primary"

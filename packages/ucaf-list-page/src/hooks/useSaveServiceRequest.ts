@@ -61,20 +61,24 @@ const useSaveServiceRequest = ({
   });
 
   const handleSaveServiceRequest = useCallback(
-    ({
-      ucaf_dtl_pk,
-      service_code,
-      qty,
-      price,
-      delivery_qty,
-      delivery_date,
-      delivery_doc_no,
-      record_status,
-      inClinicService,
-      specialty_type,
-      patient_share_prc,
-      price_disc_prc,
-    }: ServiceItemValuesForPostApiType) => {
+    (
+      {
+        ucaf_dtl_pk,
+        service_code,
+        qty,
+        price,
+        delivery_qty,
+        delivery_date,
+        delivery_doc_no,
+        record_status,
+        inClinicService,
+        specialty_type,
+        patient_share_prc,
+        price_disc_prc,
+        status,
+      }: ServiceItemValuesForPostApiType,
+      showNotificationAndRefetchData?: boolean
+    ) => {
       if (!service_code) {
         addNotification({
           type: "error",
@@ -96,6 +100,8 @@ const useSaveServiceRequest = ({
       if (isDoctorUser) {
         provider_no = inClinicService ? `${doctor_provider_no}` : "";
       }
+
+      const isInsert = record_status === "n";
 
       const data = {
         root_organization_no,
@@ -124,7 +130,8 @@ const useSaveServiceRequest = ({
           : null),
         data: [
           {
-            ucaf_dtl_pk: record_status === "n" ? "" : ucaf_dtl_pk,
+            ucaf_dtl_pk: isInsert ? "" : ucaf_dtl_pk,
+            status: isInsert ? "D" : status,
             service_code,
             delivery_qty,
             qty,
@@ -147,8 +154,12 @@ const useSaveServiceRequest = ({
         body: data,
         cb: ({ apiValues, error }) => {
           const isError = !!error || apiValues?.status !== "success";
-          if (!isError) {
+          if (!isError && showNotificationAndRefetchData) {
             onSuccess();
+          }
+
+          if (!isError && !showNotificationAndRefetchData) {
+            return;
           }
 
           addNotification({

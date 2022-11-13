@@ -29,7 +29,10 @@ interface EditOrCreateRequestProps {
   closeEditionModal: () => void;
   recordStatus: string;
   selectedRecord: RequestTableRecordType;
-  handleSaveServiceRequest: (values: ServiceItemValuesForPostApiType) => void;
+  handleSaveServiceRequest: (
+    values: ServiceItemValuesForPostApiType,
+    showNotificationAndRefetchData?: boolean
+  ) => void;
   isSavingCurrentRequest?: boolean;
 }
 
@@ -66,6 +69,12 @@ const EditOrCreateRequest = ({
   const { pageType } = useParams();
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
+  const onSubmit = useCallback(
+    (values: ServiceItemValuesForPostApiType) =>
+      handleSaveServiceRequest(values, true),
+    [handleSaveServiceRequest]
+  );
+
   const {
     values: {
       service_name,
@@ -85,7 +94,7 @@ const EditOrCreateRequest = ({
       inClinicService: !!provider_no,
       record_status: recordStatus,
     },
-    onSubmit: handleSaveServiceRequest,
+    onSubmit,
   });
 
   const isDoctorView = pageType === "D";

@@ -39,6 +39,7 @@ export interface RequestTableRecordType {
   price: number;
   approval_reply: string;
   approval_reply_name: string;
+  is_system_approved: CapitalBooleanStringType;
   approved_quantity: number;
   reply_notes: string;
   delivery_qty: number;
@@ -49,7 +50,7 @@ export interface RequestTableRecordType {
   provider_notes?: string;
   ucaf_delivery_pk?: string;
   canDeliverRequest?: CapitalBooleanStringType;
-  record_status?: string;
+  record_status: string;
   due_delivery_date?: string;
   due_delivery_qty?: number;
   last_delivery_date?: string;
@@ -69,7 +70,6 @@ export interface RequestsDataType {
 }
 
 export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
-  record_status: string;
   inClinicService?: boolean;
 };
 
