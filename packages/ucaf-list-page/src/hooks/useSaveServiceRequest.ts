@@ -131,7 +131,7 @@ const useSaveServiceRequest = ({
         data: [
           {
             ucaf_dtl_pk: isInsert ? "" : ucaf_dtl_pk,
-            status: isInsert ? "D" : status,
+            status: isInsert ? "F" : status,
             service_code,
             delivery_qty,
             qty,

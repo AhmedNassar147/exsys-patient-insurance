@@ -116,7 +116,7 @@ const UcafListPage = () => {
     () =>
       selectedRows?.filter(
         ({ approval_reply, canDeliverRequest, status, is_system_approved }) =>
-          status !== "D" &&
+          status !== "F" &&
           canDeliverRequest === "Y" &&
           (approval_reply === "A" || is_system_approved === "Y")
       ),
@@ -124,7 +124,7 @@ const UcafListPage = () => {
   );
 
   const postItemsRows = useMemo(
-    () => selectedRows?.filter(({ status }) => status === "D"),
+    () => selectedRows?.filter(({ status }) => status === "F"),
     [selectedRows]
   );
 
@@ -135,7 +135,7 @@ const UcafListPage = () => {
 
     return selectedRows?.filter(
       ({ approval_reply, provider_no, status, is_system_approved }) =>
-        status !== "D" &&
+        status !== "F" &&
         !provider_no &&
         (!approval_reply || is_system_approved === "Y")
     );
@@ -275,7 +275,8 @@ const UcafListPage = () => {
         handleSaveServiceRequest(
           {
             ...item,
-            status: "P",
+            record_status: "u",
+            status: "O",
           },
           index === length - 1
         )
