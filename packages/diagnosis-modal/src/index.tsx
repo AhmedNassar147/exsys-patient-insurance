@@ -65,9 +65,9 @@ const DiagnosisModal = ({
     apiId: "QUERY_MI_DIAGNOSIS_DATA",
     disableParamsChangeCheck: true,
     skipQuery,
-    callOnFirstRender: visible && !!departmentId,
+    callOnFirstRender: visible && !!departmentId && isFavoriteSearch,
     onResponse: handleDiagnosisResponse,
-    debounceRequestTimeOutMS: 2000,
+    debounceRequestTimeOutMS: 1800,
     params: {
       department_id: departmentId,
       search_type,
@@ -91,8 +91,12 @@ const DiagnosisModal = ({
         [name]: value,
         data: [],
       });
+
+      if (value === "F") {
+        runQuery({ search_word: "" });
+      }
     },
-    [handleChangeMultipleInputs]
+    [handleChangeMultipleInputs, runQuery]
   );
 
   const searchButtonDisabled =

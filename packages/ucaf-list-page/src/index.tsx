@@ -47,6 +47,7 @@ import useDeliverRequest from "./hooks/useDeliverRequest";
 import useRequestUcafBySerialNo from "./hooks/useRequestUcafBySerialNo";
 import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
+import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
 import {
   initialValues,
   REQUESTS_TABLE_COLUMNS,
@@ -103,6 +104,7 @@ const UcafListPage = () => {
         expected_amount,
         written_by_doctor,
       },
+      isNewConsultation,
       data: requestTableDataSource,
     },
   } = values;
@@ -110,6 +112,8 @@ const UcafListPage = () => {
   const isProviderView = pageType === "P";
   const isDoctorView = pageType === "D";
   const isChronic = claim_flag === "C" ? "Y" : "N";
+  const canInsert = f_insert !== "N";
+  const canDelete = f_delete !== "N";
   const { selectedKeys, selectedRows } = tableSelectionRows;
 
   const dispenseItemsRows = useMemo(
@@ -268,6 +272,27 @@ const UcafListPage = () => {
       onSuccess: onAfterSaveRequest,
     });
 
+  const shouldLoadDefaultConsultation =
+    isCurrentPatientActive &&
+    isNewConsultation &&
+    canInsert &&
+    !!primary_diagnosis &&
+    !!complain &&
+    !!signs &&
+    agreed === "Y" &&
+    !reviwed_date;
+
+  const { defaultServicesLoading } = useLoadDefaultServices({
+    root_organization_no,
+    patient_card_no: foundPatientCardNo,
+    ucaf_date: ucafe_date,
+    ucafe_type,
+    claim_flag,
+    doctorProviderNo: doctor_provider_no,
+    shouldLoadDefaultConsultation,
+    handleSaveServiceRequest,
+  });
+
   const handlePostServices = useCallback(async () => {
     const length = postItemsRows?.length ?? 0;
     if (length) {
@@ -353,7 +378,7 @@ const UcafListPage = () => {
     setEditionModalState("u")();
   }, [canDeleteOrEdit, setEditionModalState]);
 
-  const onDeleteTableRecord = useCallback(() => {
+  const onDeleteTableRecord = useCallback(async () => {
     const { ucaf_dtl_pk, status, approval_reply } = selectedTableRecord;
 
     if (!canDeleteOrEdit(status, approval_reply)) {
@@ -373,7 +398,7 @@ const UcafListPage = () => {
       return;
     }
 
-    handleSaveServiceRequest(
+    await handleSaveServiceRequest(
       {
         ...selectedTableRecord,
         record_status: "d",
@@ -443,14 +468,13 @@ const UcafListPage = () => {
     isDataWrittenByDoctor && isProviderView;
 
   const hideTableHeaderTools =
+    defaultServicesLoading ||
     !foundPatientCardNo ||
     !doctor_department_id ||
     !paper_serial ||
     agreed !== "Y" ||
     !!reviwed_date;
 
-  const canInsert = f_insert !== "N";
-  const canDelete = f_delete !== "N";
   const canUserInsert =
     !primary_diagnosis || isDataWrittenByDoctorAndProviderView
       ? false
@@ -468,6 +492,7 @@ const UcafListPage = () => {
   const isEditableFieldsDisabled =
     areFieldsDisabled ||
     isDataWrittenByDoctorAndProviderView ||
+    defaultServicesLoading ||
     !doctor_provider_no ||
     !doctor_department_id ||
     !foundPatientCardNo ||
@@ -776,7 +801,12 @@ const UcafListPage = () => {
         onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}
         onPressDelete={onDeleteTableRecord}
-        loading={requestsLoading || isSavingRequest || isDeliveringItem}
+        loading={
+          requestsLoading ||
+          defaultServicesLoading ||
+          isSavingRequest ||
+          isDeliveringItem
+        }
         selectionKeys={selectedKeys}
         onSelectionChanged={onSelectionChanged}
         disabledRowsSelection={disabledRowsSelection}

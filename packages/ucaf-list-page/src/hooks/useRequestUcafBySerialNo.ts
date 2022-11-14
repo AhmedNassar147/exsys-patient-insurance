@@ -63,6 +63,8 @@ const useRequestUcafBySerialNo = ({
           expected_days,
           expected_amount,
           written_by_doctor,
+          primary_diagnosis,
+          primary_diag_code,
         } = details || {};
 
         if (!doctor_provider_no || !doctor_department_id) {
@@ -72,8 +74,8 @@ const useRequestUcafBySerialNo = ({
           });
         }
 
-        const data =
-          error || !apiValues
+        const data = {
+          ...(error || !apiValues
             ? initialValues.requestsData
             : {
                 ...apiValues,
@@ -89,7 +91,9 @@ const useRequestUcafBySerialNo = ({
                   written_by_doctor:
                     written_by_doctor || defaultWrittenByDoctor,
                 },
-              };
+              }),
+          isNewConsultation: !primary_diagnosis && !primary_diag_code,
+        };
 
         handleChange({
           name: "requestsData",

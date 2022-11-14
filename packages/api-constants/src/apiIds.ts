@@ -55,6 +55,8 @@ const API_IDS = {
   QUERY_MI_DEPARTMENTS_LIST: "mi_pkg/pop_mi_invoice_department",
   // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/ucaf_providers_link_dml
   POST_LINK_MI_SERVICES: "mi_ucaf_request/ucaf_providers_link_dml",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/get_ucafe_consultation?authorization=2073174&planguageid=1&root_organization_no=001&patient_card_no=2222&ucaf_date=31-10-2022&claim_flag=A&attendance_type=O&provider_no=11264
+  QUERY_DEFAULT_SERVICES_DATA: "mi_ucaf_request/get_ucafe_consultation",
 };
 
 export default API_IDS;

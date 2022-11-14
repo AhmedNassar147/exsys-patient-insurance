@@ -16,6 +16,7 @@ export const initialValues = {
   editionModalType: "",
   selectedTableRecord: {} as RequestTableRecordType,
   requestsData: {
+    isNewConsultation: false,
     details: {
       ucafe_type: "O",
       claim_flag: "A",
@@ -158,10 +159,6 @@ export const UCAF_TYPES_RADIO_OPTIONS = [
     label: "emrgncy",
     value: "E",
   },
-  // {
-  //   label: "rmbrsmnt",
-  //   value: "R",
-  // },
 ];
 
 export const CLAIM_TYPES_RADIO_OPTIONS = [

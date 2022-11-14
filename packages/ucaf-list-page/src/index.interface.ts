@@ -40,7 +40,7 @@ export interface RequestTableRecordType {
   approval_reply: string;
   approval_reply_name: string;
   is_system_approved: CapitalBooleanStringType;
-  approved_quantity: number;
+  approved_quantity?: number;
   reply_notes: string;
   delivery_qty: number;
   delivery_date: string;
@@ -67,10 +67,13 @@ export interface RequestTableRecordType {
 export interface RequestsDataType {
   details: RequestDetailsType;
   data: RequestTableRecordType[];
+  isNewConsultation: boolean;
 }
 
 export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
   inClinicService?: boolean;
+  approval?: string;
+  forcedStatus?: string;
 };
 
 export type SaveAttachmentEventType = {

@@ -32,7 +32,7 @@ interface EditOrCreateRequestProps {
   handleSaveServiceRequest: (
     values: ServiceItemValuesForPostApiType,
     showNotificationAndRefetchData?: boolean
-  ) => void;
+  ) => Promise<void>;
   isSavingCurrentRequest?: boolean;
 }
 
@@ -52,6 +52,7 @@ const initialState = {
   price_disc_prc: undefined,
   patient_share_prc: undefined,
   specialty_type: "",
+  approval: "",
 };
 
 const EditOrCreateRequest = ({
@@ -71,8 +72,14 @@ const EditOrCreateRequest = ({
 
   const onSubmit = useCallback(
     (values: ServiceItemValuesForPostApiType) =>
-      handleSaveServiceRequest(values, true),
-    [handleSaveServiceRequest]
+      handleSaveServiceRequest(
+        {
+          ...values,
+          approved_quantity: recordStatus === "n" ? undefined : values.qty,
+        },
+        true
+      ),
+    [handleSaveServiceRequest, recordStatus]
   );
 
   const {
@@ -135,6 +142,7 @@ const EditOrCreateRequest = ({
         price_disc_prc,
         copay,
         specialty_type,
+        approval,
       },
       inClinicService
     ) =>
@@ -147,6 +155,7 @@ const EditOrCreateRequest = ({
         specialty_type,
         price_disc_prc,
         patient_share_prc: copay,
+        approval,
         ...(inClinicService ? null : { delivery_doc_no: undefined }),
       }),
     [handleChangeMultipleInputs]

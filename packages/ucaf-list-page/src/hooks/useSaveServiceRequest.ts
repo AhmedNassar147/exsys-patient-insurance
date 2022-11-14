@@ -8,6 +8,7 @@ import {
   useGlobalProviderNo,
   useAppConfigStore,
   useCurrentUserType,
+  useLoggedInUserName,
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
@@ -55,13 +56,14 @@ const useSaveServiceRequest = ({
   const providerNo = useGlobalProviderNo();
   const { isDoctorUser } = useCurrentUserType();
   const { addNotification } = useAppConfigStore();
+  const loggedInUser = useLoggedInUserName();
 
   const { loading, mutate } = useBasicMutation({
     apiId: "POST_SERVICES_REQUESTS_ITEM",
   });
 
   const handleSaveServiceRequest = useCallback(
-    (
+    async (
       {
         ucaf_dtl_pk,
         service_code,
@@ -76,6 +78,11 @@ const useSaveServiceRequest = ({
         patient_share_prc,
         price_disc_prc,
         status,
+        forcedStatus,
+        approval,
+        is_system_approved,
+        approval_reply,
+        approved_quantity,
       }: ServiceItemValuesForPostApiType,
       showNotificationAndRefetchData?: boolean
     ) => {
@@ -102,6 +109,9 @@ const useSaveServiceRequest = ({
       }
 
       const isInsert = record_status === "n";
+      const isSystemApproved = approval
+        ? approval === "C"
+        : is_system_approved === "Y";
 
       const data = {
         root_organization_no,
@@ -131,10 +141,11 @@ const useSaveServiceRequest = ({
         data: [
           {
             ucaf_dtl_pk: isInsert ? "" : ucaf_dtl_pk,
-            status: isInsert ? "F" : status,
+            status: forcedStatus ? forcedStatus : isInsert ? "F" : status,
             service_code,
             delivery_qty,
             qty,
+            approved_quantity: approved_quantity,
             ...calculatePatientShareAndDiscount(
               price,
               patient_share_prc,
@@ -145,12 +156,15 @@ const useSaveServiceRequest = ({
             record_status,
             provider_no,
             specialty_type,
+            delivery_by: loggedInUser,
             provider_notes: inClinicService ? provider_notes : "",
+            approval_reply: isSystemApproved ? "A" : approval_reply,
+            is_system_approved: isSystemApproved ? "Y" : "N",
           },
         ],
       };
 
-      mutate({
+      await mutate({
         body: data,
         cb: ({ apiValues, error }) => {
           const isError = !!error || apiValues?.status !== "success";
@@ -195,6 +209,7 @@ const useSaveServiceRequest = ({
       expected_amount,
       expected_days,
       onSuccess,
+      loggedInUser,
     ]
   );
 
