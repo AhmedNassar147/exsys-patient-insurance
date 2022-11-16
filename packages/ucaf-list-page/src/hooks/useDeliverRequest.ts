@@ -57,19 +57,28 @@ const useDeliverRequest = ({
             approved_quantity,
             unit_discount,
             patientShare,
-          }) => ({
-            ucaf_dtl_pk,
-            ucaf_delivery_pk,
-            service_code,
-            delivery_qty,
-            delivery_date,
-            delivery_doc_no,
-            delivery_by: loggedInUser,
-            approved_quantity: approved_quantity || 0,
-            unit_discount,
-            patientShare,
-            record_status: "u",
-          })
+            is_system_approved,
+            qty,
+          }) => {
+            const baseApprovedQty = approved_quantity || 0;
+
+            return {
+              ucaf_dtl_pk,
+              ucaf_delivery_pk,
+              service_code,
+              delivery_qty,
+              delivery_date,
+              delivery_doc_no,
+              delivery_by: loggedInUser,
+              approved_quantity:
+                is_system_approved === "Y"
+                  ? baseApprovedQty || qty
+                  : baseApprovedQty,
+              unit_discount,
+              patientShare,
+              record_status: "u",
+            };
+          }
         ),
       };
 

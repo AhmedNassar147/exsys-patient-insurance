@@ -113,6 +113,8 @@ const useSaveServiceRequest = ({
         ? approval === "C"
         : is_system_approved === "Y";
 
+      const baseApprovedQty = approved_quantity || 0;
+
       const data = {
         root_organization_no,
         patient_card_no,
@@ -145,7 +147,9 @@ const useSaveServiceRequest = ({
             service_code,
             delivery_qty,
             qty,
-            approved_quantity: approved_quantity,
+            approved_quantity: isSystemApproved
+              ? baseApprovedQty || qty
+              : baseApprovedQty,
             ...calculatePatientShareAndDiscount(
               price,
               patient_share_prc,
