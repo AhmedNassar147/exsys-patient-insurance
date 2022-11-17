@@ -32,8 +32,6 @@ const defaultTransformApiDataFn: TransformSelectWithQueryApiDataFnType = (
   data
 ) => data.data;
 
-const useMakeSelectMinimumSearchCharacters = () => 4;
-
 const SelectWithApiQuery = <T extends QueryType>(
   {
     queryType,
@@ -68,8 +66,6 @@ const SelectWithApiQuery = <T extends QueryType>(
     mode && mode.includes("multiple") ? "multiple" : undefined;
 
   const isAutoComplete = !!(!!mode && mode.includes("autocomplete"));
-
-  const minimumSearchCharacters = useMakeSelectMinimumSearchCharacters();
 
   useEffect(
     () => {
@@ -178,14 +174,14 @@ const SelectWithApiQuery = <T extends QueryType>(
         return;
       }
 
-      if (currentSearchValue.length >= minimumSearchCharacters) {
+      if (currentSearchValue.length >= 3) {
         //NOTE: the current api should allow `search_word` as an api query parameter.
         runQuery({
           search_word: currentSearchValue,
         });
       }
     },
-    [runQuery, clearOptions, minimumSearchCharacters]
+    [runQuery, clearOptions]
   );
 
   useImperativeHandle(ref, () => ({

@@ -12,13 +12,14 @@ const getBooleanValueFromMaybeNonOne = (
   value?: boolean | BooleanStringType
 ) => {
   let isStringValue = typeof value === "string";
+  let isActiveBooleanStringValue = ["A", "I"].includes(value as string);
   let actualValue = value as boolean;
 
   if (isStringValue && value) {
     actualValue = isTruthyBooleanString(value as BooleanStringType);
   }
 
-  return { actualValue, isStringValue };
+  return { actualValue, isStringValue, isActiveBooleanStringValue };
 };
 
 export default getBooleanValueFromMaybeNonOne;

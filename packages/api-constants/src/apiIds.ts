@@ -57,6 +57,14 @@ const API_IDS = {
   POST_LINK_MI_SERVICES: "mi_ucaf_request/ucaf_providers_link_dml",
   // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/get_ucafe_consultation?authorization=2073174&planguageid=1&root_organization_no=001&patient_card_no=2222&ucaf_date=31-10-2022&claim_flag=A&attendance_type=O&provider_no=11264
   QUERY_DEFAULT_SERVICES_DATA: "mi_ucaf_request/get_ucafe_consultation",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_web_user/pop_mi_web_user?authorization=1419715&planguageid=1&provider_no=&mobile_no=
+  QUERY_TPA_USERS_TABLE_DATA: "mi_web_user/pop_mi_web_user",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_web_user/dml_web_user_data
+  POST_TPA_USER_TABLE_DATA: "mi_web_user/dml_web_user_data",
+  //http://207.180.237.36:9090/ords/exsys_api/ex_hr/pop_staff_code?authorization=2230910&planguageid=1&search_word=111
+  QUERY_HR_STAFF_CODES_LIST: "ex_hr/pop_staff_code",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_web_user/pop_job_list?planguageid=1&authorization=1861562
+  QUERY_JOB_ID_LIST: "mi_web_user/pop_job_list",
 };
 
 export default API_IDS;

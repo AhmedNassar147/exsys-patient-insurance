@@ -5,6 +5,7 @@
  */
 import { colors } from "@exsys-patient-insurance/theme-values";
 
+export type CapitalActiveBooleanStringType = "I" | "A";
 export type CapitalBooleanStringType = "Y" | "N";
 export type SmallBooleanStringType = "y" | "n";
 export type StringNumber = string | number;
@@ -17,7 +18,8 @@ export type RecordTypeWithAnyValue = Record<string, any>;
 
 export type BooleanStringType =
   | SmallBooleanStringType
-  | CapitalBooleanStringType;
+  | CapitalBooleanStringType
+  | CapitalActiveBooleanStringType;
 
 export type ValuesOfRecordAsOptions<T> = T[KeysOfRecord<T>];
 

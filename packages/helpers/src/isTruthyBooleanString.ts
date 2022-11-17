@@ -5,7 +5,7 @@
  */
 const isTruthyBooleanString = (booleanStringValue: string) => {
   if (typeof booleanStringValue === "string") {
-    return ["yes", "y", "Y", "true"].includes(
+    return ["yes", "y", "true", "a"].includes(
       booleanStringValue.replace(/\s/g, "").toLowerCase()
     );
   }

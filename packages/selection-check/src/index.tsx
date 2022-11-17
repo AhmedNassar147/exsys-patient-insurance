@@ -32,21 +32,34 @@ const SelectionCheck = ({
 }: SelectionCheckProps) => {
   const fieldDisabled = disabled;
 
-  const [{ actualValue: checkedValue, isStringValue: isCheckBooleanString }] =
-    useMemo(() => [getBooleanValueFromMaybeNonOne(checked)], [checked]);
+  const {
+    actualValue: checkedValue,
+    isStringValue: usingBooleanString,
+    isActiveBooleanStringValue,
+  } = useMemo(() => getBooleanValueFromMaybeNonOne(checked), [checked]);
 
   const handleClick = useCallback(() => {
-    const nextChecked = getCheckInputNextCheckValue(
-      !checkedValue,
-      isCheckBooleanString,
-      isCheckBooleanString ? ["Y", "N"].includes(checked as string) : false
-    );
+    const nextChecked = getCheckInputNextCheckValue({
+      checkedState: !checkedValue,
+      usingBooleanString,
+      capitalizeBooleanString: usingBooleanString
+        ? ["Y", "N", "A", "I"].includes(checked as string)
+        : false,
+      isActiveBooleanStringValue,
+    });
 
     onChange?.({
       name: name || "",
       value: nextChecked,
     });
-  }, [checkedValue, isCheckBooleanString, checked, onChange, name]);
+  }, [
+    checkedValue,
+    usingBooleanString,
+    isActiveBooleanStringValue,
+    checked,
+    onChange,
+    name,
+  ]);
 
   const sharedProps = {
     disabled: fieldDisabled,

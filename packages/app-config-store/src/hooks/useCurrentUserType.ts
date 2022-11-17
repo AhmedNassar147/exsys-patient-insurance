@@ -18,6 +18,8 @@ const useCurrentUserType = () => {
     isAdminUser: user_type === "A",
     isCustomerSupportUser: user_type === "S",
     isPhysiotherapyUser: user_type === "T",
+    isPharmacyUser: user_type === "P",
+    isClientUser: user_type === "C",
   };
 };
 
