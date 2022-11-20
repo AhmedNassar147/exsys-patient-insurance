@@ -7,6 +7,7 @@ import { useCallback } from "react";
 import {
   useAppConfigStore,
   useLoggedInUserName,
+  useGlobalProviderNo,
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
@@ -21,6 +22,7 @@ type UseDeliverRequestOptionsType = Pick<
   paper_serial: string;
   is_chronic?: CapitalBooleanStringType;
   onSuccess: () => void;
+  ucafe_date?: string;
 };
 
 const useDeliverRequest = ({
@@ -30,9 +32,11 @@ const useDeliverRequest = ({
   paper_serial,
   is_chronic,
   onSuccess,
+  ucafe_date,
 }: UseDeliverRequestOptionsType) => {
   const { addNotification } = useAppConfigStore();
   const loggedInUser = useLoggedInUserName();
+  const providerNo = useGlobalProviderNo();
 
   const { loading, mutate } = useBasicMutation({
     apiId: "POST_DELIVER_SERVICES_REQUESTS_ITEM",
@@ -46,6 +50,7 @@ const useDeliverRequest = ({
         paper_serial,
         ucaf_id,
         is_chronic: is_chronic || "N",
+        ucafe_date,
         data: services.map(
           ({
             ucaf_dtl_pk,
@@ -77,6 +82,7 @@ const useDeliverRequest = ({
               unit_discount,
               patientShare,
               record_status: "u",
+              provider_no: providerNo,
             };
           }
         ),
@@ -107,6 +113,7 @@ const useDeliverRequest = ({
       patient_card_no,
       paper_serial,
       is_chronic,
+      providerNo,
     ]
   );
 

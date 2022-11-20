@@ -30,7 +30,7 @@ const getCurrentDateString = (options?: GetCurrentDateStringOptionsType) => {
 
     hours = hours % 12;
     hours = hours ? hours : 12;
-    const minutesString = minutes < 10 ? "0" + minutes : minutes;
+    const minutesString = minutes < 10 ? `0${minutes}` : minutes;
 
     partsString += ` ${hours}:${minutesString} ${amPMLabel}`;
   }

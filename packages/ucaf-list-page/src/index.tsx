@@ -126,9 +126,9 @@ const UcafListPage = () => {
   const dispenseItemsRows = useMemo(
     () =>
       selectedRows?.filter(
-        ({ approval_reply, canDeliverRequest, status, is_system_approved }) =>
+        ({ approval_reply,  status, is_system_approved }) =>
           status !== "F" &&
-          canDeliverRequest === "Y" &&
+          // canDeliverRequest === "Y" &&
           (approval_reply === "A" || is_system_approved === "Y")
       ),
     [selectedRows]
@@ -146,7 +146,7 @@ const UcafListPage = () => {
 
     return selectedRows?.filter(
       ({ approval_reply, provider_no, status, is_system_approved }) =>
-        status !== "F" &&
+        !["F", "P"].includes(status) &&
         !provider_no &&
         (!approval_reply || is_system_approved === "Y")
     );
@@ -311,15 +311,17 @@ const UcafListPage = () => {
   const handlePostServices = useCallback(async () => {
     const length = postItemsRows?.length ?? 0;
     if (length) {
-      const configPromises = postItemsRows.map((item, index) =>
-        handleSaveServiceRequest(
-          {
-            ...item,
-            record_status: "u",
-            status: "O",
-          },
-          index === length - 1
-        )
+      const configPromises = postItemsRows.map(
+        ({ is_system_approved, ...item }, index) =>
+          handleSaveServiceRequest(
+            {
+              ...item,
+              record_status: "u",
+              is_system_approved,
+              forcedStatus: is_system_approved === "Y" ? "P" : "O",
+            },
+            index === length - 1
+          )
       );
 
       await Promise.all(configPromises);
@@ -351,6 +353,7 @@ const UcafListPage = () => {
     patient_card_no: foundPatientCardNo,
     paper_serial,
     is_chronic: isChronic,
+    ucafe_date,
     onSuccess: onSearchRequests,
   });
 

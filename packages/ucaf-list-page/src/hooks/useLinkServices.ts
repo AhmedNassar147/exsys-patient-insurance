@@ -7,6 +7,7 @@ import { useCallback } from "react";
 import {
   useAppConfigStore,
   useGlobalProviderNo,
+  useLoggedInUserName,
 } from "@exsys-patient-insurance/app-config-store";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import calculatePatientShareAndDiscount from "../helpers/calculatePatientShareAndDiscount";
@@ -36,6 +37,7 @@ const useLinkServices = ({
 }: UseLinkServicesOptionsType) => {
   const { addNotification } = useAppConfigStore();
   const providerNo = useGlobalProviderNo();
+  const loggedInUser = useLoggedInUserName();
 
   const { loading: isLinkingServices, mutate } = useBasicMutation({
     apiId: "POST_LINK_MI_SERVICES",
@@ -62,6 +64,8 @@ const useLinkServices = ({
             status,
             patient_share_prc,
             price_disc_prc,
+            is_system_approved,
+            approved_quantity,
           }) => {
             const { patientShare, unit_discount } =
               calculatePatientShareAndDiscount(
@@ -84,6 +88,9 @@ const useLinkServices = ({
               delivery_doc_no,
               status,
               record_status: "u",
+              is_system_approved,
+              approved_quantity,
+              delivery_by: loggedInUser,
             };
           }
         ),
@@ -115,6 +122,7 @@ const useLinkServices = ({
       provider_notes,
       insurance_company_no,
       onSuccess,
+      loggedInUser,
     ]
   );
 
