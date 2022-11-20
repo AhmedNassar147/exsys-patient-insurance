@@ -48,6 +48,7 @@ import useRequestUcafBySerialNo from "./hooks/useRequestUcafBySerialNo";
 import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
 import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
+import MoreDetailsModal from "./partials/MoreDetailsModal";
 import {
   initialValues,
   REQUESTS_TABLE_COLUMNS,
@@ -68,6 +69,12 @@ const UcafListPage = () => {
   });
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
   const { pageType } = useParams();
+
+  const {
+    visible: moreDetailsModalShown,
+    handleClose: closeMoreDetailsModal,
+    handleOpen: openMoreDetailsModal,
+  } = useOpenCloseActionsWithState();
 
   const { values, handleChange, handleChangeMultipleInputs, resetForm } =
     useFormManager({
@@ -230,8 +237,16 @@ const UcafListPage = () => {
     if (editionModalType) {
       setEditionModalState("")();
     }
+    if (moreDetailsModalShown) {
+      closeMoreDetailsModal();
+    }
     onSearchRequests();
-  }, [onSearchRequests, setEditionModalState]);
+  }, [
+    onSearchRequests,
+    setEditionModalState,
+    moreDetailsModalShown,
+    closeMoreDetailsModal,
+  ]);
 
   const handleChangeUcafType: onChangeEvent = useCallback(
     ({ name, value }) =>
@@ -358,16 +373,40 @@ const UcafListPage = () => {
       [handleChange]
     );
 
+  const onTableDoubleClick: TableBodyRowClickEvent<RequestTableRecordType> =
+    useCallback(
+      (selectedTableRecord) => {
+        const { approval_reply } = selectedTableRecord;
+        handleChange({
+          name: "selectedTableRecord",
+          value: selectedTableRecord,
+        });
+        if (approval_reply === "N") {
+          openMoreDetailsModal();
+        }
+      },
+      [handleChange, openMoreDetailsModal]
+    );
+
   const canDeleteOrEdit = useCallback(
-    (status: string, approvalReplay: string) =>
-      status === "O" && !["R", "A"].includes(approvalReplay),
-    []
+    (status: string, approvalReplay: string, provider_no?: number) => {
+      const isDraft = status === "F";
+      if (isDraft) {
+        return true;
+      }
+      const isOpen = status === "O";
+      const isValidApproval = !["R", "A", "N"].includes(approvalReplay);
+      const hasNoProviderOrSameAsLogin =
+        !provider_no || provider_no === globalProviderNo;
+      return isOpen && isValidApproval && hasNoProviderOrSameAsLogin;
+    },
+    [globalProviderNo]
   );
 
   const handleUpdateRecord = useCallback(() => {
-    const { status, approval_reply } = selectedTableRecord;
+    const { status, approval_reply, provider_no } = selectedTableRecord;
 
-    if (!canDeleteOrEdit(status, approval_reply)) {
+    if (!canDeleteOrEdit(status, approval_reply, provider_no)) {
       addNotification({
         type: "error",
         message: "cantupdateslctedrecord",
@@ -379,9 +418,10 @@ const UcafListPage = () => {
   }, [canDeleteOrEdit, setEditionModalState]);
 
   const onDeleteTableRecord = useCallback(async () => {
-    const { ucaf_dtl_pk, status, approval_reply } = selectedTableRecord;
+    const { ucaf_dtl_pk, status, approval_reply, provider_no } =
+      selectedTableRecord;
 
-    if (!canDeleteOrEdit(status, approval_reply)) {
+    if (!canDeleteOrEdit(status, approval_reply, provider_no)) {
       addNotification({
         type: "error",
         message: "cantdeletslctedrecord",
@@ -516,7 +556,7 @@ const UcafListPage = () => {
         />
 
         <InputField
-          width="120px"
+          width="100px"
           value={paper_serial}
           name="paper_serial"
           label="serial"
@@ -536,7 +576,7 @@ const UcafListPage = () => {
         <SelectWithApiQuery
           label="docprvdrnam"
           value={doctor_provider_no}
-          width="250px"
+          width="300px"
           apiOrCodeId="QUERY_PROVIDER_NAMES_LIST"
           queryType="query"
           name="requestsData.details.doctor_provider_no"
@@ -553,7 +593,7 @@ const UcafListPage = () => {
         <SelectWithApiQuery
           label="spec"
           value={doctor_department_id}
-          width="180px"
+          width="210px"
           apiOrCodeId="QUERY_MI_DEPARTMENTS_LIST"
           queryType="query"
           name="requestsData.details.doctor_department_id"
@@ -579,7 +619,7 @@ const UcafListPage = () => {
         width="100%"
         gap="10px"
         bordered
-        padding="10px 12px"
+        padding="10px 8px"
         margin="12px 0"
         wrap="true"
       >
@@ -695,6 +735,12 @@ const UcafListPage = () => {
             height="sp17"
           />
 
+          <LabeledViewLikeInput
+            width="100%"
+            value={ucafe_date}
+            label="ucafdate"
+          />
+
           <FileUploadInputField
             dashed
             width="100%"
@@ -713,7 +759,7 @@ const UcafListPage = () => {
         </Flex>
 
         <MiPreviewPatientData
-          width="60%"
+          width="58%"
           height="fit-content"
           patientCardNo={foundPatientCardNo}
           patientName={patient_name}
@@ -732,6 +778,7 @@ const UcafListPage = () => {
           status={status}
           declaration_file_path={declaration_file_path}
           declaration_req={declaration_req}
+          limitsShown={false}
         />
 
         <FilesGalleryWithModalCarousel
@@ -810,6 +857,7 @@ const UcafListPage = () => {
         selectionKeys={selectedKeys}
         onSelectionChanged={onSelectionChanged}
         disabledRowsSelection={disabledRowsSelection}
+        onDoubleClick={onTableDoubleClick}
         useAlignedTotalCells
       />
 
@@ -834,6 +882,16 @@ const UcafListPage = () => {
           selectedRecord={selectedTableRecord}
           handleSaveServiceRequest={handleSaveServiceRequest}
           isSavingCurrentRequest={isSavingRequest}
+        />
+      )}
+
+      {moreDetailsModalShown && (
+        <MoreDetailsModal
+          visible={moreDetailsModalShown}
+          onClose={closeMoreDetailsModal}
+          selectedRecord={selectedTableRecord}
+          handleSaveServiceRequest={handleSaveServiceRequest}
+          isSavingRequest={isSavingRequest}
         />
       )}
 

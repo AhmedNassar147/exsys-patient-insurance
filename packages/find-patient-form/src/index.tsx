@@ -179,7 +179,7 @@ const FindPatientForm = ({
         />
 
         <InputField
-          width="200px"
+          width="150px"
           value={search_value}
           name="search_value"
           onChange={handleMainFieldsChangeAndResetFrom}

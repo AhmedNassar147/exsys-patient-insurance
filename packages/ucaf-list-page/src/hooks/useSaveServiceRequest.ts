@@ -80,6 +80,7 @@ const useSaveServiceRequest = ({
         status,
         forcedStatus,
         approval,
+        reply_notes,
         is_system_approved,
         approval_reply,
         approved_quantity,
@@ -113,7 +114,9 @@ const useSaveServiceRequest = ({
         ? approval === "C"
         : is_system_approved === "Y";
 
-      const baseApprovedQty = approved_quantity || 0;
+      const baseApprovedQty = isSystemApproved
+        ? approved_quantity || qty
+        : approved_quantity;
 
       const data = {
         root_organization_no,
@@ -147,9 +150,7 @@ const useSaveServiceRequest = ({
             service_code,
             delivery_qty,
             qty,
-            approved_quantity: isSystemApproved
-              ? baseApprovedQty || qty
-              : baseApprovedQty,
+            approved_quantity: baseApprovedQty || undefined,
             ...calculatePatientShareAndDiscount(
               price,
               patient_share_prc,
@@ -164,6 +165,7 @@ const useSaveServiceRequest = ({
             provider_notes: inClinicService ? provider_notes : "",
             approval_reply: isSystemApproved ? "A" : approval_reply,
             is_system_approved: isSystemApproved ? "Y" : "N",
+            reply_notes,
           },
         ],
       };

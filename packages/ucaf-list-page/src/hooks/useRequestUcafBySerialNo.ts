@@ -5,6 +5,7 @@
  */
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
 import {
   useAppConfigStore,
   useGlobalProviderNo,
@@ -22,7 +23,6 @@ const {
   details: {
     ucafe_type: defaultUcafType,
     claim_flag: defaultClaimType,
-    ucafe_date: defaultUcafDate,
     stamped: defaultStamped,
     agreed: defaultAgreed,
     expected_days: defaultNoOfDays,
@@ -83,7 +83,8 @@ const useRequestUcafBySerialNo = ({
                   ...details,
                   ucafe_type: ucafe_type || defaultUcafType,
                   claim_flag: claim_flag || defaultClaimType,
-                  ucafe_date: ucafe_date || defaultUcafDate,
+                  ucafe_date:
+                    ucafe_date || getCurrentDateString({ useDateTime: true }),
                   stamped: stamped || defaultStamped,
                   agreed: agreed || defaultAgreed,
                   expected_days: expected_days || defaultNoOfDays,

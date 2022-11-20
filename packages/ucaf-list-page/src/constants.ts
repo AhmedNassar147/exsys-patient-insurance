@@ -3,7 +3,6 @@
  * Constants: `@exsys-patient-insurance/ucaf-list-page`.
  *
  */
-import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
 import type { PatientItemRecordType } from "@exsys-patient-insurance/find-patient-form";
 import { RecordType } from "@exsys-patient-insurance/types";
 import { RequestsDataType, RequestTableRecordType } from "./index.interface";
@@ -25,7 +24,7 @@ export const initialValues = {
       expected_days: 1,
       expected_amount: 1,
       written_by_doctor: undefined,
-      ucafe_date: getCurrentDateString(),
+      ucafe_date: "",
     },
     data: [] as RequestTableRecordType[],
   } as RequestsDataType,

@@ -60,7 +60,10 @@ const useDeliverRequest = ({
             is_system_approved,
             qty,
           }) => {
-            const baseApprovedQty = approved_quantity || 0;
+            const baseApprovedQty =
+              is_system_approved === "Y"
+                ? approved_quantity || qty
+                : approved_quantity;
 
             return {
               ucaf_dtl_pk,
@@ -70,10 +73,7 @@ const useDeliverRequest = ({
               delivery_date,
               delivery_doc_no,
               delivery_by: loggedInUser,
-              approved_quantity:
-                is_system_approved === "Y"
-                  ? baseApprovedQty || qty
-                  : baseApprovedQty,
+              approved_quantity: baseApprovedQty || undefined,
               unit_discount,
               patientShare,
               record_status: "u",

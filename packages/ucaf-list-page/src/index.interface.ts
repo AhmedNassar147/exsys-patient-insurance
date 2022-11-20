@@ -41,7 +41,7 @@ export interface RequestTableRecordType {
   approval_reply_name: string;
   is_system_approved: CapitalBooleanStringType;
   approved_quantity?: number;
-  reply_notes: string;
+  reply_notes?: string;
   delivery_qty: number;
   delivery_date: string;
   delivery_doc_no: string;

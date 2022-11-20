@@ -1,0 +1,18 @@
+{
+  "name": "@exsys-patient-insurance/textarea-field",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a text area input.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/input-field": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "@types/styled-components": "^5.x.x"
+  },
+  "enableBabelTranspilation": true
+}

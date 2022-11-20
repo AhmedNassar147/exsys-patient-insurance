@@ -95,6 +95,7 @@
     "@exsys-patient-insurance/find-patient-form": "1.0.0",
     "@exsys-patient-insurance/patient-history-components": "1.0.0",
     "@exsys-patient-insurance/mi-preview-patient-data": "1.0.0",
+    "@exsys-patient-insurance/textarea-field": "1.0.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",

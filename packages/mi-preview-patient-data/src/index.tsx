@@ -42,6 +42,7 @@ interface MiPreviewPatientDataProps {
   relationship: string;
   declaration_file_path?: string;
   declaration_req?: string;
+  limitsShown?: boolean;
 }
 
 const initialState = {
@@ -69,6 +70,7 @@ const MiPreviewPatientData = ({
   declaration_req,
   width,
   height,
+  limitsShown,
 }: MiPreviewPatientDataProps) => {
   const { visible, handleOpen, handleClose } = useOpenCloseActionsWithState();
 
@@ -210,14 +212,16 @@ const MiPreviewPatientData = ({
             </span>
           )}
 
-          <Button
-            label="limts"
-            type="primary"
-            onClick={viewPatientLimit}
-            width="150px"
-            loading={loading}
-            disabled={loading || !patientCardNo}
-          />
+          {limitsShown && (
+            <Button
+              label="limts"
+              type="primary"
+              onClick={viewPatientLimit}
+              width="150px"
+              loading={loading}
+              disabled={loading || !patientCardNo}
+            />
+          )}
         </Flex>
 
         <Image
@@ -240,6 +244,7 @@ const MiPreviewPatientData = ({
 };
 MiPreviewPatientData.defaultProps = {
   width: "100%",
+  limitsShown: true,
 };
 
 export default memo(MiPreviewPatientData);
