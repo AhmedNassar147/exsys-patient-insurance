@@ -133,6 +133,7 @@ export interface TableColumnProps<T = TableRowRecordType> {
   totalCellProps?: TableTotalCellProps;
   children?: TableColumnProps<T>[];
   valueFixedBy?: number;
+  titleDataIndex?: string;
 }
 
 export interface TableHeaderProps<T>

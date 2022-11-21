@@ -107,6 +107,7 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "apprvl",
     dataIndex: "approval_reply_name",
     width: "6%",
+    titleDataIndex: "internal_notes",
     totalCellProps: {
       isFragment: true,
     },

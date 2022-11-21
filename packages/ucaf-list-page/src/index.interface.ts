@@ -42,6 +42,7 @@ export interface RequestTableRecordType {
   is_system_approved: CapitalBooleanStringType;
   approved_quantity?: number;
   reply_notes?: string;
+  internal_notes?: string;
   delivery_qty: number;
   delivery_date: string;
   delivery_doc_no: string;

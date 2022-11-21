@@ -160,7 +160,8 @@ const TableBody = <T extends TableRowRecordType>({
               ) : null}
 
               {columns?.map((cellProps, currentColumnIndex) => {
-                const { dataIndex, align, children } = cellProps;
+                const { dataIndex, align, children, titleDataIndex } =
+                  cellProps;
                 const hasNestedColumns = !!children?.length;
 
                 const computedCellKey = `${dataIndex}-col-${currentColumnIndex}`;
@@ -172,6 +173,7 @@ const TableBody = <T extends TableRowRecordType>({
                   showEditableInputs,
                   onInputChange,
                   recordInputsDisabled,
+                  titleDataIndex,
                 };
 
                 return (

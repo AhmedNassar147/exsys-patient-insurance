@@ -38,6 +38,7 @@ const BodyCellRenderer = <T extends TableRowRecordType>({
     align,
     inputProps,
     valueFixedBy,
+    titleDataIndex,
   },
 }: InternalBodyCellRendererProps<T>) => {
   const valueOfDataIndex = currentRecord[dataIndex];
@@ -56,12 +57,14 @@ const BodyCellRenderer = <T extends TableRowRecordType>({
       : actualValue);
 
   const hasFixedByValue = typeof valueFixedBy === "number";
+  const cellTitle = titleDataIndex ? currentRecord[titleDataIndex] : undefined;
 
   return (
     <CellContentWrapper
       align={align}
       width={width}
       ellipsis={ellipsis ? "true" : undefined}
+      title={cellTitle}
       disableTranslation
     >
       <LazyLoadedInputsNode
