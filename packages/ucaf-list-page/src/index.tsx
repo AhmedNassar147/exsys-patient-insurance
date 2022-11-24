@@ -126,7 +126,7 @@ const UcafListPage = () => {
   const dispenseItemsRows = useMemo(
     () =>
       selectedRows?.filter(
-        ({ approval_reply,  status, is_system_approved }) =>
+        ({ approval_reply, status, is_system_approved }) =>
           status !== "F" &&
           // canDeliverRequest === "Y" &&
           (approval_reply === "A" || is_system_approved === "Y")
@@ -291,6 +291,7 @@ const UcafListPage = () => {
     isCurrentPatientActive &&
     isNewConsultation &&
     canInsert &&
+    ucafe_type === "O" &&
     !!primary_diagnosis &&
     !!complain &&
     !!signs &&
