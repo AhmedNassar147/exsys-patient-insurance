@@ -43,12 +43,12 @@ import {
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
-import useDeliverRequest from "./hooks/useDeliverRequest";
 import useRequestUcafBySerialNo from "./hooks/useRequestUcafBySerialNo";
 import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
 import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
 import MoreDetailsModal from "./partials/MoreDetailsModal";
+import DeliverForm from "./partials/DeliverForm";
 import {
   initialValues,
   REQUESTS_TABLE_COLUMNS,
@@ -348,16 +348,6 @@ const UcafListPage = () => {
       [handleChangeMultipleInputs]
     );
 
-  const { handleDeliverItem, loading: isDeliveringItem } = useDeliverRequest({
-    root_organization_no,
-    ucaf_id,
-    patient_card_no: foundPatientCardNo,
-    paper_serial,
-    is_chronic: isChronic,
-    ucafe_date,
-    onSuccess: onSearchRequests,
-  });
-
   const onSelectDiagnosis: OnSelectDiagnosisType = useCallback(
     ({ diag_code, diage_name }) =>
       handleChangeMultipleInputs({
@@ -450,12 +440,6 @@ const UcafListPage = () => {
       true
     );
   }, [handleSaveServiceRequest, addNotification, canDeleteOrEdit]);
-
-  const onSaveRequestedProductsToDelivery = useCallback(() => {
-    if (dispenseItemsRows?.length) {
-      handleDeliverItem(dispenseItemsRows);
-    }
-  }, [handleDeliverItem, dispenseItemsRows]);
 
   const onSelectionChanged: TableSelectionChangeActionType<RequestTableRecordType> =
     useCallback(
@@ -816,12 +800,16 @@ const UcafListPage = () => {
           )}
 
           {!!dispenseItemsRowsLength && (
-            <Button
-              type="primary"
-              loading={isDeliveringItem}
-              disabled={isDeliveringItem || isLinkingServices}
-              onClick={onSaveRequestedProductsToDelivery}
-              label="dlvr"
+            <DeliverForm
+              isInPatientUcafType={isInPatientUcafType}
+              rootOrganizationNo={root_organization_no}
+              ucafId={ucaf_id}
+              foundPatientCardNo={foundPatientCardNo}
+              paperSerial={paper_serial}
+              isChronic={isChronic}
+              ucafeDate={ucafe_date}
+              onSearchRequests={onSearchRequests}
+              dispenseItemsRows={dispenseItemsRows}
             />
           )}
 
@@ -831,7 +819,7 @@ const UcafListPage = () => {
               loading={isLinkingServices}
               onClick={handleLinkServices}
               label="reqaprov"
-              disabled={isLinkingServices || isDeliveringItem}
+              disabled={isLinkingServices}
             />
           )}
         </Flex>
@@ -852,12 +840,7 @@ const UcafListPage = () => {
         onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}
         onPressDelete={onDeleteTableRecord}
-        loading={
-          requestsLoading ||
-          defaultServicesLoading ||
-          isSavingRequest ||
-          isDeliveringItem
-        }
+        loading={requestsLoading || defaultServicesLoading || isSavingRequest}
         selectionKeys={selectedKeys}
         onSelectionChanged={onSelectionChanged}
         disabledRowsSelection={disabledRowsSelection}

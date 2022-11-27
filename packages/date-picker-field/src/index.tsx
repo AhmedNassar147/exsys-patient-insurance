@@ -29,6 +29,8 @@ const nonNativeDateRegex = /^\d{1,2}-\d{1,2}-\d{4}$/;
 const DatePickerField = ({
   value,
   onChange,
+  min,
+  max,
   ...props
 }: DatePickerFieldProps) => {
   const normalizedValue = useMemo(() => {
@@ -40,13 +42,26 @@ const DatePickerField = ({
   }, [value]);
 
   const handleChange: onChangeEvent = useCallback(
-    ({ name, value }) => {
+    ({ name, value }) =>
       onChange?.({
         name,
         value: convertInputDateToNormalFormat(value),
-      });
-    },
+      }),
     [onChange]
+  );
+
+  const inputMinMaxProps = useMemo(
+    () => ({
+      min:
+        min && nonNativeDateRegex.test(min)
+          ? convertNormalFormattedDateToInputDate(min)
+          : min || undefined,
+      max:
+        max && nonNativeDateRegex.test(max)
+          ? convertNormalFormattedDateToInputDate(max)
+          : max || undefined,
+    }),
+    [min, max]
   );
 
   return (
@@ -57,6 +72,7 @@ const DatePickerField = ({
       value={normalizedValue}
       onChange={handleChange}
       {...props}
+      {...inputMinMaxProps}
     />
   );
 };

@@ -4,6 +4,7 @@
  *
  */
 import type { PatientItemRecordType } from "@exsys-patient-insurance/find-patient-form";
+import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
 import { RecordType } from "@exsys-patient-insurance/types";
 import { RequestsDataType, RequestTableRecordType } from "./index.interface";
 
@@ -33,6 +34,11 @@ export const initialValues = {
     selectedRows: [] as RequestTableRecordType[],
   },
   attachments: [] as RecordType[],
+};
+
+export const initialDeliveryFormState = {
+  admission_date: getCurrentDateString(),
+  discharge_date: getCurrentDateString(),
 };
 
 export const doctorsProviderListParams = {

@@ -9,6 +9,7 @@ import InputNumber from "@exsys-patient-insurance/input-number";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import InputField from "@exsys-patient-insurance/input-field";
 import Modal from "@exsys-patient-insurance/modal";
+import { useCurrentUserType } from "@exsys-patient-insurance/app-config-store";
 import ServicesModal, {
   OnSelectServiceType,
 } from "@exsys-patient-insurance/services-modal";
@@ -68,6 +69,7 @@ const EditOrCreateRequest = ({
   isSavingCurrentRequest,
 }: EditOrCreateRequestProps) => {
   const { pageType } = useParams();
+  const { isHospitalUser } = useCurrentUserType();
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
   const onSubmit = useCallback(
@@ -224,7 +226,7 @@ const EditOrCreateRequest = ({
             onClose={handleClose}
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
-            initialInClinicService={!!provider_no || !isDoctorView}
+            initialInClinicService={!!provider_no || isHospitalUser}
           />
         )}
       </Flex>

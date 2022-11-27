@@ -43,7 +43,11 @@ const useDeliverRequest = ({
   });
 
   const handleDeliverItem = useCallback(
-    (services: RequestTableRecordType[]) => {
+    (
+      services: RequestTableRecordType[],
+      admission_date?: string,
+      discharge_date?: string
+    ) => {
       const data = {
         root_organization_no,
         patient_card_no,
@@ -51,6 +55,8 @@ const useDeliverRequest = ({
         ucaf_id,
         is_chronic: is_chronic || "N",
         ucafe_date,
+        admission_date,
+        discharge_date,
         data: services.map(
           ({
             ucaf_dtl_pk,
