@@ -12,11 +12,12 @@ import {
 import type {
   EllipsisCssHelperProps,
   ColorsType,
+  TextFontSizeProps,
 } from "@exsys-patient-insurance/types";
 
 type StringBool = "true" | "";
 
-export interface FlexProps extends EllipsisCssHelperProps {
+export interface FlexProps extends EllipsisCssHelperProps, TextFontSizeProps {
   column?: StringBool;
   wrap?: StringBool;
   reverse?: boolean;
@@ -46,6 +47,7 @@ export interface FlexProps extends EllipsisCssHelperProps {
   maxHeight?: string;
   cursor?: string;
   color?: ColorsType;
+  fontWeight?: string;
 }
 
 const { grey4 } = colors;
@@ -77,6 +79,7 @@ export default styled.div<FlexProps>`
   ${({ minWidth }) => minWidth && `min-width: ${minWidth}`};
   ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth}`};
   ${({ padding }) => padding && `padding: ${padding}`};
+  ${({ fontWeight }) => fontWeight && `font-weight: ${fontWeight}`};
   border-bottom: ${({ borderBottom }) =>
     borderBottom ? `solid 1px ${grey4}` : "none"};
   overflow: ${({ overflow }) => overflow};

@@ -28,6 +28,8 @@ export interface RequestDetailsType {
   expected_days?: number;
   expected_amount?: number;
   written_by_doctor?: CapitalBooleanStringType;
+  admission_date?: string;
+  discharge_date?: string;
 }
 
 export interface RequestTableRecordType {

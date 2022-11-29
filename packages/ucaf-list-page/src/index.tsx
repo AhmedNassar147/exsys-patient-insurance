@@ -110,6 +110,8 @@ const UcafListPage = () => {
         expected_days,
         expected_amount,
         written_by_doctor,
+        admission_date,
+        discharge_date,
       },
       isNewConsultation,
       data: requestTableDataSource,
@@ -746,28 +748,52 @@ const UcafListPage = () => {
           />
         </Flex>
 
-        <MiPreviewPatientData
-          width="58%"
-          height="fit-content"
-          patientCardNo={foundPatientCardNo}
-          patientName={patient_name}
-          age={age}
-          phone={phone_no}
-          nationalId={national_id}
-          start_date={start_date}
-          end_date={end_date}
-          class={patientClass}
-          relationship={relationship}
-          plan={plan}
-          subsidiary={subsidiary}
-          member_of={member_of}
-          patientImgUrl={patientImgUrl}
-          gender={gender}
-          status={status}
-          declaration_file_path={declaration_file_path}
-          declaration_req={declaration_req}
-          limitsShown={false}
-        />
+        <Flex width="58%" wrap="true" gap="10px">
+          <MiPreviewPatientData
+            width="100%"
+            height="fit-content"
+            patientCardNo={foundPatientCardNo}
+            patientName={patient_name}
+            age={age}
+            phone={phone_no}
+            nationalId={national_id}
+            start_date={start_date}
+            end_date={end_date}
+            class={patientClass}
+            relationship={relationship}
+            plan={plan}
+            subsidiary={subsidiary}
+            member_of={member_of}
+            patientImgUrl={patientImgUrl}
+            gender={gender}
+            status={status}
+            declaration_file_path={declaration_file_path}
+            declaration_req={declaration_req}
+            limitsShown={false}
+          />
+
+          {isInPatientUcafType && (
+            <>
+              <LabeledViewLikeInput
+                width="20%"
+                value={admission_date}
+                label="admtiondate"
+                fontWeight="bold"
+                fontSize="ff6"
+                justify="center"
+              />
+
+              <LabeledViewLikeInput
+                width="20%"
+                value={discharge_date}
+                label="dischdate"
+                fontWeight="bold"
+                fontSize="ff6"
+                justify="center"
+              />
+            </>
+          )}
+        </Flex>
 
         <FilesGalleryWithModalCarousel
           shouldMountChunk={!!attachments?.length}
