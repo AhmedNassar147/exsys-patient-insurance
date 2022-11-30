@@ -86,27 +86,25 @@ const EditOrCreateRequest = ({
     [handleSaveServiceRequest, recordStatus]
   );
 
+  const { values, handleChange, handleChangeMultipleInputs, handleSubmit } =
+    useFormManager({
+      initialValues: {
+        ...initialState,
+        ...selectedRecord,
+        inClinicService: !!provider_no,
+        record_status: recordStatus,
+      },
+      onSubmit,
+    });
+
   const {
-    values: {
-      service_name,
-      qty,
-      price,
-      delivery_doc_no,
-      inClinicService,
-      specialty_type,
-    },
-    handleChange,
-    handleChangeMultipleInputs,
-    handleSubmit,
-  } = useFormManager({
-    initialValues: {
-      ...initialState,
-      ...selectedRecord,
-      inClinicService: !!provider_no,
-      record_status: recordStatus,
-    },
-    onSubmit,
-  });
+    service_name,
+    qty,
+    price,
+    delivery_doc_no,
+    inClinicService,
+    specialty_type,
+  } = values;
 
   const isDoctorView = pageType === "D";
   const isNewRecord = recordStatus === "n";
@@ -138,6 +136,7 @@ const EditOrCreateRequest = ({
   );
 
   const isInPatientUcafType = ucafType === "I";
+  const admissionButtonShown = isInPatientUcafType && !servicesDataLength;
 
   const handleSelectService: OnSelectServiceType = useCallback(
     (
@@ -151,8 +150,8 @@ const EditOrCreateRequest = ({
         approval,
       },
       inClinicService
-    ) =>
-      handleChangeMultipleInputs({
+    ) => {
+      const nextStateValues = {
         service_code: service_id,
         service_name,
         qty: 1,
@@ -163,8 +162,19 @@ const EditOrCreateRequest = ({
         patient_share_prc: copay,
         approval,
         ...(inClinicService ? null : { delivery_doc_no: undefined }),
-      }),
-    [handleChangeMultipleInputs]
+      };
+
+      if (admissionButtonShown) {
+        onSubmit({
+          ...values,
+          ...nextStateValues,
+        });
+        handleClose();
+        return;
+      }
+      handleChangeMultipleInputs(nextStateValues);
+    },
+    [handleChangeMultipleInputs, admissionButtonShown, handleSubmit]
   );
 
   return (
@@ -230,8 +240,10 @@ const EditOrCreateRequest = ({
             onClose={handleClose}
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
-            initialInClinicService={!!provider_no || isHospitalUser}
-            showAdmissionButton={isInPatientUcafType && !servicesDataLength}
+            showAdmissionButton={admissionButtonShown}
+            initialInClinicService={
+              admissionButtonShown || !!provider_no || isHospitalUser
+            }
           />
         )}
       </Flex>

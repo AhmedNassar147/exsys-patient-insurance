@@ -53,19 +53,6 @@ const ServicesModal = ({
     }
   }, [search_word, fetchTableData]);
 
-  const handleSearchAdmissionServices = useCallback(() => {
-    fetchTableData({
-      search_word: "",
-      service_code: "000000",
-    });
-  }, [fetchTableData]);
-
-  const skipQuery = useCallback(
-    ({ search_word, service_code }: RecordType) =>
-      service_code ? false : (search_word || "")?.length < 3,
-    []
-  );
-
   const onDoubleClickRecord: TableBodyRowClickEvent<ServiceRequestItemType> =
     useCallback(
       (record) => {
@@ -74,6 +61,28 @@ const ServicesModal = ({
       },
       [onSelectService, onClose, inClinicService]
     );
+
+  const handleSearchAdmissionServices = useCallback(() => {
+    const params = {
+      search_word: "",
+      service_code: "000000",
+    };
+
+    fetchTableData(params, ({ apiValues }) => {
+      const { data } = apiValues;
+      const [admissionItem] = data || [];
+
+      if (admissionItem) {
+        onDoubleClickRecord(admissionItem, 0);
+      }
+    });
+  }, [fetchTableData]);
+
+  const skipQuery = useCallback(
+    ({ search_word, service_code }: RecordType) =>
+      service_code ? false : (search_word || "")?.length < 3,
+    []
+  );
 
   const baseSearchParams = {
     ...searchParams,

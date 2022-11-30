@@ -514,19 +514,29 @@ const UcafListPage = () => {
     ? false
     : canDelete;
 
-  const areFieldsDisabled = !!reviwed_date || f_insert === "N";
+  const canNotUserInsert = f_insert === "N";
+  const areFieldsDisabled = !!reviwed_date || canNotUserInsert;
 
   const canRenderDiagnosisModal =
     !areFieldsDisabled && !!foundPatientCardNo && !!doctor_department_id;
 
-  const isEditableFieldsDisabled =
-    areFieldsDisabled ||
+  const baseIsEditableFieldsDisabled =
     isDataWrittenByDoctorAndProviderView ||
     defaultServicesLoading ||
     !doctor_provider_no ||
     !doctor_department_id ||
     !foundPatientCardNo ||
     !paper_serial;
+
+  const isEditableFieldsDisabled =
+    areFieldsDisabled || baseIsEditableFieldsDisabled;
+
+  const canNotInsertAttachment =
+    uploading ||
+    isSavingAttachment ||
+    attachmentsLoading ||
+    canNotUserInsert ||
+    baseIsEditableFieldsDisabled;
 
   const patientHistoryParams = {
     organization_no: root_organization_no,
@@ -739,12 +749,7 @@ const UcafListPage = () => {
             messageLabelId="attachmnt"
             name="fileUrl"
             accept={IMAGES_AND_FILES}
-            disabled={
-              uploading ||
-              isSavingAttachment ||
-              attachmentsLoading ||
-              !isEditableFieldsDisabled
-            }
+            disabled={canNotInsertAttachment}
           />
         </Flex>
 
@@ -805,7 +810,7 @@ const UcafListPage = () => {
           bordered={false}
           padding="0"
           margin="0px"
-          onDeleteFile={onDeleteAttachment}
+          onDeleteFile={!!reviwed_date ? undefined : onDeleteAttachment}
         />
       </Flex>
 
