@@ -28,6 +28,7 @@ interface EditOrCreateRequestProps {
   claimFlag?: string;
   ucafType?: string;
   closeEditionModal: () => void;
+  servicesDataLength: number;
   recordStatus: string;
   selectedRecord: RequestTableRecordType;
   handleSaveServiceRequest: (
@@ -67,6 +68,7 @@ const EditOrCreateRequest = ({
   selectedRecord: { provider_no, ...selectedRecord },
   handleSaveServiceRequest,
   isSavingCurrentRequest,
+  servicesDataLength,
 }: EditOrCreateRequestProps) => {
   const { pageType } = useParams();
   const { isHospitalUser } = useCurrentUserType();
@@ -134,6 +136,8 @@ const EditOrCreateRequest = ({
     claimFlag &&
     ucafType
   );
+
+  const isInPatientUcafType = ucafType === "I";
 
   const handleSelectService: OnSelectServiceType = useCallback(
     (
@@ -227,6 +231,7 @@ const EditOrCreateRequest = ({
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
             initialInClinicService={!!provider_no || isHospitalUser}
+            showAdmissionButton={isInPatientUcafType && !servicesDataLength}
           />
         )}
       </Flex>

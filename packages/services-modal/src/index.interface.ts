@@ -29,4 +29,5 @@ export interface ServicesModalProps {
   searchParams?: RecordTypeWithAnyValue;
   initialInClinicService?: boolean;
   showInClinicServiceCheckbox?: boolean;
+  showAdmissionButton?: boolean;
 }

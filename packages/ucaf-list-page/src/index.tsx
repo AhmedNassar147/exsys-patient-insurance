@@ -890,6 +890,7 @@ const UcafListPage = () => {
           ucafDate={ucafe_date}
           claimFlag={claim_flag}
           ucafType={ucafe_type}
+          servicesDataLength={requestDataLength}
           recordStatus={editionModalType}
           closeEditionModal={setEditionModalState("")}
           selectedRecord={selectedTableRecord}
