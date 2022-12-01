@@ -123,6 +123,7 @@ const UcafListPage = () => {
   const isChronic = claim_flag === "C" ? "Y" : "N";
   const canInsert = f_insert !== "N";
   const canDelete = f_delete !== "N";
+  const isInPatientUcafType = ucafe_type === "I";
   const { selectedKeys, selectedRows } = tableSelectionRows;
 
   const dispenseItemsRows = useMemo(
@@ -139,6 +140,14 @@ const UcafListPage = () => {
   const postItemsRows = useMemo(
     () => selectedRows?.filter(({ status }) => status === "F"),
     [selectedRows]
+  );
+
+  const hasSomeDeliveredItems = useMemo(
+    () =>
+      requestTableDataSource?.some(
+        ({ last_delivery_date }) => !!last_delivery_date
+      ),
+    [requestTableDataSource]
   );
 
   const linkItemsRows = useMemo(() => {
@@ -483,8 +492,6 @@ const UcafListPage = () => {
     []
   );
 
-  const isInPatientUcafType = ucafe_type === "I";
-
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
@@ -503,7 +510,7 @@ const UcafListPage = () => {
     !doctor_department_id ||
     !paper_serial ||
     agreed !== "Y" ||
-    !!reviwed_date;
+    (isInPatientUcafType ? hasSomeDeliveredItems : !!reviwed_date);
 
   const canUserInsert =
     !primary_diagnosis || isDataWrittenByDoctorAndProviderView
