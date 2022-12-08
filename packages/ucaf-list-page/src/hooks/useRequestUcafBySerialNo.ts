@@ -54,7 +54,6 @@ const useRequestUcafBySerialNo = ({
         const { details } = apiValues || {};
         const {
           doctor_provider_no,
-          doctor_department_id,
           ucafe_type,
           claim_flag,
           ucafe_date,
@@ -67,7 +66,7 @@ const useRequestUcafBySerialNo = ({
           primary_diag_code,
         } = details || {};
 
-        if (!doctor_provider_no || !doctor_department_id) {
+        if (!doctor_provider_no) {
           addNotification({
             type: "error",
             message: "invldsrialno",

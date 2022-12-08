@@ -553,6 +553,7 @@ const UcafListPage = () => {
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
   const linkItemsRowsLength = linkItemsRows?.length ?? 0;
   const postItemsRowsLength = postItemsRows?.length ?? 0;
+  const hasDepartmentId = !!doctor_department_id;
 
   return (
     <>
@@ -607,8 +608,8 @@ const UcafListPage = () => {
           onChange={handleChangeDoctorDepartmentOrProviderNo}
           allowClear={false}
           disabled={
-            isDoctorUser ||
-            !doctor_provider_no ||
+            (isDoctorUser && hasDepartmentId) ||
+            (!!doctor_provider_no && hasDepartmentId) ||
             !foundPatientCardNo ||
             !paper_serial
           }
