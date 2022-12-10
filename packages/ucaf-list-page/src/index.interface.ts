@@ -30,6 +30,7 @@ export interface RequestDetailsType {
   written_by_doctor?: CapitalBooleanStringType;
   admission_date?: string;
   discharge_date?: string;
+  patientExceedLimit?: CapitalBooleanStringType;
 }
 
 export interface RequestTableRecordType {
@@ -71,6 +72,7 @@ export interface RequestsDataType {
   details: RequestDetailsType;
   data: RequestTableRecordType[];
   isNewConsultation: boolean;
+  hasPatientExceededLimits: boolean;
 }
 
 export type ServiceItemValuesForPostApiType = RequestTableRecordType & {

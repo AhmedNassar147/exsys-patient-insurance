@@ -17,6 +17,7 @@ import {
 } from "@exsys-patient-insurance/types";
 import { initialValues } from "../constants";
 import { RequestsDataType } from "../index.interface";
+
 const { requestsData } = initialValues;
 
 const {
@@ -64,12 +65,22 @@ const useRequestUcafBySerialNo = ({
           written_by_doctor,
           primary_diagnosis,
           primary_diag_code,
+          patientExceedLimit,
         } = details || {};
 
         if (!doctor_provider_no) {
           addNotification({
             type: "error",
             message: "invldsrialno",
+          });
+        }
+
+        const hasPatientExceededLimits = patientExceedLimit === "Y";
+
+        if (hasPatientExceededLimits) {
+          addNotification({
+            type: "error",
+            message: "ptntexceedlimit",
           });
         }
 
@@ -93,6 +104,7 @@ const useRequestUcafBySerialNo = ({
                 },
               }),
           isNewConsultation: !primary_diagnosis && !primary_diag_code,
+          hasPatientExceededLimits,
         };
 
         handleChange({

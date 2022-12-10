@@ -114,6 +114,7 @@ const UcafListPage = () => {
         discharge_date,
       },
       isNewConsultation,
+      hasPatientExceededLimits,
       data: requestTableDataSource,
     },
   } = values;
@@ -301,6 +302,7 @@ const UcafListPage = () => {
   const shouldLoadDefaultConsultation =
     isCurrentPatientActive &&
     isNewConsultation &&
+    !hasPatientExceededLimits &&
     canInsert &&
     ucafe_type === "O" &&
     !!primary_diagnosis &&
@@ -505,6 +507,7 @@ const UcafListPage = () => {
     isDataWrittenByDoctor && isProviderView;
 
   const hideTableHeaderTools =
+    hasPatientExceededLimits ||
     defaultServicesLoading ||
     !foundPatientCardNo ||
     !doctor_department_id ||
@@ -522,13 +525,15 @@ const UcafListPage = () => {
     : canDelete;
 
   const canNotUserInsert = f_insert === "N";
-  const areFieldsDisabled = !!reviwed_date || canNotUserInsert;
+  const areFieldsDisabled =
+    hasPatientExceededLimits || !!reviwed_date || canNotUserInsert;
 
   const canRenderDiagnosisModal =
     !areFieldsDisabled && !!foundPatientCardNo && !!doctor_department_id;
 
   const baseIsEditableFieldsDisabled =
     isDataWrittenByDoctorAndProviderView ||
+    hasPatientExceededLimits ||
     defaultServicesLoading ||
     !doctor_provider_no ||
     !doctor_department_id ||
@@ -539,6 +544,7 @@ const UcafListPage = () => {
     areFieldsDisabled || baseIsEditableFieldsDisabled;
 
   const canNotInsertAttachment =
+    hasPatientExceededLimits ||
     uploading ||
     isSavingAttachment ||
     attachmentsLoading ||

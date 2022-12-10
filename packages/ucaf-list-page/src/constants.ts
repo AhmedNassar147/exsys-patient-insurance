@@ -17,6 +17,7 @@ export const initialValues = {
   selectedTableRecord: {} as RequestTableRecordType,
   requestsData: {
     isNewConsultation: false,
+    hasPatientExceededLimits: false,
     details: {
       ucafe_type: "O",
       claim_flag: "A",
