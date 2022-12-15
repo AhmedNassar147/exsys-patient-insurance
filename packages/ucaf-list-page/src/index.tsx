@@ -3,7 +3,7 @@
  * Package: `@exsys-patient-insurance/ucaf-list-page`.
  *
  */
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useRef } from "react";
 import { useParams } from "react-router-dom";
 import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import SelectionCheck from "@exsys-patient-insurance/selection-check";
@@ -12,7 +12,9 @@ import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
 import InputNumber from "@exsys-patient-insurance/input-number";
-import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import SelectWithApiQuery, {
+  SelectWithApiQueryRefValuesType,
+} from "@exsys-patient-insurance/select-with-api-query";
 import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import FilesGalleryWithModalCarousel from "@exsys-patient-insurance/files-gallery-with-modal-carousel";
 import MiPreviewPatientData from "@exsys-patient-insurance/mi-preview-patient-data";
@@ -64,6 +66,8 @@ const UcafListPage = () => {
   const { isDoctorUser } = useCurrentUserType();
   const globalProviderNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
+  const serialNoListRef = useRef<SelectWithApiQueryRefValuesType>();
+
   const { f_insert, f_delete, f_update } = useCurrentPagePrivileges({
     useFullPathName: true,
   });
@@ -187,6 +191,11 @@ const UcafListPage = () => {
     declaration_req,
   } = currentPatientData;
 
+  const fetchSerialNoList = useCallback(
+    () => serialNoListRef.current?.runQuery?.(),
+    [serialNoListRef]
+  );
+
   const { fetchUcafRequests, requestsLoading } = useRequestUcafBySerialNo({
     handleChange,
     root_organization_no,
@@ -253,11 +262,13 @@ const UcafListPage = () => {
       closeMoreDetailsModal();
     }
     onSearchRequests();
+    fetchSerialNoList();
   }, [
     onSearchRequests,
     setEditionModalState,
     moreDetailsModalShown,
     closeMoreDetailsModal,
+    fetchSerialNoList,
   ]);
 
   const handleChangeUcafType: onChangeEvent = useCallback(
@@ -576,6 +587,7 @@ const UcafListPage = () => {
         />
 
         <SelectWithApiQuery
+          ref={serialNoListRef}
           queryType="query"
           apiOrCodeId="QUERY_UCAF_SERIAL_LIST"
           width="100px"
