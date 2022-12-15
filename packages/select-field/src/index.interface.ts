@@ -11,7 +11,10 @@ import {
   MenuItemsDataSourceItemType,
   MenuItemsModeType,
 } from "@exsys-patient-insurance/menu-items";
-import { StringNumber, SelectChangeHandlerType } from "@exsys-patient-insurance/types";
+import {
+  StringNumber,
+  SelectChangeHandlerType,
+} from "@exsys-patient-insurance/types";
 
 export type SelectModeType = MenuItemsModeType;
 
@@ -25,7 +28,6 @@ export interface SelectFieldProps
     | "defaultValue"
     | "onClickAddOnAfter"
     | "internalInputMinWidth"
-    | "onPressEnter"
     | "borderWidth"
     | "customInputComponent"
     | "internalInputHeight"

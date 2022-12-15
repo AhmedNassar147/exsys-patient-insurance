@@ -470,16 +470,22 @@ const UcafListPage = () => {
 
   const handleMainFieldsChangeAndResetFrom: onChangeEvent = useCallback(
     ({ name, value }) => {
+      const isSerialNoInput = name === "paper_serial";
+
       resetForm();
       handleChangeMultipleInputs({
         [name]: value,
-        ...(name === "paper_serial"
+        ...(isSerialNoInput
           ? {
               currentPatientData,
               isCurrentPatientActive,
             }
           : null),
       });
+
+      if (isSerialNoInput) {
+        fetchUcafRequests({ paper_serial: value });
+      }
     },
     [
       resetForm,
@@ -569,16 +575,22 @@ const UcafListPage = () => {
           handleChangeMultipleInputs={handleChangeMultipleInputs}
         />
 
-        <InputField
+        <SelectWithApiQuery
+          queryType="query"
+          apiOrCodeId="QUERY_UCAF_SERIAL_LIST"
           width="100px"
           value={paper_serial}
           name="paper_serial"
           label="serial"
-          onChange={handleMainFieldsChangeAndResetFrom}
           disabled={searchRequestsDisabled}
-          onPressEnter={onSearchRequests}
+          onPressEnter={handleMainFieldsChangeAndResetFrom}
+          onChange={handleMainFieldsChangeAndResetFrom}
+          checkAllParamsValuesToQuery
+          apiParams={{
+            patient_card_no: foundPatientCardNo,
+            provider_no: globalProviderNo,
+          }}
         />
-
         <Button
           label="srchucafreqs"
           onClick={onSearchRequests}

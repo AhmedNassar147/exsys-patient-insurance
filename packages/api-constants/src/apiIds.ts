@@ -65,6 +65,8 @@ const API_IDS = {
   QUERY_HR_STAFF_CODES_LIST: "ex_hr/pop_staff_code",
   // http://149.102.140.8:9090/ords/exsys_api/mi_web_user/pop_job_list?planguageid=1&authorization=1861562
   QUERY_JOB_ID_LIST: "mi_web_user/pop_job_list",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/pop_patient_active_ucaf?authorization=201792&patient_card_no=2222&provider_no=11264
+  QUERY_UCAF_SERIAL_LIST: "mi_ucaf_request/pop_patient_active_ucaf",
 };
 
 export default API_IDS;
