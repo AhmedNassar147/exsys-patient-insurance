@@ -71,7 +71,7 @@ const EditOrCreateRequest = ({
   servicesDataLength,
 }: EditOrCreateRequestProps) => {
   const { pageType } = useParams();
-  const { isHospitalUser } = useCurrentUserType();
+  const { isDoctorUser } = useCurrentUserType();
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
   const onSubmit = useCallback(
@@ -242,7 +242,7 @@ const EditOrCreateRequest = ({
             showInClinicServiceCheckbox={isDoctorView}
             showAdmissionButton={admissionButtonShown}
             initialInClinicService={
-              admissionButtonShown || !!provider_no || isHospitalUser
+              admissionButtonShown || !!provider_no || !isDoctorUser
             }
           />
         )}

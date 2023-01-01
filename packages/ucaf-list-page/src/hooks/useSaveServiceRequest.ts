@@ -84,6 +84,7 @@ const useSaveServiceRequest = ({
         is_system_approved,
         approval_reply,
         approved_quantity,
+        new_request_price,
       }: ServiceItemValuesForPostApiType,
       showNotificationAndRefetchData?: boolean
     ) => {
@@ -154,7 +155,8 @@ const useSaveServiceRequest = ({
             ...calculatePatientShareAndDiscount(
               price,
               patient_share_prc,
-              price_disc_prc
+              price_disc_prc,
+              new_request_price
             ),
             delivery_date,
             delivery_doc_no,

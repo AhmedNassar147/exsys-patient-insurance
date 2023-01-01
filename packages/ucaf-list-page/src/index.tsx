@@ -24,6 +24,7 @@ import {
   useOpenCloseActionsWithState,
   useCurrentPagePrivileges,
 } from "@exsys-patient-insurance/hooks";
+import DetailIcon from "@exsys-patient-insurance/details-icon";
 import {
   useGlobalProviderNo,
   useAppConfigStore,
@@ -50,6 +51,7 @@ import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
 import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
 import MoreDetailsModal from "./partials/MoreDetailsModal";
+import ChangeMedicationModal from "./partials/ChangeMedicationModal";
 import DeliverForm from "./partials/DeliverForm";
 import {
   initialValues,
@@ -63,15 +65,25 @@ import { RequestTableRecordType } from "./index.interface";
 const { IMAGES_AND_FILES } = UPLOAD_ACCEPTED_EXTENSIONS;
 
 const UcafListPage = () => {
-  const { isDoctorUser } = useCurrentUserType();
+  const { isDoctorUser, isPharmacyUser } = useCurrentUserType();
+
   const globalProviderNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
   const serialNoListRef = useRef<SelectWithApiQueryRefValuesType>();
 
-  const { f_insert, f_delete, f_update } = useCurrentPagePrivileges({
+  const {
+    f_insert,
+    f_delete,
+    // f_update
+  } = useCurrentPagePrivileges({
     useFullPathName: true,
   });
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
+  const {
+    visible: changeMedicationModalVisible,
+    handleClose: closeChangeMedicationModalVisible,
+    handleOpen: openChangeMedicationModalVisible,
+  } = useOpenCloseActionsWithState();
   const { pageType } = useParams();
 
   const {
@@ -511,6 +523,39 @@ const UcafListPage = () => {
     []
   );
 
+  const tableColumns = useMemo(() => {
+    let baseColumns = REQUESTS_TABLE_COLUMNS;
+
+    if (isPharmacyUser) {
+      baseColumns = [
+        ...baseColumns,
+        {
+          title: "action",
+          dataIndex: "specialty_type",
+          // @ts-ignore
+          render: (
+            specialty_type: string,
+            { status }: RequestTableRecordType
+          ) =>
+            specialty_type === "MED" && ["O", "F"].includes(status) ? (
+              <Flex width="100%" justify="center">
+                <DetailIcon
+                  width="1.8em"
+                  height="1.7em"
+                  onClick={openChangeMedicationModalVisible}
+                />
+              </Flex>
+            ) : null,
+          totalCellProps: {
+            isFragment: true,
+          },
+        },
+      ];
+    }
+
+    return baseColumns;
+  }, [openChangeMedicationModalVisible]);
+
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
@@ -900,11 +945,12 @@ const UcafListPage = () => {
         totalRecordsInDataBase={requestDataLength}
         hideTableHeaderTools={hideTableHeaderTools}
         noPagination
-        columns={REQUESTS_TABLE_COLUMNS}
+        columns={tableColumns}
         height="320px"
         canDelete={canUserDelete}
         canInsert={canUserInsert}
-        canEdit={f_update !== "N"}
+        // canEdit={f_update !== "N"}
+        canEdit={!isPharmacyUser}
         onPressAdd={setEditionModalState("n")}
         onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}
@@ -970,6 +1016,21 @@ const UcafListPage = () => {
             apiId="QUERY_MI_PROVIDERS_APPROVAL_PATIENT_HISTORY"
           />
         </Modal>
+      )}
+
+      {changeMedicationModalVisible && (
+        <ChangeMedicationModal
+          rootOrganizationNo={root_organization_no}
+          patientCardNo={foundPatientCardNo}
+          ucafDate={ucafe_date}
+          claimFlag={claim_flag}
+          ucafType={ucafe_type}
+          selectedRecord={selectedTableRecord}
+          changeMedicationModalVisible={changeMedicationModalVisible}
+          closeChangeMedicationModalVisible={closeChangeMedicationModalVisible}
+          isSavingRequest={isSavingRequest}
+          handleSaveServiceRequest={handleSaveServiceRequest}
+        />
       )}
     </>
   );

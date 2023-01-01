@@ -79,6 +79,7 @@ export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
   inClinicService?: boolean;
   approval?: string;
   forcedStatus?: string;
+  new_request_price?: number;
 };
 
 export type SaveAttachmentEventType = {

@@ -6,16 +6,22 @@
 const calculatePatientShareAndDiscount = (
   price?: number,
   patientSharePrc?: number,
-  discountPrc?: number
+  discountPrc?: number,
+  newRequestPrice?: number
 ) => {
-  price = price || 0;
+  let foundPrice = price || 0;
+  const priceValue =
+    typeof newRequestPrice === "number" || !!newRequestPrice
+      ? newRequestPrice
+      : foundPrice;
   patientSharePrc = patientSharePrc || 0;
   discountPrc = discountPrc || 0;
 
   return {
-    price,
-    patientShare: +((patientSharePrc / 100) * price).toFixed(2),
-    unit_discount: +((discountPrc / 100) * price).toFixed(2),
+    price: foundPrice,
+    new_request_price: newRequestPrice,
+    patientShare: +((patientSharePrc / 100) * priceValue).toFixed(2),
+    unit_discount: +((discountPrc / 100) * priceValue).toFixed(2),
   };
 };
 

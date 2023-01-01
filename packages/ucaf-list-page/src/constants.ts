@@ -51,6 +51,7 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "prdctcde",
     dataIndex: "service_code",
     width: "5%",
+    titleDataIndex: "original_service_code",
     totalCellProps: {
       isFragment: true,
     },
@@ -59,6 +60,7 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "prodctnam",
     dataIndex: "service_name",
     width: "19%",
+    titleDataIndex: "original_service_code_name",
     totalCellProps: {
       isFragment: true,
     },
@@ -67,6 +69,7 @@ export const REQUESTS_TABLE_COLUMNS = [
     title: "qty",
     dataIndex: "qty",
     width: "4%",
+    titleDataIndex: "original_qty",
     totalCellProps: {
       isFragment: true,
     },
@@ -82,6 +85,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "unitprice",
     dataIndex: "price",
+    titleDataIndex: "original_price",
     width: "4%",
     totalCellProps: {
       isFragment: true,
@@ -122,7 +126,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "rjctrson",
     dataIndex: "rejection_reason",
-    width: "13%",
+    width: "12%",
     totalCellProps: {
       isFragment: true,
     },
@@ -130,7 +134,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "stts",
     dataIndex: "status_name",
-    width: "4.5%",
+    width: "4%",
     totalCellProps: {
       isFragment: true,
     },
