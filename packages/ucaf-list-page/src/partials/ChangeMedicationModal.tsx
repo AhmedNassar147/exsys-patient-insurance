@@ -54,11 +54,11 @@ const ChangeMedicationModal = ({
   handleSaveServiceRequest,
   selectedRecord: {
     provider_no,
-    price,
+    price: oldPrice,
     service_name,
     service_code,
     ucaf_dtl_pk,
-    qty,
+    qty: oldQty,
     delivery_qty,
     delivery_date,
     delivery_doc_no,
@@ -66,6 +66,10 @@ const ChangeMedicationModal = ({
     reply_notes,
     is_system_approved,
     approval_reply,
+    approved_quantity,
+    specialty_type: oldSpecialtyType,
+    patient_share_prc: oldPatientShare,
+    price_disc_prc: oldPriceDiscount,
   },
 }: ChangeMedicationModalProps) => {
   const { pageType } = useParams();
@@ -117,7 +121,7 @@ const ChangeMedicationModal = ({
         value: {
           service_code: service_id,
           service_name,
-          qty,
+          qty: oldQty,
           price,
           inClinicService,
           specialty_type,
@@ -127,7 +131,7 @@ const ChangeMedicationModal = ({
           ...(inClinicService ? null : { delivery_doc_no: undefined }),
         },
       }),
-    []
+    [oldQty, handleChange]
   );
 
   const {
@@ -135,6 +139,9 @@ const ChangeMedicationModal = ({
     service_name: newServiceName,
     qty: newQty,
   } = newServiceData;
+
+  const initialInClinicService =
+    isInPatientUcafType || !!provider_no || !isDoctorUser;
 
   const handleSaveData = useCallback(async () => {
     const {
@@ -144,26 +151,29 @@ const ChangeMedicationModal = ({
       patient_share_prc,
       price_disc_prc,
       approval,
-      price,
+      price: newPrice,
       qty,
+      status: newStatus,
     } = newServiceData;
 
     const data = {
       new_request_price,
       ucaf_dtl_pk,
       service_code: newServiceCode || service_code,
-      price,
-      qty,
-      approved_quantity: qty,
+      price: newServiceCode ? newPrice : oldPrice,
+      approved_quantity: newServiceCode ? qty : approved_quantity,
+      qty: newServiceCode ? qty : oldQty,
+      specialty_type: specialty_type || oldSpecialtyType,
+      inClinicService: newServiceCode
+        ? inClinicService
+        : initialInClinicService,
       delivery_qty,
       delivery_date,
       delivery_doc_no,
       record_status: "u",
-      inClinicService,
-      specialty_type,
-      patient_share_prc,
-      price_disc_prc,
-      status,
+      patient_share_prc: newServiceCode ? patient_share_prc : oldPatientShare,
+      price_disc_prc: newServiceCode ? price_disc_prc : oldPriceDiscount,
+      status: newStatus || status,
       approval,
       reply_notes,
       is_system_approved,
@@ -179,17 +189,19 @@ const ChangeMedicationModal = ({
     newServiceData,
     handleClose,
     handleSaveServiceRequest,
-    price,
+    oldPrice,
     service_code,
     ucaf_dtl_pk,
-    qty,
     delivery_qty,
     delivery_date,
     delivery_doc_no,
+    oldQty,
     status,
     reply_notes,
     is_system_approved,
     approval_reply,
+    oldPatientShare,
+    oldPriceDiscount,
   ]);
 
   const saveDisabled = !(newServiceName || new_request_price);
@@ -211,7 +223,7 @@ const ChangeMedicationModal = ({
       <Flex width="100%" column="true" gap="12px">
         <Flex width="100%" gap="12px" align="center">
           <LabeledViewLikeInput
-            value={price}
+            value={oldPrice}
             label="prc"
             width="150px"
             justify="center"
@@ -251,7 +263,7 @@ const ChangeMedicationModal = ({
           />
 
           <LabeledViewLikeInput
-            value={qty}
+            value={oldQty}
             label="qty"
             width="150px"
             justify="center"
@@ -277,9 +289,7 @@ const ChangeMedicationModal = ({
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
             showAdmissionButton={isInPatientUcafType}
-            initialInClinicService={
-              isInPatientUcafType || !!provider_no || !isDoctorUser
-            }
+            initialInClinicService={initialInClinicService}
           />
         )}
       </Flex>
