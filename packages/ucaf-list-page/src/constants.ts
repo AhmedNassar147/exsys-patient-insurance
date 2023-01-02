@@ -59,7 +59,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "20%",
+    width: "19%",
     titleDataIndex: "original_service_code_name",
     totalCellProps: {
       isFragment: true,
