@@ -59,7 +59,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "19%",
+    width: "20%",
     titleDataIndex: "original_service_code_name",
     totalCellProps: {
       isFragment: true,
@@ -109,7 +109,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "dlvydat",
     dataIndex: "delivery_date",
-    width: "7%",
+    width: "6%",
     totalCellProps: {
       isFragment: true,
     },
@@ -142,7 +142,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "lstdlvydat",
     dataIndex: "last_delivery_date",
-    width: "7%",
+    width: "6%",
     totalCellProps: {
       isFragment: true,
     },
@@ -150,7 +150,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   {
     title: "duedlvydat",
     dataIndex: "due_delivery_date",
-    width: "7%",
+    width: "6%",
     totalCellProps: {
       isFragment: true,
     },
