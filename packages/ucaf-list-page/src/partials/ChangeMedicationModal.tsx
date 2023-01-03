@@ -226,7 +226,7 @@ const ChangeMedicationModal = ({
     <Modal
       width="900px"
       bodyMaxHeight="95%"
-      title="chngsrvce"
+      title="chngprd"
       destroyOnClose
       visible={changeMedicationModalVisible}
       onClose={closeChangeMedicationModalVisible}
@@ -287,7 +287,7 @@ const ChangeMedicationModal = ({
 
             <LabeledViewLikeInput
               value={`${newServiceCode || ""} - ${newServiceName || ""}`}
-              label="newprodctnam"
+              label="newprodct"
               width="45%"
               justify="center"
               ellipsis="true"
@@ -309,7 +309,7 @@ const ChangeMedicationModal = ({
               disabled={!newServiceName}
             />
 
-            <Button label="chngsrvce" type="primary" onClick={handleOpen} />
+            <Button label="chngprd" type="primary" onClick={handleOpen} />
           </Flex>
         )}
 

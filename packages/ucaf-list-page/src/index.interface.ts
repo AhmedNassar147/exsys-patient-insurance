@@ -67,6 +67,9 @@ export interface RequestTableRecordType {
   total_price?: number;
   total_patient_share?: number;
   total_patient_discount?: number;
+  original_price?: number;
+  original_service_code?: string;
+  new_request_price?: number;
 }
 export interface RequestsDataType {
   details: RequestDetailsType;

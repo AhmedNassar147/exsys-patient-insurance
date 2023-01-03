@@ -43,6 +43,7 @@ import {
   TableSelectionChangeActionType,
   onChangeEvent,
   SelectChangeHandlerType,
+  TableRowClassNameType,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
@@ -556,6 +557,16 @@ const UcafListPage = () => {
     return baseColumns;
   }, [openChangeMedicationModalVisible]);
 
+  const tableRowClassName: TableRowClassNameType<RequestTableRecordType> =
+    useCallback(
+      ({ original_price, original_service_code, new_request_price }) => {
+        return !!(new_request_price || original_service_code || original_price)
+          ? "red"
+          : "";
+      },
+      []
+    );
+
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
@@ -690,12 +701,14 @@ const UcafListPage = () => {
           }
         />
 
-        <Button
-          label="ptnthstry"
-          type="primary"
-          onClick={toggleHistoryModal}
-          disabled={!foundPatientCardNo}
-        />
+        {isDoctorUser && (
+          <Button
+            label="ptnthstry"
+            type="primary"
+            onClick={toggleHistoryModal}
+            disabled={!foundPatientCardNo}
+          />
+        )}
       </Flex>
 
       <Flex
@@ -961,6 +974,7 @@ const UcafListPage = () => {
         disabledRowsSelection={disabledRowsSelection}
         onDoubleClick={onTableDoubleClick}
         useAlignedTotalCells
+        rowClassName={tableRowClassName}
       />
 
       {canRenderDiagnosisModal && (

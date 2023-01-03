@@ -60,7 +60,7 @@ export const CHANGE_MEDICATION_RADIO_OPTIONS = [
 export const changeMedicationDataInitialState = {
   new_request_price: undefined,
   newServiceData: {} as ServiceItemValuesForPostApiType,
-  viewType: "",
+  viewType: "M",
 };
 
 export const doctorsProviderListParams = {
