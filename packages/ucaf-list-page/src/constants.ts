@@ -6,7 +6,11 @@
 import type { PatientItemRecordType } from "@exsys-patient-insurance/find-patient-form";
 import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
 import { RecordType } from "@exsys-patient-insurance/types";
-import { RequestsDataType, RequestTableRecordType } from "./index.interface";
+import {
+  RequestsDataType,
+  RequestTableRecordType,
+  ServiceItemValuesForPostApiType,
+} from "./index.interface";
 
 export const initialValues = {
   historyModalShown: false,
@@ -40,6 +44,23 @@ export const initialValues = {
 export const initialDeliveryFormState = {
   admission_date: getCurrentDateString(),
   discharge_date: getCurrentDateString(),
+};
+
+export const CHANGE_MEDICATION_RADIO_OPTIONS = [
+  {
+    label: "chngalt",
+    value: "M",
+  },
+  {
+    label: "chngprc",
+    value: "P",
+  },
+];
+
+export const changeMedicationDataInitialState = {
+  new_request_price: undefined,
+  newServiceData: {} as ServiceItemValuesForPostApiType,
+  viewType: "",
 };
 
 export const doctorsProviderListParams = {

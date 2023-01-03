@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Flex from "@exsys-patient-insurance/flex";
 import Button from "@exsys-patient-insurance/button";
 import InputNumber from "@exsys-patient-insurance/input-number";
+import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Modal from "@exsys-patient-insurance/modal";
@@ -16,15 +17,15 @@ import ServicesModal, {
   OnSelectServiceType,
 } from "@exsys-patient-insurance/services-modal";
 import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
+import { onChangeEvent } from "@exsys-patient-insurance/types";
 import {
   RequestTableRecordType,
   ServiceItemValuesForPostApiType,
 } from "../index.interface";
-
-const changeMedicationDataInitialState = {
-  new_request_price: undefined,
-  newServiceData: {} as ServiceItemValuesForPostApiType,
-};
+import {
+  CHANGE_MEDICATION_RADIO_OPTIONS,
+  changeMedicationDataInitialState,
+} from "../constants";
 
 interface ChangeMedicationModalProps {
   selectedRecord: RequestTableRecordType;
@@ -77,8 +78,9 @@ const ChangeMedicationModal = ({
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
   const {
-    values: { new_request_price, newServiceData },
+    values: { new_request_price, newServiceData, viewType },
     handleChange,
+    handleChangeMultipleInputs,
   } = useFormManager({
     initialValues: changeMedicationDataInitialState,
   });
@@ -206,6 +208,20 @@ const ChangeMedicationModal = ({
 
   const saveDisabled = !(newServiceName || new_request_price);
 
+  const handleChangeViewType: onChangeEvent = useCallback(
+    ({ name, value }) => {
+      handleChangeMultipleInputs({
+        [name]: value,
+        new_request_price: changeMedicationDataInitialState.new_request_price,
+        newServiceData: changeMedicationDataInitialState.newServiceData,
+      });
+    },
+    [handleChangeMultipleInputs]
+  );
+
+  const showPriceView = viewType === "P";
+  const showMedicationView = viewType === "M";
+
   return (
     <Modal
       width="900px"
@@ -221,65 +237,81 @@ const ChangeMedicationModal = ({
       maskClosable={false}
     >
       <Flex width="100%" column="true" gap="12px">
-        <Flex width="100%" gap="12px" align="center">
-          <LabeledViewLikeInput
-            value={oldPrice}
-            label="prc"
-            width="150px"
-            justify="center"
-          />
-
-          <InputNumber
-            name="new_request_price"
-            value={new_request_price}
-            width="150px"
-            label="newprc"
-            onChange={handleChange}
+        <Flex width="100%" justify="center">
+          <SelectionCheckGroup
+            label="view"
+            labelType="inlined"
+            value={viewType}
+            name="viewType"
+            mode="radio"
+            options={CHANGE_MEDICATION_RADIO_OPTIONS}
+            onChange={handleChangeViewType}
           />
         </Flex>
 
-        <Flex
-          width="100%"
-          gap="12px"
-          align="center"
-          wrap="true"
-          bordered
-          padding="12px 4px"
-        >
-          <LabeledViewLikeInput
-            value={`${service_code} - ${service_name}`}
-            label="prodctnam"
-            width="45%"
-            justify="center"
-            ellipsis="true"
-          />
+        {showPriceView && (
+          <Flex width="100%" gap="12px" align="center">
+            <LabeledViewLikeInput
+              value={oldPrice}
+              label="prc"
+              width="150px"
+              justify="center"
+            />
 
-          <LabeledViewLikeInput
-            value={`${newServiceCode || ""} - ${newServiceName || ""}`}
-            label="newprodctnam"
-            width="45%"
-            justify="center"
-            ellipsis="true"
-          />
+            <InputNumber
+              name="new_request_price"
+              value={new_request_price}
+              width="150px"
+              label="newprc"
+              onChange={handleChange}
+            />
+          </Flex>
+        )}
 
-          <LabeledViewLikeInput
-            value={oldQty}
-            label="qty"
-            width="150px"
-            justify="center"
-          />
+        {showMedicationView && (
+          <Flex
+            width="100%"
+            gap="12px"
+            align="center"
+            wrap="true"
+            bordered
+            padding="12px 4px"
+          >
+            <LabeledViewLikeInput
+              value={`${service_code} - ${service_name}`}
+              label="prodctnam"
+              width="45%"
+              justify="center"
+              ellipsis="true"
+            />
 
-          <InputNumber
-            name="newServiceData.qty"
-            value={newQty}
-            width="150px"
-            label="newqty"
-            onChange={handleChange}
-            disabled={!newServiceName}
-          />
+            <LabeledViewLikeInput
+              value={`${newServiceCode || ""} - ${newServiceName || ""}`}
+              label="newprodctnam"
+              width="45%"
+              justify="center"
+              ellipsis="true"
+            />
 
-          <Button label="chngsrvce" type="primary" onClick={handleOpen} />
-        </Flex>
+            <LabeledViewLikeInput
+              value={oldQty}
+              label="qty"
+              width="150px"
+              justify="center"
+            />
+
+            <InputNumber
+              name="newServiceData.qty"
+              value={newQty}
+              width="150px"
+              label="newqty"
+              onChange={handleChange}
+              disabled={!newServiceName}
+            />
+
+            <Button label="chngsrvce" type="primary" onClick={handleOpen} />
+          </Flex>
+        )}
 
         {shouldRenderServiceModal && (
           <ServicesModal

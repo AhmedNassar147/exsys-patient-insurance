@@ -14,5 +14,13 @@
   },
   "files.trimTrailingWhitespace": true,
   "editor.rulers": [100],
-  "cSpell.words": ["chngsrvce", "dschrge", "newprc", "newprodctnam", "newqty"]
+  "cSpell.words": [
+    "chngalt",
+    "chngprc",
+    "chngsrvce",
+    "dschrge",
+    "newprc",
+    "newprodctnam",
+    "newqty"
+  ]
 }
