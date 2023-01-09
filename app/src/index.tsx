@@ -3,7 +3,7 @@
  * Index: `App`.
  *
  */
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import AppGlobalStyles from "@exsys-patient-insurance/app-global-styles";
 import App from "./App";
@@ -14,10 +14,12 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <StrictMode>
+  <>
+    {/* <StrictMode> */}
     <AppGlobalStyles />
     <App />
-  </StrictMode>
+    {/* </StrictMode> */}
+  </>
 );
 
 reportWebVitals();

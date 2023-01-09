@@ -15,13 +15,26 @@
   "files.trimTrailingWhitespace": true,
   "editor.rulers": [100],
   "cSpell.words": [
+    "adistns",
+    "cancelations",
     "chngalt",
     "chngprc",
     "chngprd",
+    "clientid",
+    "cncltins",
+    "datet",
+    "dependants",
+    "dpndnts",
     "dschrge",
+    "emplyes",
     "newprc",
     "newprodct",
     "newprodctnam",
-    "newqty"
+    "newqty",
+    "nofvst",
+    "prents",
+    "ptntnm",
+    "ttlvists",
+    "vstno"
   ]
 }

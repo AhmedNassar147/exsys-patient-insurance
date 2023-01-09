@@ -1,0 +1,19 @@
+{
+  "name": "@exsys-patient-insurance/pie-chart",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React component to render a custom pie chart.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/labels-provider": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.x.x",
+    "react-minimal-pie-chart": "^8.x.x"
+  },
+  "enableBabelTranspilation": true
+}

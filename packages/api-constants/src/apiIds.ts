@@ -67,6 +67,19 @@ const API_IDS = {
   QUERY_JOB_ID_LIST: "mi_web_user/pop_job_list",
   // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/pop_patient_active_ucaf?authorization=201792&patient_card_no=2222&provider_no=11264
   QUERY_UCAF_SERIAL_LIST: "mi_ucaf_request/pop_patient_active_ucaf",
+  // http://149.102.140.8:9090/ords/exsysexsysdba/mi_pkg/pop_mi_customers?planguageid=1&authorization=2036718
+  QUERY_ACCOUNTS_LIST: "mi_pkg/pop_mi_customers",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_patient?authorization=3037948&client_id=100127&date_to=10-11-2023
+  QUERY_CLIENT_DASHBOARD_PATIENT_CHART_DATA: "mi_desk_top/mi_client_patient",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_additions_patient?authorization=3037948&client_id=100127&date_from=01-01-2020&date_to=10-11-2020
+  QUERY_CLIENT_DASHBOARD_ADDITION_PATIENT_CHART_DATA:
+    "mi_desk_top/mi_client_additions_patient",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_cancelations_patient?authorization=3037948&client_id=100127&date_from=01-01-2020&date_to=10-11-2020
+  QUERY_CLIENT_DASHBOARD_CANCELATION_PATIENT_CHART_DATA:
+    "mi_desk_top/mi_client_cancelations_patient",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_top_patient_visit?authorization=3037948&client_id=100127&date_from=01-01-2020&date_to=10-11-2020&no_of_visit=5
+  QUERY_CLIENT_DASHBOARD_PATIENT_TOP_VISITS_TABLE_DATA:
+    "mi_desk_top/mi_client_top_patient_visit",
 };
 
 export default API_IDS;

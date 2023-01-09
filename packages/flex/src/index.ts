@@ -42,11 +42,11 @@ export interface FlexProps extends EllipsisCssHelperProps, TextFontSizeProps {
   bordered?: boolean;
   dashed?: boolean;
   inlined?: boolean;
-  borderColor?: ColorsType;
+  borderColor?: ColorsType | string;
   order?: number;
   maxHeight?: string;
   cursor?: string;
-  color?: ColorsType;
+  color?: ColorsType | string;
   fontWeight?: string;
 }
 
@@ -98,12 +98,12 @@ export default styled.div<FlexProps>`
   ${({ borderColor }) =>
     borderColor &&
     `
-    border-color: ${colors[borderColor]};
+    border-color: ${colors[borderColor as ColorsType] || borderColor};
   `};
   ${({ color }) =>
     color &&
     `
-    color: ${colors[color]};
+    color: ${colors[color as ColorsType] || color};
   `};
   ${({ cursor }) =>
     cursor &&

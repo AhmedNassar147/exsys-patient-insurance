@@ -11,6 +11,7 @@
     "@exsys-patient-insurance/app-config-store": "1.0.0",
     "@exsys-patient-insurance/button": "1.0.0",
     "@exsys-patient-insurance/date-picker-field": "1.0.0",
+    "@exsys-patient-insurance/details-icon": "1.0.0",
     "@exsys-patient-insurance/diagnosis-modal": "1.0.0",
     "@exsys-patient-insurance/exsys-table": "1.0.0",
     "@exsys-patient-insurance/file-upload-input-field": "1.0.0",
