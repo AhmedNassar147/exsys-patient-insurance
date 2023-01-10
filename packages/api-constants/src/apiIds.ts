@@ -69,7 +69,7 @@ const API_IDS = {
   QUERY_UCAF_SERIAL_LIST: "mi_ucaf_request/pop_patient_active_ucaf",
   // http://149.102.140.8:9090/ords/exsysexsysdba/mi_pkg/pop_mi_customers?planguageid=1&authorization=2036718
   QUERY_ACCOUNTS_LIST: "mi_pkg/pop_mi_customers",
-  // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_patient?authorization=3037948&client_id=100127&date_to=10-11-2023
+  // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_patient?authorization=3037948&client_id=100127
   QUERY_CLIENT_DASHBOARD_PATIENT_CHART_DATA: "mi_desk_top/mi_client_patient",
   // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_additions_patient?authorization=3037948&client_id=100127&date_from=01-01-2020&date_to=10-11-2020
   QUERY_CLIENT_DASHBOARD_ADDITION_PATIENT_CHART_DATA:

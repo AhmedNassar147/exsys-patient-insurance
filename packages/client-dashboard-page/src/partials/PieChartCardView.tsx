@@ -30,8 +30,8 @@ const PieChartCardView = ({
     <ChartCardView width={width}>
       <PageTitle
         children={title}
-        bottomborder
-        center
+        bottomborder="true"
+        center="true"
         padding="5px 0"
         width="100%"
         margin="0"

@@ -36,9 +36,9 @@ const PieChartCardViewWithApiQuery = ({
     setDataSource(data || []);
   }, []);
 
-  const { date_to, date_form, client_id } = params;
+  const { date_to, date_from, client_id } = params;
 
-  const skipQuery = !client_id || !date_to || !date_form;
+  const skipQuery = !client_id || !date_to || !date_from;
 
   const { loading } = useBasicQuery({
     apiId,

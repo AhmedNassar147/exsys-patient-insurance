@@ -7,55 +7,42 @@ import { memo, useMemo } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
 import DatePickerField from "@exsys-patient-insurance/date-picker-field";
-import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
 import TableWithApiQuery from "@exsys-patient-insurance/exsys-table-with-api-query";
-import SelectField from "@exsys-patient-insurance/select-field";
+import InputNumber from "@exsys-patient-insurance/input-number";
+import { useAppConfigStore } from "@exsys-patient-insurance/app-config-store";
 import PatientBaseChartsView from "./partials/PatientBaseChartsView";
 import PieChartCardViewWithApiQuery from "./partials/PieChartCardViewWithApiQuery";
-import {
-  initialState,
-  NO_OF_VISITS_OPTIONS,
-  TABLE_COLUMNS,
-  CARD_HEIGHT,
-} from "./constants";
+import { initialState, TABLE_COLUMNS, CARD_HEIGHT } from "./constants";
 
 const ClientDashboardPage = () => {
   const {
-    values: { date_to, date_form, client_id, no_of_visit },
+    values: { date_to, date_from, no_of_visit },
     handleChange,
   } = useFormManager({
     initialValues: initialState,
   });
 
+  const {
+    state: { client_id },
+  } = useAppConfigStore();
+
   const memoizedParams = useMemo(
     () => ({
       date_to,
-      date_form,
+      date_from,
       client_id,
     }),
-    [date_to, date_form, client_id]
+    [date_to, date_from, client_id]
   );
 
-  const skipQuery = !client_id || !date_to || !date_form;
+  const skipQuery = !date_to || !date_from;
 
   return (
     <>
       <Flex gap="12px" align="center" bordered padding="10px">
-        <SelectWithApiQuery
-          queryType="query"
-          apiOrCodeId="QUERY_ACCOUNTS_LIST"
-          callOnFirstRender
-          value={client_id}
-          name="client_id"
-          onChange={handleChange}
-          width="350px"
-          label="clientid"
-          allowClear={false}
-        />
-
         <DatePickerField
-          name="date_form"
-          value={date_form}
+          name="date_from"
+          value={date_from}
           onChange={handleChange}
           width="120px"
           label="datefrm"
@@ -66,16 +53,16 @@ const ClientDashboardPage = () => {
           onChange={handleChange}
           width="120px"
           label="datet"
-          min={date_form}
+          min={date_from}
         />
 
-        <SelectField
+        <InputNumber
           label="nofvst"
           name="no_of_visit"
           value={no_of_visit}
           onChange={handleChange}
           width="120px"
-          options={NO_OF_VISITS_OPTIONS}
+          min={1}
         />
       </Flex>
 
@@ -86,7 +73,7 @@ const ClientDashboardPage = () => {
         justify="center"
         margin="10px 0px"
       >
-        <PatientBaseChartsView params={memoizedParams} />
+        <PatientBaseChartsView />
 
         <PieChartCardViewWithApiQuery
           title="adistns"
@@ -108,7 +95,7 @@ const ClientDashboardPage = () => {
           title="this month chart"
           apiId="QUERY_CLIENT_DASHBOARD_CANCELATION_PATIENT_CHART_DATA"
           params={memoizedParams}
-          width="calc(100% - 60% - 20px)"
+          width="calc(100% - 60% - 10px)"
         />
 
         <TableWithApiQuery
@@ -121,7 +108,7 @@ const ClientDashboardPage = () => {
           height={CARD_HEIGHT}
           margin="0"
           baseQueryAPiParams={{
-            no_of_visit: no_of_visit,
+            no_of_visit,
             ...memoizedParams,
           }}
         />

@@ -46,6 +46,7 @@ export interface AppConfigStateType {
   privileges: RecordType<PrivilegeItem>;
   homePageUrl: string;
   loggedInUserName: string;
+  client_id: number;
 }
 
 export * from "./base.interface";

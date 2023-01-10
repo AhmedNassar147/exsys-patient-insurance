@@ -9,11 +9,30 @@ const to2Digits = (value: string) =>
 type GetCurrentDateStringOptionsType = {
   useNativeInputFormat?: boolean;
   useDateTime?: boolean;
+  year?: number;
+  month?: number;
+  day?: number;
 };
 
 const getCurrentDateString = (options?: GetCurrentDateStringOptionsType) => {
   const date = new Date();
-  const { useNativeInputFormat, useDateTime } = options || {};
+
+  const {
+    useNativeInputFormat,
+    useDateTime,
+    year: newYear,
+    month: newMonth,
+    day: newDay,
+  } = options || {};
+
+  if (newYear || newMonth || newDay) {
+    date.setFullYear(
+      newYear || date.getFullYear(),
+      newMonth || date.getMonth(),
+      newDay || date.getDate()
+    );
+  }
+
   const [day, month, year] = new Intl.DateTimeFormat(["ban", "id"])
     .format(date)
     .split("/");

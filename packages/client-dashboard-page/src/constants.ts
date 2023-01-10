@@ -6,16 +6,16 @@
 import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
 
 export const initialState = {
-  date_form: getCurrentDateString(),
-  date_to: getCurrentDateString(),
-  client_id: "",
-  no_of_visit: undefined,
+  date_from: getCurrentDateString({
+    day: 1,
+    month: 0,
+  }),
+  date_to: getCurrentDateString({
+    day: 31,
+    month: 11,
+  }),
+  no_of_visit: 1,
 };
-
-export const NO_OF_VISITS_OPTIONS = [5, 10, 15].map((value) => ({
-  key: value,
-  value,
-}));
 
 export const TABLE_COLUMNS = [
   {

@@ -8,16 +8,16 @@
   "main": "src/",
   "sideEffects": false,
   "dependencies": {
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
     "@exsys-patient-insurance/async-awaiter": "1.0.0",
     "@exsys-patient-insurance/date-picker-field": "1.0.0",
     "@exsys-patient-insurance/exsys-table-with-api-query": "1.0.0",
     "@exsys-patient-insurance/flex": "1.0.0",
     "@exsys-patient-insurance/form-manager": "1.0.0",
     "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/input-number": "1.0.0",
     "@exsys-patient-insurance/network-hooks": "1.0.0",
     "@exsys-patient-insurance/pie-chart": "1.0.0",
-    "@exsys-patient-insurance/select-field": "1.0.0",
-    "@exsys-patient-insurance/select-with-api-query": "1.0.0",
     "@exsys-patient-insurance/text": "1.0.0",
     "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"

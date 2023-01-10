@@ -7,7 +7,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import { spacings } from "@exsys-patient-insurance/theme-values";
 // @ts-ignore ignore this foe now
-import mainLogo from "../../../app/src/assets/mainLogo.png";
+import mainLogo from "../../../app/src/assets/mainLogo.svg";
 
 interface AppLogoImageProps {
   width?: string;
