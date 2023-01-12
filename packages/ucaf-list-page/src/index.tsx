@@ -38,12 +38,15 @@ import DiagnosisModal, {
   OnSelectDiagnosisType,
 } from "@exsys-patient-insurance/diagnosis-modal";
 import { UPLOAD_ACCEPTED_EXTENSIONS } from "@exsys-patient-insurance/global-app-constants";
+import { colors } from "@exsys-patient-insurance/theme-values";
+import { PdfDocumentModal } from "@exsys-patient-insurance/document-modal";
 import {
   TableBodyRowClickEvent,
   TableSelectionChangeActionType,
   onChangeEvent,
   SelectChangeHandlerType,
   TableRowClassNameType,
+  RecordTypeWithAnyValue,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
@@ -64,6 +67,8 @@ import {
 import { RequestTableRecordType } from "./index.interface";
 
 const { IMAGES_AND_FILES } = UPLOAD_ACCEPTED_EXTENSIONS;
+
+const { red } = colors;
 
 const UcafListPage = () => {
   const { isDoctorUser, isPharmacyUser } = useCurrentUserType();
@@ -601,9 +606,6 @@ const UcafListPage = () => {
   const areFieldsDisabled =
     hasPatientExceededLimits || !!reviwed_date || canNotUserInsert;
 
-  const canRenderDiagnosisModal =
-    !areFieldsDisabled && !!foundPatientCardNo && !!doctor_department_id;
-
   const baseIsEditableFieldsDisabled =
     isDataWrittenByDoctorAndProviderView ||
     hasPatientExceededLimits ||
@@ -628,6 +630,18 @@ const UcafListPage = () => {
     organization_no: root_organization_no,
     patientfileno: foundPatientCardNo,
   };
+
+  const reportData = useMemo(() => {
+    let params = {
+      P_UCAF_ID: ucaf_id,
+    } as RecordTypeWithAnyValue;
+
+    if (!isDoctorUser) {
+      params.P_PROVIDER_NO = globalProviderNo;
+    }
+
+    return params;
+  }, [isDoctorUser, ucaf_id, globalProviderNo]);
 
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
   const linkItemsRowsLength = linkItemsRows?.length ?? 0;
@@ -663,6 +677,7 @@ const UcafListPage = () => {
           label="srchucafreqs"
           onClick={onSearchRequests}
           type="primary"
+          padding="0 5px"
           loading={requestsLoading}
           disabled={!paper_serial || searchRequestsDisabled}
         />
@@ -670,7 +685,7 @@ const UcafListPage = () => {
         <SelectWithApiQuery
           label="docprvdrnam"
           value={doctor_provider_no}
-          width="300px"
+          width="280px"
           apiOrCodeId="QUERY_PROVIDER_NAMES_LIST"
           queryType="query"
           name="requestsData.details.doctor_provider_no"
@@ -687,7 +702,7 @@ const UcafListPage = () => {
         <SelectWithApiQuery
           label="spec"
           value={doctor_department_id}
-          width="210px"
+          width="200px"
           apiOrCodeId="QUERY_MI_DEPARTMENTS_LIST"
           queryType="query"
           name="requestsData.details.doctor_department_id"
@@ -707,6 +722,15 @@ const UcafListPage = () => {
             type="primary"
             onClick={toggleHistoryModal}
             disabled={!foundPatientCardNo}
+            padding="0 5px"
+          />
+        )}
+
+        {!!doctor_provider_no && !!doctor_department_id && (
+          <PdfDocumentModal
+            usePrintIcon
+            documentName="MIUCAF"
+            reportData={reportData}
           />
         )}
       </Flex>
@@ -741,10 +765,9 @@ const UcafListPage = () => {
             width="100%"
             value={primary_diagnosis}
             ellipsis="true"
-            onClick={
-              !canRenderDiagnosisModal || isEditableFieldsDisabled
-                ? undefined
-                : handleOpen
+            onClick={isEditableFieldsDisabled ? undefined : handleOpen}
+            borderColor={
+              !isEditableFieldsDisabled && !primary_diagnosis ? red : undefined
             }
           />
 
@@ -781,6 +804,8 @@ const UcafListPage = () => {
                 min={1}
                 onChange={handleChange}
                 disabled={isEditableFieldsDisabled}
+                useRedBorderWhenError
+                error={!isEditableFieldsDisabled && !expected_days ? " " : ""}
               />
 
               <InputNumber
@@ -791,6 +816,8 @@ const UcafListPage = () => {
                 min={1}
                 onChange={handleChange}
                 disabled={isEditableFieldsDisabled}
+                useRedBorderWhenError
+                error={!isEditableFieldsDisabled && !expected_amount ? " " : ""}
               />
             </>
           )}
@@ -977,7 +1004,7 @@ const UcafListPage = () => {
         rowClassName={tableRowClassName}
       />
 
-      {canRenderDiagnosisModal && (
+      {!isEditableFieldsDisabled && (
         <DiagnosisModal
           visible={visible}
           onClose={handleClose}

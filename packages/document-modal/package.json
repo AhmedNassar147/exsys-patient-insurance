@@ -1,0 +1,27 @@
+{
+  "name": "@exsys-patient-insurance/document-modal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generic modal component to view and print Exsys Reports.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "dependencies": {
+    "@exsys-patient-insurance/app-config-store": "1.0.0",
+    "@exsys-patient-insurance/button": "1.0.0",
+    "@exsys-patient-insurance/flex": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
+    "@exsys-patient-insurance/hooks": "1.0.0",
+    "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/modal-carousel": "1.0.0",
+    "@exsys-patient-insurance/printer-icon": "1.0.0",
+    "@exsys-patient-insurance/react-lazy": "1.0.0",
+    "@exsys-patient-insurance/selection-check-group": "1.0.0",
+    "@exsys-patient-insurance/types": "1.0.0"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.x.x"
+  },
+  "enableBabelTranspilation": true
+}

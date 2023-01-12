@@ -68,7 +68,7 @@ const useRequestUcafBySerialNo = ({
           patientExceedLimit,
         } = details || {};
 
-        if (!doctor_provider_no) {
+        if (!doctor_provider_no && !error) {
           addNotification({
             type: "error",
             message: "invldsrialno",
@@ -81,6 +81,14 @@ const useRequestUcafBySerialNo = ({
           addNotification({
             type: "error",
             message: "ptntexceedlimit",
+          });
+        }
+
+        if (error) {
+          addNotification({
+            type: "error",
+            message: error,
+            duration: 4000,
           });
         }
 

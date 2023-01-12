@@ -1,9 +1,9 @@
 {
-  "short_name": "true tpa",
-  "name": "True TPA - Exsys Solutions",
+  "short_name": "clinio tpa",
+  "name": "Clinio TPA - Exsys Solutions",
   "icons": [
     {
-      "src": "tpa.ico",
+      "src": "clinioTpa.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }

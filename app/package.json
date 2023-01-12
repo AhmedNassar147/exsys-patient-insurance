@@ -18,6 +18,7 @@
     "@exsys-patient-insurance/close-icon": "1.0.0",
     "@exsys-patient-insurance/customize-webpack": "1.0.0",
     "@exsys-patient-insurance/date-picker-field": "1.0.0",
+    "@exsys-patient-insurance/document-modal": "1.0.0",
     "@exsys-patient-insurance/delete-icon": "1.0.0",
     "@exsys-patient-insurance/details-icon": "1.0.0",
     "@exsys-patient-insurance/download-excel": "1.0.0",

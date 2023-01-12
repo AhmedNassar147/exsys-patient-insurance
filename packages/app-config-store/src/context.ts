@@ -28,6 +28,8 @@ export const initialState: AppConfigStateType = {
   homePageUrl: "/",
   loggedInUserName: "",
   client_id: 0,
+  report_server_url: "",
+  report_server_userid: "",
 };
 
 export default createContext<AppConfigStoreApi>({

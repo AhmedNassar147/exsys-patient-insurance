@@ -14,4 +14,5 @@ export { default as useEffectWithTimeout } from "./useEffectWithTimeout";
 export { default as useTableInputChangeCallback } from "./useTableInputChangeCallback";
 export { default as useCurrentPagePrivileges } from "./useCurrentPagePrivileges";
 export { default as useFilesFullUrlsFromRelativePaths } from "./useFilesFullUrlsFromRelativePaths";
+export { default as useCreateVisibilityRef } from "./useCreateVisibilityRef";
 export * from "./useOpenCloseActionsWithState";

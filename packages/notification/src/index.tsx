@@ -3,7 +3,7 @@
  * Package: `@exsys-patient-insurance/notification`.
  *
  */
-import React, {
+import {
   memo,
   useCallback,
   useEffect,

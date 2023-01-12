@@ -1,5 +1,3 @@
-import React from "react";
-
 /*
  *
  * Types: `@exsys-patient-insurance/notification`.

@@ -192,6 +192,7 @@ const FindPatientForm = ({
           disabled={searchDisabled}
           onClick={onSearchPatients}
           type="primary"
+          padding="0 5px"
           loading={patientSearchLoading}
         />
       </Flex>

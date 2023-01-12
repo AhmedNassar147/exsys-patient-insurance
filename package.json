@@ -35,6 +35,7 @@
     "@exsys-patient-insurance/exsys-table-with-api-query": "1.0.0",
     "@exsys-patient-insurance/eye-icon": "1.0.0",
     "@exsys-patient-insurance/field-error-hint": "1.0.0",
+    "@exsys-patient-insurance/document-modal": "1.0.0",
     "@exsys-patient-insurance/file-pdf-icon": "1.0.0",
     "@exsys-patient-insurance/file-upload-input-field": "1.0.0",
     "@exsys-patient-insurance/files-gallery": "1.0.0",

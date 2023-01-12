@@ -47,6 +47,8 @@ export interface AppConfigStateType {
   homePageUrl: string;
   loggedInUserName: string;
   client_id: number;
+  report_server_url: string;
+  report_server_userid: string;
 }
 
 export * from "./base.interface";
@@ -58,3 +60,4 @@ export * from "./downloadExcel.interface";
 export * from "./file-upload.interface";
 export * from "./swipe-views.interface";
 export * from "./carousel.interface";
+export * from "./document.interface";

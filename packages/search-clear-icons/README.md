@@ -9,7 +9,7 @@
 # 🔨 Usage Examples
 
 ```typescript
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
 
 const MyComponent = () => {

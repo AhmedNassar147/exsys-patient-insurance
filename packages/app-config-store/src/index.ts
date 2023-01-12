@@ -21,3 +21,4 @@ export { default as usePagePrivilege } from "./hooks/usePagePrivilege";
 export { default as useHomePageUrl } from "./hooks/useHomePageUrl";
 export { default as useCurrentProviderCategory } from "./hooks/useCurrentProviderCategory";
 export { default as useLoggedInUserName } from "./hooks/useLoggedInUserName";
+export { default as useMakeSelectReportData } from "./hooks/useMakeSelectReportData";
