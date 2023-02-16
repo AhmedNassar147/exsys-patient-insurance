@@ -72,7 +72,7 @@ const SalesDetailsPage = () => {
           min={date_from}
         />
         <SelectWithApiQuery
-          label="brnch"
+          label="tpaname"
           name="root_organization_no"
           width="350px"
           value={root_organization_no}

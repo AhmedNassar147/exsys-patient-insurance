@@ -19,19 +19,19 @@ export const initialFormFilterValues = {
 
 export const TABLE_COLUMNS = [
   {
-    title: "ptntnm",
-    dataIndex: "patient_name",
-    width: "20%",
-    render: (patient_name: string, { card_no }: SalesDetailsRecordType) =>
-      `${card_no} ${patient_name}`,
+    title: "batchno",
+    dataIndex: "batch_no",
+    width: "9%",
     totalCellProps: {
       isFragment: true,
     },
   },
   {
-    title: "batchno",
-    dataIndex: "batch_no",
-    width: "9%",
+    title: "ptntnm",
+    dataIndex: "patient_name",
+    width: "20%",
+    render: (patient_name: string, { card_no }: SalesDetailsRecordType) =>
+      `${card_no} ${patient_name}`,
     totalCellProps: {
       isFragment: true,
     },
