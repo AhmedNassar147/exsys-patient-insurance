@@ -52,7 +52,7 @@ export const CHANGE_MEDICATION_RADIO_OPTIONS = [
     value: "M",
   },
   {
-    label: "chngprc",
+    label: "chngprcandqty",
     value: "P",
   },
 ];
@@ -88,7 +88,7 @@ export const REQUESTS_TABLE_COLUMNS = [
   },
   {
     title: "qty",
-    dataIndex: "qty",
+    dataIndex: "qty_unit",
     width: "4%",
     titleDataIndex: "original_qty",
     totalCellProps: {
@@ -113,14 +113,14 @@ export const REQUESTS_TABLE_COLUMNS = [
     },
   },
   {
-    title: "totalprc",
-    dataIndex: "total_price",
-    width: "4.5%",
-  },
-  {
     title: "totdiscount",
     dataIndex: "total_patient_discount",
     width: "6%",
+  },
+  {
+    title: "totalprc",
+    dataIndex: "total_price",
+    width: "4.5%",
   },
   {
     title: "totptntshr",
@@ -205,6 +205,10 @@ export const CLAIM_TYPES_RADIO_OPTIONS = [
   {
     label: "chrnc",
     value: "C",
+  },
+  {
+    label: "crticl",
+    value: "T",
   },
   {
     label: "excptnal",

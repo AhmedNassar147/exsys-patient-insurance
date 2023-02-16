@@ -145,6 +145,8 @@ const ChangeMedicationModal = ({
   const initialInClinicService =
     isInPatientUcafType || !!provider_no || !isDoctorUser;
 
+  const showPriceView = viewType === "P";
+
   const handleSaveData = useCallback(async () => {
     const {
       service_code: newServiceCode,
@@ -163,8 +165,12 @@ const ChangeMedicationModal = ({
       ucaf_dtl_pk,
       service_code: newServiceCode || service_code,
       price: newServiceCode ? newPrice : oldPrice,
-      approved_quantity: newServiceCode ? qty : approved_quantity,
-      qty: newServiceCode ? qty : oldQty,
+      qty: newServiceCode ? qty : showPriceView ? qty || oldQty : oldQty,
+      approved_quantity: newServiceCode
+        ? qty
+        : showPriceView
+        ? qty || approved_quantity
+        : approved_quantity,
       specialty_type: specialty_type || oldSpecialtyType,
       inClinicService: newServiceCode
         ? inClinicService
@@ -204,6 +210,7 @@ const ChangeMedicationModal = ({
     approval_reply,
     oldPatientShare,
     oldPriceDiscount,
+    showPriceView,
   ]);
 
   const saveDisabled = !(newServiceName || new_request_price);
@@ -219,7 +226,6 @@ const ChangeMedicationModal = ({
     [handleChangeMultipleInputs]
   );
 
-  const showPriceView = viewType === "P";
   const showMedicationView = viewType === "M";
 
   return (
@@ -263,6 +269,21 @@ const ChangeMedicationModal = ({
               value={new_request_price}
               width="150px"
               label="newprc"
+              onChange={handleChange}
+            />
+
+            <LabeledViewLikeInput
+              value={oldQty}
+              label="qty"
+              width="150px"
+              justify="center"
+            />
+
+            <InputNumber
+              name="newServiceData.qty"
+              value={newQty}
+              width="150px"
+              label="newqty"
               onChange={handleChange}
             />
           </Flex>

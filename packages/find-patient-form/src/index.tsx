@@ -185,6 +185,7 @@ const FindPatientForm = ({
           onChange={handleMainFieldsChangeAndResetFrom}
           onPressEnter={onSearchPatients}
           disabled={patientSearchLoading}
+          autoCapitalize
         />
 
         <Button
