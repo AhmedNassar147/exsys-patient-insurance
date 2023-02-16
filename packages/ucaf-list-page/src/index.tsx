@@ -634,6 +634,7 @@ const UcafListPage = () => {
   const reportData = useMemo(() => {
     let params = {
       P_UCAF_ID: ucaf_id,
+      P_ORGANIZATION_NO: root_organization_no,
     } as RecordTypeWithAnyValue;
 
     if (!isDoctorUser) {
@@ -641,7 +642,7 @@ const UcafListPage = () => {
     }
 
     return params;
-  }, [isDoctorUser, ucaf_id, globalProviderNo]);
+  }, [isDoctorUser, ucaf_id, globalProviderNo, root_organization_no]);
 
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
   const linkItemsRowsLength = linkItemsRows?.length ?? 0;
