@@ -28,7 +28,7 @@ export const BasePageWrapper = styled(Flex)`
   right: 2px;
   top: ${APP_HEADER_HEIGHT};
   bottom: 0;
-  width: 100%;
+  width: calc(100% - 4px);
   height: ${height};
 `;
 

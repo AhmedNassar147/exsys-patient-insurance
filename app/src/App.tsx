@@ -15,6 +15,7 @@ import UcafListPage from "@exsys-patient-insurance/ucaf-list-page";
 import MiBatchesPage from "@exsys-patient-insurance/mi-batches-page";
 import UsersListPage from "@exsys-patient-insurance/users-list-page";
 import ClientDashboardPage from "@exsys-patient-insurance/client-dashboard-page";
+import SalesDetailsPage from "@exsys-patient-insurance/sales-details-page";
 
 const App = () => (
   <>
@@ -34,6 +35,7 @@ const App = () => (
                     path="clientDBoard"
                     element={<ClientDashboardPage />}
                   />
+                  <Route path="salesDetails" element={<SalesDetailsPage />} />
                 </Routes>
               </BasePageWrapper>
             </Suspense>

@@ -35,6 +35,16 @@ const ICONS_PROPS = {
     ),
     viewBox: "64 64 896 896",
   },
+  "Report.svg": {
+    children: (
+      <path
+        d="M5,9h18v1H5V9z M5,13h8v9H5V13z M6,21h6v-7H6V21z M16,14h7v-1h-7V14z M16,16h7v-1h-7V16z M16,20h7v-1
+          h-7V20z M16,18h7v-1h-7V18z M16,22h7v-1h-7V22z M32,7v17c0,2.206-1.794,4-4,4H4c-2.206,0-4-1.794-4-4V5c0-0.552,0.448-1,1-1h26
+          c0.552,0,1,0.448,1,1v1h3C31.552,6,32,6.448,32,7z M30,8h-3v14h-1V7V6H2v18c0,1.103,0.897,2,2,2h24c1.103,0,2-0.897,2-2V8z"
+      />
+    ),
+    viewBox: "0 0 32 32",
+  },
   "Services.svg": {
     height: "1.7em",
     width: "2em",

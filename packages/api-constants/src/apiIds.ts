@@ -80,6 +80,9 @@ const API_IDS = {
   // http://149.102.140.8:9090/ords/exsys_api/mi_desk_top/mi_client_top_patient_visit?authorization=3037948&client_id=100127&date_from=01-01-2020&date_to=10-11-2020&no_of_visit=5
   QUERY_CLIENT_DASHBOARD_PATIENT_TOP_VISITS_TABLE_DATA:
     "mi_desk_top/mi_client_top_patient_visit",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_provider_request/get_provider_sales_details?authorization=3087133&provider_account_no=&provider_no=&date_from=01-12-2022&date_to=01-01-2023&planguageid=1&poffset=0&root_organization_no=001
+  QUERY_SALE_DETAILS_TABLE_DATA:
+    "mi_provider_request/get_provider_sales_details",
 };
 
 export default API_IDS;

@@ -31,3 +31,4 @@ export { default as createFullImageUrl } from "./createFullImageUrl";
 export * from "./generateYearsBasedOnGivenParams";
 export * from "./fileHelpers";
 export * from "./localStorage";
+export * from "./getGivenDateParts";

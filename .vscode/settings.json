@@ -33,8 +33,11 @@
     "newqty",
     "nofvst",
     "prents",
+    "prvdrshare",
     "ptntnm",
     "ttlvists",
+    "untcpay",
+    "untdscnt",
     "vstno"
   ]
 }

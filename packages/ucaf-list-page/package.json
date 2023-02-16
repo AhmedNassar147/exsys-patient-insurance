@@ -36,6 +36,7 @@
     "@exsys-patient-insurance/selection-check-group": "1.0.0",
     "@exsys-patient-insurance/services-modal": "1.0.0",
     "@exsys-patient-insurance/textarea-field": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {

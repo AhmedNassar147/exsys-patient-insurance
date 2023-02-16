@@ -21,7 +21,7 @@
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {
-    "@types/react": "^16.x.x"
+    "@types/react": "^18.x.x"
   },
   "enableBabelTranspilation": true
 }
