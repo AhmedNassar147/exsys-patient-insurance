@@ -543,7 +543,7 @@ const UcafListPage = () => {
             specialty_type: string,
             { status }: RequestTableRecordType
           ) =>
-            specialty_type === "MED" && ["O", "F"].includes(status) ? (
+            specialty_type === "MED" && ["O", "F", "P"].includes(status) ? (
               <Flex width="100%" justify="center">
                 <DetailIcon
                   width="1.8em"
@@ -606,25 +606,27 @@ const UcafListPage = () => {
   const areFieldsDisabled =
     hasPatientExceededLimits || !!reviwed_date || canNotUserInsert;
 
-  const baseIsEditableFieldsDisabled =
-    isDataWrittenByDoctorAndProviderView ||
-    hasPatientExceededLimits ||
+  const areBaseFieldsDisabled =
     defaultServicesLoading ||
     !doctor_provider_no ||
     !doctor_department_id ||
     !foundPatientCardNo ||
     !paper_serial;
 
+  const baseIsEditableFieldsDisabled =
+    isDataWrittenByDoctorAndProviderView ||
+    hasPatientExceededLimits ||
+    areBaseFieldsDisabled;
+
   const isEditableFieldsDisabled =
     areFieldsDisabled || baseIsEditableFieldsDisabled;
 
   const canNotInsertAttachment =
-    hasPatientExceededLimits ||
     uploading ||
     isSavingAttachment ||
     attachmentsLoading ||
     canNotUserInsert ||
-    baseIsEditableFieldsDisabled;
+    areBaseFieldsDisabled;
 
   const patientHistoryParams = {
     organization_no: root_organization_no,
@@ -934,7 +936,11 @@ const UcafListPage = () => {
           bordered={false}
           padding="0"
           margin="0px"
-          onDeleteFile={!!reviwed_date ? undefined : onDeleteAttachment}
+          onDeleteFile={
+            !!reviwed_date || isDataWrittenByDoctorAndProviderView
+              ? undefined
+              : onDeleteAttachment
+          }
         />
       </Flex>
 
