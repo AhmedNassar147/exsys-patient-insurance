@@ -541,9 +541,14 @@ const UcafListPage = () => {
           // @ts-ignore
           render: (
             specialty_type: string,
-            { status }: RequestTableRecordType
-          ) =>
-            specialty_type === "MED" && ["O", "F", "P"].includes(status) ? (
+            { status, last_delivery_date }: RequestTableRecordType
+          ) => {
+            const isMeds = specialty_type === "MED";
+            const isNotDeliveredAndPosted =
+              status === "P" && !last_delivery_date;
+
+            return isMeds &&
+              (["O", "F"].includes(status) || isNotDeliveredAndPosted) ? (
               <Flex width="100%" justify="center">
                 <DetailIcon
                   width="1.8em"
@@ -551,7 +556,8 @@ const UcafListPage = () => {
                   onClick={openChangeMedicationModalVisible}
                 />
               </Flex>
-            ) : null,
+            ) : null;
+          },
           totalCellProps: {
             isFragment: true,
           },

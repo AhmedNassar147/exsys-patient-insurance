@@ -159,8 +159,10 @@ const FindPatientForm = ({
           currentPatientData: currentRecord,
           ...createPatientStatusEvent(end_date, status),
         });
+
+        handleClose();
       },
-      [createPatientStatusEvent, handleChangeMultipleInputs]
+      [createPatientStatusEvent, handleChangeMultipleInputs, handleClose]
     );
 
   const searchDisabled = (search_value?.length || 0) < 3;
