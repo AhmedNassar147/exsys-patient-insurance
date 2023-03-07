@@ -20,6 +20,7 @@ const useCurrentUserType = () => {
     isPhysiotherapyUser: user_type === "T",
     isPharmacyUser: user_type === "P",
     isClientUser: user_type === "C",
+    isManagerUser: user_type === "G",
     isHospitalUser: ["H", "M"].includes(user_type),
   };
 };

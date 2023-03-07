@@ -49,6 +49,7 @@ export interface AppConfigStateType {
   client_id: number;
   report_server_url: string;
   report_server_userid: string;
+  account_no?: string;
 }
 
 export * from "./base.interface";

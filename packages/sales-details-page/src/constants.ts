@@ -3,6 +3,7 @@
  * Constants: `@exsys-patient-insurance/sales-details-page`.
  *
  */
+import type { PatientItemRecordType } from "@exsys-patient-insurance/find-patient-form";
 import {
   getCurrentDateString,
   getGivenDateParts,
@@ -15,6 +16,8 @@ export const initialFormFilterValues = {
   date_from: getCurrentDateString({ day: firstDayDate.getDate() }),
   date_to: getCurrentDateString({ day: lastDayDate.getDate() }),
   root_organization_no: "",
+  provider_no: "",
+  currentPatientData: {} as PatientItemRecordType,
 };
 
 export const TABLE_COLUMNS = [

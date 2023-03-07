@@ -213,7 +213,9 @@ const ChangeMedicationModal = ({
     showPriceView,
   ]);
 
-  const saveDisabled = !(newServiceName || new_request_price);
+  const saveDisabled = showPriceView
+    ? !new_request_price && !newQty
+    : !newServiceName;
 
   const handleChangeViewType: onChangeEvent = useCallback(
     ({ name, value }) => {

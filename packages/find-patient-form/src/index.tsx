@@ -3,7 +3,7 @@
  * Package: `@exsys-patient-insurance/find-patient-form`.
  *
  */
-import { memo, useCallback } from "react";
+import { memo, useCallback, useMemo } from "react";
 import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import Text from "@exsys-patient-insurance/text";
 import Flex from "@exsys-patient-insurance/flex";
@@ -33,12 +33,14 @@ import { PatientItemRecordType } from "./index.interface";
 
 interface FindPatientFormProps {
   handleChangeMultipleInputs: (values: RecordTypeWithAnyValue) => void;
-  onChangeSearchFields: onChangeEvent;
+  onChangeSearchFields?: onChangeEvent;
+  hidePhoneOption?: boolean;
 }
 
 const FindPatientForm = ({
   handleChangeMultipleInputs,
   onChangeSearchFields,
+  hidePhoneOption,
 }: FindPatientFormProps) => {
   const { addNotification } = useAppConfigStore();
   const {
@@ -165,6 +167,13 @@ const FindPatientForm = ({
       [createPatientStatusEvent, handleChangeMultipleInputs, handleClose]
     );
 
+  const searchTypOptions = useMemo(() => {
+    if (hidePhoneOption) {
+      return SEARCH_RADIO_OPTIONS.filter(({ value }) => value !== "P");
+    }
+    return SEARCH_RADIO_OPTIONS;
+  }, [hidePhoneOption]);
+
   const searchDisabled = (search_value?.length || 0) < 3;
 
   return (
@@ -172,7 +181,7 @@ const FindPatientForm = ({
       <Flex width="auto" padding="10px" bordered gap="10px" align="center">
         <Text margin="0">fndpat</Text>
         <SelectionCheckGroup
-          options={SEARCH_RADIO_OPTIONS}
+          options={searchTypOptions}
           name="search_type"
           value={search_type}
           onChange={handleMainFieldsChangeAndResetFrom}

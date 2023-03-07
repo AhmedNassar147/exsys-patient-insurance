@@ -8,24 +8,44 @@ import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
 import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
 import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
-import { useGlobalProviderNo } from "@exsys-patient-insurance/app-config-store";
+import {
+  useGlobalProviderNo,
+  useCurrentUserType,
+  useCurrentAccountNo,
+} from "@exsys-patient-insurance/app-config-store";
+import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import DatePickerField from "@exsys-patient-insurance/date-picker-field";
 import ExsysTableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
 } from "@exsys-patient-insurance/exsys-table-with-api-query";
-import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
+import {
+  RecordTypeWithAnyValue,
+  onChangeEvent,
+} from "@exsys-patient-insurance/types";
 import { initialFormFilterValues, TABLE_COLUMNS } from "./constants";
 import { SalesDetailsRecordType } from "./index.interface";
 
 const SalesDetailsPage = () => {
   const globalProviderNo = useGlobalProviderNo();
+  const { isManagerUser } = useCurrentUserType();
+  const accountNo = useCurrentAccountNo();
 
   const {
-    values: { date_from, date_to, root_organization_no },
+    values: {
+      date_from,
+      date_to,
+      root_organization_no,
+      provider_no,
+      currentPatientData: { patient_card_no },
+    },
     handleChange,
+    handleChangeMultipleInputs,
     resetForm,
   } = useFormManager({
-    initialValues: initialFormFilterValues,
+    initialValues: {
+      ...initialFormFilterValues,
+      provider_no: isManagerUser ? "" : globalProviderNo,
+    },
   });
 
   const { tableValuesRef, fetchTableData, setTableData } =
@@ -34,12 +54,20 @@ const SalesDetailsPage = () => {
   const onPressSearch = useCallback(
     () =>
       fetchTableData({
-        provider_no: globalProviderNo,
+        provider_no,
         date_from,
         date_to,
         root_organization_no,
+        patient_card_no,
       }),
-    [date_from, date_to, root_organization_no, fetchTableData, globalProviderNo]
+    [
+      date_from,
+      date_to,
+      root_organization_no,
+      fetchTableData,
+      provider_no,
+      patient_card_no,
+    ]
   );
 
   const handleClear = useCallback(() => {
@@ -53,9 +81,26 @@ const SalesDetailsPage = () => {
     []
   );
 
+  const onChangeSearchFields: onChangeEvent = useCallback(
+    () =>
+      handleChangeMultipleInputs({
+        currentPatientData: {
+          patient_card_no: "",
+        },
+      }),
+    [handleChangeMultipleInputs]
+  );
+
   return (
     <>
-      <Flex width="100%" gap="10px" wrap="true" bordered padding="10px">
+      <Flex
+        width="100%"
+        gap="10px"
+        wrap="true"
+        bordered
+        padding="10px"
+        align="center"
+      >
         <DatePickerField
           width="100px"
           onChange={handleChange}
@@ -72,6 +117,21 @@ const SalesDetailsPage = () => {
           min={date_from}
         />
         <SelectWithApiQuery
+          label="providerno"
+          name="provider_no"
+          width="200px"
+          value={provider_no}
+          onChange={handleChange}
+          queryType="query"
+          apiOrCodeId="QUERY_CHAIN_PROVIDER_LIST"
+          enableNetworkCache
+          disabled={!isManagerUser}
+          apiParams={{
+            account_no: accountNo,
+          }}
+        />
+
+        <SelectWithApiQuery
           label="tpaname"
           name="root_organization_no"
           width="350px"
@@ -80,9 +140,16 @@ const SalesDetailsPage = () => {
           queryType="query"
           apiOrCodeId="QUERY_TPA_PROVIDER_LIST"
           enableNetworkCache
+          skipQuery={!provider_no}
           apiParams={{
-            provider_no: globalProviderNo,
+            provider_no,
           }}
+        />
+
+        <FindPatientForm
+          onChangeSearchFields={onChangeSearchFields}
+          handleChangeMultipleInputs={handleChangeMultipleInputs}
+          hidePhoneOption
         />
 
         <SearchClearIcons

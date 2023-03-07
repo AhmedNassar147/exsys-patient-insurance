@@ -22,3 +22,4 @@ export { default as useHomePageUrl } from "./hooks/useHomePageUrl";
 export { default as useCurrentProviderCategory } from "./hooks/useCurrentProviderCategory";
 export { default as useLoggedInUserName } from "./hooks/useLoggedInUserName";
 export { default as useMakeSelectReportData } from "./hooks/useMakeSelectReportData";
+export { default as useCurrentAccountNo } from "./hooks/useCurrentAccountNo";
