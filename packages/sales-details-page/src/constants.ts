@@ -17,6 +17,7 @@ export const initialFormFilterValues = {
   date_to: getCurrentDateString({ day: lastDayDate.getDate() }),
   root_organization_no: "",
   provider_no: "",
+  paper_serial: "",
   currentPatientData: {} as PatientItemRecordType,
 };
 

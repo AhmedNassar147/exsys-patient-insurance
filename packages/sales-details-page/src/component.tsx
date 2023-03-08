@@ -3,10 +3,12 @@
  * `SalesDetailsPage`: `@exsys-patient-insurance/sales-details-page`.
  *
  */
-import { memo, useCallback } from "react";
+import { memo, useCallback, useRef } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
-import SelectWithApiQuery from "@exsys-patient-insurance/select-with-api-query";
+import SelectWithApiQuery, {
+  SelectWithApiQueryRefValuesType,
+} from "@exsys-patient-insurance/select-with-api-query";
 import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
 import {
   useGlobalProviderNo,
@@ -29,6 +31,7 @@ const SalesDetailsPage = () => {
   const globalProviderNo = useGlobalProviderNo();
   const { isManagerUser } = useCurrentUserType();
   const accountNo = useCurrentAccountNo();
+  const serialNoListRef = useRef<SelectWithApiQueryRefValuesType>();
 
   const {
     values: {
@@ -36,6 +39,7 @@ const SalesDetailsPage = () => {
       date_to,
       root_organization_no,
       provider_no,
+      paper_serial,
       currentPatientData: { patient_card_no },
     },
     handleChange,
@@ -59,6 +63,8 @@ const SalesDetailsPage = () => {
         date_to,
         root_organization_no,
         patient_card_no,
+        provider_account_no: accountNo,
+        paper_serial,
       }),
     [
       date_from,
@@ -67,6 +73,8 @@ const SalesDetailsPage = () => {
       fetchTableData,
       provider_no,
       patient_card_no,
+      accountNo,
+      paper_serial,
     ]
   );
 
@@ -81,15 +89,14 @@ const SalesDetailsPage = () => {
     []
   );
 
-  const onChangeSearchFields: onChangeEvent = useCallback(
-    () =>
-      handleChangeMultipleInputs({
-        currentPatientData: {
-          patient_card_no: "",
-        },
-      }),
-    [handleChangeMultipleInputs]
-  );
+  const onChangeSearchFields: onChangeEvent = useCallback(() => {
+    handleChangeMultipleInputs({
+      currentPatientData: {
+        patient_card_no: "",
+      },
+    });
+    serialNoListRef?.current?.clearOptions();
+  }, [handleChangeMultipleInputs, serialNoListRef]);
 
   return (
     <>
@@ -119,7 +126,7 @@ const SalesDetailsPage = () => {
         <SelectWithApiQuery
           label="providerno"
           name="provider_no"
-          width="200px"
+          width="230px"
           value={provider_no}
           onChange={handleChange}
           queryType="query"
@@ -134,7 +141,7 @@ const SalesDetailsPage = () => {
         <SelectWithApiQuery
           label="tpaname"
           name="root_organization_no"
-          width="350px"
+          width="200px"
           value={root_organization_no}
           onChange={handleChange}
           queryType="query"
@@ -150,6 +157,22 @@ const SalesDetailsPage = () => {
           onChangeSearchFields={onChangeSearchFields}
           handleChangeMultipleInputs={handleChangeMultipleInputs}
           hidePhoneOption
+        />
+
+        <SelectWithApiQuery
+          ref={serialNoListRef}
+          queryType="query"
+          apiOrCodeId="QUERY_UCAF_SERIAL_LIST"
+          width="120px"
+          value={paper_serial}
+          name="paper_serial"
+          label="serial"
+          onChange={handleChange}
+          checkAllParamsValuesToQuery
+          apiParams={{
+            patient_card_no,
+            provider_no,
+          }}
         />
 
         <SearchClearIcons
