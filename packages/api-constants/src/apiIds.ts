@@ -83,8 +83,11 @@ const API_IDS = {
   // http://149.102.140.8:9090/ords/exsys_api/mi_provider_request/get_provider_sales_details?authorization=3087133&provider_account_no=&provider_no=&date_from=01-12-2022&date_to=01-01-2023&planguageid=1&poffset=0&root_organization_no=001
   QUERY_SALE_DETAILS_TABLE_DATA:
     "mi_provider_request/get_provider_sales_details",
-  // http://149.102.140.8:9090/ords/exsys_api/mi_pkg/pop_chain_provider?authorization=3037948&language_id=1&account_no=40024
+  // http://149.102.140.8:9090/ords/exsys_api/mi_pkg/pop_chain_provider?authorization=3037948&planguageid=1&account_no=40024
   QUERY_CHAIN_PROVIDER_LIST: "mi_pkg/pop_chain_provider",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/pop_patient_provider_ucaf?authorization=3037948&planguageid=1&date_from=01-12-2022&date_to=01-03-2023&provider_no=11264&patient_card_no=1900
+  QUERY_PATIENT_PROVIDER_SERIALS_LIST:
+    "mi_ucaf_request/pop_patient_provider_ucaf",
 };
 
 export default API_IDS;

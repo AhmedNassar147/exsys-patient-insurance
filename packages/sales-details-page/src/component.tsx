@@ -162,7 +162,7 @@ const SalesDetailsPage = () => {
         <SelectWithApiQuery
           ref={serialNoListRef}
           queryType="query"
-          apiOrCodeId="QUERY_UCAF_SERIAL_LIST"
+          apiOrCodeId="QUERY_PATIENT_PROVIDER_SERIALS_LIST"
           width="120px"
           value={paper_serial}
           name="paper_serial"
@@ -172,6 +172,8 @@ const SalesDetailsPage = () => {
           apiParams={{
             patient_card_no,
             provider_no,
+            date_from,
+            date_to,
           }}
         />
 
