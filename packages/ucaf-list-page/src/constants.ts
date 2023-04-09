@@ -184,12 +184,12 @@ export const UCAF_TYPES_RADIO_OPTIONS = [
     value: "O",
   },
   {
-    label: "inptnt",
-    value: "I",
-  },
-  {
     label: "emrgncy",
     value: "E",
+  },
+  {
+    label: "inptnt",
+    value: "I",
   },
 ];
 

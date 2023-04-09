@@ -12,6 +12,7 @@ import useFormManager from "@exsys-patient-insurance/form-manager";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
 import InputField from "@exsys-patient-insurance/input-field";
 import InputNumber from "@exsys-patient-insurance/input-number";
+import TextAreaField from "@exsys-patient-insurance/textarea-field";
 import SelectWithApiQuery, {
   SelectWithApiQueryRefValuesType,
 } from "@exsys-patient-insurance/select-with-api-query";
@@ -758,7 +759,7 @@ const UcafListPage = () => {
         margin="12px 0"
         wrap="true"
       >
-        <Flex wrap="true" width="30%" gap="10px">
+        <Flex wrap="true" width="30%" gap="7px">
           <InputField
             width="48.5%"
             name="requestsData.details.complain"
@@ -794,9 +795,37 @@ const UcafListPage = () => {
             value={ucafe_type}
             onChange={handleChangeUcafType}
             disabled={isEditableFieldsDisabled}
-            width="100%"
             mode="radio"
+            width={isInPatientUcafType ? "calc(100% - 150px)" : "100%"}
           />
+          {isInPatientUcafType && (
+            <>
+              <InputNumber
+                name="requestsData.details.expected_days"
+                width="60px"
+                label="daysno"
+                value={expected_days}
+                min={1}
+                onChange={handleChange}
+                disabled={isEditableFieldsDisabled}
+                useRedBorderWhenError
+                error={!isEditableFieldsDisabled && !expected_days ? " " : ""}
+              />
+
+              <InputNumber
+                name="requestsData.details.expected_amount"
+                width="76px"
+                label="amnt"
+                value={expected_amount}
+                min={1}
+                onChange={handleChange}
+                disabled={isEditableFieldsDisabled}
+                useRedBorderWhenError
+                error={!isEditableFieldsDisabled && !expected_amount ? " " : ""}
+              />
+            </>
+          )}
+
           <SelectionCheckGroup
             options={CLAIM_TYPES_RADIO_OPTIONS}
             label="clmtype"
@@ -809,60 +838,15 @@ const UcafListPage = () => {
             mode="radio"
           />
 
-          {isInPatientUcafType && (
-            <>
-              <InputNumber
-                name="requestsData.details.expected_days"
-                width="70px"
-                label="daysno"
-                value={expected_days}
-                min={1}
-                onChange={handleChange}
-                disabled={isEditableFieldsDisabled}
-                useRedBorderWhenError
-                error={!isEditableFieldsDisabled && !expected_days ? " " : ""}
-              />
-
-              <InputNumber
-                name="requestsData.details.expected_amount"
-                width="70px"
-                label="amnt"
-                value={expected_amount}
-                min={1}
-                onChange={handleChange}
-                disabled={isEditableFieldsDisabled}
-                useRedBorderWhenError
-                error={!isEditableFieldsDisabled && !expected_amount ? " " : ""}
-              />
-            </>
-          )}
-
-          <InputField
+          <TextAreaField
             name="requestsData.details.provider_notes"
             value={provider_notes}
             disabled={isEditableFieldsDisabled}
             onChange={handleChange}
             label="nots"
-            width={isInPatientUcafType ? "calc(100% - 165px)" : "100%"}
+            initialInputHeight="40px"
+            width="100%"
           />
-
-          <Flex width="100%" wrap="true" align="center" gap="10px">
-            <SelectionCheck
-              name="requestsData.details.stamped"
-              label="stmpd"
-              checked={stamped}
-              onChange={handleChange}
-              disabled={isEditableFieldsDisabled}
-            />
-
-            <SelectionCheck
-              name="requestsData.details.agreed"
-              label="weagreflowcntrctmedclnots"
-              checked={agreed}
-              disabled={isEditableFieldsDisabled}
-              onChange={handleChange}
-            />
-          </Flex>
         </Flex>
 
         <Flex column="true" gap="5px">
@@ -915,27 +899,59 @@ const UcafListPage = () => {
             limitsShown={false}
           />
 
-          {isInPatientUcafType && (
-            <>
-              <LabeledViewLikeInput
-                width="20%"
-                value={admission_date}
-                label="admtiondate"
-                fontWeight="bold"
-                fontSize="ff6"
-                justify="center"
+          <Flex width="100%" wrap="true" align="center" gap="10px">
+            <Flex
+              width="calc(50% - 5px)"
+              align="center"
+              justify="flex-start"
+              gap="10px"
+            >
+              {isInPatientUcafType && (
+                <>
+                  <LabeledViewLikeInput
+                    width="45%"
+                    value={admission_date}
+                    label="admtiondate"
+                    fontWeight="bold"
+                    fontSize="ff6"
+                    justify="center"
+                  />
+
+                  <LabeledViewLikeInput
+                    width="45%"
+                    value={discharge_date}
+                    label="dischdate"
+                    fontWeight="bold"
+                    fontSize="ff6"
+                    justify="center"
+                  />
+                </>
+              )}
+            </Flex>
+
+            <Flex
+              width="calc(50% - 5px)"
+              align="center"
+              justify="flex-start"
+              gap="10px"
+            >
+              <SelectionCheck
+                name="requestsData.details.stamped"
+                label="stmpd"
+                checked={stamped}
+                onChange={handleChange}
+                disabled={isEditableFieldsDisabled}
               />
 
-              <LabeledViewLikeInput
-                width="20%"
-                value={discharge_date}
-                label="dischdate"
-                fontWeight="bold"
-                fontSize="ff6"
-                justify="center"
+              <SelectionCheck
+                name="requestsData.details.agreed"
+                label="weagreflowcntrctmedclnots"
+                checked={agreed}
+                disabled={isEditableFieldsDisabled}
+                onChange={handleChange}
               />
-            </>
-          )}
+            </Flex>
+          </Flex>
         </Flex>
 
         <FilesGalleryWithModalCarousel
