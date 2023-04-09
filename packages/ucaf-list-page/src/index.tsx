@@ -653,7 +653,7 @@ const UcafListPage = () => {
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
   const linkItemsRowsLength = linkItemsRows?.length ?? 0;
   const postItemsRowsLength = postItemsRows?.length ?? 0;
-  const hasDepartmentId = !!doctor_department_id;
+  // const hasDepartmentId = !!doctor_department_id;
 
   const doctorProviderNoDisabled =
     !isHospitalUser ||
@@ -728,12 +728,7 @@ const UcafListPage = () => {
           name="requestsData.details.doctor_department_id"
           onChange={handleChangeDoctorDepartmentOrProviderNo}
           allowClear={false}
-          disabled={
-            (isDoctorUser && hasDepartmentId) ||
-            (!!doctor_provider_no && hasDepartmentId) ||
-            !foundPatientCardNo ||
-            !paper_serial
-          }
+          disabled={!isHospitalUser || !foundPatientCardNo || !paper_serial}
         />
 
         {isDoctorUser && (
