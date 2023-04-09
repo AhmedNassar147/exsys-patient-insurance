@@ -37,6 +37,7 @@ interface UseRequestUcafBySerialNoOptions {
   root_organization_no: string;
   patient_card_no: string;
   paper_serial: string;
+  isHospitalUser: boolean;
 }
 
 const useRequestUcafBySerialNo = ({
@@ -44,6 +45,7 @@ const useRequestUcafBySerialNo = ({
   root_organization_no,
   patient_card_no,
   paper_serial,
+  isHospitalUser,
 }: UseRequestUcafBySerialNoOptions) => {
   const { addNotification } = useAppConfigStore();
   const globalProviderNo = useGlobalProviderNo();
@@ -55,6 +57,7 @@ const useRequestUcafBySerialNo = ({
         const { details } = apiValues || {};
         const {
           doctor_provider_no,
+          doctor_provider_name,
           ucafe_type,
           claim_flag,
           ucafe_date,
@@ -109,6 +112,7 @@ const useRequestUcafBySerialNo = ({
                   expected_amount: expected_amount || defaultAmount,
                   written_by_doctor:
                     written_by_doctor || defaultWrittenByDoctor,
+                  doctor_name: isHospitalUser ? doctor_provider_name : "",
                 },
               }),
           isNewConsultation: !primary_diagnosis && !primary_diag_code,

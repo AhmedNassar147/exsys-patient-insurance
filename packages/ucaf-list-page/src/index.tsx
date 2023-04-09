@@ -118,6 +118,7 @@ const UcafListPage = () => {
         doctor_department_id,
         doctor_provider_no,
         doctor_provider_name,
+        doctor_name,
         complain,
         signs,
         primary_diagnosis,
@@ -220,6 +221,7 @@ const UcafListPage = () => {
     root_organization_no,
     patient_card_no: foundPatientCardNo,
     paper_serial,
+    isHospitalUser,
   });
 
   const {
@@ -308,6 +310,7 @@ const UcafListPage = () => {
       root_organization_no,
       doctor_provider_no,
       doctor_provider_name,
+      doctor_name,
       ucafe_date,
       ucafe_type,
       claim_flag,
@@ -700,8 +703,8 @@ const UcafListPage = () => {
           <InputField
             label="docnam"
             width="280px"
-            name="requestsData.details.doctor_provider_name"
-            value={doctor_provider_name}
+            name="requestsData.details.doctor_name"
+            value={doctor_name}
             onChange={handleChange}
             disabled={doctorProviderNoDisabled}
           />
