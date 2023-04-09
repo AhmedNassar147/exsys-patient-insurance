@@ -71,7 +71,7 @@ const { IMAGES_AND_FILES } = UPLOAD_ACCEPTED_EXTENSIONS;
 const { red } = colors;
 
 const UcafListPage = () => {
-  const { isDoctorUser, isPharmacyUser } = useCurrentUserType();
+  const { isDoctorUser, isPharmacyUser, isHospitalUser } = useCurrentUserType();
 
   const globalProviderNo = useGlobalProviderNo();
   const { addNotification } = useAppConfigStore();
@@ -335,8 +335,6 @@ const UcafListPage = () => {
     canInsert &&
     ucafe_type === "O" &&
     !!primary_diagnosis &&
-    !!complain &&
-    !!signs &&
     agreed === "Y" &&
     !reviwed_date;
 
@@ -657,6 +655,12 @@ const UcafListPage = () => {
   const postItemsRowsLength = postItemsRows?.length ?? 0;
   const hasDepartmentId = !!doctor_department_id;
 
+  const doctorProviderNoDisabled =
+    !isHospitalUser ||
+    !doctor_provider_no ||
+    !foundPatientCardNo ||
+    !paper_serial;
+
   return (
     <>
       <Flex width="100%" gap="10px" bordered padding="10px 12px" align="center">
@@ -691,23 +695,30 @@ const UcafListPage = () => {
           disabled={!paper_serial || searchRequestsDisabled}
         />
 
-        <SelectWithApiQuery
-          label="docprvdrnam"
-          value={doctor_provider_no}
-          width="280px"
-          apiOrCodeId="QUERY_PROVIDER_NAMES_LIST"
-          queryType="query"
-          name="requestsData.details.doctor_provider_no"
-          onChange={handleChangeDoctorDepartmentOrProviderNo}
-          allowClear={false}
-          apiParams={doctorsProviderListParams}
-          disabled={
-            isDoctorUser ||
-            !doctor_provider_no ||
-            !foundPatientCardNo ||
-            !paper_serial
-          }
-        />
+        {isHospitalUser ? (
+          <InputField
+            label="docnam"
+            width="280px"
+            name="requestsData.details.doctor_provider_name"
+            value={doctor_provider_name}
+            onChange={handleChange}
+            disabled={doctorProviderNoDisabled}
+          />
+        ) : (
+          <SelectWithApiQuery
+            label="docprvdrnam"
+            value={doctor_provider_no}
+            width="280px"
+            apiOrCodeId="QUERY_PROVIDER_NAMES_LIST"
+            queryType="query"
+            name="requestsData.details.doctor_provider_no"
+            onChange={handleChangeDoctorDepartmentOrProviderNo}
+            allowClear={false}
+            apiParams={doctorsProviderListParams}
+            disabled={doctorProviderNoDisabled}
+          />
+        )}
+
         <SelectWithApiQuery
           label="spec"
           value={doctor_department_id}

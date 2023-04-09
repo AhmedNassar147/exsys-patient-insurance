@@ -164,7 +164,7 @@ const useSaveServiceRequest = ({
             provider_no,
             specialty_type,
             delivery_by: loggedInUser,
-            provider_notes: inClinicService ? provider_notes : "",
+            provider_notes,
             approval_reply: isSystemApproved ? "A" : approval_reply,
             is_system_approved: isSystemApproved ? "Y" : "N",
             reply_notes,
