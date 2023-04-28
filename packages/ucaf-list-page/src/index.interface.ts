@@ -32,6 +32,7 @@ export interface RequestDetailsType {
   admission_date?: string;
   discharge_date?: string;
   patientExceedLimit?: CapitalBooleanStringType;
+  usingAdmissionRequest?: CapitalBooleanStringType;
 }
 
 export interface RequestTableRecordType {

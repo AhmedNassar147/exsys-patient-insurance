@@ -29,6 +29,7 @@ const {
     expected_days: defaultNoOfDays,
     expected_amount: defaultAmount,
     written_by_doctor: defaultWrittenByDoctor,
+    usingAdmissionRequest: defaultUsingAdmissionRequest,
   },
 } = requestsData;
 
@@ -69,6 +70,7 @@ const useRequestUcafBySerialNo = ({
           primary_diagnosis,
           primary_diag_code,
           patientExceedLimit,
+          usingAdmissionRequest,
         } = details || {};
 
         if (!doctor_provider_no && !error) {
@@ -113,6 +115,8 @@ const useRequestUcafBySerialNo = ({
                   written_by_doctor:
                     written_by_doctor || defaultWrittenByDoctor,
                   doctor_name: isHospitalUser ? doctor_provider_name : "",
+                  usingAdmissionRequest:
+                    usingAdmissionRequest || defaultUsingAdmissionRequest,
                 },
               }),
           isNewConsultation: !primary_diagnosis && !primary_diag_code,

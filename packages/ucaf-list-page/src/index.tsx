@@ -55,6 +55,7 @@ import useRequestUcafBySerialNo from "./hooks/useRequestUcafBySerialNo";
 import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
 import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
+import useCreatePaperSerialFromAdmission from "./hooks/useCreatePaperSerialFromAdmission";
 import MoreDetailsModal from "./partials/MoreDetailsModal";
 import ChangeMedicationModal from "./partials/ChangeMedicationModal";
 import DeliverForm from "./partials/DeliverForm";
@@ -136,6 +137,7 @@ const UcafListPage = () => {
         written_by_doctor,
         admission_date,
         discharge_date,
+        usingAdmissionRequest,
       },
       isNewConsultation,
       hasPatientExceededLimits,
@@ -275,22 +277,32 @@ const UcafListPage = () => {
     [handleChange]
   );
 
-  const onAfterSaveRequest = useCallback(() => {
-    if (editionModalType) {
-      setEditionModalState("")();
-    }
-    if (moreDetailsModalShown) {
-      closeMoreDetailsModal();
-    }
-    onSearchRequests();
-    fetchSerialNoList();
-  }, [
-    onSearchRequests,
-    setEditionModalState,
-    moreDetailsModalShown,
-    closeMoreDetailsModal,
-    fetchSerialNoList,
-  ]);
+  const baseOnAfterSaveRequest = useCallback(
+    (searchRequests?: boolean) => {
+      if (editionModalType) {
+        setEditionModalState("")();
+      }
+      if (moreDetailsModalShown) {
+        closeMoreDetailsModal();
+      }
+      fetchSerialNoList();
+      if (searchRequests) {
+        onSearchRequests();
+      }
+    },
+    [
+      onSearchRequests,
+      setEditionModalState,
+      moreDetailsModalShown,
+      closeMoreDetailsModal,
+      fetchSerialNoList,
+    ]
+  );
+
+  const onAfterSaveRequest = useCallback(
+    () => baseOnAfterSaveRequest(true),
+    [baseOnAfterSaveRequest]
+  );
 
   const handleChangeUcafType: onChangeEvent = useCallback(
     ({ name, value }) =>
@@ -330,6 +342,29 @@ const UcafListPage = () => {
       expected_amount,
       expected_days,
       onSuccess: onAfterSaveRequest,
+    });
+
+  const handleAfterCreatePaperSerialFromAdmission = useCallback(
+    (paperSerial: string) => {
+      baseOnAfterSaveRequest();
+      handleChangeMultipleInputs({
+        tableSelectionRows: initialValues.tableSelectionRows,
+        selectedTableRecord: initialValues.selectedTableRecord,
+      });
+      fetchUcafRequests({
+        paper_serial: paperSerial,
+      });
+    },
+    [baseOnAfterSaveRequest, handleChangeMultipleInputs, fetchUcafRequests]
+  );
+
+  const { isCreatePaperSerialFromAdmission, createPaperSerialFromAdmission } =
+    useCreatePaperSerialFromAdmission({
+      root_organization_no,
+      doctor_provider_no,
+      doctor_department_id,
+      doctor_name,
+      onSuccess: handleAfterCreatePaperSerialFromAdmission,
     });
 
   const shouldLoadDefaultConsultation =
@@ -580,11 +615,20 @@ const UcafListPage = () => {
       []
     );
 
+  const isUsingAdmissionRequest = usingAdmissionRequest === "Y";
+
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
     !foundPatientCardNo ||
     !globalProviderNo;
+
+  const isFieldDisabledWhenNoPaperSerial = isUsingAdmissionRequest
+    ? false
+    : !paper_serial;
+
+  const doctorDepartmentDisabled =
+    !isHospitalUser || !foundPatientCardNo || isFieldDisabledWhenNoPaperSerial;
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
@@ -611,8 +655,6 @@ const UcafListPage = () => {
     : canDelete;
 
   const canNotUserInsert = f_insert === "N";
-  const areFieldsDisabled =
-    hasPatientExceededLimits || !!reviwed_date || canNotUserInsert;
 
   const areBaseFieldsDisabled =
     defaultServicesLoading ||
@@ -621,13 +663,13 @@ const UcafListPage = () => {
     !foundPatientCardNo ||
     !paper_serial;
 
-  const baseIsEditableFieldsDisabled =
+  const isEditableFieldsDisabled =
+    hasPatientExceededLimits ||
+    !!reviwed_date ||
+    canNotUserInsert ||
     isDataWrittenByDoctorAndProviderView ||
     hasPatientExceededLimits ||
     areBaseFieldsDisabled;
-
-  const isEditableFieldsDisabled =
-    areFieldsDisabled || baseIsEditableFieldsDisabled;
 
   const canNotInsertAttachment =
     uploading ||
@@ -661,13 +703,28 @@ const UcafListPage = () => {
 
   const doctorProviderNoDisabled =
     !isHospitalUser ||
-    !doctor_provider_no ||
     !foundPatientCardNo ||
-    !paper_serial;
+    (isUsingAdmissionRequest ? false : !doctor_provider_no) ||
+    isFieldDisabledWhenNoPaperSerial;
+
+  const doctorNameErrorShown = doctorProviderNoDisabled
+    ? false
+    : !doctor_name && isUsingAdmissionRequest;
+
+  const doctorProviderNoErrorShown = doctorProviderNoDisabled
+    ? false
+    : !doctor_provider_no && isUsingAdmissionRequest;
 
   return (
     <>
-      <Flex width="100%" gap="10px" bordered padding="10px 12px" align="center">
+      <Flex
+        width="100%"
+        gap="7px"
+        wrap="true"
+        bordered
+        padding="8px"
+        align="center"
+      >
         <FindPatientForm
           onChangeSearchFields={handleMainFieldsChangeAndResetFrom}
           handleChangeMultipleInputs={handleChangeMultipleInputs}
@@ -681,7 +738,7 @@ const UcafListPage = () => {
           value={paper_serial}
           name="paper_serial"
           label="serial"
-          disabled={searchRequestsDisabled}
+          disabled={searchRequestsDisabled || isUsingAdmissionRequest}
           onPressEnter={handleMainFieldsChangeAndResetFrom}
           onChange={handleMainFieldsChangeAndResetFrom}
           checkAllParamsValuesToQuery
@@ -707,6 +764,9 @@ const UcafListPage = () => {
             value={doctor_name}
             onChange={handleChange}
             disabled={doctorProviderNoDisabled}
+            error={doctorNameErrorShown ? " " : ""}
+            useErrorHint={false}
+            useRedBorderWhenError
           />
         ) : (
           <SelectWithApiQuery
@@ -720,6 +780,9 @@ const UcafListPage = () => {
             allowClear={false}
             apiParams={doctorsProviderListParams}
             disabled={doctorProviderNoDisabled}
+            error={doctorProviderNoErrorShown ? " " : ""}
+            useErrorHint={false}
+            useRedBorderWhenError
           />
         )}
 
@@ -732,8 +795,32 @@ const UcafListPage = () => {
           name="requestsData.details.doctor_department_id"
           onChange={handleChangeDoctorDepartmentOrProviderNo}
           allowClear={false}
-          disabled={!isHospitalUser || !foundPatientCardNo || !paper_serial}
+          disabled={doctorDepartmentDisabled}
         />
+
+        {!paper_serial && (
+          <SelectionCheck
+            name="requestsData.details.usingAdmissionRequest"
+            label="useadmsinreq"
+            checked={usingAdmissionRequest}
+            onChange={handleChange}
+            disabled={searchRequestsDisabled}
+          />
+        )}
+
+        {isUsingAdmissionRequest && !paper_serial && (
+          <Button
+            label="admsion"
+            type="primary"
+            onClick={createPaperSerialFromAdmission}
+            loading={isCreatePaperSerialFromAdmission}
+            disabled={
+              doctorProviderNoErrorShown ||
+              doctorNameErrorShown ||
+              isCreatePaperSerialFromAdmission
+            }
+          />
+        )}
 
         {isDoctorUser && (
           <Button
@@ -741,7 +828,6 @@ const UcafListPage = () => {
             type="primary"
             onClick={toggleHistoryModal}
             disabled={!foundPatientCardNo}
-            padding="0 5px"
           />
         )}
 

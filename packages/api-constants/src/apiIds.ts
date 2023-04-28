@@ -88,6 +88,9 @@ const API_IDS = {
   // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/pop_patient_provider_ucaf?authorization=3037948&planguageid=1&date_from=01-12-2022&date_to=01-03-2023&provider_no=11264&patient_card_no=1900
   QUERY_PATIENT_PROVIDER_SERIALS_LIST:
     "mi_ucaf_request/pop_patient_provider_ucaf",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/mi_create_adt_ucaf_serial
+  POST_CREATE_SERIAL_FROM_ADMISSION:
+    "mi_ucaf_request/mi_create_adt_ucaf_serial",
 };
 
 export default API_IDS;

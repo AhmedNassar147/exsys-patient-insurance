@@ -31,6 +31,7 @@ export const initialValues = {
       expected_amount: 1,
       written_by_doctor: undefined,
       ucafe_date: "",
+      usingAdmissionRequest: "N",
     },
     data: [] as RequestTableRecordType[],
   } as RequestsDataType,
