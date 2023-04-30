@@ -50,6 +50,8 @@ export interface AppConfigStateType {
   report_server_url: string;
   report_server_userid: string;
   account_no?: string;
+  tpa_use_inpatient?: CapitalBooleanStringType;
+  tpa_use_emergency?: CapitalBooleanStringType;
 }
 
 export * from "./base.interface";

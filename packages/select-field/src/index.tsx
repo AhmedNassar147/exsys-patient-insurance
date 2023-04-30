@@ -3,7 +3,14 @@
  * Package: `@exsys-patient-insurance/select-field`.
  *
  */
-import { memo, useCallback, useRef, useState, useMemo } from "react";
+import {
+  memo,
+  useCallback,
+  useRef,
+  useState,
+  useMemo,
+  useLayoutEffect,
+} from "react";
 import InputField, {
   INPUT_FIELD_DEFAULT_PROPS,
 } from "@exsys-patient-insurance/input-field";
@@ -54,6 +61,7 @@ const SelectField = ({
   onKeyDown,
   required,
   usePortal,
+  searchValue: _searchValue,
   ...props
 }: SelectFieldProps) => {
   const [searchValue, setSearchValue] = useState("");
@@ -61,6 +69,10 @@ const SelectField = ({
   const [visible, setVisibilityState] = useState(false);
   const menuItemsRef = useRef<HTMLUListElement>(null);
   const preventOpenModal = useStopPropagation();
+
+  useLayoutEffect(() => {
+    setSearchValue(_searchValue || "");
+  }, [_searchValue]);
 
   const fieldDisabled = disabled;
   const isFieldRequired = required;

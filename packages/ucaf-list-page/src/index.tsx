@@ -69,14 +69,17 @@ import {
 import { RequestTableRecordType } from "./index.interface";
 
 const { IMAGES_AND_FILES } = UPLOAD_ACCEPTED_EXTENSIONS;
-
 const { red } = colors;
+const { requestsData: defaultRequestsData } = initialValues;
+const { details: defaultRequestsDataDetails } = defaultRequestsData;
 
 const UcafListPage = () => {
   const { isDoctorUser, isPharmacyUser, isHospitalUser } = useCurrentUserType();
-
   const globalProviderNo = useGlobalProviderNo();
-  const { addNotification } = useAppConfigStore();
+  const {
+    addNotification,
+    state: { tpa_use_emergency, tpa_use_inpatient },
+  } = useAppConfigStore();
   const serialNoListRef = useRef<SelectWithApiQueryRefValuesType>();
 
   const {
@@ -102,7 +105,16 @@ const UcafListPage = () => {
 
   const { values, handleChange, handleChangeMultipleInputs, resetForm } =
     useFormManager({
-      initialValues,
+      initialValues: {
+        ...initialValues,
+        requestsData: {
+          ...defaultRequestsData,
+          details: {
+            ...defaultRequestsDataDetails,
+            doctor_provider_no: globalProviderNo as unknown as number,
+          },
+        },
+      },
     });
 
   const {
@@ -114,6 +126,7 @@ const UcafListPage = () => {
     tableSelectionRows,
     attachments,
     historyModalShown,
+    paper_serial_search_value,
     requestsData: {
       details: {
         doctor_department_id,
@@ -137,7 +150,6 @@ const UcafListPage = () => {
         written_by_doctor,
         admission_date,
         discharge_date,
-        usingAdmissionRequest,
       },
       isNewConsultation,
       hasPatientExceededLimits,
@@ -243,8 +255,11 @@ const UcafListPage = () => {
     handleChangeMultipleInputs({
       tableSelectionRows: initialValues.tableSelectionRows,
       selectedTableRecord: initialValues.selectedTableRecord,
+      paper_serial_search_value: "",
     });
-    fetchUcafRequests();
+    fetchUcafRequests({
+      shouldSetUcafTypeInpatient: false,
+    });
   }, [fetchUcafRequests, handleChange]);
 
   const { isLinkingServices, makeLinkServicesRequest } = useLinkServices({
@@ -305,15 +320,16 @@ const UcafListPage = () => {
   );
 
   const handleChangeUcafType: onChangeEvent = useCallback(
-    ({ name, value }) =>
+    ({ name, value }) => {
+      const isNotInpatient = value !== "I";
+      const { expected_days, expected_amount } = defaultRequestsDataDetails;
+
       handleChangeMultipleInputs({
         [name]: value,
-        ...(value !== "I"
-          ? {
-              no_of_days: undefined,
-            }
-          : null),
-      }),
+        expected_days: isNotInpatient ? undefined : expected_days,
+        expected_amount: isNotInpatient ? undefined : expected_amount,
+      });
+    },
     [handleChangeMultipleInputs]
   );
 
@@ -350,8 +366,11 @@ const UcafListPage = () => {
       handleChangeMultipleInputs({
         tableSelectionRows: initialValues.tableSelectionRows,
         selectedTableRecord: initialValues.selectedTableRecord,
+        paper_serial_search_value: paperSerial,
+        paper_serial: paperSerial,
       });
       fetchUcafRequests({
+        shouldSetUcafTypeInpatient: true,
         paper_serial: paperSerial,
       });
     },
@@ -550,7 +569,10 @@ const UcafListPage = () => {
       });
 
       if (isSerialNoInput) {
-        fetchUcafRequests({ paper_serial: value });
+        fetchUcafRequests({
+          paper_serial: value,
+          shouldSetUcafTypeInpatient: false,
+        });
       }
     },
     [
@@ -615,20 +637,14 @@ const UcafListPage = () => {
       []
     );
 
-  const isUsingAdmissionRequest = usingAdmissionRequest === "Y";
-
   const searchRequestsDisabled =
     !isCurrentPatientActive ||
     !root_organization_no ||
     !foundPatientCardNo ||
     !globalProviderNo;
 
-  const isFieldDisabledWhenNoPaperSerial = isUsingAdmissionRequest
-    ? false
-    : !paper_serial;
-
   const doctorDepartmentDisabled =
-    !isHospitalUser || !foundPatientCardNo || isFieldDisabledWhenNoPaperSerial;
+    !isHospitalUser || !foundPatientCardNo || !paper_serial;
 
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
@@ -696,6 +712,27 @@ const UcafListPage = () => {
     return params;
   }, [isDoctorUser, ucaf_id, globalProviderNo, root_organization_no]);
 
+  const showAdmissionRequestButton = tpa_use_inpatient === "Y";
+
+  const filteredUcafTypesOptions = useMemo(
+    () =>
+      UCAF_TYPES_RADIO_OPTIONS.map(({ label, value }) => {
+        const isInpatient = value === "I";
+        const isEmergency = value === "E";
+
+        return {
+          label,
+          value,
+          ...(isInpatient
+            ? { ...(!showAdmissionRequestButton ? { disabled: true } : null) }
+            : isEmergency
+            ? { ...(tpa_use_emergency !== "Y" ? { disabled: true } : null) }
+            : null),
+        };
+      }),
+    [showAdmissionRequestButton, tpa_use_emergency]
+  );
+
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
   const linkItemsRowsLength = linkItemsRows?.length ?? 0;
   const postItemsRowsLength = postItemsRows?.length ?? 0;
@@ -704,16 +741,20 @@ const UcafListPage = () => {
   const doctorProviderNoDisabled =
     !isHospitalUser ||
     !foundPatientCardNo ||
-    (isUsingAdmissionRequest ? false : !doctor_provider_no) ||
-    isFieldDisabledWhenNoPaperSerial;
+    !doctor_provider_no ||
+    !paper_serial;
 
-  const doctorNameErrorShown = doctorProviderNoDisabled
-    ? false
-    : !doctor_name && isUsingAdmissionRequest;
+  // const doctorNameErrorShown = doctorProviderNoDisabled
+  //   ? false
+  //   : !doctor_name;
 
-  const doctorProviderNoErrorShown = doctorProviderNoDisabled
-    ? false
-    : !doctor_provider_no && isUsingAdmissionRequest;
+  // const doctorProviderNoErrorShown = doctorProviderNoDisabled
+  //   ? false
+  //   : !doctor_provider_no;
+
+  // const doctorDepartmentErrorShown = doctorDepartmentDisabled
+  //   ? false
+  //   : !doctor_department_id;
 
   return (
     <>
@@ -734,14 +775,15 @@ const UcafListPage = () => {
           ref={serialNoListRef}
           queryType="query"
           apiOrCodeId="QUERY_UCAF_SERIAL_LIST"
-          width="100px"
+          width="120px"
           value={paper_serial}
           name="paper_serial"
           label="serial"
-          disabled={searchRequestsDisabled || isUsingAdmissionRequest}
+          disabled={searchRequestsDisabled}
           onPressEnter={handleMainFieldsChangeAndResetFrom}
           onChange={handleMainFieldsChangeAndResetFrom}
           checkAllParamsValuesToQuery
+          searchValue={paper_serial_search_value}
           apiParams={{
             patient_card_no: foundPatientCardNo,
             provider_no: globalProviderNo,
@@ -756,23 +798,35 @@ const UcafListPage = () => {
           disabled={!paper_serial || searchRequestsDisabled}
         />
 
+        {!paper_serial &&
+          showAdmissionRequestButton &&
+          !!foundPatientCardNo && (
+            <Button
+              label="admsion"
+              type="primary"
+              onClick={createPaperSerialFromAdmission}
+              loading={isCreatePaperSerialFromAdmission}
+              disabled={isCreatePaperSerialFromAdmission}
+            />
+          )}
+
         {isHospitalUser ? (
           <InputField
             label="docnam"
-            width="280px"
+            width="260px"
             name="requestsData.details.doctor_name"
             value={doctor_name}
             onChange={handleChange}
             disabled={doctorProviderNoDisabled}
-            error={doctorNameErrorShown ? " " : ""}
-            useErrorHint={false}
-            useRedBorderWhenError
+            // error={doctorNameErrorShown ? " " : ""}
+            // useErrorHint={false}
+            // useRedBorderWhenError
           />
         ) : (
           <SelectWithApiQuery
             label="docprvdrnam"
             value={doctor_provider_no}
-            width="280px"
+            width="260px"
             apiOrCodeId="QUERY_PROVIDER_NAMES_LIST"
             queryType="query"
             name="requestsData.details.doctor_provider_no"
@@ -780,9 +834,9 @@ const UcafListPage = () => {
             allowClear={false}
             apiParams={doctorsProviderListParams}
             disabled={doctorProviderNoDisabled}
-            error={doctorProviderNoErrorShown ? " " : ""}
-            useErrorHint={false}
-            useRedBorderWhenError
+            // error={doctorProviderNoErrorShown ? " " : ""}
+            // useErrorHint={false}
+            // useRedBorderWhenError
           />
         )}
 
@@ -796,31 +850,10 @@ const UcafListPage = () => {
           onChange={handleChangeDoctorDepartmentOrProviderNo}
           allowClear={false}
           disabled={doctorDepartmentDisabled}
+          // error={doctorDepartmentErrorShown ? " " : ""}
+          // useErrorHint={false}
+          // useRedBorderWhenError
         />
-
-        {!paper_serial && (
-          <SelectionCheck
-            name="requestsData.details.usingAdmissionRequest"
-            label="useadmsinreq"
-            checked={usingAdmissionRequest}
-            onChange={handleChange}
-            disabled={searchRequestsDisabled}
-          />
-        )}
-
-        {isUsingAdmissionRequest && !paper_serial && (
-          <Button
-            label="admsion"
-            type="primary"
-            onClick={createPaperSerialFromAdmission}
-            loading={isCreatePaperSerialFromAdmission}
-            disabled={
-              doctorProviderNoErrorShown ||
-              doctorNameErrorShown ||
-              isCreatePaperSerialFromAdmission
-            }
-          />
-        )}
 
         {isDoctorUser && (
           <Button
@@ -877,7 +910,7 @@ const UcafListPage = () => {
           />
 
           <SelectionCheckGroup
-            options={UCAF_TYPES_RADIO_OPTIONS}
+            options={filteredUcafTypesOptions}
             label="ucaftype"
             labelType="inlined"
             name="requestsData.details.ucafe_type"

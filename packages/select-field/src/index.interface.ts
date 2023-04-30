@@ -56,4 +56,5 @@ export interface SelectFieldProps
   renderItem?: (option: MenuItemsDataSourceItemType) => React.ReactNode;
   onSearch?: (currentSearchValue: string) => void;
   usePortal?: boolean;
+  searchValue?: string;
 }
