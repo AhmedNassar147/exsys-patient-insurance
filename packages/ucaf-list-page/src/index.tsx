@@ -41,6 +41,7 @@ import DiagnosisModal, {
 import { UPLOAD_ACCEPTED_EXTENSIONS } from "@exsys-patient-insurance/global-app-constants";
 import { colors } from "@exsys-patient-insurance/theme-values";
 import { PdfDocumentModal } from "@exsys-patient-insurance/document-modal";
+import SelectWithAddActionAndQuery from "@exsys-patient-insurance/select-with-add-action";
 import {
   TableBodyRowClickEvent,
   TableSelectionChangeActionType,
@@ -56,6 +57,7 @@ import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
 import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
 import useCreatePaperSerialFromAdmission from "./hooks/useCreatePaperSerialFromAdmission";
+import useCreateAdmissionBasedSerial from "./hooks/useCreateAdmissionBasedSerial";
 import MoreDetailsModal from "./partials/MoreDetailsModal";
 import ChangeMedicationModal from "./partials/ChangeMedicationModal";
 import DeliverForm from "./partials/DeliverForm";
@@ -135,6 +137,7 @@ const UcafListPage = () => {
         doctor_name,
         complain,
         signs,
+        admission_reason,
         primary_diagnosis,
         primary_diag_code,
         ucafe_type,
@@ -150,6 +153,7 @@ const UcafListPage = () => {
         written_by_doctor,
         admission_date,
         discharge_date,
+        isInpatientUcaf,
       },
       isNewConsultation,
       hasPatientExceededLimits,
@@ -163,6 +167,7 @@ const UcafListPage = () => {
   const canInsert = f_insert !== "N";
   const canDelete = f_delete !== "N";
   const isInPatientUcafType = ucafe_type === "I";
+
   const { selectedKeys, selectedRows } = tableSelectionRows;
 
   const dispenseItemsRows = useMemo(
@@ -258,7 +263,7 @@ const UcafListPage = () => {
       paper_serial_search_value: "",
     });
     fetchUcafRequests({
-      shouldSetUcafTypeInpatient: false,
+      shouldSetUcafTypeInpatient: "N",
     });
   }, [fetchUcafRequests, handleChange]);
 
@@ -357,6 +362,7 @@ const UcafListPage = () => {
       stamped,
       expected_amount,
       expected_days,
+      admission_reason,
       onSuccess: onAfterSaveRequest,
     });
 
@@ -370,7 +376,7 @@ const UcafListPage = () => {
         paper_serial: paperSerial,
       });
       fetchUcafRequests({
-        shouldSetUcafTypeInpatient: true,
+        shouldSetUcafTypeInpatient: "Y",
         paper_serial: paperSerial,
       });
     },
@@ -386,15 +392,17 @@ const UcafListPage = () => {
       onSuccess: handleAfterCreatePaperSerialFromAdmission,
     });
 
-  const shouldLoadDefaultConsultation =
+  const baseShouldLoadDefaultConsultation =
     isCurrentPatientActive &&
     isNewConsultation &&
     !hasPatientExceededLimits &&
     canInsert &&
-    ucafe_type === "O" &&
     !!primary_diagnosis &&
     agreed === "Y" &&
     !reviwed_date;
+
+  const shouldLoadDefaultConsultation =
+    baseShouldLoadDefaultConsultation && ucafe_type === "O";
 
   const { defaultServicesLoading } = useLoadDefaultServices({
     root_organization_no,
@@ -404,6 +412,28 @@ const UcafListPage = () => {
     claim_flag,
     doctorProviderNo: doctor_provider_no,
     shouldLoadDefaultConsultation,
+    handleSaveServiceRequest,
+  });
+
+  const showAdmissionRequestButton = tpa_use_inpatient === "Y";
+
+  const hasNoAdmissionReason =
+    !!doctor_department_id && !admission_reason?.length;
+  const shouldPerformNewAdmissionRequest =
+    showAdmissionRequestButton &&
+    !!paper_serial &&
+    !hasNoAdmissionReason &&
+    baseShouldLoadDefaultConsultation &&
+    isInPatientUcafType;
+
+  const { isPerformingAdmissionRequest } = useCreateAdmissionBasedSerial({
+    rootOrganizationNo: root_organization_no,
+    patientCardNo: foundPatientCardNo,
+    ucafDate: ucafe_date,
+    claimFlag: claim_flag,
+    ucafType: ucafe_type,
+    providerNo: globalProviderNo,
+    shouldPerformNewAdmissionRequest,
     handleSaveServiceRequest,
   });
 
@@ -571,7 +601,7 @@ const UcafListPage = () => {
       if (isSerialNoInput) {
         fetchUcafRequests({
           paper_serial: value,
-          shouldSetUcafTypeInpatient: false,
+          shouldSetUcafTypeInpatient: "N",
         });
       }
     },
@@ -655,6 +685,7 @@ const UcafListPage = () => {
   const hideTableHeaderTools =
     hasPatientExceededLimits ||
     defaultServicesLoading ||
+    isPerformingAdmissionRequest ||
     !foundPatientCardNo ||
     !doctor_department_id ||
     !paper_serial ||
@@ -674,6 +705,7 @@ const UcafListPage = () => {
 
   const areBaseFieldsDisabled =
     defaultServicesLoading ||
+    isPerformingAdmissionRequest ||
     !doctor_provider_no ||
     !doctor_department_id ||
     !foundPatientCardNo ||
@@ -712,25 +744,26 @@ const UcafListPage = () => {
     return params;
   }, [isDoctorUser, ucaf_id, globalProviderNo, root_organization_no]);
 
-  const showAdmissionRequestButton = tpa_use_inpatient === "Y";
-
   const filteredUcafTypesOptions = useMemo(
     () =>
       UCAF_TYPES_RADIO_OPTIONS.map(({ label, value }) => {
         const isInpatient = value === "I";
         const isEmergency = value === "E";
-
         return {
           label,
           value,
           ...(isInpatient
-            ? { ...(!showAdmissionRequestButton ? { disabled: true } : null) }
+            ? {
+                ...(!showAdmissionRequestButton || !isInpatientUcaf
+                  ? { disabled: true }
+                  : null),
+              }
             : isEmergency
             ? { ...(tpa_use_emergency !== "Y" ? { disabled: true } : null) }
             : null),
         };
       }),
-    [showAdmissionRequestButton, tpa_use_emergency]
+    [showAdmissionRequestButton, tpa_use_emergency, isInpatientUcaf]
   );
 
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
@@ -743,6 +776,12 @@ const UcafListPage = () => {
     !foundPatientCardNo ||
     !doctor_provider_no ||
     !paper_serial;
+
+  const tableLoading =
+    requestsLoading ||
+    defaultServicesLoading ||
+    isPerformingAdmissionRequest ||
+    isSavingRequest;
 
   // const doctorNameErrorShown = doctorProviderNoDisabled
   //   ? false
@@ -916,7 +955,7 @@ const UcafListPage = () => {
             name="requestsData.details.ucafe_type"
             value={ucafe_type}
             onChange={handleChangeUcafType}
-            disabled={isEditableFieldsDisabled}
+            disabled={isInpatientUcaf || isEditableFieldsDisabled}
             mode="radio"
             width={isInPatientUcafType ? "calc(100% - 150px)" : "100%"}
           />
@@ -997,7 +1036,7 @@ const UcafListPage = () => {
           />
         </Flex>
 
-        <Flex width="58%" wrap="true" gap="10px">
+        <Flex width="58%" wrap="true" gap="8px">
           <MiPreviewPatientData
             width="100%"
             height="fit-content"
@@ -1020,6 +1059,21 @@ const UcafListPage = () => {
             declaration_req={declaration_req}
             limitsShown={false}
           />
+
+          {showAdmissionRequestButton && !!paper_serial && (
+            <SelectWithAddActionAndQuery
+              width="100%"
+              label="admrsn"
+              name="requestsData.details.admission_reason"
+              value={admission_reason}
+              onChange={handleChange}
+              disabled={isEditableFieldsDisabled}
+              codeId="MI_ADMISSION_REASON_LIST"
+              error={hasNoAdmissionReason ? " " : ""}
+              useErrorHint={false}
+              useRedBorderWhenError
+            />
+          )}
 
           <Flex width="100%" wrap="true" align="center" gap="10px">
             <Flex
@@ -1152,7 +1206,7 @@ const UcafListPage = () => {
         onPressSaveOrEdit={handleUpdateRecord}
         onSelectRow={onSelectTableRow}
         onPressDelete={onDeleteTableRecord}
-        loading={requestsLoading || defaultServicesLoading || isSavingRequest}
+        loading={tableLoading}
         selectionKeys={selectedKeys}
         onSelectionChanged={onSelectionChanged}
         disabledRowsSelection={disabledRowsSelection}
@@ -1177,7 +1231,6 @@ const UcafListPage = () => {
           ucafDate={ucafe_date}
           claimFlag={claim_flag}
           ucafType={ucafe_type}
-          servicesDataLength={requestDataLength}
           recordStatus={editionModalType}
           closeEditionModal={setEditionModalState("")}
           selectedRecord={selectedTableRecord}

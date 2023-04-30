@@ -343,7 +343,6 @@ const ChangeMedicationModal = ({
             onClose={handleClose}
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
-            showAdmissionButton={isInPatientUcafType}
             initialInClinicService={initialInClinicService}
           />
         )}

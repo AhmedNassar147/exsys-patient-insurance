@@ -24,6 +24,7 @@ export const initialValues = {
     isNewConsultation: false,
     hasPatientExceededLimits: false,
     details: {
+      admission_reason: [] as string[],
       ucafe_type: "O",
       claim_flag: "A",
       stamped: "N",

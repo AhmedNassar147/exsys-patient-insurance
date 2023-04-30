@@ -28,7 +28,6 @@ interface EditOrCreateRequestProps {
   claimFlag?: string;
   ucafType?: string;
   closeEditionModal: () => void;
-  servicesDataLength: number;
   recordStatus: string;
   selectedRecord: RequestTableRecordType;
   handleSaveServiceRequest: (
@@ -68,7 +67,6 @@ const EditOrCreateRequest = ({
   selectedRecord: { provider_no, ...selectedRecord },
   handleSaveServiceRequest,
   isSavingCurrentRequest,
-  servicesDataLength,
 }: EditOrCreateRequestProps) => {
   const { pageType } = useParams();
   const { isDoctorUser } = useCurrentUserType();
@@ -136,7 +134,6 @@ const EditOrCreateRequest = ({
   );
 
   const isInPatientUcafType = ucafType === "I";
-  const admissionButtonShown = isInPatientUcafType && !servicesDataLength;
 
   const handleSelectService: OnSelectServiceType = useCallback(
     (
@@ -163,18 +160,9 @@ const EditOrCreateRequest = ({
         approval,
         ...(inClinicService ? null : { delivery_doc_no: undefined }),
       };
-
-      if (admissionButtonShown) {
-        onSubmit({
-          ...values,
-          ...nextStateValues,
-        });
-        handleClose();
-        return;
-      }
       handleChangeMultipleInputs(nextStateValues);
     },
-    [handleChangeMultipleInputs, admissionButtonShown, handleSubmit]
+    [handleChangeMultipleInputs, handleSubmit]
   );
 
   return (
@@ -240,9 +228,8 @@ const EditOrCreateRequest = ({
             onClose={handleClose}
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
-            showAdmissionButton={admissionButtonShown}
             initialInClinicService={
-              admissionButtonShown || !!provider_no || !isDoctorUser
+              isInPatientUcafType || !!provider_no || !isDoctorUser
             }
           />
         )}

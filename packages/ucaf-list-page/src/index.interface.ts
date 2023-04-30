@@ -32,6 +32,8 @@ export interface RequestDetailsType {
   admission_date?: string;
   discharge_date?: string;
   patientExceedLimit?: CapitalBooleanStringType;
+  admission_reason?: string[];
+  isInpatientUcaf?: boolean;
 }
 
 export interface RequestTableRecordType {

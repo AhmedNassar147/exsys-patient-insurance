@@ -248,7 +248,7 @@ const SelectField = ({
     if (computedOptions?.length && searchValue) {
       return computedOptions.filter(({ value }) => {
         const stringifiedValue = `${value}`.toLowerCase();
-        return stringifiedValue.includes(searchValue.toLowerCase());
+        return stringifiedValue.includes(searchValue?.toLowerCase?.());
       });
     }
 

@@ -7,7 +7,6 @@ import { memo, useCallback, useMemo } from "react";
 import Modal from "@exsys-patient-insurance/modal";
 import InputField from "@exsys-patient-insurance/input-field";
 import Flex from "@exsys-patient-insurance/flex";
-import Button from "@exsys-patient-insurance/button";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import SelectionCheck from "@exsys-patient-insurance/selection-check";
 import { useGlobalProviderNo } from "@exsys-patient-insurance/app-config-store";
@@ -28,7 +27,6 @@ const ServicesModal = ({
   onSelectService,
   initialInClinicService,
   showInClinicServiceCheckbox,
-  showAdmissionButton,
 }: ServicesModalProps) => {
   const {
     values: { search_word, inClinicService },
@@ -48,7 +46,6 @@ const ServicesModal = ({
     if (search_word?.length >= 3) {
       fetchTableData({
         search_word,
-        service_code: "",
       });
     }
   }, [search_word, fetchTableData]);
@@ -62,25 +59,8 @@ const ServicesModal = ({
       [onSelectService, onClose, inClinicService]
     );
 
-  const handleSearchAdmissionServices = useCallback(() => {
-    const params = {
-      search_word: "",
-      service_code: "000000",
-    };
-
-    fetchTableData(params, ({ apiValues }) => {
-      const { data } = apiValues;
-      const [admissionItem] = data || [];
-
-      if (admissionItem) {
-        onDoubleClickRecord(admissionItem, 0);
-      }
-    });
-  }, [fetchTableData]);
-
   const skipQuery = useCallback(
-    ({ search_word, service_code }: RecordType) =>
-      service_code ? false : (search_word || "")?.length < 3,
+    ({ search_word }: RecordType) => (search_word || "")?.length < 3,
     []
   );
 
@@ -128,24 +108,14 @@ const ServicesModal = ({
           />
         )}
 
-        {showAdmissionButton ? (
-          <Button
-            type="primary"
-            width="45%"
-            minWidth="45%"
-            onClick={handleSearchAdmissionServices}
-            label="admsion"
-          />
-        ) : (
-          <InputField
-            name="search_word"
-            value={search_word}
-            onChange={handleChange}
-            label="prodctnam"
-            width="300px"
-            onPressEnter={onSearch}
-          />
-        )}
+        <InputField
+          name="search_word"
+          value={search_word}
+          onChange={handleChange}
+          label="prodctnam"
+          width="300px"
+          onPressEnter={onSearch}
+        />
       </Flex>
 
       <TableWithApiQuery<ServiceRequestItemType>

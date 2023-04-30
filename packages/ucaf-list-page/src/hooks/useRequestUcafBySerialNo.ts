@@ -29,6 +29,7 @@ const {
     expected_days: defaultNoOfDays,
     expected_amount: defaultAmount,
     written_by_doctor: defaultWrittenByDoctor,
+    admission_reason: defaultAdmissionReason,
   },
 } = requestsData;
 
@@ -69,6 +70,7 @@ const useRequestUcafBySerialNo = ({
           primary_diagnosis,
           primary_diag_code,
           patientExceedLimit,
+          admission_reason,
         } = details || {};
 
         if (!doctor_provider_no && !error) {
@@ -95,6 +97,11 @@ const useRequestUcafBySerialNo = ({
           });
         }
 
+        const curredUcafType =
+          shouldSetUcafTypeInpatient === "Y"
+            ? "I"
+            : ucafe_type || defaultUcafType;
+
         const data = {
           ...(error || !apiValues
             ? initialValues.requestsData
@@ -102,9 +109,8 @@ const useRequestUcafBySerialNo = ({
                 ...apiValues,
                 details: {
                   ...details,
-                  ucafe_type: shouldSetUcafTypeInpatient
-                    ? "I"
-                    : ucafe_type || defaultUcafType,
+                  ucafe_type: curredUcafType,
+                  isInpatientUcaf: curredUcafType === "I",
                   claim_flag: claim_flag || defaultClaimType,
                   ucafe_date:
                     ucafe_date || getCurrentDateString({ useDateTime: true }),
@@ -115,6 +121,7 @@ const useRequestUcafBySerialNo = ({
                   written_by_doctor:
                     written_by_doctor || defaultWrittenByDoctor,
                   doctor_name: isHospitalUser ? doctor_provider_name : "",
+                  admission_reason: admission_reason || defaultAdmissionReason,
                 },
               }),
           isNewConsultation: !primary_diagnosis && !primary_diag_code,
@@ -141,7 +148,7 @@ const useRequestUcafBySerialNo = ({
         paper_serial,
         provider_no: globalProviderNo,
         pageType,
-        shouldSetUcafTypeInpatient: false,
+        shouldSetUcafTypeInpatient: "N",
       },
     });
 

@@ -52,6 +52,7 @@ const useSaveServiceRequest = ({
   stamped,
   expected_amount,
   expected_days,
+  admission_reason,
   onSuccess,
 }: UseSaveServiceRequestOptionsType) => {
   const providerNo = useGlobalProviderNo();
@@ -140,6 +141,7 @@ const useSaveServiceRequest = ({
         paper_serial,
         stamped,
         agreed,
+        admission_reason,
         ...(ucafe_type === "I"
           ? {
               expected_days,
@@ -221,6 +223,7 @@ const useSaveServiceRequest = ({
       expected_days,
       onSuccess,
       loggedInUser,
+      admission_reason
     ]
   );
 
