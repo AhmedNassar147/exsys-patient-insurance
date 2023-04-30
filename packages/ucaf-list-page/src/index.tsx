@@ -1060,7 +1060,7 @@ const UcafListPage = () => {
             limitsShown={false}
           />
 
-          {showAdmissionRequestButton && !!paper_serial && (
+          {showAdmissionRequestButton && !!paper_serial && isInPatientUcafType && (
             <SelectWithAddActionAndQuery
               width="100%"
               label="admrsn"
