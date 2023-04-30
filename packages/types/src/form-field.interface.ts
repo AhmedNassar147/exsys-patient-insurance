@@ -50,6 +50,18 @@ export interface BaseSelectionCheckProps {
   overflow?: string;
 }
 
+export type ClientSelectAddedItemOptions = {
+  description_p: string;
+  description_s: string;
+};
+
+export type ClientSelectDataOptions = {
+  canInsert?: boolean;
+  multi?: boolean;
+  lines?: number;
+  data?: SelectListProps[];
+};
+
 export interface SelectionCheckProps extends BaseSelectionCheckProps {
   label?: string;
   onChange?: SelectionCheckOrSwitchChangeHandlerType;

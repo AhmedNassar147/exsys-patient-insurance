@@ -42,6 +42,7 @@
     "@exsys-patient-insurance/labeled-input": "1.0.0",
     "@exsys-patient-insurance/labeled-view-like-input": "1.0.0",
     "@exsys-patient-insurance/language-select-field": "1.0.0",
+    "@exsys-patient-insurance/select-with-add-action": "1.0.0",
     "@exsys-patient-insurance/loading-icon": "1.0.0",
     "@exsys-patient-insurance/media-queries": "1.0.0",
     "@exsys-patient-insurance/menu-item": "1.0.0",

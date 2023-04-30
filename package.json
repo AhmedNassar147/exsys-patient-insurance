@@ -81,6 +81,7 @@
     "@exsys-patient-insurance/search-clear-icons": "1.0.0",
     "@exsys-patient-insurance/search-icon": "1.0.0",
     "@exsys-patient-insurance/select-field": "1.0.0",
+    "@exsys-patient-insurance/select-with-add-action": "1.0.0",
     "@exsys-patient-insurance/select-with-api-query": "1.0.0",
     "@exsys-patient-insurance/selection-check": "1.0.0",
     "@exsys-patient-insurance/selection-check-group": "1.0.0",

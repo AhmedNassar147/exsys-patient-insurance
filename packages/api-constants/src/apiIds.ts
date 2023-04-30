@@ -91,6 +91,10 @@ const API_IDS = {
   // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/mi_create_adt_ucaf_serial
   POST_CREATE_SERIAL_FROM_ADMISSION:
     "mi_ucaf_request/mi_create_adt_ucaf_serial",
+  // http://207.180.237.36:9090/ords/exsysexsysdba/EX_CODES/pop_client_codes?codetype=24&planguageid=1&authorization=1631336
+  EXSYS_CLIENT_CODE: "EX_CODES/pop_client_codes",
+  // [POST Request]: http://207.180.237.36:9090/ords/exsysexsysdba/EX_CODES/add_client_codes
+  EXSYS_ADD_CLIENT_CODE_ITEM: "EX_CODES/add_client_codes",
 };
 
 export default API_IDS;
