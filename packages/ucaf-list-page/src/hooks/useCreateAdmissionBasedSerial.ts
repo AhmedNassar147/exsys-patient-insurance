@@ -6,6 +6,7 @@
 import { useEffect, useCallback } from "react";
 import { useTableQuery } from "@exsys-patient-insurance/network-hooks";
 import type { ServiceRequestItemType } from "@exsys-patient-insurance/services-modal";
+import { useAppConfigStore } from "@exsys-patient-insurance/app-config-store";
 import { RecordType } from "@exsys-patient-insurance/types";
 import { ServiceItemValuesForPostApiType } from "../index.interface";
 
@@ -33,6 +34,8 @@ const useCreateAdmissionBasedSerial = ({
   shouldPerformNewAdmissionRequest,
   handleSaveServiceRequest,
 }: UseCreateAdmissionBasedSerialType) => {
+  const { addNotification } = useAppConfigStore();
+
   const skipQuery = useCallback(
     ({ service_code }: RecordType) => !service_code,
     []
@@ -66,32 +69,38 @@ const useCreateAdmissionBasedSerial = ({
           const { data } = apiValues;
           const [admissionItem] = data || [];
 
-          if (admissionItem) {
-            const {
-              service_id,
-              price,
-              specialty_type,
-              copay,
-              price_disc_prc,
-              approval,
-            } = admissionItem;
-
-            handleSaveServiceRequest(
-              {
-                service_code: service_id,
-                qty: 1,
-                approved_quantity: 1,
-                price,
-                record_status: "n",
-                specialty_type,
-                price_disc_prc,
-                patient_share_prc: copay,
-                forcedStatus: "P",
-                approval,
-              } as ServiceItemValuesForPostApiType,
-              true
-            );
+          if (!admissionItem) {
+            addNotification({
+              type: "info",
+              message: "admisnnotfound",
+            });
+            return;
           }
+
+          const {
+            service_id,
+            price,
+            specialty_type,
+            copay,
+            price_disc_prc,
+            approval,
+          } = admissionItem;
+
+          handleSaveServiceRequest(
+            {
+              service_code: service_id,
+              qty: 1,
+              approved_quantity: 1,
+              price,
+              record_status: "n",
+              specialty_type,
+              price_disc_prc,
+              patient_share_prc: copay,
+              forcedStatus: "P",
+              approval,
+            } as ServiceItemValuesForPostApiType,
+            true
+          );
         });
       }
     },
