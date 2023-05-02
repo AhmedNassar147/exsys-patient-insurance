@@ -29,7 +29,7 @@ export const initialValues = {
       claim_flag: "A",
       stamped: "N",
       agreed: "N",
-      expected_days: 1,
+      expected_days: 0,
       expected_amount: 1,
       written_by_doctor: undefined,
       ucafe_date: "",

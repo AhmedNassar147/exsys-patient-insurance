@@ -966,11 +966,16 @@ const UcafListPage = () => {
                 width="60px"
                 label="daysno"
                 value={expected_days}
-                min={1}
+                min={0}
                 onChange={handleChange}
                 disabled={isEditableFieldsDisabled}
                 useRedBorderWhenError
-                error={!isEditableFieldsDisabled && !expected_days ? " " : ""}
+                error={
+                  !isEditableFieldsDisabled &&
+                  typeof expected_days === "undefined"
+                    ? " "
+                    : ""
+                }
               />
 
               <InputNumber
@@ -1060,20 +1065,22 @@ const UcafListPage = () => {
             limitsShown={false}
           />
 
-          {showAdmissionRequestButton && !!paper_serial && isInPatientUcafType && (
-            <SelectWithAddActionAndQuery
-              width="100%"
-              label="admrsn"
-              name="requestsData.details.admission_reason"
-              value={admission_reason}
-              onChange={handleChange}
-              disabled={isEditableFieldsDisabled}
-              codeId="MI_ADMISSION_REASON_LIST"
-              error={hasNoAdmissionReason ? " " : ""}
-              useErrorHint={false}
-              useRedBorderWhenError
-            />
-          )}
+          {showAdmissionRequestButton &&
+            !!paper_serial &&
+            isInPatientUcafType && (
+              <SelectWithAddActionAndQuery
+                width="100%"
+                label="admrsn"
+                name="requestsData.details.admission_reason"
+                value={admission_reason}
+                onChange={handleChange}
+                disabled={isEditableFieldsDisabled}
+                codeId="MI_ADMISSION_REASON_LIST"
+                error={hasNoAdmissionReason ? " " : ""}
+                useErrorHint={false}
+                useRedBorderWhenError
+              />
+            )}
 
           <Flex width="100%" wrap="true" align="center" gap="10px">
             <Flex
