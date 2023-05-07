@@ -327,12 +327,20 @@ const UcafListPage = () => {
   const handleChangeUcafType: onChangeEvent = useCallback(
     ({ name, value }) => {
       const isNotInpatient = value !== "I";
-      const { expected_days, expected_amount } = defaultRequestsDataDetails;
+      const { expected_days, expected_amount, admission_reason } =
+        defaultRequestsDataDetails;
 
       handleChangeMultipleInputs({
         [name]: value,
-        expected_days: isNotInpatient ? undefined : expected_days,
-        expected_amount: isNotInpatient ? undefined : expected_amount,
+        "requestsData.details.expected_days": isNotInpatient
+          ? undefined
+          : expected_days,
+        "requestsData.details.expected_amount": isNotInpatient
+          ? undefined
+          : expected_amount,
+        "requestsData.details.admission_reason": isNotInpatient
+          ? undefined
+          : admission_reason,
       });
     },
     [handleChangeMultipleInputs]
@@ -746,23 +754,21 @@ const UcafListPage = () => {
 
   const filteredUcafTypesOptions = useMemo(
     () =>
-      UCAF_TYPES_RADIO_OPTIONS.map(({ label, value }) => {
+      UCAF_TYPES_RADIO_OPTIONS.filter(({ label, value }) => {
         const isInpatient = value === "I";
         const isEmergency = value === "E";
-        return {
-          label,
-          value,
-          ...(isInpatient
-            ? {
-                ...(!showAdmissionRequestButton || !isInpatientUcaf
-                  ? { disabled: true }
-                  : null),
-              }
-            : isEmergency
-            ? { ...(tpa_use_emergency !== "Y" ? { disabled: true } : null) }
-            : null),
-        };
-      }),
+        const shouldRemove = isInpatient
+          ? !showAdmissionRequestButton || !isInpatientUcaf
+          : isEmergency
+          ? tpa_use_emergency !== "Y"
+          : false;
+        return shouldRemove
+          ? true
+          : {
+              label,
+              value,
+            };
+      }).filter(Boolean),
     [showAdmissionRequestButton, tpa_use_emergency, isInpatientUcaf]
   );
 
