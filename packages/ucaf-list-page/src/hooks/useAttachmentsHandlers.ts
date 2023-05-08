@@ -123,7 +123,7 @@ const useAttachmentsHandlers = ({
         onSuccess: async (imageFileName) => {
           await handleUploadOneFile({
             file: value,
-            directory: "MRPATIENTIMAGE",
+            directory: "MIATTACHMENTS",
             fieldName: name,
             customUniqueFileNameOrFn: imageFileName,
           });
