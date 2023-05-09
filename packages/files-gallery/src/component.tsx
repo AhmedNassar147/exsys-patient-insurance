@@ -37,7 +37,6 @@ const FilesGallery = <T extends GalleryItemProps>({
   const handleItemAction = useCallback(
     (fileData: T, actionType: "select" | "delete", currentFileIndex: number) =>
       () => {
-        console.log("here");
         if (onDeleteFile && actionType === "delete") {
           onDeleteFile(fileData, currentFileIndex);
         }
@@ -88,11 +87,10 @@ const FilesGallery = <T extends GalleryItemProps>({
             {isPdfFile && (
               <ObjectContainer onClick={selectHandler}>
                 <ObjectElement
-                  data={fileUrl}
+                  src={fileUrl}
                   width="100%"
                   children="Your browser does not support pdf files."
                   height="100%"
-                  onClick={selectHandler}
                 />
               </ObjectContainer>
             )}

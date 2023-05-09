@@ -25,6 +25,7 @@ const FilesGalleryWithModalCarousel = ({
   padding,
   margin,
   gap,
+  loop,
 }: FilesGalleryWithModalCarouselProps) => {
   const [currentIndex, onIndexChanged] = useState(0);
 
@@ -66,12 +67,16 @@ const FilesGalleryWithModalCarousel = ({
         onClose={handleClose}
         fullScreen={modalFullScreen}
         htmlDetails={htmlDetails}
-        loop
+        loop={loop}
         useZoom
         useImagesGallery
       />
     </>
   );
+};
+
+FilesGalleryWithModalCarousel.defaultProps = {
+  loop: true,
 };
 
 export default memo(FilesGalleryWithModalCarousel);

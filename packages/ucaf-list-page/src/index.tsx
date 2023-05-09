@@ -1151,6 +1151,7 @@ const UcafListPage = () => {
           bordered={false}
           padding="0"
           margin="0px"
+          loop={false}
           onDeleteFile={
             !!reviwed_date || isDataWrittenByDoctorAndProviderView
               ? undefined
