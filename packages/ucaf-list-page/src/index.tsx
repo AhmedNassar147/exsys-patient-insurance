@@ -638,14 +638,12 @@ const UcafListPage = () => {
           // @ts-ignore
           render: (
             specialty_type: string,
-            { status, last_delivery_date }: RequestTableRecordType
+            { last_delivery_date }: RequestTableRecordType
           ) => {
             const isMeds = specialty_type === "MED";
-            const isNotDeliveredAndPosted =
-              status === "P" && !last_delivery_date;
+            const isDelivered = !!last_delivery_date;
 
-            return isMeds &&
-              (["O", "F"].includes(status) || isNotDeliveredAndPosted) ? (
+            return isMeds && !isDelivered ? (
               <Flex width="100%" justify="center">
                 <DetailIcon
                   width="1.8em"
