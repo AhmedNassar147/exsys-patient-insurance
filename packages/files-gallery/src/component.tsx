@@ -91,6 +91,7 @@ const FilesGallery = <T extends GalleryItemProps>({
                   width="100%"
                   children="Your browser does not support pdf files."
                   height="100%"
+                  loading="lazy"
                 />
               </ObjectContainer>
             )}
