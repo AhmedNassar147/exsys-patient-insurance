@@ -87,6 +87,7 @@ export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
   approval?: string;
   forcedStatus?: string;
   new_request_price?: number;
+  calc_flag?: CapitalBooleanStringType;
 };
 
 export type SaveAttachmentEventType = {
