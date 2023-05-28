@@ -16,6 +16,8 @@ import ServicesModal, {
 import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
 import Flex from "@exsys-patient-insurance/flex";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
+import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
+import FindMedicationProperQuantityView from "./FindMedicationProperQuantityView";
 import {
   RequestTableRecordType,
   ServiceItemValuesForPostApiType,
@@ -54,6 +56,7 @@ const initialState = {
   patient_share_prc: undefined,
   specialty_type: "",
   approval: "",
+  calc_flag: "N" as CapitalBooleanStringType | undefined,
 };
 
 const EditOrCreateRequest = ({
@@ -102,6 +105,8 @@ const EditOrCreateRequest = ({
     delivery_doc_no,
     inClinicService,
     specialty_type,
+    service_code,
+    calc_flag,
   } = values;
 
   const isDoctorView = pageType === "D";
@@ -145,6 +150,7 @@ const EditOrCreateRequest = ({
         copay,
         specialty_type,
         approval,
+        calc_flag,
       },
       inClinicService
     ) => {
@@ -158,11 +164,21 @@ const EditOrCreateRequest = ({
         price_disc_prc,
         patient_share_prc: copay,
         approval,
+        calc_flag,
         ...(inClinicService ? null : { delivery_doc_no: undefined }),
       };
       handleChangeMultipleInputs(nextStateValues);
     },
     [handleChangeMultipleInputs, handleSubmit]
+  );
+
+  const onProperQtyFound = useCallback(
+    (qty: number) =>
+      handleChange({
+        name: "qty",
+        value: qty,
+      }),
+    [handleChange]
   );
 
   return (
@@ -187,6 +203,12 @@ const EditOrCreateRequest = ({
           justify="center"
           ellipsis="true"
         />
+        {!!service_name && calc_flag === "Y" && (
+          <FindMedicationProperQuantityView
+            serviceCode={service_code}
+            onProperQtyFound={onProperQtyFound}
+          />
+        )}
         <InputNumber
           label="qty"
           name="qty"

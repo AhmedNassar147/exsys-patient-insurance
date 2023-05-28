@@ -26,6 +26,7 @@ import {
   useCurrentPagePrivileges,
 } from "@exsys-patient-insurance/hooks";
 import DetailIcon from "@exsys-patient-insurance/details-icon";
+import { getCurrentUserType } from "@exsys-patient-insurance/helpers";
 import {
   useGlobalProviderNo,
   useAppConfigStore,
@@ -134,6 +135,7 @@ const UcafListPage = () => {
         doctor_department_id,
         doctor_provider_no,
         doctor_provider_name,
+        doctor_provider_type,
         doctor_name,
         complain,
         signs,
@@ -679,9 +681,6 @@ const UcafListPage = () => {
     !foundPatientCardNo ||
     !globalProviderNo;
 
-  const doctorDepartmentDisabled =
-    !isHospitalUser || !foundPatientCardNo || !paper_serial;
-
   const requestDataLength = requestTableDataSource?.length ?? 0;
 
   const isDataWrittenByDoctor = written_by_doctor === "Y";
@@ -779,6 +778,16 @@ const UcafListPage = () => {
     !isHospitalUser ||
     !foundPatientCardNo ||
     !doctor_provider_no ||
+    !paper_serial;
+
+  const isHospitalUserFromCurrentProvider = useMemo(
+    () => getCurrentUserType(doctor_provider_type).isHospitalUser,
+    [doctor_provider_type]
+  );
+
+  const doctorDepartmentDisabled =
+    (!!doctor_provider_type && !isHospitalUserFromCurrentProvider) ||
+    !foundPatientCardNo ||
     !paper_serial;
 
   const tableLoading =

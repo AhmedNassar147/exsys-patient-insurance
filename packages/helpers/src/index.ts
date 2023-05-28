@@ -28,6 +28,7 @@ export { default as ensureBackEndSetsProperTotal } from "./ensureBackEndSetsProp
 export { default as getCurrentDateString } from "./getCurrentDateString";
 export { default as generateDefaultMonthAndYear } from "./generateDefaultMonthAndYear";
 export { default as createFullImageUrl } from "./createFullImageUrl";
+export { default as getCurrentUserType } from "./getCurrentUserType";
 export * from "./generateYearsBasedOnGivenParams";
 export * from "./fileHelpers";
 export * from "./localStorage";

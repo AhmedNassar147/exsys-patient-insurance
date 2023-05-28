@@ -3,7 +3,10 @@
  * Types: `@exsys-patient-insurance/services-modal`.
  *
  */
-import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
+import {
+  RecordTypeWithAnyValue,
+  CapitalBooleanStringType,
+} from "@exsys-patient-insurance/types";
 
 export interface ServiceRequestItemType {
   total: number;
@@ -15,6 +18,7 @@ export interface ServiceRequestItemType {
   reimbursement_add_copay: number;
   approval: string;
   specialty_type: string;
+  calc_flag?: CapitalBooleanStringType;
 }
 
 export type OnSelectServiceType = (

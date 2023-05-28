@@ -31,6 +31,7 @@
     "@exsys-patient-insurance/modal": "1.0.0",
     "@exsys-patient-insurance/network-hooks": "1.0.0",
     "@exsys-patient-insurance/patient-history-components": "1.0.0",
+    "@exsys-patient-insurance/search-clear-icons": "1.0.0",
     "@exsys-patient-insurance/select-with-add-action": "1.0.0",
     "@exsys-patient-insurance/select-with-api-query": "1.0.0",
     "@exsys-patient-insurance/selection-check": "1.0.0",

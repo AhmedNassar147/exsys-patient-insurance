@@ -9,6 +9,7 @@ export interface RequestDetailsType {
   root_organization_no: string;
   doctor_provider_no: number;
   doctor_provider_name: string;
+  doctor_provider_type?: string;
   doctor_name?: string;
   doctor_department_id: number;
   doctor_department_name: number;

@@ -4,25 +4,14 @@
  *
  */
 import useAppConfigStore from "./useAppConfigStore";
+import { getCurrentUserType } from "@exsys-patient-insurance/helpers";
 
 const useCurrentUserType = () => {
   const {
     state: { user_type },
   } = useAppConfigStore();
 
-  return {
-    isDoctorUser: ["H", "M", "D"].includes(user_type),
-    isLabUser: user_type === "L",
-    isRadiologyUser: user_type === "R",
-    isOpticalUser: user_type === "O",
-    isAdminUser: user_type === "A",
-    isCustomerSupportUser: user_type === "S",
-    isPhysiotherapyUser: user_type === "T",
-    isPharmacyUser: user_type === "P",
-    isClientUser: user_type === "C",
-    isManagerUser: user_type === "G",
-    isHospitalUser: ["H", "M"].includes(user_type),
-  };
+  return getCurrentUserType(user_type);
 };
 
 export default useCurrentUserType;
