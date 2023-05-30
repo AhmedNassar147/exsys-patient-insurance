@@ -14,6 +14,10 @@ export const RADIO_OPTIONS = [
     value: "W",
     label: "alwserchbywrd",
   },
+  {
+    value: "C",
+    label: "serchcode",
+  },
 ];
 
 export const initialState = {

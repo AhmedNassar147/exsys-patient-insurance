@@ -38,12 +38,9 @@ const DiagnosisModal = ({
   const isFavoriteSearch = search_type === "F";
 
   const skipQuery = useCallback(
-    ({ department_id, search_type, search_word }: RecordType) => {
-      return (
-        !department_id ||
-        (search_type === "W" && (search_word || "").length < 3)
-      );
-    },
+    ({ department_id, search_type, search_word }: RecordType) =>
+      !department_id ||
+      (["W", "C"].includes(search_type) && (search_word || "").length < 3),
     []
   );
 
@@ -136,7 +133,8 @@ const DiagnosisModal = ({
           label="srch"
           type="primary"
           onClick={onClickSearch}
-          disabled={searchButtonDisabled}
+          disabled={searchButtonDisabled || loading}
+          loading={loading}
         />
       </Flex>
       <Flex width="100%" wrap="true" gap="10px">
