@@ -26,7 +26,12 @@ import {
   useCurrentPagePrivileges,
 } from "@exsys-patient-insurance/hooks";
 import DetailIcon from "@exsys-patient-insurance/details-icon";
-import { getCurrentUserType } from "@exsys-patient-insurance/helpers";
+import CloseIcon from "@exsys-patient-insurance/close-icon";
+import {
+  getCurrentUserType,
+  checkIfThisDateGreaterThanOther,
+  addAmountToDate,
+} from "@exsys-patient-insurance/helpers";
 import {
   useGlobalProviderNo,
   useAppConfigStore,
@@ -57,6 +62,7 @@ import useRequestUcafBySerialNo from "./hooks/useRequestUcafBySerialNo";
 import useAttachmentsHandlers from "./hooks/useAttachmentsHandlers";
 import useLinkServices from "./hooks/useLinkServices";
 import useLoadDefaultServices from "./hooks/useLoadDefaultServices";
+import useCancelDispensedItem from "./hooks/useCancelDispensedItem";
 import useCreatePaperSerialFromAdmission from "./hooks/useCreatePaperSerialFromAdmission";
 import useCreateAdmissionBasedSerial from "./hooks/useCreateAdmissionBasedSerial";
 import MoreDetailsModal from "./partials/MoreDetailsModal";
@@ -72,7 +78,7 @@ import {
 import { RequestTableRecordType } from "./index.interface";
 
 const { IMAGES_AND_FILES } = UPLOAD_ACCEPTED_EXTENSIONS;
-const { red } = colors;
+const { red, appPrimary } = colors;
 const { requestsData: defaultRequestsData } = initialValues;
 const { details: defaultRequestsDataDetails } = defaultRequestsData;
 
@@ -156,6 +162,7 @@ const UcafListPage = () => {
         admission_date,
         discharge_date,
         isInpatientUcaf,
+        provider_cancelation_days,
       },
       isNewConsultation,
       hasPatientExceededLimits,
@@ -402,6 +409,9 @@ const UcafListPage = () => {
       onSuccess: handleAfterCreatePaperSerialFromAdmission,
     });
 
+  const { handleCancelDispensedItem, isCancelingDispendItem } =
+    useCancelDispensedItem(ucaf_id, onAfterSaveRequest);
+
   const baseShouldLoadDefaultConsultation =
     isCurrentPatientActive &&
     isNewConsultation &&
@@ -640,12 +650,40 @@ const UcafListPage = () => {
           // @ts-ignore
           render: (
             specialty_type: string,
-            { last_delivery_date }: RequestTableRecordType
+            {
+              last_delivery_date,
+              ucaf_dtl_pk,
+              service_code,
+            }: RequestTableRecordType
           ) => {
-            const isMeds = specialty_type === "MED";
-            const isDelivered = !!last_delivery_date;
+            if (last_delivery_date && provider_cancelation_days) {
+              const lastDeliveryDateWithDays = addAmountToDate(
+                last_delivery_date,
+                provider_cancelation_days
+              );
 
-            return isMeds && !isDelivered ? (
+              const isNowGreaterThanLastDeliveryDateWithDays =
+                checkIfThisDateGreaterThanOther(
+                  new Date(),
+                  lastDeliveryDateWithDays
+                );
+
+              return !isNowGreaterThanLastDeliveryDateWithDays ? (
+                <Flex width="100%" justify="center">
+                  <CloseIcon
+                    width="1.8em"
+                    size="25px"
+                    onClick={handleCancelDispensedItem(
+                      ucaf_dtl_pk,
+                      service_code
+                    )}
+                    color={appPrimary}
+                  />
+                </Flex>
+              ) : null;
+            }
+            const isMeds = specialty_type === "MED";
+            return isMeds && !last_delivery_date ? (
               <Flex width="100%" justify="center">
                 <DetailIcon
                   width="1.8em"
@@ -663,7 +701,7 @@ const UcafListPage = () => {
     }
 
     return baseColumns;
-  }, [openChangeMedicationModalVisible]);
+  }, [openChangeMedicationModalVisible, provider_cancelation_days]);
 
   const tableRowClassName: TableRowClassNameType<RequestTableRecordType> =
     useCallback(
@@ -794,7 +832,8 @@ const UcafListPage = () => {
     requestsLoading ||
     defaultServicesLoading ||
     isPerformingAdmissionRequest ||
-    isSavingRequest;
+    isSavingRequest ||
+    isCancelingDispendItem;
 
   // const doctorNameErrorShown = doctorProviderNoDisabled
   //   ? false

@@ -35,6 +35,7 @@ export interface RequestDetailsType {
   patientExceedLimit?: CapitalBooleanStringType;
   admission_reason?: string[];
   isInpatientUcaf?: boolean;
+  provider_cancelation_days?: number;
 }
 
 export interface RequestTableRecordType {
@@ -74,6 +75,8 @@ export interface RequestTableRecordType {
   original_price?: number;
   original_service_code?: string;
   new_request_price?: number;
+  uom?: string;
+  provider_cancelation_days?: number;
 }
 export interface RequestsDataType {
   details: RequestDetailsType;

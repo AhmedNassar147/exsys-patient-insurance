@@ -29,6 +29,7 @@ export { default as getCurrentDateString } from "./getCurrentDateString";
 export { default as generateDefaultMonthAndYear } from "./generateDefaultMonthAndYear";
 export { default as createFullImageUrl } from "./createFullImageUrl";
 export { default as getCurrentUserType } from "./getCurrentUserType";
+export { default as addAmountToDate } from "./addAmountToDate";
 export * from "./generateYearsBasedOnGivenParams";
 export * from "./fileHelpers";
 export * from "./localStorage";

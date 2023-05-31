@@ -56,6 +56,7 @@ const initialState = {
   patient_share_prc: undefined,
   specialty_type: "",
   approval: "",
+  uom: "",
   calc_flag: "N" as CapitalBooleanStringType | undefined,
 };
 
@@ -67,7 +68,7 @@ const EditOrCreateRequest = ({
   ucafType,
   recordStatus,
   closeEditionModal,
-  selectedRecord: { provider_no, ...selectedRecord },
+  selectedRecord: { provider_no, uom: selectedRecordUom, ...selectedRecord },
   handleSaveServiceRequest,
   isSavingCurrentRequest,
 }: EditOrCreateRequestProps) => {
@@ -94,6 +95,7 @@ const EditOrCreateRequest = ({
         ...selectedRecord,
         inClinicService: !!provider_no,
         record_status: recordStatus,
+        uom: selectedRecordUom || "",
       },
       onSubmit,
     });
@@ -107,6 +109,7 @@ const EditOrCreateRequest = ({
     specialty_type,
     service_code,
     calc_flag,
+    uom,
   } = values;
 
   const isDoctorView = pageType === "D";
@@ -151,6 +154,7 @@ const EditOrCreateRequest = ({
         specialty_type,
         approval,
         calc_flag,
+        uom,
       },
       inClinicService
     ) => {
@@ -165,6 +169,7 @@ const EditOrCreateRequest = ({
         patient_share_prc: copay,
         approval,
         calc_flag,
+        uom,
         ...(inClinicService ? null : { delivery_doc_no: undefined }),
       };
       handleChangeMultipleInputs(nextStateValues);
@@ -197,7 +202,7 @@ const EditOrCreateRequest = ({
       <Flex width="100%" wrap="true" gap="10px">
         <LabeledViewLikeInput
           label="prodctnam"
-          width="55%"
+          width="45%"
           value={service_name}
           onClick={shouldRenderServiceModal ? handleOpen : undefined}
           justify="center"
@@ -217,6 +222,15 @@ const EditOrCreateRequest = ({
           onChange={handleChange}
           disabled={!service_name}
         />
+        {!!uom && (
+          <LabeledViewLikeInput
+            label="uom"
+            minWidth="100px"
+            maxWidth="auto"
+            width="auto"
+            value={uom}
+          />
+        )}
         <InputNumber
           label="prc"
           width="100px"

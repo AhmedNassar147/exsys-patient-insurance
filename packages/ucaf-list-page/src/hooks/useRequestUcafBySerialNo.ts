@@ -71,6 +71,7 @@ const useRequestUcafBySerialNo = ({
           primary_diag_code,
           patientExceedLimit,
           admission_reason,
+          provider_cancelation_days,
         } = details || {};
 
         if (!doctor_provider_no && !error) {
@@ -122,6 +123,7 @@ const useRequestUcafBySerialNo = ({
                     written_by_doctor || defaultWrittenByDoctor,
                   doctor_name: isHospitalUser ? doctor_provider_name : "",
                   admission_reason: admission_reason || defaultAdmissionReason,
+                  provider_cancelation_days: provider_cancelation_days || 0,
                 },
               }),
           isNewConsultation: !primary_diagnosis && !primary_diag_code,

@@ -19,6 +19,7 @@ export interface ServiceRequestItemType {
   approval: string;
   specialty_type: string;
   calc_flag?: CapitalBooleanStringType;
+  uom?: string;
 }
 
 export type OnSelectServiceType = (

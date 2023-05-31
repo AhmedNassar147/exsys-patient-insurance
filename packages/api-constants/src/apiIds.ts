@@ -97,6 +97,9 @@ const API_IDS = {
   EXSYS_ADD_CLIENT_CODE_ITEM: "EX_CODES/add_client_codes",
   // http://149.102.140.8:9090/ords/exsys_api/mi_pkg/mi_calc_dispense?authorization=4492758&service_code=9916546&dosage=1&times=3&days=15
   QUERY_PRODUCT_QUANTITY_BY_DOSAGE_DATA: "mi_pkg/mi_calc_dispense",
+  //use post http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/mi_ucaf_cancel_delivery
+  POST_MI_UCAF_CANCEL_DELIVERY_TABLE_DATA:
+    "mi_ucaf_request/mi_ucaf_cancel_delivery",
 };
 
 export default API_IDS;
