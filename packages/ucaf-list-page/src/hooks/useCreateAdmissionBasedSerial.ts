@@ -98,6 +98,7 @@ const useCreateAdmissionBasedSerial = ({
               patient_share_prc: copay,
               forcedStatus: "P",
               approval,
+              requested_provider: providerNo,
             } as ServiceItemValuesForPostApiType,
             true
           );
@@ -105,7 +106,7 @@ const useCreateAdmissionBasedSerial = ({
       }
     },
     // eslint-disable-next-line
-    [shouldPerformNewAdmissionRequest]
+    [shouldPerformNewAdmissionRequest, providerNo]
   );
 
   return {

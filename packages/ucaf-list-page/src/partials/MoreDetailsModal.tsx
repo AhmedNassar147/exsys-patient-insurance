@@ -42,7 +42,7 @@ const MoreDetailsModal = ({
         },
         true
       ),
-    []
+    [record]
   );
 
   const {

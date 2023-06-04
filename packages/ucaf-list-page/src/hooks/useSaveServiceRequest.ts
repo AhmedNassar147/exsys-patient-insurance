@@ -29,6 +29,8 @@ type UseSaveServiceRequestOptionsType = Omit<
   onSuccess: () => void;
 };
 
+const PAGE_NAME = "tpaUcaf";
+
 const useSaveServiceRequest = ({
   root_organization_no,
   doctor_provider_no,
@@ -87,6 +89,11 @@ const useSaveServiceRequest = ({
         approval_reply,
         approved_quantity,
         new_request_price,
+        requested_provider,
+        isSendingToTPA,
+        dosage,
+        times,
+        days,
       }: ServiceItemValuesForPostApiType,
       showNotificationAndRefetchData?: boolean
     ) => {
@@ -106,13 +113,13 @@ const useSaveServiceRequest = ({
         return;
       }
 
-      let provider_no = `${providerNo}`;
+      const isInsert = record_status === "n";
+      let provider_no = isInsert || isSendingToTPA ? "" : `${providerNo}`;
 
       if (isDoctorUser) {
         provider_no = inClinicService ? `${doctor_provider_no}` : "";
       }
 
-      const isInsert = record_status === "n";
       const isSystemApproved = approval
         ? approval === "C"
         : is_system_approved === "Y";
@@ -155,6 +162,7 @@ const useSaveServiceRequest = ({
             service_code,
             delivery_qty,
             qty,
+            requested_provider: isInsert ? providerNo : requested_provider,
             approved_quantity: baseApprovedQty || undefined,
             ...calculatePatientShareAndDiscount(
               price,
@@ -162,6 +170,7 @@ const useSaveServiceRequest = ({
               price_disc_prc,
               new_request_price
             ),
+            creation_page_name: PAGE_NAME,
             delivery_date,
             delivery_doc_no,
             record_status,
@@ -172,6 +181,9 @@ const useSaveServiceRequest = ({
             approval_reply: isSystemApproved ? "A" : approval_reply,
             is_system_approved: isSystemApproved ? "Y" : "N",
             reply_notes,
+            dosage,
+            times,
+            days,
           },
         ],
       };
@@ -223,7 +235,7 @@ const useSaveServiceRequest = ({
       expected_days,
       onSuccess,
       loggedInUser,
-      admission_reason
+      admission_reason,
     ]
   );
 

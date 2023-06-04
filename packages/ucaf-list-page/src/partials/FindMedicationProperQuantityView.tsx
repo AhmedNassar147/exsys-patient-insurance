@@ -18,7 +18,7 @@ const initialValues = {
 };
 
 interface FindMedicationProperQuantityViewProps {
-  onProperQtyFound: (qty: number) => void;
+  onProperQtyFound: (state: typeof initialValues, qty: number) => void;
   serviceCode: string;
 }
 
@@ -36,9 +36,9 @@ const FindMedicationProperQuantityView = ({
   const onResponse: OnResponseActionType<any> = useCallback(
     ({ apiValues }) => {
       const { qty } = apiValues || {};
-      onProperQtyFound(qty || 1);
+      onProperQtyFound({ dosage, times, days }, qty || 1);
     },
-    [onProperQtyFound]
+    [onProperQtyFound, dosage, times, days]
   );
 
   const { loading, runQuery } = useBasicQuery({

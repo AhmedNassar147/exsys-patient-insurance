@@ -65,6 +65,7 @@ const useLoadDefaultServices = ({
                   patient_share_prc,
                   price_disc_prc,
                   approval,
+                  requested_provider,
                 },
                 index
               ) =>
@@ -81,6 +82,7 @@ const useLoadDefaultServices = ({
                     price_disc_prc,
                     forcedStatus: "P",
                     approval,
+                    requested_provider,
                   } as ServiceItemValuesForPostApiType,
                   index === length - 1
                 )

@@ -64,6 +64,7 @@ export interface RequestTableRecordType {
   due_delivery_qty?: number;
   last_delivery_date?: string;
   provider_no?: number;
+  requested_provider?: number;
   patientShare?: number;
   unit_discount?: number;
   specialty_type?: string;
@@ -77,6 +78,9 @@ export interface RequestTableRecordType {
   new_request_price?: number;
   uom?: string;
   provider_cancelation_days?: number;
+  dosage?: number;
+  times?: number;
+  days?: number;
 }
 export interface RequestsDataType {
   details: RequestDetailsType;
@@ -91,6 +95,7 @@ export type ServiceItemValuesForPostApiType = RequestTableRecordType & {
   forcedStatus?: string;
   new_request_price?: number;
   calc_flag?: CapitalBooleanStringType;
+  isSendingToTPA?: boolean;
 };
 
 export type SaveAttachmentEventType = {

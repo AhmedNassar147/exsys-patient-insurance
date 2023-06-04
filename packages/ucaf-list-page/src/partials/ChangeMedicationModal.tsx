@@ -71,6 +71,10 @@ const ChangeMedicationModal = ({
     specialty_type: oldSpecialtyType,
     patient_share_prc: oldPatientShare,
     price_disc_prc: oldPriceDiscount,
+    requested_provider,
+    dosage,
+    times,
+    days,
   },
 }: ChangeMedicationModalProps) => {
   const { pageType } = useParams();
@@ -186,6 +190,10 @@ const ChangeMedicationModal = ({
       reply_notes,
       is_system_approved,
       approval_reply,
+      requested_provider,
+      dosage,
+      times,
+      days,
     };
 
     await Promise.all([
@@ -211,6 +219,10 @@ const ChangeMedicationModal = ({
     oldPatientShare,
     oldPriceDiscount,
     showPriceView,
+    requested_provider,
+    dosage,
+    times,
+    days,
   ]);
 
   const saveDisabled = showPriceView

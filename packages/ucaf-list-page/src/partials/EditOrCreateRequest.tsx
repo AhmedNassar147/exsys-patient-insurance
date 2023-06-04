@@ -16,7 +16,10 @@ import ServicesModal, {
 import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
 import Flex from "@exsys-patient-insurance/flex";
 import LabeledViewLikeInput from "@exsys-patient-insurance/labeled-view-like-input";
-import { CapitalBooleanStringType } from "@exsys-patient-insurance/types";
+import {
+  CapitalBooleanStringType,
+  RecordTypeWithAnyValue,
+} from "@exsys-patient-insurance/types";
 import FindMedicationProperQuantityView from "./FindMedicationProperQuantityView";
 import {
   RequestTableRecordType,
@@ -58,6 +61,9 @@ const initialState = {
   approval: "",
   uom: "",
   calc_flag: "N" as CapitalBooleanStringType | undefined,
+  dosage: undefined,
+  times: undefined,
+  days: undefined,
 };
 
 const EditOrCreateRequest = ({
@@ -178,12 +184,12 @@ const EditOrCreateRequest = ({
   );
 
   const onProperQtyFound = useCallback(
-    (qty: number) =>
-      handleChange({
-        name: "qty",
-        value: qty,
+    (state: RecordTypeWithAnyValue, qty: number) =>
+      handleChangeMultipleInputs({
+        qty,
+        ...state,
       }),
-    [handleChange]
+    [handleChangeMultipleInputs]
   );
 
   return (

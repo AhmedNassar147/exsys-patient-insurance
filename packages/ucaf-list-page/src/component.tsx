@@ -468,6 +468,7 @@ const UcafListPage = () => {
               record_status: "u",
               is_system_approved,
               forcedStatus: is_system_approved === "Y" ? "P" : "O",
+              isSendingToTPA: true,
             },
             index === length - 1
           )
