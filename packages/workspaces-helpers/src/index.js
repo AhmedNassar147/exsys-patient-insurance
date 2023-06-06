@@ -10,6 +10,7 @@ const selectTranspiledWorkSpaces = require("./selectTranspiledWorkSpaces");
 const readRootPackageJson = require("./readRootPackageJson");
 const findRootYarnWorkSpaces = require("./findRootYarnWorkSpaces");
 const checkPathExistsSync = require("./checkPathExistsSync");
+const checkPathExists = require("./checkPathExists");
 const CONSTANTS = require("./constants");
 
 module.exports = {
@@ -21,4 +22,5 @@ module.exports = {
   readRootPackageJson,
   findRootYarnWorkSpaces,
   checkPathExistsSync,
+  checkPathExists,
 };

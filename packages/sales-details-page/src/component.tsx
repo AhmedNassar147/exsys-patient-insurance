@@ -3,7 +3,7 @@
  * `SalesDetailsPage`: `@exsys-patient-insurance/sales-details-page`.
  *
  */
-import { memo, useCallback, useRef } from "react";
+import { memo, useCallback, useMemo, useRef } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
 import SelectWithApiQuery, {
@@ -24,7 +24,11 @@ import {
   RecordTypeWithAnyValue,
   onChangeEvent,
 } from "@exsys-patient-insurance/types";
-import { initialFormFilterValues, TABLE_COLUMNS } from "./constants";
+import {
+  initialFormFilterValues,
+  TABLE_COLUMNS,
+  PROVIDER_NAME_COLUMN,
+} from "./constants";
 import { SalesDetailsRecordType } from "./index.interface";
 
 const SalesDetailsPage = () => {
@@ -97,6 +101,19 @@ const SalesDetailsPage = () => {
     });
     serialNoListRef?.current?.clearOptions();
   }, [handleChangeMultipleInputs, serialNoListRef]);
+
+  const tableColumns = useMemo(() => {
+    const [firstColumn, secondColumn, ...restColumns] = TABLE_COLUMNS;
+    return [
+      ...(isManagerUser ? PROVIDER_NAME_COLUMN : []),
+      firstColumn,
+      {
+        ...secondColumn,
+        width: !isManagerUser ? "28%" : "15%",
+      },
+      ...restColumns,
+    ];
+  }, [isManagerUser]);
 
   return (
     <>
@@ -187,7 +204,7 @@ const SalesDetailsPage = () => {
         width="100%"
         // @ts-ignore we already know it takes a ref.
         ref={tableValuesRef}
-        columns={TABLE_COLUMNS}
+        columns={tableColumns}
         rowKey="rowKey"
         queryApiId="QUERY_SALE_DETAILS_TABLE_DATA"
         hideTableHeaderTools={false}

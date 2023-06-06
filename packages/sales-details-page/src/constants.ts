@@ -21,11 +21,22 @@ export const initialFormFilterValues = {
   currentPatientData: {} as PatientItemRecordType,
 };
 
+export const PROVIDER_NAME_COLUMN = [
+  {
+    title: "prvdr",
+    dataIndex: "provider_name",
+    width: "13%",
+    totalCellProps: {
+      isFragment: true,
+    },
+  },
+];
+
 export const TABLE_COLUMNS = [
   {
     title: "batchno",
     dataIndex: "batch_no",
-    width: "9%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -33,7 +44,7 @@ export const TABLE_COLUMNS = [
   {
     title: "ptntnm",
     dataIndex: "patient_name",
-    width: "20%",
+    width: "15%",
     render: (patient_name: string, { card_no }: SalesDetailsRecordType) =>
       `${card_no} ${patient_name}`,
     totalCellProps: {
@@ -43,7 +54,7 @@ export const TABLE_COLUMNS = [
   {
     title: "ucafdate",
     dataIndex: "ucafe_date",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -51,7 +62,7 @@ export const TABLE_COLUMNS = [
   {
     title: "prodctnam",
     dataIndex: "service_name",
-    width: "25%",
+    width: "19%",
     render: (service_name: string, { service_code }: SalesDetailsRecordType) =>
       `${service_code} ${service_name}`,
     totalCellProps: {

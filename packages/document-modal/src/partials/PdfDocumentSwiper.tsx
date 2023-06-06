@@ -13,7 +13,7 @@ import { PdfDocumentModalSwiperProps } from "../index.interface";
 const LazyLoadedModalCarousel = createLazyLoadedComponent(
   () =>
     import(
-      "@exsys-patient-insurance/modal-carousel" /* webpackChunkName: "app-structure.modal-carousel" */
+      "@exsys-patient-insurance/modal-carousel" /* webpackChunkName: "exsys-patient-insurance.modal-carousel" */
     )
 );
 

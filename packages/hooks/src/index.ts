@@ -15,4 +15,5 @@ export { default as useTableInputChangeCallback } from "./useTableInputChangeCal
 export { default as useCurrentPagePrivileges } from "./useCurrentPagePrivileges";
 export { default as useFilesFullUrlsFromRelativePaths } from "./useFilesFullUrlsFromRelativePaths";
 export { default as useCreateVisibilityRef } from "./useCreateVisibilityRef";
+export { default as useInterval } from "./useInterval";
 export * from "./useOpenCloseActionsWithState";

@@ -12,7 +12,7 @@ import { SelectWithAddActionProps } from "../index.interface";
 const LazyLoadedDropDownFooter = createLazyLoadedComponent(
   () =>
     import(
-      "./DropDownFooter" /* webpackChunkName: "app-structure.select-with-add-action.DropDownFooter" */
+      "./DropDownFooter" /* webpackChunkName: "exsys-patient-insurance.select-with-add-action.DropDownFooter" */
     )
 );
 

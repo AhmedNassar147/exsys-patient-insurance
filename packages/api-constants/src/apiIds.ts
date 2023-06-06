@@ -100,6 +100,9 @@ const API_IDS = {
   //use post http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/mi_ucaf_cancel_delivery
   POST_MI_UCAF_CANCEL_DELIVERY_TABLE_DATA:
     "mi_ucaf_request/mi_ucaf_cancel_delivery",
+  // http://149.102.140.8:9090/ords/exsys_api/Exsys/get_web_application_ver?application=C
+  // this is an api with fixed user scheme
+  QUERY_APP_VERSION: "Exsys/get_web_application_ver",
 };
 
 export default API_IDS;
