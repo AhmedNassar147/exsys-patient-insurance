@@ -5,6 +5,8 @@
  */
 const toCamelCase = require("./toCamelCase");
 
+const helpKeyRegex = /--h$|--help$/gim;
+
 const collectProcessOptionsSync = () => {
   const argv = process.argv.slice(2) || [];
 
@@ -14,17 +16,16 @@ const collectProcessOptionsSync = () => {
     };
   }
 
+  const shouldDisplayHelpMessage = argv.some((key) => helpKeyRegex.test(key));
+
   let computedArgs = {
     hasOptions: true,
-    shouldDisplayHelpMessage: ["-h", "--h", "--help"].some((key) =>
-      argv.includes(key)
-    ),
+    shouldDisplayHelpMessage: shouldDisplayHelpMessage,
   };
 
-  const computedArgv = argv
-    .toString()
-    .replace(/-h|--h|--help/gim, "")
-    .split(" ");
+  const computedArgv = shouldDisplayHelpMessage
+    ? argv.filter((key) => !helpKeyRegex.test(key))
+    : argv;
 
   computedArgv.forEach((key) => {
     key = key.replace(/\s/gm, "");
@@ -57,12 +58,6 @@ const collectProcessOptionsSync = () => {
       : actualValue;
   });
 
-  // yarn scriptName -h --filter=whatever
-  // {
-  //   filter: "whatever",
-  //   shouldDisplayHelpMessage: true (-h)
-
-  // }
   return computedArgs;
 };
 
