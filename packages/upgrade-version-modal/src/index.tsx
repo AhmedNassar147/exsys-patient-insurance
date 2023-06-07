@@ -117,7 +117,7 @@ const UpgradeVersionModal = () => {
   );
 
   const upgradeOrDowngradeLabel = shouldUpgrade ? "upgrade" : "downgrade";
-  const modalTitle = `${upgradeOrDowngradeLabel} app version`;
+  const modalTitle = `${upgradeOrDowngradeLabel} app version using (shift + ctrl + h)`;
 
   return (
     <Modal
