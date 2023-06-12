@@ -3,8 +3,10 @@
  * Constants: `@exsys-patient-insurance/services-modal`.
  *
  */
+import { RecordTypeWithAnyValue } from "@exsys-patient-insurance/types";
 export const initialState = {
   search_word: "",
+  productUsageValues: {} as RecordTypeWithAnyValue,
 };
 
 export const TABLE_COLUMNS = [

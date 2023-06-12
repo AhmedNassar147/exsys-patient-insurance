@@ -10,16 +10,21 @@ import Flex from "@exsys-patient-insurance/flex";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import SelectionCheck from "@exsys-patient-insurance/selection-check";
 import { useGlobalProviderNo } from "@exsys-patient-insurance/app-config-store";
+import Text from "@exsys-patient-insurance/text";
+import { colors } from "@exsys-patient-insurance/theme-values";
 import TableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
 } from "@exsys-patient-insurance/exsys-table-with-api-query";
 import {
   RecordType,
   TableBodyRowClickEvent,
+  RecordTypeWithAnyValue,
 } from "@exsys-patient-insurance/types";
 import useCheckProductUsageValidity from "./hooks/useCheckProductUsageValidity";
 import { ServicesModalProps, ServiceRequestItemType } from "./index.interface";
 import { initialState, TABLE_COLUMNS } from "./constants";
+
+const { red23 } = colors;
 
 const ServicesModal = ({
   onClose,
@@ -31,7 +36,7 @@ const ServicesModal = ({
   validateProductUsage,
 }: ServicesModalProps) => {
   const {
-    values: { search_word, inClinicService },
+    values: { search_word, inClinicService, productUsageValues },
     handleChange,
   } = useFormManager({
     initialValues: {
@@ -62,13 +67,15 @@ const ServicesModal = ({
   const onDoubleClickRecord: TableBodyRowClickEvent<ServiceRequestItemType> =
     useCallback(
       async (record) => {
-        const { service_id, specialty_type, service_name } = record;
+        const { service_id, specialty_type } = record;
         if (specialty_type === "MED" && validateProductUsage) {
-          const isValidProduct = await checkProductUsageValidity(
-            service_id,
-            service_name
-          );
-          if (!isValidProduct) {
+          const apiValues = await checkProductUsageValidity(service_id);
+          const { next_allowed_date } = apiValues as RecordTypeWithAnyValue;
+          handleChange({
+            name: "productUsageValues",
+            value: apiValues,
+          });
+          if (!!next_allowed_date) {
             return;
           }
         }
@@ -111,6 +118,15 @@ const ServicesModal = ({
     []
   );
 
+  const {
+    days,
+    dosage,
+    last_ucafe_date,
+    next_allowed_date,
+    provider_name,
+    times,
+  } = productUsageValues;
+
   return (
     <Modal
       title="selctservcs"
@@ -122,7 +138,7 @@ const ServicesModal = ({
       bodyMinHeight="100px"
       bodyMaxHeight="calc(100vh - 210px)"
     >
-      <Flex width="100%" align="center" margin="0 0 12px" gap="20%">
+      <Flex width="100%" align="center" margin="0 0 12px" gap="15px">
         {showInClinicServiceCheckbox && (
           <SelectionCheck
             name="inClinicService"
@@ -139,10 +155,25 @@ const ServicesModal = ({
           value={search_word}
           onChange={handleChange}
           label="prodctnam"
-          width="300px"
+          width="240px"
           disabled={isCheckingProductValidity}
           onPressEnter={onSearch}
         />
+        {!!next_allowed_date && (
+          <Flex width="45%" gap="4px" column="true" align="flex-end">
+            <Text
+              color={red23}
+              children={`the product already used by ${provider_name} at ${last_ucafe_date}`}
+              width="100%"
+            />
+            <Text
+              color={red23}
+              children={`with (${dosage} dosage of ${times} times in ${days} days)
+                and it will be allowed at ${next_allowed_date}`}
+              width="100%"
+            />
+          </Flex>
+        )}
       </Flex>
 
       <TableWithApiQuery<ServiceRequestItemType>
