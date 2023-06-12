@@ -63,7 +63,8 @@ export const NotificationItem = styled.div<BaseNotificationItemProps>`
   box-shadow: 0 0 10px #999;
   opacity: 0.9;
   transition: 0.3s ease;
-  height: 50px;
+  min-height: 50px;
+  max-height: 200px;
   width: 365px;
   padding: 10px;
   ${topRightCss};
@@ -88,7 +89,7 @@ export const NotificationTitle = styled(BaseText)`
   margin-top: 0;
   margin-bottom: 6px;
   width: 300px;
-  height: 18px;
+  min-height: 18px;
   color: currentColor;
 `;
 

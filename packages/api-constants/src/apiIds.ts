@@ -103,6 +103,9 @@ const API_IDS = {
   // http://149.102.140.8:9090/ords/exsys_api/Exsys/get_web_application_ver?application=C
   // this is an api with fixed user scheme
   QUERY_APP_VERSION: "Exsys/get_web_application_ver",
+  // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/get_last_service_delivery?planguageid=1&authorization=5325342&root_organization_no=001&patient_card_no=2222&service_code=9901371
+  QUERY_CHECK_PRODUCT_USAGE_VALIDITY:
+    "mi_ucaf_request/get_last_service_delivery",
 };
 
 export default API_IDS;

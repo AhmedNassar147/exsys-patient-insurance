@@ -353,6 +353,7 @@ const ChangeMedicationModal = ({
             visible={visible}
             searchParams={servicesRequestParams}
             onClose={handleClose}
+            validateProductUsage
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
             initialInClinicService={initialInClinicService}

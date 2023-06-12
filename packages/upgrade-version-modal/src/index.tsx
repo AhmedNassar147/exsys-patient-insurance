@@ -117,7 +117,7 @@ const UpgradeVersionModal = () => {
   );
 
   const upgradeOrDowngradeLabel = shouldUpgrade ? "upgrade" : "downgrade";
-  const modalTitle = `${upgradeOrDowngradeLabel} app version using (shift + ctrl + h)`;
+  const modalTitle = `${upgradeOrDowngradeLabel} app version using (shift + ctrl + r)`;
 
   return (
     <Modal
@@ -157,7 +157,7 @@ const UpgradeVersionModal = () => {
         <Button
           onClick={handleLogout}
           type="primary"
-          label="logout to upgrade"
+          label={`logout to ${upgradeOrDowngradeLabel}`}
         />
         <Button
           onClick={handleLogoutAfterTimeOrContinue}

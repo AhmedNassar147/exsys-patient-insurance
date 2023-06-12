@@ -17,6 +17,7 @@ import {
   RecordType,
   TableBodyRowClickEvent,
 } from "@exsys-patient-insurance/types";
+import useCheckProductUsageValidity from "./hooks/useCheckProductUsageValidity";
 import { ServicesModalProps, ServiceRequestItemType } from "./index.interface";
 import { initialState, TABLE_COLUMNS } from "./constants";
 
@@ -27,6 +28,7 @@ const ServicesModal = ({
   onSelectService,
   initialInClinicService,
   showInClinicServiceCheckbox,
+  validateProductUsage,
 }: ServicesModalProps) => {
   const {
     values: { search_word, inClinicService },
@@ -38,6 +40,13 @@ const ServicesModal = ({
     },
   });
   const providerNo = useGlobalProviderNo();
+
+  const { root_organization_no, patient_card_no } = searchParams || {};
+  const { checkProductUsageValidity, isCheckingProductValidity } =
+    useCheckProductUsageValidity({
+      rootOrganizationNo: root_organization_no,
+      patientCardNo: patient_card_no,
+    });
 
   const { tableValuesRef, fetchTableData } =
     useCreateTableActionsFromRefToForm<ServiceRequestItemType>();
@@ -52,11 +61,27 @@ const ServicesModal = ({
 
   const onDoubleClickRecord: TableBodyRowClickEvent<ServiceRequestItemType> =
     useCallback(
-      (record) => {
+      async (record) => {
+        const { service_id, specialty_type, service_name } = record;
+        if (specialty_type === "MED" && validateProductUsage) {
+          const isValidProduct = await checkProductUsageValidity(
+            service_id,
+            service_name
+          );
+          if (!isValidProduct) {
+            return;
+          }
+        }
         onSelectService(record, inClinicService);
         onClose();
       },
-      [onSelectService, onClose, inClinicService]
+      [
+        onSelectService,
+        onClose,
+        inClinicService,
+        validateProductUsage,
+        checkProductUsageValidity,
+      ]
     );
 
   const skipQuery = useCallback(
@@ -104,6 +129,7 @@ const ServicesModal = ({
             checked={inClinicService}
             label="inclncsrvs"
             onChange={handleChange}
+            disabled={isCheckingProductValidity}
             width="auto"
           />
         )}
@@ -114,6 +140,7 @@ const ServicesModal = ({
           onChange={handleChange}
           label="prodctnam"
           width="300px"
+          disabled={isCheckingProductValidity}
           onPressEnter={onSearch}
         />
       </Flex>

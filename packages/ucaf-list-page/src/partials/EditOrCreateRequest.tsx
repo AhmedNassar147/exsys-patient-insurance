@@ -270,6 +270,7 @@ const EditOrCreateRequest = ({
             onClose={handleClose}
             onSelectService={handleSelectService}
             showInClinicServiceCheckbox={isDoctorView}
+            validateProductUsage
             initialInClinicService={
               isInPatientUcafType || !!provider_no || !isDoctorUser
             }

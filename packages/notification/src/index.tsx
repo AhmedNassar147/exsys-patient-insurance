@@ -50,7 +50,7 @@ const Notification = (
 
       interval = setInterval(() => {
         deleteNotification(0);
-      }, duration || 3000);
+      }, duration || 3500);
     }
 
     return () => clearInterval(interval);
