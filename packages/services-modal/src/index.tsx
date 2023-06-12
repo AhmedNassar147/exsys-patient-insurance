@@ -88,6 +88,7 @@ const ServicesModal = ({
         inClinicService,
         validateProductUsage,
         checkProductUsageValidity,
+        handleChange,
       ]
     );
 
