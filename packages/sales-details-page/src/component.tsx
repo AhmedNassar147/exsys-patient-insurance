@@ -9,7 +9,9 @@ import Flex from "@exsys-patient-insurance/flex";
 import SelectWithApiQuery, {
   SelectWithApiQueryRefValuesType,
 } from "@exsys-patient-insurance/select-with-api-query";
-import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
+
+import ClearSearchIcon from "@exsys-patient-insurance/search-clear-icons";
+// import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
 import {
   useGlobalProviderNo,
   useCurrentUserType,
@@ -17,17 +19,20 @@ import {
 } from "@exsys-patient-insurance/app-config-store";
 import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import DatePickerField from "@exsys-patient-insurance/date-picker-field";
+import ExsysTable from "@exsys-patient-insurance/exsys-table";
 import ExsysTableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
 } from "@exsys-patient-insurance/exsys-table-with-api-query";
 import {
   RecordTypeWithAnyValue,
   onChangeEvent,
+  TableExpandedRowRenderType,
 } from "@exsys-patient-insurance/types";
 import {
   initialFormFilterValues,
   TABLE_COLUMNS,
   PROVIDER_NAME_COLUMN,
+  detailsTableColumns,
 } from "./constants";
 import { SalesDetailsRecordType } from "./index.interface";
 
@@ -46,6 +51,7 @@ const SalesDetailsPage = () => {
       paper_serial,
       currentPatientData: { patient_card_no },
     },
+
     handleChange,
     handleChangeMultipleInputs,
     resetForm,
@@ -93,6 +99,21 @@ const SalesDetailsPage = () => {
     []
   );
 
+  const expandedRowRender: TableExpandedRowRenderType<SalesDetailsRecordType> =
+    useCallback(
+      ({ dtl_data }) => (
+        <ExsysTable
+          dataSource={dtl_data}
+          margin="5px 0"
+          totalRecordsInDataBase={dtl_data?.length ?? 0}
+          columns={detailsTableColumns}
+          rowKey="rowKey"
+          hideTableHeaderTools
+        />
+      ),
+      []
+    );
+
   const onChangeSearchFields: onChangeEvent = useCallback(() => {
     handleChangeMultipleInputs({
       currentPatientData: {
@@ -109,7 +130,7 @@ const SalesDetailsPage = () => {
       firstColumn,
       {
         ...secondColumn,
-        width: !isManagerUser ? "28%" : "15%",
+        width: !isManagerUser ? "18%" : "9%",
       },
       ...restColumns,
     ];
@@ -194,7 +215,7 @@ const SalesDetailsPage = () => {
           }}
         />
 
-        <SearchClearIcons
+        <ClearSearchIcon
           onPressClear={handleClear}
           onPressSearch={onPressSearch}
         />
@@ -214,6 +235,7 @@ const SalesDetailsPage = () => {
         withInfo={false}
         withPdf={false}
         withExcel
+        expandedRowRender={expandedRowRender}
         skipQuery={tableSkipQuery}
         useAlignedTotalCells
       />
