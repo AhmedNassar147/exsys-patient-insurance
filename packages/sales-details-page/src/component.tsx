@@ -9,9 +9,7 @@ import Flex from "@exsys-patient-insurance/flex";
 import SelectWithApiQuery, {
   SelectWithApiQueryRefValuesType,
 } from "@exsys-patient-insurance/select-with-api-query";
-
-import ClearSearchIcon from "@exsys-patient-insurance/search-clear-icons";
-// import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
+import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
 import {
   useGlobalProviderNo,
   useCurrentUserType,
@@ -51,7 +49,6 @@ const SalesDetailsPage = () => {
       paper_serial,
       currentPatientData: { patient_card_no },
     },
-
     handleChange,
     handleChangeMultipleInputs,
     resetForm,
@@ -215,7 +212,7 @@ const SalesDetailsPage = () => {
           }}
         />
 
-        <ClearSearchIcon
+        <SearchClearIcons
           onPressClear={handleClear}
           onPressSearch={onPressSearch}
         />

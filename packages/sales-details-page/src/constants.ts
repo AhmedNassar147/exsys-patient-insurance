@@ -17,7 +17,6 @@ export const initialFormFilterValues = {
   root_organization_no: "",
   provider_no: "",
   paper_serial: "",
-  qty: "",
   currentPatientData: {} as PatientItemRecordType,
 };
 
@@ -33,42 +32,6 @@ export const PROVIDER_NAME_COLUMN = [
 ];
 
 export const TABLE_COLUMNS = [
-  // {
-  //   title: "batchno",
-  //   dataIndex: "batch_no",
-  //   width: "7%",
-  //   totalCellProps: {
-  //     isFragment: true,
-  //   },
-  // },
-  // {
-  //   title: "ptntnm",
-  //   dataIndex: "patient_name",
-  //   width: "15%",
-  //   render: (patient_name: string, { card_no }: SalesDetailsRecordType) =>
-  //     `${card_no} ${patient_name}`,
-  //   totalCellProps: {
-  //     isFragment: true,
-  //   },
-  // },
-  // {
-  //   title: "ucafid",
-  //   dataIndex: "ucaf_id",
-  //   width: "7%",
-  //   totalCellProps: {
-  //     isFragment: true,
-  //   },
-  // },
-  // {
-  //   title: "prodctnam",
-  //   dataIndex: "service_name",
-  //   width: "19%",
-  //   render: (service_name: string, { service_code }: SalesDetailsRecordType) =>
-  //     `${service_code} ${service_name}`,
-  //   totalCellProps: {
-  //     isFragment: true,
-  //   },
-  // },
   {
     title: "provider_name",
     dataIndex: "provider_name",
