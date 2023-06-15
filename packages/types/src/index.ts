@@ -28,6 +28,7 @@ export interface PrivilegeItem {
   f_insert?: CapitalBooleanStringType;
   f_update?: CapitalBooleanStringType;
   f_delete?: CapitalBooleanStringType;
+  pagination_size?: number;
 }
 
 export interface AppConfigStateType {

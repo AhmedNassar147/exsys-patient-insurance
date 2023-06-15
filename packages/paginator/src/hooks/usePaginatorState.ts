@@ -4,6 +4,7 @@
  *
  */
 import { useState, useMemo, useLayoutEffect } from "react";
+import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
 import { PaginatorChangedEventData } from "../index.interface";
 import {
   globalMaxRecordPerPage,
@@ -22,12 +23,15 @@ const usePaginatorState = (
     });
 
   // const globalMaxRecordPerPage = useMakeSelectMaxRecordsPerPage();
-  // const { pagination_size: currentPageMaxRowsPerPage } = usePageControls();
+  const { pagination_size: currentPageMaxRowsPerPagePrivilege } =
+    useCurrentPagePrivileges({
+      useFullPathName: true,
+    });
 
   const maxRecordsPerPage = useMemo(
     () =>
       min(
-        currentPageMaxRowsPerPage,
+        currentPageMaxRowsPerPagePrivilege || currentPageMaxRowsPerPage,
         globalMaxRecordPerPage,
         totalItemsInDatabase
       ),
