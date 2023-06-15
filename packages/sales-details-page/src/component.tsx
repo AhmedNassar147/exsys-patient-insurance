@@ -22,7 +22,7 @@ import ExsysTableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
 } from "@exsys-patient-insurance/exsys-table-with-api-query";
 import {
-  RecordTypeWithAnyValue,
+  //RecordTypeWithAnyValue,
   onChangeEvent,
   TableExpandedRowRenderType,
 } from "@exsys-patient-insurance/types";
@@ -90,11 +90,11 @@ const SalesDetailsPage = () => {
     setTableData([]);
   }, [setTableData, resetForm]);
 
-  const tableSkipQuery = useCallback(
-    ({ root_organization_no, provider_no }: RecordTypeWithAnyValue) =>
-      !root_organization_no || !provider_no,
-    []
-  );
+  // const tableSkipQuery = useCallback(
+  //   ({ root_organization_no, provider_no }: RecordTypeWithAnyValue) =>
+  //     !root_organization_no || !provider_no,
+  //   []
+  // );
 
   const expandedRowRender: TableExpandedRowRenderType<SalesDetailsRecordType> =
     useCallback(
@@ -158,6 +158,22 @@ const SalesDetailsPage = () => {
           value={date_to}
           min={date_from}
         />
+
+        <SelectWithApiQuery
+          label="tpaname"
+          name="root_organization_no"
+          width="200px"
+          value={root_organization_no}
+          onChange={handleChange}
+          queryType="query"
+          apiOrCodeId="QUERY_TPA_PROVIDER_LIST"
+          enableNetworkCache
+          //skipQuery={!provider_no}
+          // apiParams={{
+          //   provider_no,
+          // }}
+        />
+
         <SelectWithApiQuery
           label="providerno"
           name="provider_no"
@@ -170,21 +186,6 @@ const SalesDetailsPage = () => {
           disabled={!isManagerUser}
           apiParams={{
             account_no: accountNo,
-          }}
-        />
-
-        <SelectWithApiQuery
-          label="tpaname"
-          name="root_organization_no"
-          width="200px"
-          value={root_organization_no}
-          onChange={handleChange}
-          queryType="query"
-          apiOrCodeId="QUERY_TPA_PROVIDER_LIST"
-          enableNetworkCache
-          skipQuery={!provider_no}
-          apiParams={{
-            provider_no,
           }}
         />
 
@@ -233,7 +234,7 @@ const SalesDetailsPage = () => {
         withPdf={false}
         withExcel
         expandedRowRender={expandedRowRender}
-        skipQuery={tableSkipQuery}
+        // skipQuery={tableSkipQuery}
         useAlignedTotalCells
       />
     </>

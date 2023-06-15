@@ -24,7 +24,7 @@ export const PROVIDER_NAME_COLUMN = [
   {
     title: "prvdr",
     dataIndex: "provider_name",
-    width: "13%",
+    width: "16.3%",
     totalCellProps: {
       isFragment: true,
     },
@@ -32,18 +32,34 @@ export const PROVIDER_NAME_COLUMN = [
 ];
 
 export const TABLE_COLUMNS = [
+  // {
+  //   title: "provider_name",
+  //   dataIndex: "provider_name",
+  //   width: "16%",
+  //   totalCellProps: {
+  //     isFragment: true,
+  //   },
+  // },
   {
-    title: "provider_name",
-    dataIndex: "provider_name",
-    width: "16%",
+    title: "batchno",
+    dataIndex: "batch_no",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
   },
   {
-    title: "batchno",
-    dataIndex: "batch_no",
-    width: "3%",
+    title: "ucaf_date",
+    dataIndex: "ucaf_date",
+    width: "7%",
+    totalCellProps: {
+      isFragment: true,
+    },
+  },
+  {
+    title: "card_no",
+    dataIndex: "card_no",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -60,7 +76,7 @@ export const TABLE_COLUMNS = [
   {
     title: "form_no",
     dataIndex: "form_no",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -68,7 +84,7 @@ export const TABLE_COLUMNS = [
   {
     title: "ucaf_id",
     dataIndex: "ucaf_id",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
@@ -77,10 +93,15 @@ export const TABLE_COLUMNS = [
   {
     title: "gross_price",
     dataIndex: "gross_price",
-    width: "8%",
+    width: "7%",
     totalCellProps: {
       isFragment: true,
     },
+  },
+  {
+    title: "disc",
+    dataIndex: "disc",
+    width: "6%",
   },
   {
     title: "copay",
@@ -90,15 +111,11 @@ export const TABLE_COLUMNS = [
       isFragment: true,
     },
   },
+
   {
-    title: "disc",
-    dataIndex: "disc",
-    width: "7%",
-  },
-  {
-    title: "providershare",
+    title: "cmpnyshre",
     dataIndex: "provider_share",
-    width: "8%",
+    width: "7%",
     ellipsis: true,
   },
 ];
@@ -107,37 +124,37 @@ export const detailsTableColumns = [
   {
     title: "-",
     dataIndex: "-",
-    width: "27.3%",
+    width: "24%",
   },
   {
     title: "service_code",
     dataIndex: "service_code",
-    width: "7.61%",
+    width: "9.2%",
   },
   {
     title: "service_name",
     dataIndex: "service_name",
-    width: "26.3%",
+    width: "32.5%",
   },
   {
     title: "qty",
     dataIndex: "qty",
-    width: "8.2%",
+    width: "7.2%",
   },
   {
     title: "unit_price",
     dataIndex: "unit_price",
-    width: "8.3%",
+    width: "7.3%",
   },
   {
     title: "unit_disc",
     dataIndex: "unit_disc",
-    width: "6.3%",
+    width: "6.4%",
   },
   {
     title: "unit_copay",
     dataIndex: "unit_copay",
-    width: "7.4%",
+    width: "6%",
   },
   // {
   //   title: "total_price",
@@ -145,8 +162,8 @@ export const detailsTableColumns = [
   //   width: "13.4%",
   // },
   {
-    title: "provider_share",
+    title: "cmpnyshre",
     dataIndex: "provider_share",
-    width: "8%",
+    width: "7%",
   },
 ];
