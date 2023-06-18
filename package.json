@@ -139,7 +139,7 @@
     "clean": "rm -rf ./packages/*/node_modules",
     "clean-locks": "rm -rf ./packages/*/yarn.lock",
     "bootstrap": "lerna bootstrap",
-    "create-env-vars": "node ./packages/create-environment-variables-cli --client-name=cloud",
+    "create-env-vars": "node ./packages/create-environment-variables-cli --client-name=testcloud",
     "create-env-vars:prod": "node ./packages/create-environment-variables-cli --production --client-name=cloud",
     "prestart": "yarn create-env-vars",
     "start": "yarn workspace app start",

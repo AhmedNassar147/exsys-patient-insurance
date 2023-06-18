@@ -34,6 +34,7 @@ export const BasePageWrapper = styled(Flex)`
 
 export const BasePageContent = styled.div<{ sideBarSize: SizeType }>`
   flex: 1;
+  overflow-y: auto;
   padding: ${APP_HEADER_MARGIN} ${APP_HEADER_HORIZONTAL_PADDING};
   ${({ sideBarSize }) => {
     const currentSideBarWidth = SIDE_BAR_SIZES[sideBarSize];

@@ -43,7 +43,7 @@ export const TABLE_COLUMNS = [
   {
     title: "batchno",
     dataIndex: "batch_no",
-    width: "7%",
+    width: "6.5%",
     totalCellProps: {
       isFragment: true,
     },
@@ -68,7 +68,7 @@ export const TABLE_COLUMNS = [
   {
     title: "patientname",
     dataIndex: "patient_name",
-    width: "17%",
+    width: "16.5%",
     totalCellProps: {
       isFragment: true,
     },
@@ -94,9 +94,6 @@ export const TABLE_COLUMNS = [
     title: "gross_price",
     dataIndex: "gross_price",
     width: "7%",
-    totalCellProps: {
-      isFragment: true,
-    },
   },
   {
     title: "disc",
@@ -107,9 +104,6 @@ export const TABLE_COLUMNS = [
     title: "copay",
     dataIndex: "copay",
     width: "6%",
-    totalCellProps: {
-      isFragment: true,
-    },
   },
 
   {

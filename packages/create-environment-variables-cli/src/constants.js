@@ -18,12 +18,14 @@ const CUSTOM_CRA_ENV_KEYS = {
 
 const CLIENTS_NAMES = {
   cloud: "cloud",
+  testcloud: "testcloud",
 };
 
 const CLIENTS_NAMES_KEYS = Object.keys(CLIENTS_NAMES);
 
 const CLIENTS_URLS = {
   [CLIENTS_NAMES.cloud]: "http://149.102.140.8",
+  [CLIENTS_NAMES.testcloud]: "http://62.171.177.184",
 };
 
 const DEFAULT_CLI_OPTIONS = {

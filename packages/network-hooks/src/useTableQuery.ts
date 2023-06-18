@@ -63,6 +63,7 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
           : tableData;
 
         dataBaseTotalRecordsRef.current = getDataBaseTotalsRecords(newValues);
+        shouldMergeResultsRef.current = false;
         return newValues;
       });
 
@@ -73,7 +74,6 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
       setColumnsTotals(() =>
         hasTotals ? columnsTotalsFromApiResponse : undefined
       );
-      shouldMergeResultsRef.current = false;
     },
     []
   );
