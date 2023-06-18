@@ -17,7 +17,6 @@ const MyComponent = () => {
       totalItems={maybe 200}
       currentPage={current active page number}
       onChange={some change handler}
-      showQuickJumper={true | false}
       hideOnSinglePage={true | false}
     />
   );

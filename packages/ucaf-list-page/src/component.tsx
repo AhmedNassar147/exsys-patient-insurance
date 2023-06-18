@@ -1251,7 +1251,7 @@ const UcafListPage = () => {
         </Flex>
       )}
 
-      <Table
+      <Table<RequestTableRecordType>
         dataSource={requestTableDataSource}
         rowKey="ucaf_dtl_pk"
         totalRecordsInDataBase={requestDataLength}

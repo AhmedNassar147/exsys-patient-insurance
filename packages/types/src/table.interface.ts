@@ -40,9 +40,17 @@ export type TableSelectionChangeActionType<T> = (
   selectedRows: T[]
 ) => void;
 
+export type PaginatorChangedEventData = {
+  currentPage: number;
+  rowsPerPage: number;
+};
+
+export type TableFetchMoreActionEventType = PaginatorChangedEventData & {
+  searchParams: TableRowRecordType;
+};
+
 export type TableFetchMoreActionType = (
-  offset: number,
-  searchParams: TableRowRecordType
+  options: TableFetchMoreActionEventType
 ) => void;
 
 export interface TableSelectionProps<T> {
@@ -59,6 +67,11 @@ export interface TableContainerProps {
   className?: string;
   order?: number;
 }
+
+type SetPaginatorStateAction = React.Dispatch<
+  React.SetStateAction<PaginatorChangedEventData>
+>;
+
 export interface TableBaseProps<T = TableRowRecordType>
   extends TableContainerProps {
   bodyCellFontSize?: string;
@@ -69,6 +82,9 @@ export interface TableBaseProps<T = TableRowRecordType>
   dataSource: T[];
   footer?: (dataSource: T[]) => React.ReactNode;
   expandedRowRender?: TableExpandedRowRenderType<T>;
+  currentPage?: number;
+  rowsPerPage?: number;
+  setPaginationState?: SetPaginatorStateAction;
 }
 
 export interface TablePaginationProps {
@@ -256,7 +272,6 @@ export type TableColumnsTotalsType = RecordType<number>;
 
 export type TableQueryAPiResponseType<T = RecordTypeWithAnyValue[]> = {
   data: T;
-  columnsTotals?: TableColumnsTotalsType;
 };
 
 export interface TableProps<T = TableRowRecordType>
@@ -283,4 +298,27 @@ export interface TableQueryConfigProps
   extends Omit<BaseQueryConfigProps, "apiId"> {
   transformQueryApiData?: (data: any) => any;
   apiId: ApiIdsTypes;
+  noPagination?: boolean;
+}
+
+export interface PaginatorBaseProps {
+  margin?: string;
+}
+
+export interface PaginatorItemProps {
+  disabled?: boolean;
+  selected?: boolean;
+}
+
+export type OnPaginatorChangedActionType = (
+  event: PaginatorChangedEventData
+) => void | SetPaginatorStateAction;
+
+export interface PaginatorProps
+  extends PaginatorBaseProps,
+    PaginatorChangedEventData {
+  totalItems: number;
+  hideOnSinglePage?: boolean;
+  disabled?: boolean;
+  onChange?: OnPaginatorChangedActionType;
 }

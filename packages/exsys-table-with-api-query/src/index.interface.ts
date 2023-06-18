@@ -48,6 +48,9 @@ export interface TableWithApiQueryProps<T extends TableRowRecordType>
     | "resetTableFilters"
     | "onFetchMore"
     | "loading"
+    | "rowsPerPage"
+    | "setPaginationState"
+    | "currentPage"
   > {
   queryApiId: ApiIdsTypes;
   callOnFirstRender?: boolean;

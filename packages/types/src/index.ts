@@ -29,6 +29,7 @@ export interface PrivilegeItem {
   f_update?: CapitalBooleanStringType;
   f_delete?: CapitalBooleanStringType;
   pagination_size?: number;
+  recordsPerFetch?: number;
 }
 
 export interface AppConfigStateType {

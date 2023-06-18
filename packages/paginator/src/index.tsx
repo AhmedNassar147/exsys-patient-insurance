@@ -5,8 +5,8 @@
  */
 import { memo, useMemo, useCallback } from "react";
 import SelectField from "@exsys-patient-insurance/select-field";
-import InputNumber from "@exsys-patient-insurance/input-number";
-import { onChangeEvent } from "@exsys-patient-insurance/types";
+import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
+import { onChangeEvent, PaginatorProps } from "@exsys-patient-insurance/types";
 import createPaginatorItems from "./helpers/createPaginatorItems";
 import createSizeOptions from "./helpers/createSizeOptions";
 import PaginatorItemArrow from "./partials/PaginatorItemArrow";
@@ -16,8 +16,7 @@ import {
   BasePaginatorItem,
   InputsWrapper,
 } from "./styled";
-import { MORE_ARROWS_SIDES, globalMaxRecordPerPage } from "./constants";
-import { PaginatorProps } from "./index.interface";
+import { MORE_ARROWS_SIDES } from "./constants";
 
 const { ceil, min } = Math;
 
@@ -27,12 +26,15 @@ const Paginator = ({
   totalItems,
   currentPage,
   hideOnSinglePage,
-  showQuickJumper,
   onChange,
   rowsPerPage,
 }: PaginatorProps) => {
+  const { recordsPerFetch } = useCurrentPagePrivileges({
+    useFullPathName: true,
+  });
+
   const sizesOptions = useMemo(
-    () => createSizeOptions(min(totalItems, globalMaxRecordPerPage)),
+    () => createSizeOptions(min(totalItems, recordsPerFetch || 20)),
     [totalItems]
   );
 
@@ -51,16 +53,6 @@ const Paginator = ({
       onChange?.({
         rowsPerPage,
         currentPage: nextPage,
-      });
-    },
-    [onChange, rowsPerPage]
-  );
-
-  const handleQuickJumperChange: onChangeEvent<number> = useCallback(
-    ({ value }) => {
-      onChange?.({
-        rowsPerPage,
-        currentPage: value || 1,
       });
     },
     [onChange, rowsPerPage]
@@ -155,26 +147,9 @@ const Paginator = ({
           />
         </InputsWrapper>
       )}
-
-      {showQuickJumper && (
-        <InputsWrapper>
-          <InputNumber
-            value={currentPage}
-            width="54px"
-            min={1}
-            height="29px"
-            placeholder="page"
-            name="currentPage"
-            max={totalPages}
-            onChange={handleQuickJumperChange}
-          />
-        </InputsWrapper>
-      )}
       <BasePaginatorItem>{totalRecordsText}</BasePaginatorItem>
     </StyledList>
   );
 };
 
 export default memo(Paginator);
-export { default as usePaginatorState } from "./hooks/usePaginatorState";
-export type { OnPaginatorChangedActionType } from "./index.interface";

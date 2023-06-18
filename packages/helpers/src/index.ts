@@ -23,7 +23,6 @@ export { default as convertNormalFormattedDateToInputDate } from "./convertNorma
 export { default as convertInputDateToNormalFormat } from "./convertInputDateToNormalFormat";
 export { default as checkIfThisDateGreaterThanOther } from "./checkIfThisDateGreaterThanOther";
 export { default as clearObjectFields } from "./clearObjectFields";
-export { default as getDataBaseTotalsRecords } from "./getDataBaseTotalsRecords";
 export { default as ensureBackEndSetsProperTotal } from "./ensureBackEndSetsProperTotal";
 export { default as getCurrentDateString } from "./getCurrentDateString";
 export { default as generateDefaultMonthAndYear } from "./generateDefaultMonthAndYear";

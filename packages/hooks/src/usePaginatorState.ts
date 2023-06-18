@@ -4,17 +4,14 @@
  *
  */
 import { useState, useMemo, useLayoutEffect } from "react";
-import { useCurrentPagePrivileges } from "@exsys-patient-insurance/hooks";
-import { PaginatorChangedEventData } from "../index.interface";
-import {
-  globalMaxRecordPerPage,
-  currentPageMaxRowsPerPage,
-} from "../constants";
+import { PaginatorChangedEventData } from "@exsys-patient-insurance/types";
+import useCurrentPagePrivileges from "./useCurrentPagePrivileges";
 const { min } = Math;
 
 const usePaginatorState = (
   totalItemsInDatabase: number,
-  noPagination?: boolean
+  noPagination?: boolean,
+  pageSize?: number
 ) => {
   const [paginationState, setPaginationState] =
     useState<PaginatorChangedEventData>({
@@ -22,19 +19,16 @@ const usePaginatorState = (
       rowsPerPage: 5,
     });
 
-  // const globalMaxRecordPerPage = useMakeSelectMaxRecordsPerPage();
-  const { pagination_size: currentPageMaxRowsPerPagePrivilege } =
+  const { recordsPerFetch, pagination_size: pageMaxRowsPerPage } =
     useCurrentPagePrivileges({
       useFullPathName: true,
     });
 
+  const currentMaxRowsPerPage = pageSize || pageMaxRowsPerPage || 20;
+
   const maxRecordsPerPage = useMemo(
     () =>
-      min(
-        currentPageMaxRowsPerPagePrivilege || currentPageMaxRowsPerPage,
-        globalMaxRecordPerPage,
-        totalItemsInDatabase
-      ),
+      min(currentMaxRowsPerPage, recordsPerFetch || 20, totalItemsInDatabase),
     // eslint-disable-next-line
     [totalItemsInDatabase]
   );
@@ -43,8 +37,7 @@ const usePaginatorState = (
     () => {
       if (!noPagination) {
         const hasAnyValueNotNumber = [
-          currentPageMaxRowsPerPage,
-          globalMaxRecordPerPage,
+          currentMaxRowsPerPage,
           totalItemsInDatabase,
         ].some((value) => typeof value !== "number");
 
@@ -52,7 +45,6 @@ const usePaginatorState = (
           throw new Error(
             "Please make sure these fields always sent from backend AND they are number typed . \n" +
               "1- [pagination_size] from the item privileges API \n" +
-              `2- [max_record_per_page] from the login config data \n` +
               `OR you as a developer forgot to pass the [totalRecordsInDataBase] to the table props \n`
           );
         }
@@ -64,7 +56,7 @@ const usePaginatorState = (
       }
     },
     // eslint-disable-next-line
-    [maxRecordsPerPage]
+    [maxRecordsPerPage, noPagination]
   );
 
   return {
@@ -73,4 +65,4 @@ const usePaginatorState = (
   };
 };
 
-export default usePaginatorState;
+export { usePaginatorState };

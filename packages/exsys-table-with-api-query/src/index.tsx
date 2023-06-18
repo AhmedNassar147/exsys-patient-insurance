@@ -23,8 +23,7 @@ import {
   UseCreateTableActionsFromRefToFormValuesType,
 } from "./index.interface";
 
-const queryPageDataOnFirstRender: CapitalBooleanStringType =
-  "" as CapitalBooleanStringType;
+const queryPageDataOnFirstRender = "N" as CapitalBooleanStringType;
 
 const TableWithApiQuery = <T extends TableRowRecordType>(
   {
@@ -39,6 +38,7 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     transformDataSource,
     skipQuery,
     allowPassingChangeEventOnDone,
+    noPagination,
     ...tableProps
   }: TableWithApiQueryProps<T>,
   ref: TableForwardedRefType<T>
@@ -53,6 +53,10 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     onSearchAndFilterTable,
     handleResetFiltersAndSorters,
     columnsTotals,
+    currentPage,
+    rowsPerPage,
+    setPaginationState,
+    paginatorHidden,
   } = useTableQuery<T[]>({
     apiId: queryApiId,
     callOnFirstRender,
@@ -60,6 +64,7 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     disableParamsChangeCheck: !baseQueryAPiParams,
     params: baseQueryAPiParams,
     transformQueryApiData,
+    noPagination,
   });
 
   const foundDataSource = useMemo(
@@ -103,6 +108,10 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
       margin={margin}
       onInputChange={handleInputChange}
       columnsTotals={columnsTotals}
+      noPagination={paginatorHidden}
+      currentPage={currentPage}
+      rowsPerPage={rowsPerPage}
+      setPaginationState={setPaginationState}
       {...tableProps}
     />
   );

@@ -10,7 +10,10 @@ import {
 } from "@exsys-patient-insurance/styled-helpers";
 import { BaseText } from "@exsys-patient-insurance/text";
 import { colors, fontSizes } from "@exsys-patient-insurance/theme-values";
-import { PaginatorBaseProps, PaginatorItemProps } from "./index.interface";
+import {
+  PaginatorBaseProps,
+  PaginatorItemProps,
+} from "@exsys-patient-insurance/types";
 
 const { black2, white, inputBorderColor, blue2, appPrimary } = colors;
 

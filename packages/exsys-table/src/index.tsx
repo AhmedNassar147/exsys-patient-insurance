@@ -9,13 +9,10 @@ import { useBoundingClientRect } from "@exsys-patient-insurance/hooks";
 import createLazyLoadedComponent from "@exsys-patient-insurance/react-lazy";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import {
-  usePaginatorState,
-  OnPaginatorChangedActionType,
-} from "@exsys-patient-insurance/paginator";
-import {
   TableRowRecordType,
   TableProps,
   TableSelectionKeysType,
+  OnPaginatorChangedActionType,
 } from "@exsys-patient-insurance/types";
 import useExpandableTableRows from "./hooks/useExpandableTableRows";
 import useCreateExcelSheet from "./hooks/useCreateExcelSheet";
@@ -77,7 +74,7 @@ const ExsysTable = <T extends TableRowRecordType>({
   loading,
   rowKey,
   totalRecordsInDataBase, // must be sent as a number or you will get error
-  dataSource: dataSourceFromProps,
+  dataSource,
   selectionType,
   onSelectionChanged,
   disabledRowsSelection,
@@ -88,7 +85,6 @@ const ExsysTable = <T extends TableRowRecordType>({
   footerGap,
   bodyCellFontSize,
   headCellFontSize,
-  noPagination,
   onFetchMore,
   onSearchAndFilterTable,
   resetTableFilters,
@@ -126,19 +122,23 @@ const ExsysTable = <T extends TableRowRecordType>({
   // aligned Total Cells Props
   useAlignedTotalCells,
   useFloatingLabelsTotalCells,
+  rowsPerPage: _rowsPerPage,
+  currentPage: _currentPage,
+  noPagination: _noPagination,
+  setPaginationState,
 }: TableProps<T>) => {
+  const rowsPerPage = _rowsPerPage || 1;
+  const currentPage = _currentPage || 1;
+  const noPagination = typeof _noPagination === "undefined" || !!_noPagination;
+
   const [selectionColumnChecked, setIsSelectionColumnChecked] = useState(false);
   const [clickedRowKey, setClickedRow] = useState<TableSelectionKeysType[0]>();
 
-  const paginatorHidden = noPagination || totalRecordsInDataBase <= 5;
-
-  const { currentPage, rowsPerPage, setPaginationState } = usePaginatorState(
-    totalRecordsInDataBase,
-    noPagination
-  );
-
   const tableColumnsLength = columns?.length ?? 0;
-  const [elementRef, rect] = useBoundingClientRect([tableColumnsLength]);
+  const [elementRef, rect] = useBoundingClientRect([
+    tableColumnsLength,
+    loading,
+  ]);
 
   const {
     values: searchParamsValues,
@@ -149,21 +149,6 @@ const ExsysTable = <T extends TableRowRecordType>({
     initialValues: SEARCH_FORM_INITIAL_STATE,
   });
 
-  const dataSource = useMemo(() => {
-    if (!dataSourceFromProps?.length) {
-      return [];
-    }
-
-    if (paginatorHidden) {
-      return dataSourceFromProps;
-    }
-
-    const indexOfLastItem = currentPage * rowsPerPage;
-    const indexOfFirstItem = indexOfLastItem - rowsPerPage;
-    return dataSourceFromProps.slice(indexOfFirstItem, indexOfLastItem);
-  }, [currentPage, rowsPerPage, dataSourceFromProps, paginatorHidden]);
-
-  const dataSourceFromPropsLength = dataSourceFromProps?.length ?? 0;
   const dataSourceLength = dataSource.length;
   const containerWidthNumber = rect?.width ?? 200;
   const hasSelectionColumn = !!onSelectionChanged;
@@ -183,7 +168,7 @@ const ExsysTable = <T extends TableRowRecordType>({
 
   const excelSheetProps = useCreateExcelSheet({
     shouldProcessColumnsAndData: !hideTableHeaderTools && withExcel,
-    dataSource: dataSourceFromProps,
+    dataSource,
     columns: adjustedColumns,
     transformDataSourceToExcelSheetDataSet,
     sheetName,
@@ -245,29 +230,13 @@ const ExsysTable = <T extends TableRowRecordType>({
 
   const handlePaginatorChange: OnPaginatorChangedActionType = useCallback(
     (event) => {
-      const { currentPage, rowsPerPage } = event;
-
-      const indexOfLastItem = currentPage * rowsPerPage;
-
-      if (
-        !paginatorHidden &&
-        indexOfLastItem > dataSourceFromPropsLength &&
-        indexOfLastItem <= totalRecordsInDataBase
-      ) {
+      if (setPaginationState) {
+        setPaginationState?.(() => event);
         const { sorterOrder, ...apiSearchParams } = searchParamsValues;
-        onFetchMore?.(dataSourceFromPropsLength, apiSearchParams);
+        onFetchMore?.({ ...event, searchParams: apiSearchParams });
       }
-
-      setPaginationState(() => event);
     },
-    [
-      paginatorHidden,
-      dataSourceFromPropsLength,
-      totalRecordsInDataBase,
-      setPaginationState,
-      onFetchMore,
-      searchParamsValues,
-    ]
+    [setPaginationState, onFetchMore, searchParamsValues]
   );
 
   const onHeadCellActionFired: HeadCellActionFiredType = useCallback(
@@ -275,12 +244,14 @@ const ExsysTable = <T extends TableRowRecordType>({
       const isUserSearching = type === "search";
       const isUserSorting = type === "sort";
 
-      setPaginationState((previous) => ({
+      setPaginationState?.((previous) => ({
         ...previous,
         currentPage: 1,
       }));
 
-      const nextSearchParams = sorterConfig || {};
+      const nextSearchParams = {
+        ...(sorterConfig || null),
+      };
 
       if (isUserSorting) {
         handleChangeMultipleSearchParam(nextSearchParams);
@@ -343,7 +314,7 @@ const ExsysTable = <T extends TableRowRecordType>({
         isEditing={byAnyWayUserIsEditing}
         showSaveIcon={showSaveIcon}
         hasSelectedRow={doesTableHasAnySelectedRecord}
-        hasDataSource={!!dataSourceFromProps?.length}
+        hasDataSource={!!dataSourceLength}
         canInsert={canInsert}
         canDelete={canDelete}
         canEdit={canEdit}
@@ -400,11 +371,11 @@ const ExsysTable = <T extends TableRowRecordType>({
             {...expandProps}
           />
 
-          {!!dataSourceFromPropsLength && useAlignedTotalCells && (
+          {!!dataSourceLength && useAlignedTotalCells && (
             <tfoot>
               <LazyLoadedCreateTotalCellsRow
                 shouldMountChunk={useAlignedTotalCells}
-                dataSource={dataSourceFromProps}
+                dataSource={dataSource}
                 columns={adjustedColumns}
                 showExpandColumn={showExpandColumn}
                 showActionColumn={showActionColumn}
@@ -422,24 +393,23 @@ const ExsysTable = <T extends TableRowRecordType>({
         )}
       </TableContentWrapper>
 
-      {!!dataSourceFromPropsLength && !!footer && (
+      {!!dataSourceLength && !!footer && (
         <TableFooter
           footerJustify={footerJustify}
           footerPadding={footerPadding}
           footerGap={footerGap}
         >
-          {footer(dataSourceFromProps)}
+          {footer(dataSource)}
         </TableFooter>
       )}
 
       <LazyLoadedPaginator
-        shouldMountChunk={!paginatorHidden}
+        shouldMountChunk={!noPagination}
         margin="10px 0"
         totalItems={totalRecordsInDataBase}
         currentPage={currentPage}
         rowsPerPage={rowsPerPage}
         onChange={handlePaginatorChange}
-        showQuickJumper
         hideOnSinglePage
       />
       {(loading || !tableColumnsLength) && <LoadingOverlay visible />}
