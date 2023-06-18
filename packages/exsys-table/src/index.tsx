@@ -125,7 +125,6 @@ const ExsysTable = <T extends TableRowRecordType>({
   rowsPerPage: _rowsPerPage,
   currentPage: _currentPage,
   noPagination: _noPagination,
-  setPaginationState,
 }: TableProps<T>) => {
   const rowsPerPage = _rowsPerPage || 1;
   const currentPage = _currentPage || 1;
@@ -230,24 +229,16 @@ const ExsysTable = <T extends TableRowRecordType>({
 
   const handlePaginatorChange: OnPaginatorChangedActionType = useCallback(
     (event) => {
-      if (setPaginationState) {
-        setPaginationState?.(() => event);
-        const { sorterOrder, ...apiSearchParams } = searchParamsValues;
-        onFetchMore?.({ ...event, searchParams: apiSearchParams });
-      }
+      const { sorterOrder, ...apiSearchParams } = searchParamsValues;
+      onFetchMore?.({ ...event, searchParams: apiSearchParams });
     },
-    [setPaginationState, onFetchMore, searchParamsValues]
+    [onFetchMore, searchParamsValues]
   );
 
   const onHeadCellActionFired: HeadCellActionFiredType = useCallback(
     (type, sorterConfig) => () => {
       const isUserSearching = type === "search";
       const isUserSorting = type === "sort";
-
-      setPaginationState?.((previous) => ({
-        ...previous,
-        currentPage: 1,
-      }));
 
       const nextSearchParams = {
         ...(sorterConfig || null),
@@ -257,26 +248,34 @@ const ExsysTable = <T extends TableRowRecordType>({
         handleChangeMultipleSearchParam(nextSearchParams);
       }
 
+      const paginationEvent = {
+        currentPage: 1,
+        rowsPerPage,
+      };
+
       if (isUserSearching || isUserSorting) {
         const { sorterOrder, ...otherParams } = {
           ...searchParamsValues,
           ...nextSearchParams,
         };
-        // @ts-ignore it always be a record but we need to extract the `sorterOrder` from params.
-        onSearchAndFilterTable?.(otherParams);
+        onSearchAndFilterTable?.({
+          ...paginationEvent,
+          searchParams: otherParams,
+        });
         return;
       }
 
       resetSearchParams();
-      resetTableFilters?.();
+      resetTableFilters?.(paginationEvent);
     },
     [
       resetTableFilters,
       onSearchAndFilterTable,
       resetSearchParams,
       searchParamsValues,
-      setPaginationState,
+
       handleChangeMultipleSearchParam,
+      rowsPerPage,
     ]
   );
 

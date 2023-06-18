@@ -46,10 +46,10 @@ export type PaginatorChangedEventData = {
 };
 
 export type TableFetchMoreActionEventType = PaginatorChangedEventData & {
-  searchParams: TableRowRecordType;
+  searchParams?: TableRowRecordType;
 };
 
-export type TableFetchMoreActionType = (
+export type TableFetchActionType = (
   options: TableFetchMoreActionEventType
 ) => void;
 
@@ -84,16 +84,13 @@ export interface TableBaseProps<T = TableRowRecordType>
   expandedRowRender?: TableExpandedRowRenderType<T>;
   currentPage?: number;
   rowsPerPage?: number;
-  setPaginationState?: SetPaginatorStateAction;
 }
 
 export interface TablePaginationProps {
   noPagination?: boolean;
-  onFetchMore?: TableFetchMoreActionType;
-  onSearchAndFilterTable?: (
-    filtersAndSorter?: RecordType<string>
-  ) => Promise<void>;
-  resetTableFilters?: () => void;
+  onFetchMore?: TableFetchActionType;
+  onSearchAndFilterTable?: TableFetchActionType;
+  resetTableFilters?: TableFetchActionType;
 }
 
 export type TableCellAlignment = "start" | "end" | "center";

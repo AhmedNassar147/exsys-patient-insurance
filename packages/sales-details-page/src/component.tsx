@@ -72,6 +72,7 @@ const SalesDetailsPage = () => {
         patient_card_no,
         provider_account_no: accountNo,
         paper_serial,
+        poffset: 0,
       }),
     [
       date_from,

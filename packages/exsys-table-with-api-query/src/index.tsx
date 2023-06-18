@@ -55,7 +55,6 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     columnsTotals,
     currentPage,
     rowsPerPage,
-    setPaginationState,
     paginatorHidden,
   } = useTableQuery<T[]>({
     apiId: queryApiId,
@@ -111,7 +110,6 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
       noPagination={paginatorHidden}
       currentPage={currentPage}
       rowsPerPage={rowsPerPage}
-      setPaginationState={setPaginationState}
       {...tableProps}
     />
   );

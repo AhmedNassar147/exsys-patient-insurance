@@ -13,7 +13,6 @@ import {
   useCurrentPagePrivileges,
 } from "@exsys-patient-insurance/hooks";
 import {
-  RecordType,
   RecordTypeWithAnyValue,
   TableQueryAPiResponseType,
   TableColumnsTotalsType,
@@ -86,6 +85,7 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
     ({
       apiValues,
       error,
+      queryParams: { currentPage, poffset },
     }: QueryResponseValuesType<TableQueryAPiResponseType<T>>) => {
       if (error) {
         alert("Error when calling table query request");
@@ -94,14 +94,17 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
       }
 
       const { data: tableData } = apiValues || {};
+      const _currentPage = +(currentPage || 1);
+      const __currentPage = poffset === 0 ? 1 : _currentPage;
 
       ensureBackEndSetsProperTotal(tableData);
       const shouldMergeResults = shouldMergeResultsRef.current;
 
       setPagesDataSource((previous) => {
+        const currentTableData = tableData || [];
         const newPageValues = shouldMergeResults
-          ? [...(previous[currentPage] || []), ...(tableData || [])]
-          : tableData;
+          ? [...(previous[currentPage] || []), ...currentTableData]
+          : currentTableData;
         const { total, columnsTotals } = getTotalValues(newPageValues);
         dataBaseTotalRecordsRef.current = total;
         columnsTotalsRef.current = columnsTotals;
@@ -110,11 +113,16 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
 
         return {
           ...previous,
-          [currentPage]: newPageValues,
+          [__currentPage]: newPageValues,
         };
       });
+
+      setPaginationState((previous) => ({
+        ...previous,
+        currentPage: __currentPage,
+      }));
     },
-    []
+    [setPaginationState]
   );
 
   const transformApiDataFn = useCallback(
@@ -148,9 +156,18 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
   });
 
   const onFetchMore = useCallback(
-    async ({ searchParams, currentPage }: TableFetchMoreActionEventType) => {
+    async ({
+      searchParams,
+      currentPage,
+      rowsPerPage,
+    }: TableFetchMoreActionEventType) => {
       const loadedDataSourceRecordsCount =
         loadedDataSourceRecordsCountRef.current;
+
+      setPaginationState({
+        currentPage: currentPage,
+        rowsPerPage: rowsPerPage,
+      });
 
       if (
         loadedDataSourceRecordsCount === totalRecordsInDataBase ||
@@ -162,40 +179,59 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
 
       const params = {
         ...searchParams,
-        poffset: loadedDataSourceRecordsCount,
+        poffset: (currentPage - 1) * rowsPerPage,
       };
 
       searchParamsRef.current = params;
 
-      await runQuery(params);
+      await runQuery({ ...params, currentPage, poffset_step: rowsPerPage });
     },
-    [runQuery, pagesDataSource]
+    [runQuery, pagesDataSource, setPaginationState]
   );
 
   const onSearchAndFilterTable = useCallback(
-    async (filtersAndSorter?: RecordType<string>) => {
+    async ({
+      searchParams,
+      currentPage,
+      rowsPerPage,
+    }: TableFetchMoreActionEventType) => {
       shouldMergeResultsRef.current = false;
-      const params = { poffset: 0, ...filtersAndSorter };
+      const params = { poffset: 0, ...(searchParams || null) };
 
       searchParamsRef.current = params;
+      setPaginationState({
+        currentPage: currentPage,
+        rowsPerPage: rowsPerPage,
+      });
 
-      await runQuery(params);
+      await runQuery({ ...params, currentPage, poffset_step: rowsPerPage });
     },
-    [runQuery]
+    [runQuery, setPaginationState]
   );
 
   // reset all search filters and sorters.
-  const handleResetFiltersAndSorters = useCallback(() => {
-    shouldMergeResultsRef.current = false;
-    const currentSearchParams = searchParamsRef.current;
+  const handleResetFiltersAndSorters = useCallback(
+    ({ currentPage, rowsPerPage }: TableFetchMoreActionEventType) => {
+      shouldMergeResultsRef.current = false;
+      const currentSearchParams = searchParamsRef.current;
 
-    // we need to clear all filter keys values because `useBasicQuery` caches
-    // the previous filters.
-    const nextClearParams = clearObjectFields(currentSearchParams);
-
-    runQuery({ ...nextClearParams, poffset: 0 });
-    searchParamsRef.current = {};
-  }, [runQuery]);
+      // we need to clear all filter keys values because `useBasicQuery` caches
+      // the previous filters.
+      const nextClearParams = clearObjectFields(currentSearchParams);
+      searchParamsRef.current = {};
+      setPaginationState({
+        currentPage: currentPage,
+        rowsPerPage: rowsPerPage,
+      });
+      runQuery({
+        ...nextClearParams,
+        poffset: 0,
+        currentPage,
+        poffset_step: rowsPerPage,
+      });
+    },
+    [runQuery, setPaginationState]
+  );
 
   const currentDataSource = (pagesDataSource?.[currentPage] ?? []) as T;
 
@@ -219,7 +255,7 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
   return {
     loading,
     runQuery,
-    data: currentDataSource,
+    data: currentDataSource.slice(0, rowsPerPage) as T,
     onFetchMore,
     setData,
     onSearchAndFilterTable,
