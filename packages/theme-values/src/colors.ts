@@ -11,6 +11,7 @@ export const colors = {
   red: "#cf4048",
   // green: "#5cb172",
   // lightBlue: "#a2b5db",
+  lightOrange: "#fae1b4",
   orange: "#ebb74e",
   orange3: "#009100",
   lightSky: "#edeef9",
@@ -39,4 +40,6 @@ export const colors = {
   inputBorderColor: "#d9d9d9",
   disabledBg: "rgba(0, 0, 0, 0.25)",
   disabledTextColor: "rgba(0, 0, 0, 0.2)",
+  yellow: "#fbe1a8",
+  darkPink: "#f99191",
 };

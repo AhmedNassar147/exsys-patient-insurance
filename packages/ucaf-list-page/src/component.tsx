@@ -55,6 +55,7 @@ import {
   SelectChangeHandlerType,
   TableRowClassNameType,
   RecordTypeWithAnyValue,
+  TableRowCellClassNameType,
 } from "@exsys-patient-insurance/types";
 import EditOrCreateRequest from "./partials/EditOrCreateRequest";
 import useSaveServiceRequest from "./hooks/useSaveServiceRequest";
@@ -836,6 +837,15 @@ const UcafListPage = () => {
     isSavingRequest ||
     isCancelingDispendItem;
 
+  const rowCellClassName: TableRowCellClassNameType<RequestTableRecordType> =
+    useCallback(({ internal_notes }, dataIndex) => {
+      if (dataIndex === "approval_reply_name" && !!internal_notes) {
+        return "yellow-bg";
+      }
+
+      return "";
+    }, []);
+
   // const doctorNameErrorShown = doctorProviderNoDisabled
   //   ? false
   //   : !doctor_name;
@@ -1274,6 +1284,7 @@ const UcafListPage = () => {
         onDoubleClick={onTableDoubleClick}
         useAlignedTotalCells
         rowClassName={tableRowClassName}
+        rowCellClassName={rowCellClassName}
       />
 
       {!isEditableFieldsDisabled && (

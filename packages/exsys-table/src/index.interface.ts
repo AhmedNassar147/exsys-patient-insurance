@@ -11,6 +11,7 @@ import {
   TableCellInputFunctionsType,
   ColorNamesType,
   EllipsisCssHelperProps,
+  TableRowCellClassNameType,
 } from "@exsys-patient-insurance/types";
 
 type TableHeadSearchDropDownActionType = "search" | "reset" | "sort";
@@ -69,4 +70,5 @@ export interface InternalBaseBodyCellRendererProps<T extends TableRowRecordType>
   currentRecord: T;
   fontSize?: string;
   showEditableInputs?: boolean;
+  rowCellClassName?: TableRowCellClassNameType<T>;
 }

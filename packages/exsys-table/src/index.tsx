@@ -102,6 +102,7 @@ const ExsysTable = <T extends TableRowRecordType>({
   onDoubleClick,
   selectedRowBackgroundColor,
   rowClassName,
+  rowCellClassName,
   // header tools props
   hideTableHeaderTools,
   onPressSaveOrEdit,
@@ -367,6 +368,7 @@ const ExsysTable = <T extends TableRowRecordType>({
             clickedRowKey={clickedRowKey}
             actionColumnWidth={actionColumnWidth}
             rowClassName={rowClassName}
+            rowCellClassName={rowCellClassName}
             {...expandProps}
           />
 

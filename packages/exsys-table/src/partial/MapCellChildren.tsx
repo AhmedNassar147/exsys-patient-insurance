@@ -9,6 +9,7 @@ import {
   RecordType,
   TableCellAlignment,
   TableColumnProps,
+  TableRowCellClassNameType,
 } from "@exsys-patient-insurance/types";
 import HeadCellRenderer from "./HeadCellRenderer";
 import BodyCellRenderer from "./BodyCellRenderer";
@@ -19,17 +20,18 @@ import {
   InternalBaseBodyCellRendererProps,
 } from "../index.interface";
 
-interface NestedCellProps
+interface NestedCellProps<T extends TableRowRecordType>
   extends Omit<TableHeadSearchDropDownProps, "dataIndex" | "searchValue"> {
   sorterOrder?: SorterOrderType;
   searchParamsValues: RecordType;
+  rowCellClassName?: TableRowCellClassNameType<T>;
 }
 
 interface MapCellChildrenProps<T extends TableRowRecordType> {
   nestedColumns: TableColumnProps<T>[];
   baseCellAlignment?: TableCellAlignment;
   baseCellKey: string;
-  baseCellProps?: InternalBaseBodyCellRendererProps<T> | NestedCellProps;
+  baseCellProps?: InternalBaseBodyCellRendererProps<T> | NestedCellProps<T>;
   isBodyCells?: boolean;
 }
 
@@ -76,11 +78,11 @@ const MapCellChildren = <T extends TableRowRecordType>({
               <HeadCellRenderer
                 {...computedCellProps}
                 searchValue={
-                  (baseCellProps as NestedCellProps)?.searchParamsValues?.[
+                  (baseCellProps as NestedCellProps<T>)?.searchParamsValues?.[
                     dataIndex
                   ]
                 }
-                {...((baseCellProps || null) as NestedCellProps)}
+                {...((baseCellProps || null) as NestedCellProps<T>)}
               />
             )}
 

@@ -255,6 +255,11 @@ export type TableRowClassNameType<T = TableRowRecordType> = (
   record: T
 ) => string;
 
+export type TableRowCellClassNameType<T = TableRowRecordType> = (
+  record: T,
+  dataIndex: string
+) => string;
+
 export type TableBodyRowClickEvent<T = TableRowRecordType> = (
   currentRecord: T,
   rowIndex: number
@@ -288,6 +293,7 @@ export interface TableProps<T = TableRowRecordType>
   hideTableHeaderTools?: boolean;
   actionColumnWidth?: number;
   rowClassName?: TableRowClassNameType<T>;
+  rowCellClassName?: TableRowCellClassNameType<T>;
   columnsTotals?: TableColumnsTotalsType;
 }
 

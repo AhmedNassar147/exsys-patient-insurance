@@ -30,6 +30,7 @@ const BodyCellRenderer = <T extends TableRowRecordType>({
   showEditableInputs,
   onInputChange,
   recordInputsDisabled,
+  rowCellClassName,
   cellProps: {
     render,
     dataIndex,
@@ -66,6 +67,7 @@ const BodyCellRenderer = <T extends TableRowRecordType>({
       ellipsis={ellipsis ? "true" : undefined}
       title={cellTitle}
       disableTranslation
+      className={rowCellClassName?.(currentRecord, dataIndex)}
     >
       <LazyLoadedInputsNode
         shouldMountChunk={shouldLoadLazyLoadedInput}

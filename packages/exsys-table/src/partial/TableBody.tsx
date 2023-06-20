@@ -16,6 +16,7 @@ import {
   TableCellInputFunctionsType,
   TableBodyRowClickEvents,
   TableRowClassNameType,
+  TableRowCellClassNameType,
 } from "@exsys-patient-insurance/types";
 import SelectionView from "./SelectionView";
 import ExpandIconCell from "./ExpandIconCell";
@@ -57,6 +58,7 @@ interface TableBodyProps<T>
   clickedRowKey?: TableSelectionKeysType[0];
   actionColumnWidth?: number;
   rowClassName?: TableRowClassNameType<T>;
+  rowCellClassName?: TableRowCellClassNameType<T>;
 }
 
 const LazyLoadedActionColumnIcon = createLazyLoadedComponent(
@@ -93,6 +95,7 @@ const TableBody = <T extends TableRowRecordType>({
   clickedRowKey,
   actionColumnWidth,
   rowClassName,
+  rowCellClassName,
 }: TableBodyProps<T>) => {
   const columnsLength = columns?.length ?? 0;
   const showActionColumn = !!onPressActionIcon;
@@ -174,6 +177,7 @@ const TableBody = <T extends TableRowRecordType>({
                   onInputChange,
                   recordInputsDisabled,
                   titleDataIndex,
+                  rowCellClassName,
                 };
 
                 return (

@@ -25,7 +25,19 @@ import {
   InternalTableStyledCellHeadProps,
 } from "./index.interface";
 
-const { inputBorderColor, white2, black2, appPrimary } = colors;
+const {
+  inputBorderColor,
+  white2,
+  black2,
+  appPrimary,
+  red23,
+  blue,
+  orange,
+  lightOrange,
+  red,
+  yellow,
+  darkPink,
+} = colors;
 
 const getCellWidth = (width: string | number) =>
   !isNaN(+width) ? `${width}px` : width;
@@ -134,6 +146,34 @@ interface CellContentWrapperProps extends TableStyledCellProps {
   useInlineEndBorder?: boolean;
 }
 
+const cellColorsCss = css`
+  &.red {
+    color: ${red23} !important;
+  }
+
+  &.red-bg {
+    background-color: ${red23} !important;
+  }
+
+  &.blue {
+    color: ${blue} !important;
+  }
+
+  &.orange {
+    color: ${orange} !important;
+  }
+
+  &.orange-bg {
+    background-color: ${lightOrange} !important;
+  }
+  &.yellow-bg {
+    background-color: ${yellow} !important;
+  }
+  &.darkPink-bg {
+    background-color: ${darkPink} !important;
+  }
+`;
+
 export const CellContentWrapper = styled(BaseText)<CellContentWrapperProps>`
   ${flexCenteredRowCss};
   position: relative;
@@ -149,6 +189,9 @@ export const CellContentWrapper = styled(BaseText)<CellContentWrapperProps>`
       border-inline-end: 1px solid ${inputBorderColor};
     }
   `};
+  ${cellColorsCss};
+  word-break: unset;
+  word-wrap: anywhere;
 `;
 CellContentWrapper.defaultProps = {
   tag: "div",
@@ -233,20 +276,12 @@ export const BodyRow = styled.tr<{
   selected?: boolean;
 }>`
   ${({ selectedRowBackgroundColor, selected }) =>
-    selected &&
+    !!selected &&
     selectedRowBackgroundColor &&
     `
-    background-color: ${colors[selectedRowBackgroundColor]};
-  `};
-
-  &.red {
-    color: ${colors.red23} !important;
-  }
-
-  &.blue {
-    color: ${colors.blue} !important;
-  }
-
+  background-color: ${colors[selectedRowBackgroundColor]};
+`};
+  ${cellColorsCss};
   transition: all 0.3s ease-in-out;
 `;
 
@@ -262,7 +297,7 @@ export const EmptyView = styled(BaseText)`
   width: 100%;
   font-weight: bold;
   ${flexCenteredColumnCss};
-  color: ${colors.red};
+  color: ${red};
 `;
 EmptyView.defaultProps = {
   tag: "div",
