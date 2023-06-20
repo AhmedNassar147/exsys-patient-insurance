@@ -54,6 +54,7 @@ export interface AppConfigStateType {
   account_no?: string;
   tpa_use_inpatient?: CapitalBooleanStringType;
   tpa_use_emergency?: CapitalBooleanStringType;
+  tpa_use_outpatient?: CapitalBooleanStringType;
 }
 
 export * from "./base.interface";

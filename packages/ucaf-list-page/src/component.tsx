@@ -88,7 +88,7 @@ const UcafListPage = () => {
   const globalProviderNo = useGlobalProviderNo();
   const {
     addNotification,
-    state: { tpa_use_emergency, tpa_use_inpatient },
+    state: { tpa_use_emergency, tpa_use_inpatient, tpa_use_outpatient },
   } = useAppConfigStore();
   const serialNoListRef = useRef<SelectWithApiQueryRefValuesType>();
 
@@ -792,21 +792,27 @@ const UcafListPage = () => {
   const filteredUcafTypesOptions = useMemo(
     () =>
       UCAF_TYPES_RADIO_OPTIONS.filter(({ label, value }) => {
-        const isInpatient = value === "I";
         const isEmergency = value === "E";
+        const isInpatient = value === "I";
         const shouldRemove = isInpatient
           ? !showAdmissionRequestButton || !isInpatientUcaf
           : isEmergency
           ? tpa_use_emergency !== "Y"
-          : false;
+          : tpa_use_outpatient !== "Y";
+
         return shouldRemove
-          ? true
+          ? false
           : {
               label,
               value,
             };
       }).filter(Boolean),
-    [showAdmissionRequestButton, tpa_use_emergency, isInpatientUcaf]
+    [
+      showAdmissionRequestButton,
+      tpa_use_emergency,
+      isInpatientUcaf,
+      tpa_use_outpatient,
+    ]
   );
 
   const dispenseItemsRowsLength = dispenseItemsRows?.length ?? 0;
