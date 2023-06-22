@@ -27,7 +27,7 @@ const CreateNewBatchModal = ({
 }: CreateNewBatchModalProps) => {
   const {
     addNotification,
-    state: { provider_no },
+    state: { provider_no, account_no },
   } = useAppConfigStore();
 
   const { mutate, loading } = useBasicMutation({
@@ -43,6 +43,7 @@ const CreateNewBatchModal = ({
           end_date,
           tpa_no,
           provider_no,
+          account_no,
         },
         cb: ({ apiValues, error }) => {
           const isError = !!error || apiValues?.status !== "success";
@@ -60,7 +61,14 @@ const CreateNewBatchModal = ({
         },
       });
     },
-    [handleSaveSuccuss, addNotification, handleClose, mutate, provider_no]
+    [
+      handleSaveSuccuss,
+      addNotification,
+      handleClose,
+      mutate,
+      provider_no,
+      account_no,
+    ]
   );
 
   const {
