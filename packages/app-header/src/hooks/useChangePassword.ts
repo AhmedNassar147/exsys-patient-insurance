@@ -6,7 +6,10 @@
 import { useState, useCallback, useMemo } from "react";
 import { setItemToStorage } from "@exsys-patient-insurance/helpers";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
-import { useLoggedInUserName } from "@exsys-patient-insurance/app-config-store";
+import {
+  useLoggedInUserName,
+  useAppConfigStore,
+} from "@exsys-patient-insurance/app-config-store";
 
 const initialForm = {
   oldPassword: "",
@@ -18,6 +21,7 @@ const useChangePassword = (closeModal: () => void) => {
   const [form, setForm] = useState(initialForm);
   const [error, setError] = useState<string>("");
 
+  const { addNotification } = useAppConfigStore();
   const loggedInUserName = useLoggedInUserName();
 
   const handleChange = useCallback(
@@ -66,6 +70,10 @@ const useChangePassword = (closeModal: () => void) => {
       },
       cb: ({ apiValues, error, status }) => {
         if (status !== 200 || error) {
+          addNotification({
+            type: "error",
+            message: apiValues?.error_code || error || "",
+          });
           setError("Something Went Wrong");
           return;
         }
