@@ -35,7 +35,7 @@ const BasePageComponent = ({ children }: BasePageComponentProps) => {
       </BasePageWrapper>
 
       <Modal
-        title="mstchngpass"
+        title=" "
         width="400px"
         onClose={handleClose}
         maskClosable={false}
