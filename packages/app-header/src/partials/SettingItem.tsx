@@ -31,9 +31,9 @@ const SettingsItem = () => {
     <>
       <DropDown
         trigger={trigger}
-        menuWidth="150px"
+        menuWidth="180px"
         usePortal
-        subtractionSidesValue="6%"
+        subtractionSidesValue="5%"
       >
         <PopOverContent>
           <StyledFlex align="center" gap="10px">
@@ -54,10 +54,17 @@ const SettingsItem = () => {
         okText="save"
       >
         <PasswordField
+          name="oldPassword"
+          placeholder="oldpass"
+          onChange={handleChange}
+          value={formValues.oldPassword}
+          margin="8px 0 0"
+        />
+
+        <PasswordField
           name="newPassword"
           placeholder="nwpass"
           onChange={handleChange}
-          onPressEnter={onSubmit}
           value={formValues.newPassword}
           margin="8px 0"
         />

@@ -6,9 +6,10 @@
 import { useState, useCallback, useMemo } from "react";
 import { setItemToStorage } from "@exsys-patient-insurance/helpers";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
-import { useCurrentStaffId } from "@exsys-patient-insurance/app-config-store";
+import { useLoggedInUserName } from "@exsys-patient-insurance/app-config-store";
 
 const initialForm = {
+  oldPassword: "",
   newPassword: "",
   password_confirmation: "",
 };
@@ -17,7 +18,7 @@ const useChangePassword = (closeModal: () => void) => {
   const [form, setForm] = useState(initialForm);
   const [error, setError] = useState<string>("");
 
-  const staff_id = useCurrentStaffId();
+  const loggedInUserName = useLoggedInUserName();
 
   const handleChange = useCallback(
     ({ value, name }: { value: string; name: string }) => {
@@ -36,8 +37,14 @@ const useChangePassword = (closeModal: () => void) => {
   });
 
   const onSubmit = useCallback(async () => {
-    const { newPassword, password_confirmation } = form;
+    const { oldPassword, newPassword, password_confirmation } = form;
     setLoading(true);
+
+    if (!oldPassword) {
+      setError("Please Enter old Password Field");
+      setLoading(false);
+      return;
+    }
 
     if (!newPassword || !password_confirmation) {
       setError("Please Enter Password Fields");
@@ -53,7 +60,8 @@ const useChangePassword = (closeModal: () => void) => {
 
     await mutate({
       body: {
-        staff_id,
+        user_id: loggedInUserName,
+        old_password: oldPassword,
         new_password: newPassword,
       },
       cb: ({ apiValues, error, status }) => {
@@ -63,13 +71,13 @@ const useChangePassword = (closeModal: () => void) => {
         }
 
         if (apiValues.status === "success") {
-          setItemToStorage("password", password_confirmation);
+          setItemToStorage("password", newPassword);
           closeModal();
           setForm(initialForm);
         }
       },
     });
-  }, [form, setLoading, mutate, closeModal]);
+  }, [form, setLoading, mutate, closeModal, loggedInUserName]);
 
   const disabled = useMemo(() => {
     if (loading) {
