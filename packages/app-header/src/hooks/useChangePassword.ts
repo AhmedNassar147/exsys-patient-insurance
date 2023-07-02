@@ -4,6 +4,7 @@
  *
  */
 import { useState, useCallback, useMemo } from "react";
+import { setItemToStorage } from "@exsys-patient-insurance/helpers";
 import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import { useCurrentStaffId } from "@exsys-patient-insurance/app-config-store";
 
@@ -62,6 +63,7 @@ const useChangePassword = (closeModal: () => void) => {
         }
 
         if (apiValues.status === "success") {
+          setItemToStorage("password", password_confirmation);
           closeModal();
           setForm(initialForm);
         }

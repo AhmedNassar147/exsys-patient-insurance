@@ -22,6 +22,7 @@ const baseAppKeyName = "@exsys-patient-insurance";
 
 const localStorageKeys = {
   userData: `${baseAppKeyName}_userData`,
+  password: `${baseAppKeyName}_password`,
 } as const;
 
 const KEYS_VALUES_IN_LOCAL_STORAGE = Object.values(localStorageKeys);

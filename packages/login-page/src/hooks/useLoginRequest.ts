@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useSetAuthConfigData } from "@exsys-patient-insurance/app-config-store";
 import { useBasicQuery } from "@exsys-patient-insurance/network-hooks";
 import { SubmitHandlerType } from "@exsys-patient-insurance/form-manager";
-import { normalizeAppStoreLanguageAndDir } from "@exsys-patient-insurance/helpers";
+import {
+  normalizeAppStoreLanguageAndDir,
+  setItemToStorage,
+} from "@exsys-patient-insurance/helpers";
 import { AppConfigStateType } from "@exsys-patient-insurance/types";
 import { LoginFormState } from "../index.interface";
 
@@ -66,6 +69,7 @@ const useLoginRequest = () => {
           loggedInUserName: username,
         };
 
+        setItemToStorage("password", password);
         setAppConfigStoreData(newUserData);
         document.body.setAttribute("dir", nextDir);
         navigate(homePageUrl);
