@@ -15,5 +15,6 @@ export const fontSizes = {
   ff2: "3.2rem",
   ff1: "3.6rem",
   ff0: "4rem",
+  ff00: "5.2rem",
   inherit: "inherit",
 } as const;

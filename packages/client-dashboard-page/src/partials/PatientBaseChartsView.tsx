@@ -63,6 +63,7 @@ const PatientBaseChartsView = () => {
     <>
       <PieChartCardView
         title="emplyes"
+        labelColor="white"
         loading={basePatientChartDataLoading}
         dataSource={employeesChartData}
         width="calc(98% / 5 - 10px)"

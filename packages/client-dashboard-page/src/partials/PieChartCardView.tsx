@@ -16,6 +16,7 @@ interface PieChartCardViewProps {
   dataSource: PieChartDateItemType[];
   width?: string;
   loading?: boolean;
+  labelColor?: string;
 }
 
 const PieChartCardView = ({
@@ -23,6 +24,7 @@ const PieChartCardView = ({
   loading,
   dataSource,
   width,
+  labelColor,
 }: PieChartCardViewProps) => {
   const noData = !loading && !dataSource?.length;
 
@@ -48,6 +50,7 @@ const PieChartCardView = ({
           width="100%"
           height="calc(100% - 30px)"
           dataSource={dataSource}
+          labelColor={labelColor}
         />
       </AsyncAwaiter>
     </ChartCardView>

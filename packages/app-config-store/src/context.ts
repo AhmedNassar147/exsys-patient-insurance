@@ -9,10 +9,16 @@ import {
   LANGUAGE_IDS,
   LanguageValuesType,
 } from "@exsys-patient-insurance/global-app-constants";
+import {
+  getItemFromStorage,
+  // normalizeAppStoreLanguageAndDir,
+} from "@exsys-patient-insurance/helpers";
 import { AppConfigStateType } from "@exsys-patient-insurance/types";
 import { AppConfigStoreApi } from "./index.interface";
 
-const activeLanguage = LANGUAGE_IDS.PRIMARY as LanguageValuesType;
+const mainStoreData = getItemFromStorage<AppConfigStateType>("userData");
+const activeLanguage = (mainStoreData?.language_id ||
+  LANGUAGE_IDS.PRIMARY) as LanguageValuesType;
 
 export const initialState: AppConfigStateType = {
   authorization: "",

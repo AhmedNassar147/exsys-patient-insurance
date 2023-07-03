@@ -45,7 +45,7 @@ const LabelsProvider = ({ children, componentName }: IProps) => {
           return;
         }
 
-        setLabels(() => apiValues);
+        setLabels(apiValues);
       },
     []
   );
@@ -55,7 +55,7 @@ const LabelsProvider = ({ children, componentName }: IProps) => {
   useBasicQuery<RecordType>({
     apiId: "QUERY_EXSYS_PAGE_LABELS",
     onResponse: handleLabelsResponse(setPageLabels),
-    debounceRequestTimeOutMS: 20,
+    debounceRequestTimeOutMS: 30,
     ...queryOptions,
     skipQuery: shouldSkipQuery,
     params: {
@@ -66,7 +66,7 @@ const LabelsProvider = ({ children, componentName }: IProps) => {
   useBasicQuery<RecordType>({
     apiId: "QUERY_EXSYS_PAGE_LABELS",
     onResponse: handleLabelsResponse(setBasePageLabels),
-    debounceRequestTimeOutMS: 25,
+    debounceRequestTimeOutMS: 35,
     ...queryOptions,
     skipQuery: shouldSkipQuery,
     params: {
@@ -75,9 +75,11 @@ const LabelsProvider = ({ children, componentName }: IProps) => {
   });
 
   const labelsValues = useMemo(
-    () => ({ ...state, ...basePageLabels }),
+    () => ({ ...basePageLabels, ...state }),
     [state, basePageLabels]
   );
+
+  console.log("labelsValues", labelsValues);
 
   return <Store.Provider value={labelsValues}>{children}</Store.Provider>;
 };

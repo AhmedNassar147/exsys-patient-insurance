@@ -77,6 +77,7 @@ const ClientDashboardPage = () => {
 
         <PieChartCardViewWithApiQuery
           title="adistns"
+          labelColor="white"
           apiId="QUERY_CLIENT_DASHBOARD_ADDITION_PATIENT_CHART_DATA"
           params={memoizedParams}
           width="calc(98% / 5 - 10px)"
@@ -84,6 +85,7 @@ const ClientDashboardPage = () => {
 
         <PieChartCardViewWithApiQuery
           title="cncltins"
+          labelColor="white"
           apiId="QUERY_CLIENT_DASHBOARD_CANCELATION_PATIENT_CHART_DATA"
           params={memoizedParams}
           width="calc(98% / 5)"
@@ -92,7 +94,8 @@ const ClientDashboardPage = () => {
 
       <Flex width="100%" gap="10px" justify="space-between">
         <PieChartCardViewWithApiQuery
-          title="this month chart"
+          title="thsmnth"
+          labelColor="white"
           apiId="QUERY_CLIENT_DASHBOARD_CANCELATION_PATIENT_CHART_DATA"
           params={memoizedParams}
           width="calc(100% - 60% - 10px)"

@@ -36,7 +36,7 @@ const BasePageComponent = ({ children }: BasePageComponentProps) => {
 
       <Modal
         title=" "
-        width="400px"
+        width="800px"
         onClose={handleClose}
         maskClosable={false}
         keyboard={false}
@@ -50,6 +50,7 @@ const BasePageComponent = ({ children }: BasePageComponentProps) => {
           margin="10px 0"
           width="100%"
           weight="bold"
+          fontSize="ff00"
         />
       </Modal>
     </>

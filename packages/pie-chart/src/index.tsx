@@ -28,9 +28,10 @@ interface PieChartProps {
   width?: string;
   height?: string;
   dataSource: PieChartDateItemType[];
+  labelColor?: string;
 }
 
-const PieChart = ({ width, dataSource, height }: PieChartProps) => {
+const PieChart = ({ width, dataSource, height, labelColor }: PieChartProps) => {
   const translateLabelId = useTranslateIdFactory();
 
   const { data, labels } = useMemo(() => {
@@ -70,9 +71,24 @@ const PieChart = ({ width, dataSource, height }: PieChartProps) => {
     []
   );
 
+  const labelStyle = useMemo(
+    () =>
+      labelColor
+        ? {
+            stroke: labelColor,
+          }
+        : undefined,
+    []
+  );
+
   return (
     <Flex width={width} gap="5px" column="true" height={height}>
-      <MinimalPieChart animate data={data} label={renderChartLabel} />
+      <MinimalPieChart
+        animate
+        data={data}
+        label={renderChartLabel}
+        labelStyle={labelStyle}
+      />
       {!!labels?.length && (
         <Flex
           width="100%"

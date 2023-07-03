@@ -26,7 +26,7 @@ export const TABLE_COLUMNS = [
   {
     title: "ptntnm",
     dataIndex: "patient_name",
-    width: "54.5%",
+    width: "51.5%",
   },
   {
     title: "startdate",

@@ -19,6 +19,7 @@ interface PieChartCardViewProps {
   params: RecordTypeWithAnyValue;
   apiId: ApiIdsTypes;
   width?: string;
+  labelColor?: string;
 }
 
 const PieChartCardViewWithApiQuery = ({
@@ -26,6 +27,7 @@ const PieChartCardViewWithApiQuery = ({
   params,
   apiId,
   width,
+  labelColor,
 }: PieChartCardViewProps) => {
   const [dataSource, setDataSource] = useState<PieChartDateItemType[]>([]);
 
@@ -54,6 +56,7 @@ const PieChartCardViewWithApiQuery = ({
       width={width}
       loading={loading}
       dataSource={dataSource}
+      labelColor={labelColor}
     />
   );
 };
