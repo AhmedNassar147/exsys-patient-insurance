@@ -295,6 +295,7 @@ export interface TableProps<T = TableRowRecordType>
   rowClassName?: TableRowClassNameType<T>;
   rowCellClassName?: TableRowCellClassNameType<T>;
   columnsTotals?: TableColumnsTotalsType;
+  selectedRowKey?: string | number;
 }
 
 export interface TableQueryConfigProps

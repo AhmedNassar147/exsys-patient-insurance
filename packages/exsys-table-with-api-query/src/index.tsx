@@ -9,6 +9,7 @@ import {
   memo,
   useImperativeHandle,
   useMemo,
+  useCallback,
 } from "react";
 import { useTableQuery } from "@exsys-patient-insurance/network-hooks";
 import { useTableInputChangeCallback } from "@exsys-patient-insurance/hooks";

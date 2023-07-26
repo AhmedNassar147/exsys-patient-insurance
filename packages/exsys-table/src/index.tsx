@@ -3,7 +3,7 @@
  * Package: `@exsys-patient-insurance/exsys-table`.
  *
  */
-import { memo, useMemo, useState, useCallback } from "react";
+import { memo, useMemo, useState, useCallback, useLayoutEffect } from "react";
 import LoadingOverlay from "@exsys-patient-insurance/overlay";
 import { useBoundingClientRect } from "@exsys-patient-insurance/hooks";
 import createLazyLoadedComponent from "@exsys-patient-insurance/react-lazy";
@@ -117,6 +117,7 @@ const ExsysTable = <T extends TableRowRecordType>({
   withExcel,
   withPdf,
   showSaveIcon,
+  selectedRowKey,
   // excel sheet props
   transformDataSourceToExcelSheetDataSet,
   sheetName,
@@ -139,6 +140,16 @@ const ExsysTable = <T extends TableRowRecordType>({
     tableColumnsLength,
     loading,
   ]);
+
+  useLayoutEffect(() => {
+    if (loading) {
+      setClickedRow(undefined);
+    }
+  }, [loading]);
+
+  useLayoutEffect(() => {
+    setClickedRow(selectedRowKey);
+  }, [selectedRowKey]);
 
   const {
     values: searchParamsValues,
@@ -274,7 +285,6 @@ const ExsysTable = <T extends TableRowRecordType>({
       onSearchAndFilterTable,
       resetSearchParams,
       searchParamsValues,
-
       handleChangeMultipleSearchParam,
       rowsPerPage,
     ]
