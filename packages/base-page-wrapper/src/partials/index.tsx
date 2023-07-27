@@ -54,6 +54,7 @@ const BasePageComponent = ({ children }: BasePageComponentProps) => {
         okText="save"
         noCancelButton
         closeIconSize="0"
+        maskClosable={false}
       >
         <PasswordField
           name="oldPassword"
