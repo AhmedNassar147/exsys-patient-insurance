@@ -4,7 +4,7 @@
  *
  */
 
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
 import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
@@ -93,48 +93,41 @@ const PharmBatchesPage = () => {
   );
 
   const isAllTpa = type === "A";
+  const [currentSelectedRow, setCurrentSelectedRow] =
+    useState<MiBatchesTableRecordType>();
+  const { batch_no } = currentSelectedRow || {};
+  const onSelectRow = useCallback(
+    (currentRecord: MiBatchesTableRecordType) =>
+      setCurrentSelectedRow(currentRecord),
+    []
+  );
+  const reportData = {
+    P_BATCH_NO: batch_no,
+    P_ORGANIZATION_NO: tpa_no,
+  };
 
   const computedColumns = useMemo(
     () =>
       SPEC_TABLE_COLUMNS.map((column) => {
         const { dataIndex } = column;
-        if (dataIndex === "action") {
+        const isActionX = dataIndex === "actionx";
+        if (dataIndex.includes("action")) {
           return {
             ...column,
             render: () => (
-              <PdfDocumentModal
-                usePrintIcon
-                documentName="MIUCAF"
-                buttonDisabled
-                //reportData={reportData}
-              />
+              <>
+                <PdfDocumentModal
+                  usePrintIcon
+                  documentName={isActionX ? "MIBTHMST" : "MIBTHDTL"}
+                  reportData={reportData}
+                />
+              </>
             ),
           };
         }
         return column;
       }),
-    []
-  );
-  const secondComputedColumns = useMemo(
-    () =>
-      computedColumns.map((column) => {
-        const { dataIndex } = column;
-        if (dataIndex === "actionx") {
-          return {
-            ...column,
-            render: () => (
-              <PdfDocumentModal
-                usePrintIcon
-                documentName="MIUCAF"
-                buttonDisabled
-                //reportData={reportData}
-              />
-            ),
-          };
-        }
-        return column;
-      }),
-    [computedColumns]
+    [reportData]
   );
 
   return (
@@ -203,9 +196,10 @@ const PharmBatchesPage = () => {
       <ExsysTableWithApiQuery<MiBatchesTableRecordType>
         // @ts-ignore we already know it takes a ref.
         ref={tableValuesRef}
-        columns={isAllTpa ? TABLE_COLUMNS : secondComputedColumns}
+        columns={isAllTpa ? TABLE_COLUMNS : computedColumns}
         rowKey="batch_no"
         queryApiId="QUERY_PHARM_BATCH_TABLE_DATA"
+        onSelectRow={onSelectRow}
         useAlignedTotalCells
         skipQuery={!isAllTpa && tpa_no === ""}
       />

@@ -86,8 +86,8 @@ export const TABLE_COLUMNS = [
     },
   },
   {
-    title: "noofclms",
-    dataIndex: "opd_no_of_clms",
+    title: "noofclaims",
+    dataIndex: "no_of_claims",
     width: "6.3%",
   },
   {
@@ -99,12 +99,12 @@ export const TABLE_COLUMNS = [
     },
     children: [
       {
-        title: "clmdgrss",
+        title: "gross",
         dataIndex: "local_clmd_grss",
         width: "49.3%",
       },
       {
-        title: "clmdnet",
+        title: "net",
         dataIndex: "local_clmd_net",
         width: "49.3%",
       },
@@ -119,12 +119,12 @@ export const TABLE_COLUMNS = [
     },
     children: [
       {
-        title: "clmdgrss",
+        title: "grss",
         dataIndex: "imported_clmd_grss",
         width: "49.3%",
       },
       {
-        title: "clmdnet",
+        title: "net",
         dataIndex: "imported_clmd_net",
         width: "49.3%",
       },
@@ -191,8 +191,8 @@ export const SPEC_TABLE_COLUMNS = [
     },
   },
   {
-    title: "noofclms",
-    dataIndex: "opd_no_of_clms",
+    title: "noofclaims",
+    dataIndex: "no_of_claims",
     width: "5%",
   },
   {
@@ -204,12 +204,12 @@ export const SPEC_TABLE_COLUMNS = [
     },
     children: [
       {
-        title: "clmdgrss",
+        title: "gross",
         dataIndex: "local_clmd_grss",
         width: "49.3%",
       },
       {
-        title: "clmdnet",
+        title: "net",
         dataIndex: "local_clmd_net",
         width: "49.3%",
       },
@@ -224,12 +224,12 @@ export const SPEC_TABLE_COLUMNS = [
     },
     children: [
       {
-        title: "clmdgrss",
+        title: "grss",
         dataIndex: "imported_clmd_grss",
         width: "46.3%",
       },
       {
-        title: "clmdnet",
+        title: "net",
         dataIndex: "imported_clmd_net",
         width: "49.3%",
       },
@@ -244,7 +244,7 @@ export const SPEC_TABLE_COLUMNS = [
     },
     children: [
       {
-        title: "clmdgrss",
+        title: "grss",
         dataIndex: "clmd_amt_grss",
         width: "33%",
       },
@@ -254,14 +254,14 @@ export const SPEC_TABLE_COLUMNS = [
         width: "33%",
       },
       {
-        title: "clmdnet",
+        title: "net",
         dataIndex: "clmd_amt_net",
         width: "33%",
       },
     ],
   },
   {
-    title: "action",
+    title: "cover",
     dataIndex: "action",
     width: "5%",
     totalCellProps: {
@@ -269,7 +269,7 @@ export const SPEC_TABLE_COLUMNS = [
     },
   },
   {
-    title: "action",
+    title: "summary",
     dataIndex: "actionx",
     width: "5%",
     totalCellProps: {
