@@ -3,7 +3,7 @@
  * `TpaMembersPage`: `@exsys-patient-insurance/tpa-members-page`.
  *
  */
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
 import Button from "@exsys-patient-insurance/button";
@@ -47,8 +47,8 @@ const TpaMembersPage = () => {
   });
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
-  const [currentSelectedRow, setCurrentSelectedRow] =
-    useState<TpaMembersRecordType>();
+  // const [currentSelectedRow, setCurrentSelectedRow] =
+  //   useState<TpaMembersRecordType>();
 
   //const { policy_no, organization_no } = currentSelectedRow || {};
   const { tableValuesRef, fetchTableData, setTableData } =
@@ -93,11 +93,11 @@ const TpaMembersPage = () => {
   //     []
   //   );
 
-  const onSelectRow = useCallback(
-    (currentRecord: TpaMembersRecordType) =>
-      setCurrentSelectedRow(currentRecord),
-    []
-  );
+  // const onSelectRow = useCallback(
+  //   (currentRecord: TpaMembersRecordType) =>
+  //     setCurrentSelectedRow(currentRecord),
+  //   []
+  // );
 
   // const reportData = {
   //   P_UCAF_ID: ucaf_id,
@@ -156,7 +156,7 @@ const TpaMembersPage = () => {
         withInfo
         withPdf
         withExcel
-        onSelectRow={onSelectRow}
+        // onSelectRow={onSelectRow}
         // expandedRowRender={expandedRowRender}
         // skipQuery={tableSkipQuery}
         useAlignedTotalCells

@@ -4,6 +4,10 @@
  *
  */
 import type { PatientItemRecordType } from "@exsys-patient-insurance/find-patient-form";
+// import {
+//   CapitalBooleanStringType,
+//   CapitalActiveBooleanStringType
+// } from "@exsys-patient-insurance/types";
 import {
   getCurrentDateString,
   getGivenDateParts,
@@ -44,7 +48,7 @@ export const initialNewBatchValues = {
   start_from: "",
   end_at: "",
   branch_no: "",
-  status: "",
+  // status?: CapitalActiveBooleanStringType;
 };
 
 export const TABLE_COLUMNS = [

@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import DatePickerField from "@exsys-patient-insurance/date-picker-field";
 import Modal from "@exsys-patient-insurance/modal";
@@ -32,7 +32,7 @@ const ModalView = ({ visible, handleClose }: CreateNewRecordModalProps) => {
       start_from,
       end_at,
       phone_m,
-      status,
+      // status,
     },
     handleChange,
     errors,
@@ -57,7 +57,7 @@ const ModalView = ({ visible, handleClose }: CreateNewRecordModalProps) => {
         start_from,
         end_at,
         phone_m,
-        status,
+        status: "N",
       },
       cb: ({ apiValues, error }) => {
         const isError = !!error || apiValues?.status !== "success";
@@ -83,7 +83,6 @@ const ModalView = ({ visible, handleClose }: CreateNewRecordModalProps) => {
     start_from,
     end_at,
     phone_m,
-    status,
     addNotification,
     handleClose,
   ]);
@@ -168,7 +167,7 @@ const ModalView = ({ visible, handleClose }: CreateNewRecordModalProps) => {
         <SelectionCheck
           label="actve"
           width="auto"
-          checked={status}
+          // checked={status}
           onChange={handleChange}
           name="status"
         />
