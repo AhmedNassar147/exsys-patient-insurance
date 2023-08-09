@@ -51,7 +51,7 @@ const TpaMembersPage = () => {
   //   useState<TpaMembersRecordType>();
 
   //const { policy_no, organization_no } = currentSelectedRow || {};
-  const { tableValuesRef, fetchTableData, setTableData } =
+  const { tableValuesRef, fetchTableData, resetTableData } =
     useCreateTableActionsFromRefToForm<TpaMembersRecordType>();
 
   const onPressSearch = useCallback(
@@ -69,8 +69,8 @@ const TpaMembersPage = () => {
 
   const handleClear = useCallback(() => {
     resetForm();
-    setTableData([]);
-  }, [setTableData, resetForm]);
+    resetTableData();
+  }, [resetTableData, resetForm]);
 
   // const tableSkipQuery = useCallback(
   //   ({ root_organization_no, provider_no }: RecordTypeWithAnyValue) =>
