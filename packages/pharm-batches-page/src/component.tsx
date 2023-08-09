@@ -56,7 +56,7 @@ const PharmBatchesPage = () => {
 
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
-  const { tableValuesRef, fetchTableData, setTableData } =
+  const { tableValuesRef, fetchTableData, resetTableData } =
     useCreateTableActionsFromRefToForm<MiBatchesTableRecordType>();
 
   const handleChangeSelectionCheck: onChangeEvent = useCallback(
@@ -69,15 +69,15 @@ const PharmBatchesPage = () => {
         tpa_no: "",
       });
 
-      setTableData([]);
+      resetTableData();
     },
-    [handleChangeMultipleInputs, setTableData]
+    [handleChangeMultipleInputs, resetTableData]
   );
 
   const onPressClear = useCallback(() => {
     resetForm();
-    setTableData([]);
-  }, [resetForm, setTableData]);
+    resetTableData();
+  }, [resetForm, resetTableData]);
 
   const handleSearch = useCallback(
     () =>
