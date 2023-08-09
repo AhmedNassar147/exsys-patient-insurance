@@ -27,12 +27,3 @@ export interface ReactExportsExcelProps {
   sheets: DownloadExcelSheet[];
   fileName?: string;
 }
-
-export interface DownloadExcelWithApiQueryProps {
-  disabled?: boolean;
-  sheets?: DownloadExcelSheet[];
-  filename?: string;
-  buttonElement?: React.ReactNode;
-  tableQueryApiId?: ApiIdsTypes;
-  tableQueryApiParams?: string | undefined | null | "";
-}

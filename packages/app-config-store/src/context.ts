@@ -36,6 +36,8 @@ export const initialState: AppConfigStateType = {
   client_id: 0,
   report_server_url: "",
   report_server_userid: "",
+  tpa_use_outpatient: "Y",
+  tpa_use_emergency: "N",
 };
 
 export default createContext<AppConfigStoreApi>({

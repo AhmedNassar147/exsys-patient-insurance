@@ -144,8 +144,6 @@ const UcafListPage = () => {
         doctor_provider_name,
         doctor_provider_type,
         doctor_name,
-        complain,
-        signs,
         admission_reason,
         primary_diagnosis,
         primary_diag_code,
@@ -367,8 +365,6 @@ const UcafListPage = () => {
       claim_flag,
       ucaf_id,
       doctor_department_id,
-      complain,
-      signs,
       primary_diag_code,
       primary_diagnosis,
       is_chronic: isChronic,
@@ -990,22 +986,6 @@ const UcafListPage = () => {
         wrap="true"
       >
         <Flex wrap="true" width="30%" gap="7px">
-          <InputField
-            width="48.5%"
-            name="requestsData.details.complain"
-            value={complain}
-            disabled={isEditableFieldsDisabled}
-            onChange={handleChange}
-            label="cmplns"
-          />
-          <InputField
-            name="requestsData.details.signs"
-            value={signs}
-            disabled={isEditableFieldsDisabled}
-            onChange={handleChange}
-            label="signs"
-            width="48.5%"
-          />
           <LabeledViewLikeInput
             label="dignos"
             width="100%"
@@ -1089,7 +1069,7 @@ const UcafListPage = () => {
             src={organizationUrl}
             alt="organization"
             width="sp18"
-            height="sp17"
+            height="sp15"
           />
 
           <LabeledViewLikeInput
@@ -1101,7 +1081,7 @@ const UcafListPage = () => {
           <FileUploadInputField
             dashed
             width="100%"
-            height="60px"
+            height="40px"
             onChange={handleAddAttachment}
             messageLabelId="attachmnt"
             name="fileUrl"

@@ -74,11 +74,6 @@ const useBasicQuery = <T = any>(
   const planguageid = useMakeSelectCurrentLanguageId();
   const hasLanguageChanged = useHasLanguageChanged();
 
-  console.log({
-    hasLanguageChanged,
-    planguageid,
-  });
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const previousParams = usePrevious(baseNextParams);
@@ -108,7 +103,7 @@ const useBasicQuery = <T = any>(
     ): RecordTypeWithAnyValue => {
       let finalParams: RecordTypeWithAnyValue = latestQueryParamsRef.current;
 
-      if (nextParams && !donotUpdateResponseCallback) {
+      if (nextParams) {
         finalParams = { ...finalParams, ...nextParams };
       }
 

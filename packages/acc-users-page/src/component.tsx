@@ -14,20 +14,16 @@ import TableWithApiQuery, {
 import Button from "@exsys-patient-insurance/button";
 import { TABLE_COLUMNS } from "./constants";
 import { AccUsersTableRecordType } from "./index.interface";
-import {
-  // useModalRef,
-  useOpenCloseActionsWithState,
-} from "@exsys-patient-insurance/hooks";
+import { useOpenCloseActionsWithState } from "@exsys-patient-insurance/hooks";
 import ModalView from "./partials/ModalView";
 
 const AccUsersPage = () => {
   const globalAccountNo = useCurrentAccountNo();
-  // const { open } = useModalRef();
+  const [currentSelectedRow, setCurrentSelectedRow] =
+    useState<AccUsersTableRecordType>();
 
   const { tableValuesRef, fetchTableData } =
     useCreateTableActionsFromRefToForm<AccUsersTableRecordType>();
-  const [currentSelectedRow, setCurrentSelectedRow] =
-    useState<AccUsersTableRecordType>();
 
   const onSelectRow = useCallback(
     (currentRecord: AccUsersTableRecordType) =>
@@ -81,6 +77,13 @@ const AccUsersPage = () => {
             queryApiId="QUERY_MI_USERS_ACCOUNTS_TABLE_DATA"
             onSelectRow={onSelectRow}
             useAlignedTotalCells
+            hideTableHeaderTools={false}
+            canEdit={false}
+            canInsert={false}
+            canDelete={false}
+            withInfo={false}
+            withPdf={false}
+            withExcel
             callOnFirstRender
             baseQueryAPiParams={baseSearchParams}
           />
@@ -89,7 +92,7 @@ const AccUsersPage = () => {
               visible={visible}
               onClose={handleClose}
               selectedUsersData={currentSelectedRow}
-              oldPassword={""}
+              oldPassword=""
               refreshQueryableTables={fetchTableData}
             ></ModalView>
           )}

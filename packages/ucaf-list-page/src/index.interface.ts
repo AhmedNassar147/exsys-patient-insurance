@@ -15,8 +15,8 @@ export interface RequestDetailsType {
   doctor_department_name: number;
   ucaf_id?: number;
   ucafe_date?: string;
-  complain?: string;
-  signs?: string;
+  // complain?: string;
+  // signs?: string;
   primary_diag_code?: number;
   primary_diagnosis?: string;
   ucafe_type?: string;
