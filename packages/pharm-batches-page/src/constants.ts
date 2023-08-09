@@ -261,7 +261,7 @@ export const SPEC_TABLE_COLUMNS = [
     ],
   },
   {
-    title: "cover",
+    title: "dtls",
     dataIndex: "action",
     width: "5%",
     totalCellProps: {

@@ -1,0 +1,14 @@
+{
+  "name": "@exsys-patient-insurance/download-excel-with-api-query",
+  "version": "1.0.0",
+  "private": true,
+  "description": "react package to render excel button with api query.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "enableBabelTranspilation": true
+}
