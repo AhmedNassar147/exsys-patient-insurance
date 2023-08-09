@@ -10,7 +10,6 @@
   "dependencies": {
     "@exsys-patient-insurance/arrow-icon": "1.0.0",
     "@exsys-patient-insurance/hooks": "1.0.0",
-    "@exsys-patient-insurance/input-number": "1.0.0",
     "@exsys-patient-insurance/select-field": "1.0.0",
     "@exsys-patient-insurance/styled-helpers": "1.0.0",
     "@exsys-patient-insurance/text": "1.0.0",

@@ -12,42 +12,46 @@ import {
 import parseColumnsToValidExcelColumns from "../helpers/parseColumnsToValidExcelColumns";
 
 export type UseCreateExcelSheetPropType<T = TableRowRecordType> =
-  UseCreateExcelSheetBasePropType<T> & {
+  UseCreateExcelSheetBasePropType & {
     columns: TableColumnProps<T>[];
     dataSource: TableRowRecordType[];
     shouldProcessColumnsAndData?: boolean;
     hasActionColumn?: boolean;
+    extraExcelColumns?: TableColumnProps[];
   };
 
 const useCreateExcelSheet = <T = TableRowRecordType>({
   columns,
   dataSource,
-  transformDataSourceToExcelSheetDataSet,
   sheetName,
   shouldProcessColumnsAndData,
   hasActionColumn,
+  extraExcelColumns,
 }: UseCreateExcelSheetPropType<T>) => {
   if (!shouldProcessColumnsAndData) {
     return undefined;
   }
 
-  const dataSet =
-    transformDataSourceToExcelSheetDataSet?.(dataSource as T[]) ?? dataSource;
+  const hasDataSource = typeof dataSource === "function" || !!dataSource.length;
 
-  if (!columns || !columns.length || !dataSet || !dataSet?.length) {
+  if (!columns?.length || !hasDataSource) {
     return undefined;
   }
 
   const sheetFileName = sheetName || getPageNameFromPathName();
-  const finalColumns = (
+  let finalColumns = (
     hasActionColumn ? columns.slice(0, -1) : columns
   ) as TableColumnProps[];
+
+  if (extraExcelColumns?.length) {
+    finalColumns = finalColumns.concat(...extraExcelColumns);
+  }
 
   return {
     filename: sheetFileName,
     sheets: [
       {
-        dataSet,
+        data: dataSource,
         columns: parseColumnsToValidExcelColumns(finalColumns),
         sheetName: sheetFileName,
       },

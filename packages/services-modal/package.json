@@ -14,7 +14,10 @@
     "@exsys-patient-insurance/form-manager": "1.0.0",
     "@exsys-patient-insurance/input-field": "1.0.0",
     "@exsys-patient-insurance/modal": "1.0.0",
+    "@exsys-patient-insurance/network-hooks": "1.0.0",
     "@exsys-patient-insurance/selection-check": "1.0.0",
+    "@exsys-patient-insurance/text": "1.0.0",
+    "@exsys-patient-insurance/theme-values": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0"
   },
   "peerDependencies": {

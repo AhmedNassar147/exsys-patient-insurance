@@ -4,26 +4,28 @@
  *
  */
 import {
-  ExcelColProps,
+  ExcelColumnProps,
   TableColumnProps,
 } from "@exsys-patient-insurance/types";
 
 const parseColumnsToValidExcelColumns = (
   columns: TableColumnProps[]
-): ExcelColProps[] =>
-  columns
-    .filter((item) => !!item.dataIndex)
-    .map((item) => ({
-      label: item.title as string,
-      value: item.dataIndex,
-      widthPx: item.width,
-      style: {
-        font: { bold: true },
-        alignment: {
-          vertical: "center",
-          horizontal: "center",
-        },
-      },
+): ExcelColumnProps[] => {
+  return columns
+    .filter(({ dataIndex }) => !!dataIndex)
+    .map(({ title, dataIndex, width, render }) => ({
+      label: (title || "") as unknown as string,
+      dataIndex,
+      width,
+      render,
+      // style: {
+      //   font: { bold: true },
+      //   alignment: {
+      //     vertical: "center",
+      //     horizontal: "center",
+      //   },
+      // },
     }));
+};
 
 export default parseColumnsToValidExcelColumns;

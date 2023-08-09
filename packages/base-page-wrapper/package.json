@@ -12,6 +12,7 @@
     "@exsys-patient-insurance/app-sidebar": "1.0.0",
     "@exsys-patient-insurance/flex": "1.0.0",
     "@exsys-patient-insurance/global-app-constants": "1.0.0",
+    "@exsys-patient-insurance/helpers": "1.0.0",
     "@exsys-patient-insurance/hooks": "1.0.0",
     "@exsys-patient-insurance/modal": "1.0.0",
     "@exsys-patient-insurance/network-hooks": "1.0.0",

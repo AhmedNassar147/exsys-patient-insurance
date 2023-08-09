@@ -3,27 +3,27 @@
  * `downloadExcel`: `@exsys-patient-insurance/types`
  *
  */
-export interface ExcelColProps {
-  label: string;
-  value: string | number;
-  widthPx?: string | number;
-  // style: {
-  //   fill: { patternType: "solid" | "none", fgColor: { rgb: "FFFF0000" } },
-  // },
+import { RecordTypeWithAnyValue } from "./base.interface";
+
+export interface ExcelColumnProps {
+  title: string;
+  dataIndex: string;
+  render?: (
+    valueOfDataIndex: string,
+    currentRecord: RecordTypeWithAnyValue,
+    index: number
+  ) => any;
+  width?: string | number;
 }
 
-export interface PartialDownloadExcelSheet {
-  dataSet?: Record<string, any>[];
-  columns: ExcelColProps[];
+export interface DownloadExcelSheet {
+  sheetName?: string;
+  data: RecordTypeWithAnyValue[] | (() => Promise<RecordTypeWithAnyValue[]>);
+  columns: ExcelColumnProps[];
 }
 
-export interface DownloadExcelSheet extends PartialDownloadExcelSheet {
-  sheetName: string;
-}
-
-export interface DownloadExcelProps {
+export interface ReactExportsExcelProps {
   disabled?: boolean;
-  sheets?: DownloadExcelSheet[];
-  filename?: string;
-  buttonElement?: React.ReactNode;
+  sheets: DownloadExcelSheet[];
+  fileName?: string;
 }

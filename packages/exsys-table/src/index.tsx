@@ -88,6 +88,7 @@ const ExsysTable = <T extends TableRowRecordType>({
   onFetchMore,
   onSearchAndFilterTable,
   resetTableFilters,
+  fetchTableExcelData,
   expandedRowRender,
   // action column props
   onPressActionIcon,
@@ -118,8 +119,6 @@ const ExsysTable = <T extends TableRowRecordType>({
   withPdf,
   showSaveIcon,
   selectedRowKey,
-  // excel sheet props
-  transformDataSourceToExcelSheetDataSet,
   sheetName,
   // aligned Total Cells Props
   useAlignedTotalCells,
@@ -179,11 +178,11 @@ const ExsysTable = <T extends TableRowRecordType>({
 
   const excelSheetProps = useCreateExcelSheet({
     shouldProcessColumnsAndData: !hideTableHeaderTools && withExcel,
-    dataSource,
+    dataSource: fetchTableExcelData || dataSource,
     columns: adjustedColumns,
-    transformDataSourceToExcelSheetDataSet,
     sheetName,
     hasActionColumn: showActionColumn,
+    extraExcelColumns,
   });
 
   const disabledSelectionsKeys = useMemo(() => {

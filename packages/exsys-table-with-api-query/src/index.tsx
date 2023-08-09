@@ -57,6 +57,7 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     currentPage,
     rowsPerPage,
     paginatorHidden,
+    fetchTableExcelData,
   } = useTableQuery<T[]>({
     apiId: queryApiId,
     callOnFirstRender,
@@ -107,6 +108,7 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
       hideTableHeaderTools={hideTableHeaderTools}
       margin={margin}
       onInputChange={handleInputChange}
+      fetchTableExcelData={fetchTableExcelData}
       columnsTotals={columnsTotals}
       noPagination={paginatorHidden}
       currentPage={currentPage}

@@ -29,6 +29,9 @@ export { default as generateDefaultMonthAndYear } from "./generateDefaultMonthAn
 export { default as createFullImageUrl } from "./createFullImageUrl";
 export { default as getCurrentUserType } from "./getCurrentUserType";
 export { default as addAmountToDate } from "./addAmountToDate";
+export { default as delayProcess } from "./delayProcess";
+export { default as getCurrentDatePartials } from "./getCurrentDatePartials";
+export { default as downloadFileWithData } from "./downloadFileWithData";
 export * from "./generateYearsBasedOnGivenParams";
 export * from "./fileHelpers";
 export * from "./localStorage";

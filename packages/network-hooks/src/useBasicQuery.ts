@@ -102,10 +102,13 @@ const useBasicQuery = <T = any>(
   );
 
   const buildQueryParams = useCallback(
-    (nextParams?: RecordTypeWithAnyValue): RecordTypeWithAnyValue => {
+    (
+      nextParams?: RecordTypeWithAnyValue,
+      donotUpdateResponseCallback?: boolean
+    ): RecordTypeWithAnyValue => {
       let finalParams: RecordTypeWithAnyValue = latestQueryParamsRef.current;
 
-      if (nextParams) {
+      if (nextParams && !donotUpdateResponseCallback) {
         finalParams = { ...finalParams, ...nextParams };
       }
 
@@ -118,19 +121,28 @@ const useBasicQuery = <T = any>(
         };
       }, {});
 
-      latestQueryParamsRef.current = finalParams;
+      if (!donotUpdateResponseCallback) {
+        latestQueryParamsRef.current = finalParams;
+      }
       return finalParams;
     },
     [latestQueryParamsRef]
   );
 
   const applyResponse = useCallback(
-    async (
-      apiResponse: RequestResponse,
-      currentQueryApiPath: string,
-      queryParams: QueryParamsType,
-      cb?: OnResponseActionType<T>
-    ) => {
+    async ({
+      apiResponse,
+      currentQueryApiPath,
+      queryParams,
+      donotUpdateResponseCallback,
+      cb,
+    }: {
+      apiResponse: RequestResponse;
+      currentQueryApiPath: string;
+      queryParams: QueryParamsType;
+      cb?: OnResponseActionType<T>;
+      donotUpdateResponseCallback?: boolean;
+    }) => {
       const { status, error, data: apiValues, errorCode } = apiResponse;
 
       const response = {
@@ -145,7 +157,7 @@ const useBasicQuery = <T = any>(
         cb(response);
       }
 
-      if (onResponse) {
+      if (onResponse && !donotUpdateResponseCallback) {
         onResponse(response);
       }
 
@@ -176,27 +188,18 @@ const useBasicQuery = <T = any>(
       queryErrorRef.current = "";
       setLoading(true);
 
-      const { nextApiID, ...nextParams } = queryParams || {};
+      const { nextApiID, donotUpdateResponseCallback, ...nextParams } =
+        queryParams || {};
 
-      const allParams = buildQueryParams(nextParams);
+      const allParams = buildQueryParams(
+        nextParams,
+        donotUpdateResponseCallback
+      );
 
       let shouldSkipQuery =
         skipQuery instanceof Function ? skipQuery(allParams) : skipQuery;
 
       if (!shouldSkipQuery && checkAllParamsValuesToQuery) {
-        const areIncompatibleParams =
-          checkAllParamsValuesToQuery === true &&
-          allowedParamsWithEmptyValue === true;
-
-        if (areIncompatibleParams) {
-          throw new Error(
-            "if you are going to check each param value to not empty, " +
-              "why you allow some with empty values" +
-              `Given: \`checkAllParamsValuesToQuery=${checkAllParamsValuesToQuery}\` ` +
-              `\`allowedParamsWithEmptyValue=${allowedParamsWithEmptyValue}\``
-          );
-        }
-
         let allKeys = Array.isArray(checkAllParamsValuesToQuery)
           ? checkAllParamsValuesToQuery
           : Object.keys(allParams);
@@ -244,12 +247,13 @@ const useBasicQuery = <T = any>(
         }
 
         if (maybeCachedResponse) {
-          applyResponse(
-            maybeCachedResponse,
+          applyResponse({
+            apiResponse: maybeCachedResponse,
             currentQueryApiPath,
-            allParams,
-            cb
-          );
+            queryParams: allParams,
+            donotUpdateResponseCallback,
+            cb,
+          });
 
           return;
         }
@@ -268,7 +272,13 @@ const useBasicQuery = <T = any>(
           );
         }
 
-        applyResponse(apiResponse, currentQueryApiPath, allParams, cb);
+        applyResponse({
+          apiResponse,
+          currentQueryApiPath,
+          queryParams: allParams,
+          donotUpdateResponseCallback,
+          cb,
+        });
       } else {
         queryCalledOnFirstRender.current = false;
         if (onResponse) {

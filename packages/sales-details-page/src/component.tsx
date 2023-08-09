@@ -59,7 +59,7 @@ const SalesDetailsPage = () => {
     },
   });
 
-  const { tableValuesRef, fetchTableData, setTableData } =
+  const { tableValuesRef, fetchTableData, resetTableData } =
     useCreateTableActionsFromRefToForm<SalesDetailsRecordType>();
 
   const onPressSearch = useCallback(
@@ -88,8 +88,8 @@ const SalesDetailsPage = () => {
 
   const handleClear = useCallback(() => {
     resetForm();
-    setTableData([]);
-  }, [setTableData, resetForm]);
+    resetTableData();
+  }, [resetTableData, resetForm]);
 
   // const tableSkipQuery = useCallback(
   //   ({ root_organization_no, provider_no }: RecordTypeWithAnyValue) =>

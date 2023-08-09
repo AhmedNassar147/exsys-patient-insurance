@@ -197,13 +197,8 @@ export type TableAlignTotalCellsPropType = {
   useFloatingLabelsTotalCells?: boolean;
 };
 
-export type TransformDataSourceToExcelSheetDataSet<T = TableRowRecordType> = (
-  dataSource: T[]
-) => RecordType[];
-
-export type UseCreateExcelSheetBasePropType<T = TableRowRecordType> = {
+export type UseCreateExcelSheetBasePropType = {
   sheetName?: string;
-  transformDataSourceToExcelSheetDataSet?: TransformDataSourceToExcelSheetDataSet<T>;
 };
 
 export interface TableHeaderToolsConfigType {
@@ -276,6 +271,9 @@ export type TableQueryAPiResponseType<T = RecordTypeWithAnyValue[]> = {
   data: T;
 };
 
+export type FetchTableExcelDataType<T extends TableRowRecordType> =
+  () => Promise<T[]>;
+
 export interface TableProps<T = TableRowRecordType>
   extends TableBaseProps<T>,
     TableHeaderProps<T>,
@@ -283,7 +281,7 @@ export interface TableProps<T = TableRowRecordType>
     TableActionColumnProps<T>,
     TableCellInputFunctionsType<T>,
     TableBodyRowClickEvents<T>,
-    UseCreateExcelSheetBasePropType<T>,
+    UseCreateExcelSheetBasePropType,
     TablePaginationProps,
     TableHeaderToolsMainProps,
     TableFooterProps,
@@ -294,6 +292,7 @@ export interface TableProps<T = TableRowRecordType>
   actionColumnWidth?: number;
   rowClassName?: TableRowClassNameType<T>;
   rowCellClassName?: TableRowCellClassNameType<T>;
+  fetchTableExcelData?: FetchTableExcelDataType<T>;
   columnsTotals?: TableColumnsTotalsType;
   selectedRowKey?: string | number;
 }
@@ -303,6 +302,7 @@ export interface TableQueryConfigProps
   transformQueryApiData?: (data: any) => any;
   apiId: ApiIdsTypes;
   noPagination?: boolean;
+  pageSize?: number;
 }
 
 export interface PaginatorBaseProps {

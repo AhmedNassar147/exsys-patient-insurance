@@ -40,5 +40,16 @@ export const useCreateTableActionsFromRefToForm = <
     [tableValuesRef]
   );
 
-  return { tableValuesRef, fetchTableData, setTableData, getCurrentDataSource };
+  const resetTableData = useCallback(
+    () => tableValuesRef.current?.resetTableData(),
+    [tableValuesRef]
+  );
+
+  return {
+    tableValuesRef,
+    fetchTableData,
+    setTableData,
+    getCurrentDataSource,
+    resetTableData,
+  };
 };

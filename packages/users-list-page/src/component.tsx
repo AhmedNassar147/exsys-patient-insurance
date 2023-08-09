@@ -36,7 +36,7 @@ const UsersListPage = () => {
     initialValues: initialFormFilterValues,
   });
 
-  const { tableValuesRef, fetchTableData, setTableData } =
+  const { tableValuesRef, fetchTableData, resetTableData } =
     useCreateTableActionsFromRefToForm<UserRecordType>();
 
   const onPressSearch = useCallback(
@@ -51,8 +51,8 @@ const UsersListPage = () => {
 
   const handleClear = useCallback(() => {
     resetForm();
-    setTableData([]);
-  }, [setTableData, resetForm]);
+    resetTableData();
+  }, [resetTableData, resetForm]);
 
   const onSelectRow: TableBodyRowClickEvent<UserRecordType> = useCallback(
     (currentRecord) =>

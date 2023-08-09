@@ -3,15 +3,13 @@
  * Hook: `useTableQuery`.
  *
  */
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useMemo } from "react";
 import {
   clearObjectFields,
+  delayProcess,
   ensureBackEndSetsProperTotal,
 } from "@exsys-patient-insurance/helpers";
-import {
-  usePaginatorState,
-  useCurrentPagePrivileges,
-} from "@exsys-patient-insurance/hooks";
+import { usePaginatorState } from "@exsys-patient-insurance/hooks";
 import {
   RecordTypeWithAnyValue,
   TableQueryAPiResponseType,
@@ -19,6 +17,7 @@ import {
   QueryResponseValuesType,
   TableQueryConfigProps,
   TableFetchMoreActionEventType,
+  UseBasicRunQueryFnType,
 } from "@exsys-patient-insurance/types";
 import useBasicQuery from "./useBasicQuery";
 
@@ -49,6 +48,11 @@ const getTotalValues = <T extends RecordTypeWithAnyValue>(newValues: T[]) => {
   return { total, columnsTotals: getColumnsTotals(lastRecord) };
 };
 
+type PagesDataSourceType<T extends RecordTypeWithAnyValue[]> = Record<
+  string,
+  T
+>;
+
 const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
   apiId,
   callOnFirstRender,
@@ -62,9 +66,13 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
   allowedParamsWithEmptyValue,
   disableParamsChangeCheck,
   noPagination,
+  pageSize,
 }: TableQueryConfigProps) => {
-  const [pagesDataSource, setPagesDataSource] = useState<Record<string, T>>({});
+  const [pagesDataSource, setPagesDataSource] = useState<
+    PagesDataSourceType<T>
+  >({});
   const columnsTotalsRef = useRef<TableColumnsTotalsType>();
+  const otherApiValuesRef = useRef<RecordTypeWithAnyValue>({});
   const shouldMergeResultsRef = useRef<boolean>(false);
   const dataBaseTotalRecordsRef = useRef<number>(0);
   const loadedDataSourceRecordsCountRef = useRef<number>(0);
@@ -72,14 +80,9 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
 
   const totalRecordsInDataBase = dataBaseTotalRecordsRef.current;
   const paginatorHidden = noPagination || totalRecordsInDataBase <= 5;
-  const { recordsPerFetch } = useCurrentPagePrivileges({
-    useFullPathName: true,
-  });
 
-  const { currentPage, rowsPerPage, setPaginationState } = usePaginatorState(
-    totalRecordsInDataBase,
-    paginatorHidden
-  );
+  const { currentPage, rowsPerPage, initialRowsPerPage, setPaginationState } =
+    usePaginatorState(totalRecordsInDataBase, paginatorHidden, pageSize);
 
   const onResponse = useCallback(
     ({
@@ -93,7 +96,7 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
         return;
       }
 
-      const { data: tableData } = apiValues || {};
+      const { data: tableData, ...otherApiData } = apiValues || {};
       const _currentPage = +(currentPage || 1);
       const __currentPage = poffset === 0 ? 1 : _currentPage;
 
@@ -109,6 +112,7 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
         dataBaseTotalRecordsRef.current = total;
         columnsTotalsRef.current = columnsTotals;
         loadedDataSourceRecordsCountRef.current = newPageValues.length;
+        otherApiValuesRef.current = otherApiData;
         shouldMergeResultsRef.current = false;
 
         return {
@@ -139,7 +143,7 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
     params: {
       poffset: 0,
       ...params,
-      poffset_step: recordsPerFetch || 20,
+      poffset_step: rowsPerPage,
     },
     onResponse,
     skipQuery,
@@ -155,36 +159,84 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
     transformApiDataFn,
   });
 
+  const resetTableData = useCallback(() => {
+    setPaginationState(() => ({
+      rowsPerPage: initialRowsPerPage,
+      currentPage: 1,
+    }));
+    setPagesDataSource(() => {
+      columnsTotalsRef.current = undefined;
+      otherApiValuesRef.current = {};
+      shouldMergeResultsRef.current = false;
+      dataBaseTotalRecordsRef.current = 0;
+      loadedDataSourceRecordsCountRef.current = 0;
+      searchParamsRef.current = {};
+
+      return {} as PagesDataSourceType<T>;
+    });
+  }, [initialRowsPerPage, setPaginationState]);
+
   const onFetchMore = useCallback(
     async ({
       searchParams,
       currentPage,
-      rowsPerPage,
+      rowsPerPage: _rowsPerPage,
     }: TableFetchMoreActionEventType) => {
+      const paginationOptions = {
+        currentPage,
+        rowsPerPage: _rowsPerPage,
+      };
+
+      if (_rowsPerPage !== rowsPerPage) {
+        resetTableData();
+        const params = {
+          ...searchParams,
+          poffset: 0,
+        };
+
+        searchParamsRef.current = params;
+        setPaginationState(paginationOptions);
+
+        await delayProcess(20);
+
+        runQuery({
+          ...params,
+          currentPage,
+          poffset_step: _rowsPerPage,
+        });
+        return;
+      }
+
       const loadedDataSourceRecordsCount =
         loadedDataSourceRecordsCountRef.current;
 
-      setPaginationState({
-        currentPage: currentPage,
-        rowsPerPage: rowsPerPage,
-      });
+      setPaginationState(paginationOptions);
 
       if (
         loadedDataSourceRecordsCount === totalRecordsInDataBase ||
         pagesDataSource?.[currentPage]?.length
       ) {
+        if (process.env.NODE_ENV !== "production") {
+          console.log({
+            currentPage,
+            rowsPerPage: _rowsPerPage,
+            loadedDataSourceRecordsCount,
+            totalRecordsInDataBase,
+            data: pagesDataSource?.[currentPage],
+          });
+        }
         return;
       }
       shouldMergeResultsRef.current = true;
 
       const params = {
         ...searchParams,
-        poffset: (currentPage - 1) * rowsPerPage,
+        poffset: (currentPage - 1) * _rowsPerPage,
       };
 
       searchParamsRef.current = params;
 
-      await runQuery({ ...params, currentPage, poffset_step: rowsPerPage });
+      await runQuery({ ...params, currentPage, poffset_step: _rowsPerPage });
     },
     [runQuery, pagesDataSource, setPaginationState]
   );
@@ -200,8 +252,8 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
 
       searchParamsRef.current = params;
       setPaginationState({
-        currentPage: currentPage,
-        rowsPerPage: rowsPerPage,
+        currentPage,
+        rowsPerPage,
       });
 
       await runQuery({ ...params, currentPage, poffset_step: rowsPerPage });
@@ -211,17 +263,21 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
 
   // reset all search filters and sorters.
   const handleResetFiltersAndSorters = useCallback(
-    ({ currentPage, rowsPerPage }: TableFetchMoreActionEventType) => {
+    ({
+      currentPage,
+      rowsPerPage,
+      searchParams,
+    }: TableFetchMoreActionEventType) => {
       shouldMergeResultsRef.current = false;
-      const currentSearchParams = searchParamsRef.current;
+      const currentSearchParams = searchParams || searchParamsRef.current;
 
       // we need to clear all filter keys values because `useBasicQuery` caches
       // the previous filters.
       const nextClearParams = clearObjectFields(currentSearchParams);
       searchParamsRef.current = {};
       setPaginationState({
-        currentPage: currentPage,
-        rowsPerPage: rowsPerPage,
+        currentPage,
+        rowsPerPage,
       });
       runQuery({
         ...nextClearParams,
@@ -231,6 +287,25 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
       });
     },
     [runQuery, setPaginationState]
+  );
+
+  const fetchTableExcelData: () => Promise<T> = useCallback(
+    () =>
+      new Promise(async (resolve) => {
+        await runQuery(
+          {
+            donotUpdateResponseCallback: true,
+            poffset: 0,
+            poffset_step: 100000000,
+          },
+          ({ apiValues }) => {
+            const { data } = apiValues || { data: [] };
+
+            resolve((data || []) as T);
+          }
+        );
+      }),
+    [runQuery]
   );
 
   const currentDataSource = (pagesDataSource?.[currentPage] ?? []) as T;
@@ -249,24 +324,56 @@ const useTableQuery = <T extends RecordTypeWithAnyValue[]>({
         };
       });
     },
-    []
+    [currentDataSource, currentPage]
   );
+
+  const loadedData = useMemo(
+    () => Object.values(pagesDataSource || {}).flat(),
+    [pagesDataSource]
+  );
+
+  const handleRunQuery: UseBasicRunQueryFnType<TableQueryAPiResponseType<T>> =
+    useCallback(
+      async (nextParams, cb) => {
+        resetTableData();
+        await delayProcess(40);
+        const { currentPage } = nextParams || {};
+
+        const _currentPage = currentPage || 1;
+
+        return runQuery(
+          {
+            currentPage: _currentPage,
+            ...(nextParams || null),
+            poffset: (_currentPage - 1) * rowsPerPage,
+          },
+          cb
+        );
+      },
+      [resetTableData, rowsPerPage, runQuery]
+    );
 
   return {
     loading,
-    runQuery,
-    data: currentDataSource.slice(0, rowsPerPage) as T,
+    runQuery: handleRunQuery,
+    data: (paginatorHidden
+      ? currentDataSource
+      : currentDataSource.slice(0, rowsPerPage)) as T,
     onFetchMore,
     setData,
     onSearchAndFilterTable,
+    fetchTableExcelData,
     handleResetFiltersAndSorters,
     dataBaseTotalRecordsRef,
     searchParamsRef,
     columnsTotals: columnsTotalsRef.current,
+    otherApiValues: otherApiValuesRef.current,
     currentPage,
     rowsPerPage,
     setPaginationState,
     paginatorHidden,
+    loadedData,
+    resetTableData,
     loadedDataSourceRecordsCount: loadedDataSourceRecordsCountRef.current,
   };
 };

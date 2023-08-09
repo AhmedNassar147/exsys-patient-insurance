@@ -18,6 +18,7 @@ export type TableForwardedValuesForRef<TableRecordType> = {
   >;
   setTableData: React.Dispatch<React.SetStateAction<TableRecordType[]>>;
   getCurrentDataSource: () => TableRecordType[];
+  resetTableData: () => void;
 };
 
 export type TableForwardedRefType<TableRecordType> = React.MutableRefObject<

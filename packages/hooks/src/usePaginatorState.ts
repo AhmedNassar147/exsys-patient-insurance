@@ -13,12 +13,6 @@ const usePaginatorState = (
   noPagination?: boolean,
   pageSize?: number
 ) => {
-  const [paginationState, setPaginationState] =
-    useState<PaginatorChangedEventData>({
-      currentPage: 1,
-      rowsPerPage: 5,
-    });
-
   const { recordsPerFetch, pagination_size: pageMaxRowsPerPage } =
     useCurrentPagePrivileges({
       useFullPathName: true,
@@ -26,11 +20,32 @@ const usePaginatorState = (
 
   const currentMaxRowsPerPage = pageSize || pageMaxRowsPerPage || 20;
 
-  const maxRecordsPerPage = useMemo(
+  const [paginationState, setPaginationState] =
+    useState<PaginatorChangedEventData>({
+      currentPage: 1,
+      rowsPerPage: currentMaxRowsPerPage,
+    });
+
+  useLayoutEffect(() => {
+    if (currentMaxRowsPerPage) {
+      setPaginationState((previous) => ({
+        ...previous,
+        rowsPerPage: currentMaxRowsPerPage,
+      }));
+    }
+  }, [currentMaxRowsPerPage]);
+
+  const minRecordsPerPage = useMemo(
     () =>
-      min(currentMaxRowsPerPage, recordsPerFetch || 20, totalItemsInDatabase),
+      min(
+        ...[
+          currentMaxRowsPerPage,
+          recordsPerFetch || 20,
+          totalItemsInDatabase,
+        ].filter(Boolean)
+      ),
     // eslint-disable-next-line
-    [totalItemsInDatabase]
+    [recordsPerFetch, currentMaxRowsPerPage, totalItemsInDatabase]
   );
 
   useLayoutEffect(
@@ -51,16 +66,19 @@ const usePaginatorState = (
 
         setPaginationState((previous) => ({
           ...previous,
-          rowsPerPage: maxRecordsPerPage,
+          rowsPerPage: minRecordsPerPage,
         }));
       }
     },
     // eslint-disable-next-line
-    [maxRecordsPerPage, noPagination]
+    [minRecordsPerPage, noPagination]
   );
+
+  const initialRowsPerPage = minRecordsPerPage || currentMaxRowsPerPage;
 
   return {
     ...paginationState,
+    initialRowsPerPage,
     setPaginationState,
   };
 };

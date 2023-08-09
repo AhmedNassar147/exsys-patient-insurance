@@ -4,7 +4,7 @@
  *
  */
 import { memo, useMemo } from "react";
-import LazyDownloadExcel from "@exsys-patient-insurance/download-excel";
+import ReactExportsExcel from "@exsys-patient-insurance/react-exports-excel";
 import DeleteIcon from "@exsys-patient-insurance/delete-icon";
 import FilePdfIcon from "@exsys-patient-insurance/file-pdf-icon";
 import PlusIcon from "@exsys-patient-insurance/plus-icon";
@@ -60,12 +60,8 @@ const TableDefaultHeaderTools = ({
 
       {canInsert && <PlusIcon useDisabledColor circled onClick={onPressAdd} />}
 
-      {!!sheets?.length && withExcel && (
-        <LazyDownloadExcel
-          {...excelSheetProps}
-          disabled={!hasDataSource}
-          shouldMountChunk
-        />
+      {!!sheets?.length && withExcel && excelSheetProps && (
+        <ReactExportsExcel {...excelSheetProps} disabled={!hasDataSource} />
       )}
 
       {withPdf && (
