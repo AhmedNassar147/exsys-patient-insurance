@@ -1,0 +1,17 @@
+{
+  "name": "@exsys-patient-insurance/acc-users-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "react package to render account users page.",
+  "author": "exsys",
+  "license": "ISC",
+  "main": "src/",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@types/react": "^18.x.x"
+  },
+  "routeData": {
+    "path": "/accUsers"
+  },
+  "enableBabelTranspilation": true
+}

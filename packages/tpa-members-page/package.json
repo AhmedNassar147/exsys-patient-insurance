@@ -1,0 +1,17 @@
+{
+"name": "@exsys-patient-insurance/tpa-members-page",
+"version": "1.0.0",
+"private": true,
+"description": "react package to render tpa members.",
+"author": "exsys",
+"license": "ISC",
+"main": "src/",
+"sideEffects": false,
+"peerDependencies": {
+"@types/react": "^18.x.x"
+},
+  "routeData":{
+   "path": "/tpaMembers"
+  },
+"enableBabelTranspilation": true
+}

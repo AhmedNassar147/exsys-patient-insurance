@@ -17,6 +17,8 @@ import UsersListPage from "@exsys-patient-insurance/users-list-page";
 import ClientDashboardPage from "@exsys-patient-insurance/client-dashboard-page";
 import SalesDetailsPage from "@exsys-patient-insurance/sales-details-page";
 import PharmBatchesPage from "@exsys-patient-insurance/pharm-batches-page";
+import AccUsersPage from "@exsys-patient-insurance/acc-users-page";
+import TpaMembersPage from "@exsys-patient-insurance/tpa-members-page";
 
 const App = () => (
   <>
@@ -40,7 +42,9 @@ const App = () => (
                     path="clientDBoard"
                     element={<ClientDashboardPage />}
                   />
+                  <Route path="accUsers" element={<AccUsersPage />} />
                   <Route path="salesDetails" element={<SalesDetailsPage />} />
+                  <Route path="tpaMembers" element={<TpaMembersPage />} />
                 </Routes>
               </BasePageWrapper>
             </Suspense>

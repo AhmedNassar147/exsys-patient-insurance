@@ -96,6 +96,7 @@
     "@exsys-patient-insurance/text": "1.0.0",
     "@exsys-patient-insurance/textarea-field": "1.0.0",
     "@exsys-patient-insurance/theme-values": "1.0.0",
+    "@exsys-patient-insurance/tpa-members-page": "1.0.0",
     "@exsys-patient-insurance/types": "1.0.0",
     "@exsys-patient-insurance/undo-icon": "1.0.0",
     "@exsys-patient-insurance/years-select-field": "1.0.0",
