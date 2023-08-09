@@ -80,8 +80,6 @@ const ModalView: React.FC<ModalViewProps> = ({
     selectedUsersData?.user_password,
   ]);
 
-  console.log("pass", selectedUsersData);
-
   return (
     <Modal
       title="Please Change Password"
