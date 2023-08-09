@@ -16,6 +16,7 @@ import MiBatchesPage from "@exsys-patient-insurance/mi-batches-page";
 import UsersListPage from "@exsys-patient-insurance/users-list-page";
 import ClientDashboardPage from "@exsys-patient-insurance/client-dashboard-page";
 import SalesDetailsPage from "@exsys-patient-insurance/sales-details-page";
+import PharmBatchesPage from "@exsys-patient-insurance/pharm-batches-page";
 
 const App = () => (
   <>
@@ -31,6 +32,10 @@ const App = () => (
                   <Route path="tpaUcaf/:pageType" element={<UcafListPage />} />
                   <Route path="tpaMiBatches" element={<MiBatchesPage />} />
                   <Route path="tpaUsers" element={<UsersListPage />} />
+                  <Route
+                    path="tpaPharmBatches"
+                    element={<PharmBatchesPage />}
+                  />
                   <Route
                     path="clientDBoard"
                     element={<ClientDashboardPage />}

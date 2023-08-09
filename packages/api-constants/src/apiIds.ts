@@ -107,6 +107,8 @@ const API_IDS = {
   // http://149.102.140.8:9090/ords/exsys_api/mi_ucaf_request/get_last_service_delivery?planguageid=1&authorization=5325342&root_organization_no=001&patient_card_no=2222&service_code=9901371
   QUERY_CHECK_PRODUCT_USAGE_VALIDITY:
     "mi_ucaf_request/get_last_service_delivery",
+  //http://62.171.177.184:9090/ords/exsys_api/mi_claim/get_provider_batch?poffset=0&poffset_step=20&planguageid=1&authorization=6406066&year=2023&month=06&account_no=40021&tpa_no=001&type=T
+  QUERY_PHARM_BATCH_TABLE_DATA: "mi_claim/get_provider_batch",
 };
 
 export default API_IDS;

@@ -73,6 +73,7 @@
     "@exsys-patient-insurance/patient-history-components": "1.0.0",
     "@exsys-patient-insurance/pause-play-icon": "1.0.0",
     "@exsys-patient-insurance/person-icon": "1.0.0",
+    "@exsys-patient-insurance/pharm-batches-page": "1.0.0",
     "@exsys-patient-insurance/pie-chart": "1.0.0",
     "@exsys-patient-insurance/plus-icon": "1.0.0",
     "@exsys-patient-insurance/printer-icon": "1.0.0",

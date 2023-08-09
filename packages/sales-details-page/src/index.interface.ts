@@ -30,5 +30,6 @@ export interface SalesDetailsRecordType {
   net_price: number;
   provider_share: number;
   batch_no?: number;
+  provider_number: number;
   dtl_data: DetailsDataRecordProps[];
 }

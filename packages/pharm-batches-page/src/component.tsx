@@ -1,8 +1,9 @@
 /*
  *
- * `MiBatchesPage`: `@exsys-patient-insurance/mi-batches-page`.
+ * `PharmBatchesPage`: `@exsys-patient-insurance/pharm-batches-page`.
  *
  */
+
 import { memo, useCallback, useMemo } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
@@ -36,7 +37,7 @@ import {
 } from "./constants";
 import { MiBatchesTableRecordType } from "./index.interface";
 
-const MiBatchesPage = () => {
+const PharmBatchesPage = () => {
   const globalProviderNo = useGlobalProviderNo();
   const globalAccountNo = useCurrentAccountNo();
   const tpaProvidersParams = useMemo(
@@ -55,7 +56,7 @@ const MiBatchesPage = () => {
 
   const { visible, handleClose, handleOpen } = useOpenCloseActionsWithState();
 
-  const { tableValuesRef, fetchTableData, resetTableData } =
+  const { tableValuesRef, fetchTableData, setTableData } =
     useCreateTableActionsFromRefToForm<MiBatchesTableRecordType>();
 
   const handleChangeSelectionCheck: onChangeEvent = useCallback(
@@ -68,15 +69,15 @@ const MiBatchesPage = () => {
         tpa_no: "",
       });
 
-      resetTableData();
+      setTableData([]);
     },
-    [handleChangeMultipleInputs, resetTableData]
+    [handleChangeMultipleInputs, setTableData]
   );
 
   const onPressClear = useCallback(() => {
     resetForm();
-    resetTableData();
-  }, [resetForm, resetTableData]);
+    setTableData([]);
+  }, [resetForm, setTableData]);
 
   const handleSearch = useCallback(
     () =>
@@ -92,15 +93,6 @@ const MiBatchesPage = () => {
   );
 
   const isAllTpa = type === "A";
-  const isSpecificTpa = type === "T";
-
-  // const computedColumns = useMemo(() => {
-  //   const [_, ...restColumns] = TABLE_COLUMNS;
-
-  //   return [
-  //     isAllTpa ? TABLE_COLUMNS : restColumns,
-  //   ] as unknown as TableColumnProps[];
-  // }, [isAllTpa]);
 
   const computedColumns = useMemo(
     () =>
@@ -173,7 +165,6 @@ const MiBatchesPage = () => {
               onChange={handleChange}
               apiParams={tpaProvidersParams}
               checkAllParamsValuesToQuery
-              required
             />
           )}
 
@@ -214,9 +205,9 @@ const MiBatchesPage = () => {
         ref={tableValuesRef}
         columns={isAllTpa ? TABLE_COLUMNS : secondComputedColumns}
         rowKey="batch_no"
-        queryApiId="QUERY_MI_BATCHES_TABLE_DATA"
+        queryApiId="QUERY_PHARM_BATCH_TABLE_DATA"
         useAlignedTotalCells
-        skipQuery={isSpecificTpa && tpa_no === ""}
+        skipQuery={!isAllTpa && tpa_no === ""}
       />
 
       <CreateNewBatchModal
@@ -228,4 +219,4 @@ const MiBatchesPage = () => {
   );
 };
 
-export default memo(MiBatchesPage);
+export default memo(PharmBatchesPage);

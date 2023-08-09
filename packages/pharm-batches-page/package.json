@@ -1,0 +1,17 @@
+{
+"name": "@exsys-patient-insurance/pharm-batches-page",
+"version": "1.0.0",
+"private": true,
+"description": "react package to render TPA pharm batches page.",
+"author": "exsys",
+"license": "ISC",
+"main": "src/",
+"sideEffects": false,
+"peerDependencies": {
+"@types/react": "^18.x.x"
+},
+  "routeData":{
+   "path": "/tpaPharmBatches"
+  },
+"enableBabelTranspilation": true
+}

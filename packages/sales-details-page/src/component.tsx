@@ -64,8 +64,8 @@ const SalesDetailsPage = () => {
   const [currentSelectedRow, setCurrentSelectedRow] =
     useState<SalesDetailsRecordType>();
 
-  const { ucaf_id } = currentSelectedRow || {};
-  const { tableValuesRef, fetchTableData, resetTableData } =
+  const { ucaf_id, provider_number } = currentSelectedRow || {};
+  const { tableValuesRef, fetchTableData, setTableData } =
     useCreateTableActionsFromRefToForm<SalesDetailsRecordType>();
 
   const onPressSearch = useCallback(
@@ -126,7 +126,7 @@ const SalesDetailsPage = () => {
 
   const reportData = {
     P_UCAF_ID: ucaf_id,
-    P_PROVIDER_NO: provider_no,
+    P_PROVIDER_NO: provider_number,
   };
 
   const onChangeSearchFields: onChangeEvent = useCallback(() => {
