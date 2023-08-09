@@ -9,7 +9,7 @@ import {
   ColorNamesType,
 } from "./base.interface";
 import { SelectListProps } from "./form-field.interface";
-import { DownloadExcelProps } from "./downloadExcel.interface";
+import { ReactExportsExcelProps } from "./downloadExcel.interface";
 import { ButtonTypes, ButtonSizeType } from "@exsys-patient-insurance/button";
 import { ApiIdsTypes, BaseQueryConfigProps } from "./network.interface";
 
@@ -221,7 +221,7 @@ export interface TableDefaultHeaderToolsProps
   isEditing?: boolean;
   hasDataSource?: boolean;
   hasSelectedRow?: boolean;
-  excelSheetProps?: DownloadExcelProps;
+  excelSheetProps?: ReactExportsExcelProps;
 }
 
 export type TableHeaderToolsMainProps = Omit<

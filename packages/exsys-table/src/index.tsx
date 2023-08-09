@@ -182,7 +182,7 @@ const ExsysTable = <T extends TableRowRecordType>({
     columns: adjustedColumns,
     sheetName,
     hasActionColumn: showActionColumn,
-    extraExcelColumns,
+    // extraExcelColumns,
   });
 
   const disabledSelectionsKeys = useMemo(() => {

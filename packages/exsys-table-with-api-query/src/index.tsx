@@ -9,7 +9,6 @@ import {
   memo,
   useImperativeHandle,
   useMemo,
-  useCallback,
 } from "react";
 import { useTableQuery } from "@exsys-patient-insurance/network-hooks";
 import { useTableInputChangeCallback } from "@exsys-patient-insurance/hooks";
@@ -58,6 +57,7 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     rowsPerPage,
     paginatorHidden,
     fetchTableExcelData,
+    resetTableData,
   } = useTableQuery<T[]>({
     apiId: queryApiId,
     callOnFirstRender,
@@ -77,6 +77,7 @@ const TableWithApiQuery = <T extends TableRowRecordType>(
     runQuery,
     setTableData: setData,
     getCurrentDataSource: () => foundDataSource,
+    resetTableData,
   }));
 
   useLayoutEffect(

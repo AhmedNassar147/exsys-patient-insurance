@@ -8,13 +8,14 @@ import {
   TableRowRecordType,
   TableColumnProps,
   UseCreateExcelSheetBasePropType,
+  FetchTableExcelDataType,
 } from "@exsys-patient-insurance/types";
 import parseColumnsToValidExcelColumns from "../helpers/parseColumnsToValidExcelColumns";
 
 export type UseCreateExcelSheetPropType<T = TableRowRecordType> =
   UseCreateExcelSheetBasePropType & {
     columns: TableColumnProps<T>[];
-    dataSource: TableRowRecordType[];
+    dataSource: T[] | FetchTableExcelDataType<T>;
     shouldProcessColumnsAndData?: boolean;
     hasActionColumn?: boolean;
     extraExcelColumns?: TableColumnProps[];
