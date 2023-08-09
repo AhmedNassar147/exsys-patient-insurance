@@ -3,7 +3,7 @@
  * `SalesDetailsPage`: `@exsys-patient-insurance/sales-details-page`.
  *
  */
-import { memo, useCallback, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import useFormManager from "@exsys-patient-insurance/form-manager";
 import Flex from "@exsys-patient-insurance/flex";
 import SelectWithApiQuery, {
@@ -24,6 +24,7 @@ import ExsysTableWithApiQuery, {
 import {
   //RecordTypeWithAnyValue,
   onChangeEvent,
+  TableColumnProps,
   TableExpandedRowRenderType,
 } from "@exsys-patient-insurance/types";
 import {
@@ -32,6 +33,7 @@ import {
   PROVIDER_NAME_COLUMN,
   detailsTableColumns,
 } from "./constants";
+import { PdfDocumentModal } from "@exsys-patient-insurance/document-modal";
 import { SalesDetailsRecordType } from "./index.interface";
 
 const SalesDetailsPage = () => {
@@ -59,6 +61,10 @@ const SalesDetailsPage = () => {
     },
   });
 
+  const [currentSelectedRow, setCurrentSelectedRow] =
+    useState<SalesDetailsRecordType>();
+
+  const { ucaf_id } = currentSelectedRow || {};
   const { tableValuesRef, fetchTableData, resetTableData } =
     useCreateTableActionsFromRefToForm<SalesDetailsRecordType>();
 
@@ -112,6 +118,17 @@ const SalesDetailsPage = () => {
       []
     );
 
+  const onSelectRow = useCallback(
+    (currentRecord: SalesDetailsRecordType) =>
+      setCurrentSelectedRow(currentRecord),
+    []
+  );
+
+  const reportData = {
+    P_UCAF_ID: ucaf_id,
+    P_PROVIDER_NO: provider_no,
+  };
+
   const onChangeSearchFields: onChangeEvent = useCallback(() => {
     handleChangeMultipleInputs({
       currentPatientData: {
@@ -122,7 +139,7 @@ const SalesDetailsPage = () => {
   }, [handleChangeMultipleInputs, serialNoListRef]);
 
   const tableColumns = useMemo(() => {
-    const [firstColumn, secondColumn, ...restColumns] = TABLE_COLUMNS;
+    const [firstColumn, secondColumn, third_column, lastColumn] = TABLE_COLUMNS;
     return [
       ...(isManagerUser ? PROVIDER_NAME_COLUMN : []),
       firstColumn,
@@ -130,9 +147,108 @@ const SalesDetailsPage = () => {
         ...secondColumn,
         width: !isManagerUser ? "18%" : "9%",
       },
-      ...restColumns,
-    ];
-  }, [isManagerUser]);
+      {
+        ...third_column,
+        title: "card_no",
+        dataIndex: "card_no",
+        width: "7%",
+        totalCellProps: {
+          isFragment: true,
+        },
+      },
+
+      {
+        title: "patientname",
+        dataIndex: "patient_name",
+        width: "16.5%",
+        totalCellProps: {
+          isFragment: true,
+        },
+      },
+      {
+        title: "form_no",
+        dataIndex: "form_no",
+        width: "5%",
+        totalCellProps: {
+          isFragment: true,
+        },
+      },
+      {
+        title: "ucaf_id",
+        dataIndex: "ucaf_id",
+        width: "5%",
+        totalCellProps: {
+          isFragment: true,
+        },
+      },
+
+      {
+        title: "gross_price",
+        dataIndex: "gross_price",
+        width: "7%",
+      },
+      {
+        title: "disc",
+        dataIndex: "disc",
+        width: "6%",
+      },
+      {
+        title: "copay",
+        dataIndex: "copay",
+        width: "6%",
+      },
+
+      {
+        title: "cmpnyshre",
+        dataIndex: "provider_share",
+        width: "7%",
+        ellipsis: true,
+      },
+      {
+        ...lastColumn,
+
+        title: "action",
+        dataIndex: "specialty_type",
+        width: "5%",
+        // return (
+        //   usePrintIcon
+        // )
+        render: () => (
+          <PdfDocumentModal
+            usePrintIcon
+            documentName="MIUCAF"
+            reportData={reportData}
+          />
+        ),
+      },
+
+      // ...restColumns,
+    ] as TableColumnProps[];
+  }, [isManagerUser, reportData]);
+
+  // const tableColumns = useMemo(() => {
+  //   let baseColumns = REQUESTS_TABLE_COLUMNS;
+
+  //   if (isPharmacyUser) {
+  //     baseColumns = [
+  //       ...baseColumns,
+  //       {
+  //         title: "action",
+  //         dataIndex: "specialty_type",
+  //         // @ts-ignore
+  //         render: (
+  //           specialty_type: string,
+  //           {
+  //             last_delivery_date,
+  //             ucaf_dtl_pk,
+  //             service_code,
+  //           }: RequestTableRecordType
+  //         ) => {
+  //           if (last_delivery_date && provider_cancelation_days) {
+  //             const lastDeliveryDateWithDays = addAmountToDate(
+  //               last_delivery_date,
+  //               provider_cancelation_days
+  //             );
 
   return (
     <>
@@ -234,6 +350,7 @@ const SalesDetailsPage = () => {
         withInfo={false}
         withPdf={false}
         withExcel
+        onSelectRow={onSelectRow}
         expandedRowRender={expandedRowRender}
         // skipQuery={tableSkipQuery}
         useAlignedTotalCells

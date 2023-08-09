@@ -42,7 +42,7 @@ const CreateNewBatchModal = ({
           start_date,
           end_date,
           tpa_no,
-          provider_no,
+          // provider_no,
           account_no,
         },
         cb: ({ apiValues, error }) => {

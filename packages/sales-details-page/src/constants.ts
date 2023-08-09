@@ -76,7 +76,7 @@ export const TABLE_COLUMNS = [
   {
     title: "form_no",
     dataIndex: "form_no",
-    width: "7%",
+    width: "5%",
     totalCellProps: {
       isFragment: true,
     },
@@ -84,7 +84,7 @@ export const TABLE_COLUMNS = [
   {
     title: "ucaf_id",
     dataIndex: "ucaf_id",
-    width: "7%",
+    width: "5%",
     totalCellProps: {
       isFragment: true,
     },
