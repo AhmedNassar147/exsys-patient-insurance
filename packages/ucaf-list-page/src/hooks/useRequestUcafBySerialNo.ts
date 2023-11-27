@@ -5,7 +5,10 @@
  */
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { getCurrentDateString } from "@exsys-patient-insurance/helpers";
+import {
+  getCurrentDateString,
+  getCurrentUserType,
+} from "@exsys-patient-insurance/helpers";
 import {
   useAppConfigStore,
   useGlobalProviderNo,
@@ -38,7 +41,6 @@ interface UseRequestUcafBySerialNoOptions {
   root_organization_no: string;
   patient_card_no: string;
   paper_serial: string;
-  isHospitalUser: boolean;
 }
 
 const useRequestUcafBySerialNo = ({
@@ -46,7 +48,6 @@ const useRequestUcafBySerialNo = ({
   root_organization_no,
   patient_card_no,
   paper_serial,
-  isHospitalUser,
 }: UseRequestUcafBySerialNoOptions) => {
   const { addNotification } = useAppConfigStore();
   const globalProviderNo = useGlobalProviderNo();
@@ -72,6 +73,7 @@ const useRequestUcafBySerialNo = ({
           patientExceedLimit,
           admission_reason,
           provider_cancelation_days,
+          doctor_provider_type,
         } = details || {};
 
         if (!doctor_provider_no && !error) {
@@ -97,6 +99,8 @@ const useRequestUcafBySerialNo = ({
             duration: 4000,
           });
         }
+
+        const { isHospitalUser } = getCurrentUserType(doctor_provider_type);
 
         const curredUcafType =
           shouldSetUcafTypeInpatient === "Y"

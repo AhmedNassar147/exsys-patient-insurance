@@ -84,7 +84,7 @@ const { requestsData: defaultRequestsData } = initialValues;
 const { details: defaultRequestsDataDetails } = defaultRequestsData;
 
 const UcafListPage = () => {
-  const { isDoctorUser, isPharmacyUser, isHospitalUser } = useCurrentUserType();
+  const { isDoctorUser, isPharmacyUser } = useCurrentUserType();
   const globalProviderNo = useGlobalProviderNo();
   const {
     addNotification,
@@ -248,7 +248,6 @@ const UcafListPage = () => {
     root_organization_no,
     patient_card_no: foundPatientCardNo,
     paper_serial,
-    isHospitalUser,
   });
 
   const {
@@ -816,16 +815,16 @@ const UcafListPage = () => {
   const postItemsRowsLength = postItemsRows?.length ?? 0;
   // const hasDepartmentId = !!doctor_department_id;
 
-  const doctorProviderNoDisabled =
-    !isHospitalUser ||
-    !foundPatientCardNo ||
-    !doctor_provider_no ||
-    !paper_serial;
-
   const isHospitalUserFromCurrentProvider = useMemo(
     () => getCurrentUserType(doctor_provider_type).isHospitalUser,
     [doctor_provider_type]
   );
+
+  const doctorProviderNoDisabled =
+    !isHospitalUserFromCurrentProvider ||
+    !foundPatientCardNo ||
+    !doctor_provider_no ||
+    !paper_serial;
 
   const doctorDepartmentDisabled =
     (!!doctor_provider_type && !isHospitalUserFromCurrentProvider) ||
@@ -914,7 +913,7 @@ const UcafListPage = () => {
             />
           )}
 
-        {isHospitalUser ? (
+        {isHospitalUserFromCurrentProvider ? (
           <InputField
             label="docnam"
             width="260px"
