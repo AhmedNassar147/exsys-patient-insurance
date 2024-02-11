@@ -10,10 +10,12 @@ import SelectWithApiQuery, {
   SelectWithApiQueryRefValuesType,
 } from "@exsys-patient-insurance/select-with-api-query";
 import SearchClearIcons from "@exsys-patient-insurance/search-clear-icons";
+import SelectionCheckGroup from "@exsys-patient-insurance/selection-check-group";
 import {
   useGlobalProviderNo,
   useCurrentUserType,
   useCurrentAccountNo,
+  useAppConfigStore,
 } from "@exsys-patient-insurance/app-config-store";
 import FindPatientForm from "@exsys-patient-insurance/find-patient-form";
 import DatePickerField from "@exsys-patient-insurance/date-picker-field";
@@ -22,16 +24,18 @@ import ExsysTableWithApiQuery, {
   useCreateTableActionsFromRefToForm,
 } from "@exsys-patient-insurance/exsys-table-with-api-query";
 import {
-  //RecordTypeWithAnyValue,
   onChangeEvent,
+  OnTableCellInputChange,
   TableColumnProps,
   TableExpandedRowRenderType,
 } from "@exsys-patient-insurance/types";
+import { useBasicMutation } from "@exsys-patient-insurance/network-hooks";
 import {
   initialFormFilterValues,
   TABLE_COLUMNS,
   PROVIDER_NAME_COLUMN,
   detailsTableColumns,
+  PENDING_TYPES_RADIO_OPTIONS,
 } from "./constants";
 import { PdfDocumentModal } from "@exsys-patient-insurance/document-modal";
 import { SalesDetailsRecordType } from "./index.interface";
@@ -47,6 +51,7 @@ const SalesDetailsPage = () => {
       date_from,
       date_to,
       root_organization_no,
+      pending_flag,
       provider_no,
       paper_serial,
       currentPatientData: { patient_card_no },
@@ -65,8 +70,13 @@ const SalesDetailsPage = () => {
     useState<SalesDetailsRecordType>();
 
   const { ucaf_id, provider_number } = currentSelectedRow || {};
-  const { tableValuesRef, fetchTableData, resetTableData } =
-    useCreateTableActionsFromRefToForm<SalesDetailsRecordType>();
+  const {
+    tableValuesRef,
+    fetchTableData,
+    resetTableData,
+    getCurrentDataSource,
+    setTableData,
+  } = useCreateTableActionsFromRefToForm<SalesDetailsRecordType>();
 
   const onPressSearch = useCallback(
     () =>
@@ -74,6 +84,7 @@ const SalesDetailsPage = () => {
         provider_no,
         date_from,
         date_to,
+        pending_flag,
         root_organization_no,
         patient_card_no,
         provider_account_no: accountNo,
@@ -81,11 +92,12 @@ const SalesDetailsPage = () => {
         poffset: 0,
       }),
     [
-      date_from,
-      date_to,
-      root_organization_no,
       fetchTableData,
       provider_no,
+      date_from,
+      date_to,
+      pending_flag,
+      root_organization_no,
       patient_card_no,
       accountNo,
       paper_serial,
@@ -96,12 +108,6 @@ const SalesDetailsPage = () => {
     resetForm();
     resetTableData();
   }, [resetTableData, resetForm]);
-
-  // const tableSkipQuery = useCallback(
-  //   ({ root_organization_no, provider_no }: RecordTypeWithAnyValue) =>
-  //     !root_organization_no || !provider_no,
-  //   []
-  // );
 
   const expandedRowRender: TableExpandedRowRenderType<SalesDetailsRecordType> =
     useCallback(
@@ -205,14 +211,22 @@ const SalesDetailsPage = () => {
         ellipsis: true,
       },
       {
+        title: "pndng",
+        dataIndex: "pending_flag",
+        width: "5%",
+        totalCellProps: {
+          isFragment: true,
+        },
+        inputProps: {
+          inputType: "checkbox",
+        },
+      },
+      {
         ...lastColumn,
 
         title: "action",
         dataIndex: "specialty_type",
         width: "5%",
-        // return (
-        //   usePrintIcon
-        // )
         render: () => (
           <PdfDocumentModal
             usePrintIcon
@@ -221,34 +235,37 @@ const SalesDetailsPage = () => {
           />
         ),
       },
-
-      // ...restColumns,
     ] as TableColumnProps[];
   }, [isManagerUser, reportData]);
 
-  // const tableColumns = useMemo(() => {
-  //   let baseColumns = REQUESTS_TABLE_COLUMNS;
+  const { addNotification } = useAppConfigStore();
 
-  //   if (isPharmacyUser) {
-  //     baseColumns = [
-  //       ...baseColumns,
-  //       {
-  //         title: "action",
-  //         dataIndex: "specialty_type",
-  //         // @ts-ignore
-  //         render: (
-  //           specialty_type: string,
-  //           {
-  //             last_delivery_date,
-  //             ucaf_dtl_pk,
-  //             service_code,
-  //           }: RequestTableRecordType
-  //         ) => {
-  //           if (last_delivery_date && provider_cancelation_days) {
-  //             const lastDeliveryDateWithDays = addAmountToDate(
-  //               last_delivery_date,
-  //               provider_cancelation_days
-  //             );
+  const { mutate } = useBasicMutation({
+    apiId: "POST_SERVICES_REQUESTS_ITEM",
+  });
+
+  const onInputChange: OnTableCellInputChange = useCallback(
+    ({ value, rowIndex }) => {
+      const { ucaf_id } = getCurrentDataSource()[rowIndex];
+      const updatedDataSource = getCurrentDataSource().map((row, index) =>
+        index === rowIndex ? { ...row, pending_flag: value } : row
+      );
+
+      setTableData(updatedDataSource);
+
+      mutate({
+        body: { pending_flag: value, ucaf_id },
+        cb: ({ apiValues }) => {
+          const type = apiValues?.status !== "success" ? "error" : "success";
+          addNotification({
+            type,
+            message: type === "error" ? "flssve" : "succmsg",
+          });
+        },
+      });
+    },
+    [addNotification, getCurrentDataSource, mutate, setTableData]
+  );
 
   return (
     <>
@@ -285,10 +302,6 @@ const SalesDetailsPage = () => {
           queryType="query"
           apiOrCodeId="QUERY_TPA_PROVIDER_LIST"
           enableNetworkCache
-          //skipQuery={!provider_no}
-          // apiParams={{
-          //   provider_no,
-          // }}
         />
 
         <SelectWithApiQuery
@@ -330,6 +343,15 @@ const SalesDetailsPage = () => {
           }}
         />
 
+        <SelectionCheckGroup
+          options={PENDING_TYPES_RADIO_OPTIONS}
+          onChange={handleChange}
+          mode="radio"
+          width="auto"
+          value={pending_flag}
+          name="pending_flag"
+        />
+
         <SearchClearIcons
           onPressClear={handleClear}
           onPressSearch={onPressSearch}
@@ -352,7 +374,8 @@ const SalesDetailsPage = () => {
         withExcel
         onSelectRow={onSelectRow}
         expandedRowRender={expandedRowRender}
-        // skipQuery={tableSkipQuery}
+        showEditableInputs
+        onInputChange={onInputChange}
         useAlignedTotalCells
       />
     </>
