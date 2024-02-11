@@ -16,6 +16,7 @@ export const initialFormFilterValues = {
   date_to: getCurrentDateString({ day: lastDayDate.getDate() }),
   root_organization_no: "",
   provider_no: "",
+  pending_flag:"",
   paper_serial: "",
   currentPatientData: {} as PatientItemRecordType,
 };
@@ -161,3 +162,18 @@ export const detailsTableColumns = [
     width: "7%",
   },
 ];
+
+export const PENDING_TYPES_RADIO_OPTIONS=[
+  {
+    label: "pndng",
+    value: "Y"
+  },
+  {
+    label: "nopndng",
+    value: "N"
+  },
+  {
+    label: "all",
+    value: ""
+  }
+]
