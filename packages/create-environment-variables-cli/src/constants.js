@@ -24,8 +24,8 @@ const CLIENTS_NAMES = {
 const CLIENTS_NAMES_KEYS = Object.keys(CLIENTS_NAMES);
 
 const CLIENTS_URLS = {
-  [CLIENTS_NAMES.cloud]: "http://149.102.140.8",
-  [CLIENTS_NAMES.testcloud]: "http://62.171.177.184",
+  [CLIENTS_NAMES.cloud]: "http://136.243.62.235",
+  [CLIENTS_NAMES.testcloud]: "http://136.243.62.235",
 };
 
 const DEFAULT_CLI_OPTIONS = {
@@ -33,7 +33,7 @@ const DEFAULT_CLI_OPTIONS = {
   production: false,
   clientName: CLIENTS_NAMES.cloud,
   sourcemap: false,
-  serverPort: "9090",
+  serverPort: "2665",
   certPath: "exsysLocalRootCert.pem",
   certKeyPath: "exsysLocalKey.pem",
   // certPath: "self-signed.pem",
